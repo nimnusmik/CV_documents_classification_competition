@@ -8,7 +8,7 @@ IMAGENET_STD  = (0.229, 0.224, 0.225)               # ImageNet 표준편차 (정
 # 공통으로 적용되는 전처리: 크기 제한 후 패딩
 def _common(size: int):
     return [
-        A.LongestMaxSize(size=size),                                # 긴 변 기준으로 크기 조정
+        A.LongestMaxSize(max_size=size),                                # 긴 변 기준으로 크기 조정
         A.PadIfNeeded(min_height=size, min_width=size,              # 최소 높이/너비 보장
                       border_mode=0, value=0)                       # 빈 공간은 0(검정)으로 패딩
     ]

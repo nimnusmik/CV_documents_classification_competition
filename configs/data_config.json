@@ -7,7 +7,7 @@
     "test_root": "data/raw/test",
     "processed_dir": "data/processed",
     "reports_dir": "docs",
-    "exp_dir": "experiments/data_loader",
+    "exp_dir": "experiments/20250903",
     "logs_dir": "logs"
   },
   "loader": {
