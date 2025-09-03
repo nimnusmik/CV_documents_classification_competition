@@ -7,6 +7,7 @@ from collections import Counter                     # 클래스 분포 집계를
 from datetime import datetime                       # 로그 타임스탬프 생성
 from .image_io import compute_md5, is_broken_image  # 이미지 MD5 해시/손상 여부 검사 유틸
 
+
 REQUIRED_TRAIN_COLS = ["ID", "target"]              # 학습 CSV 필수 컬럼 정의
 REQUIRED_SUB_COLS = ["ID", "target"]                # 제출 샘플 CSV 필수 컬럼 정의
 LABELS = list(range(17))                            # 유효 라벨 범위 0~16

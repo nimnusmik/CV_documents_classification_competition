@@ -27,7 +27,7 @@ def make_blank_image(h: int = 224, w: int = 224, value: int = 127) -> np.ndarray
     return np.full((h, w, 3), value, dtype=np.uint8) # HxWx3 형태, value로 채움
 
 # 안전 로딩: 실패 시 재시도 후 RGB로 반환, 최종 실패 시 None
-def imread_rgb(path: str, retries: int = 2, sleep: float = 0.05) -> np.ndarray | None
+def imread_rgb(path: str, retries: int = 2, sleep: float = 0.05) -> np.ndarray | None:
     # 허용 재시도 횟수만큼 시도
     for t in range(retries + 1):
         # 디코드 및 색상 변환 시도
