@@ -3,6 +3,7 @@ import os, json                                     # 경로/디렉토리 처리
 import pandas as pd                                 # CSV 로드·저장 및 데이터 처리
 from sklearn.model_selection import StratifiedKFold # 계층적 K-Fold 분할기
 
+# ---------------------- Stratified K-Fold 분할 ---------------------- #
 # 계층적 K-Fold 분할 생성 후 CSV 저장
 def make_stratified_folds(train_csv: str, out_csv: str, n_splits: int = 5, seed: int = 42) -> pd.DataFrame:
     df = pd.read_csv(train_csv) # 학습 CSV 로드

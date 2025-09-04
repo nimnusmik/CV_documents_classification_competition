@@ -1,14 +1,14 @@
 {
   "paths": {
-    "train_csv": "data/raw/train.csv",
-    "test_csv": "data/raw/sample_submission.csv",
-    "meta_csv": "data/raw/meta.csv",
-    "train_root": "data/raw/train",
-    "test_root": "data/raw/test",
-    "processed_dir": "data/processed",
-    "reports_dir": "docs",
-    "exp_dir": "experiments/20250903",
-    "logs_dir": "logs"
+    "train_csv": "../data/raw/train.csv",
+    "test_csv": "../data/raw/sample_submission.csv",
+    "meta_csv": "../data/raw/meta.csv",
+    "train_root": "../data/raw/train",
+    "test_root": "../data/raw/test",
+    "processed_dir": "../data/processed",
+    "reports_dir": "../docs",
+    "exp_dir": "../experiments/20250903",
+    "logs_dir": "../logs"
   },
   "loader": {
     "img_size": 224,

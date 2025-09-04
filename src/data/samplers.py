@@ -5,6 +5,7 @@ import pandas as pd                                 # CSV 로드 및 데이터 �
 import torch                                        # 텐서 연산 및 학습 프레임워크
 from torch.utils.data import WeightedRandomSampler  # 불균형 데이터 보정 샘플러
 
+# ---------------------- 클래스 가중치 계산 ---------------------- #
 # 클래스별 샘플 개수로부터 가중치 계산
 def compute_class_weights_from_counts(counts: dict[int,int], clip_min=0.5, clip_max=3.0) -> dict[int,float]:
     med = np.median(list(counts.values()))          # 클래스 샘플 수의 중앙값 계산
@@ -17,6 +18,7 @@ def compute_class_weights_from_counts(counts: dict[int,int], clip_min=0.5, clip_
         for c in range(17)
     }
 
+# ---------------------- Weighted Sampler 생성 ---------------------- #
 # WeightedRandomSampler 생성 함수
 def make_weighted_sampler(train_csv: str, weights_json: str | None = None,
                           clip_min=0.5, clip_max=3.0) -> WeightedRandomSampler:

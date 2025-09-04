@@ -5,14 +5,16 @@ from albumentations.pytorch import ToTensorV2       # Albumentations 결과를 P
 IMAGENET_MEAN = (0.485, 0.456, 0.406)               # ImageNet 평균값 (정규화용)
 IMAGENET_STD  = (0.229, 0.224, 0.225)               # ImageNet 표준편차 (정규화용)
 
+# ---------------------- 공통 변환 ---------------------- #
 # 공통으로 적용되는 전처리: 크기 제한 후 패딩
 def _common(size: int):
     return [
-        A.LongestMaxSize(max_size=size),                                # 긴 변 기준으로 크기 조정
+        A.LongestMaxSize(max_size=size),                            # 긴 변 기준으로 크기 조정
         A.PadIfNeeded(min_height=size, min_width=size,              # 최소 높이/너비 보장
                       border_mode=0, value=0)                       # 빈 공간은 0(검정)으로 패딩
     ]
 
+# ---------------------- 학습용 변환 ---------------------- #
 # 학습용 변환 정의
 def get_train_transforms(size: int = 224, cfg: dict | None = None):
     # 증강 리스트 초기화
@@ -47,6 +49,7 @@ def get_train_transforms(size: int = 224, cfg: dict | None = None):
     # 최종 변환 파이프라인 반환
     return A.Compose(augs)
 
+# ---------------------- 검증용 변환 ---------------------- #
 # 검증/테스트용 변환 정의
 def get_val_transforms(size: int = 224):
     # 공통 변환 추가
