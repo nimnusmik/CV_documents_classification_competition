@@ -62,7 +62,7 @@ def _make_logger(cfg, run_id):
     # 로그 디렉터리 생성
     logs_dir = ensure_dir(cfg["output"]["logs_dir"])
     # 로그 파일명 생성
-    log_name = f"train_{time.strftime('%Y%m%d-%H%M')}_{run_id}.log"
+    log_name = f"train_{time.strftime('%Y%m%d-%H%M')}_{cfg['project']['run_name']}.log"
     # 로그 파일 전체 경로
     log_path = os.path.join(logs_dir, log_name)
     # Logger 객체 생성
