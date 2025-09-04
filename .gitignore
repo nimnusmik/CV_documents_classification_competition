@@ -1,1 +1,45 @@
-__pycache__/\n*.pyc\n*.log\ndata/\noutput/\n*.ipynb_checkpoints/\nwandb/wandb/
+# Python 캐시 및 빌드 파일
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+env3/
+build/
+dist/
+
+# Jupyter Notebook 체크포인트
+*.ipynb_checkpoints/
+
+# Weights & Biases 로그 (W&B)
+wandb/wandb/
+
+# 로그 및 임시 파일
+*.log
+*.out
+*.tmp
+
+# OS 생성 파일
+.DS_Store
+Thumbs.db
+
+# 대용량 데이터 및 출력
+data/
+output/
+dataset/
+results/
+
+# VSCode 설정 (선택)
+.vscode/
+
+ 
+*.pth 
+
+# 패키지 설치 파일
+*.egg-info/
+*.egg
+
+# 가상 환경
+.envexperiements/*.pt
