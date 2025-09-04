@@ -34,7 +34,6 @@ results/
 # VSCode 설정 (선택)
 .vscode/
 
- 
 *.pth 
 
 # 패키지 설치 파일
