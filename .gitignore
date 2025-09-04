@@ -154,3 +154,4 @@ nosetests.xml # Test results
 *.log         # Log files
 
 *.env
+!logs/**/*.log

@@ -2,6 +2,7 @@
 
 import sys
 from datetime import datetime
+from tqdm import tqdm
 
 class Logger:
     """
@@ -57,9 +58,13 @@ class Logger:
         """
         표준 출력(stdout)과 표준 에러(stderr)를 원상 복구합니다.
         """
-        self.write(">> 표준 출력 및 오류 리디렉션 중지", print_also=True)
+        self.write(">> 로그 리디렉션 중료.", print_also=True)
         sys.stdout = self.original_stdout
         sys.stderr = self.original_stderr
+        
+    def tqdm_redirect(self):
+        """tqdm.write를 이 로거 인스턴스로 리디렉션합니다."""
+        tqdm.write = self.write
 
     def close(self):
         """
