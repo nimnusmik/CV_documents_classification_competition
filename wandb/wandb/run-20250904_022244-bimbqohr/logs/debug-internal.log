@@ -1,0 +1,12 @@
+{"time":"2025-09-04T02:22:46.624277726Z","level":"INFO","msg":"stream: starting","core version":"0.21.3"}
+{"time":"2025-09-04T02:22:46.853124475Z","level":"INFO","msg":"stream: created new stream","id":"bimbqohr"}
+{"time":"2025-09-04T02:22:46.853166735Z","level":"INFO","msg":"stream: started","id":"bimbqohr"}
+{"time":"2025-09-04T02:22:46.853170222Z","level":"INFO","msg":"writer: started","stream_id":"bimbqohr"}
+{"time":"2025-09-04T02:22:46.853178377Z","level":"INFO","msg":"handler: started","stream_id":"bimbqohr"}
+{"time":"2025-09-04T02:22:46.853226709Z","level":"INFO","msg":"sender: started","stream_id":"bimbqohr"}
+{"time":"2025-09-04T02:24:48.07946836Z","level":"INFO","msg":"handler: operation stats","stats":{"operations":[{"desc":"updating run metadata","runtime_seconds":0.992629201},{"desc":"uploading artifact run-bimbqohr-fold_1confusion_matrix_table-CgLD8Q","runtime_seconds":0.396836441}],"total_operations":2}}
+{"time":"2025-09-04T02:24:50.982376815Z","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-09-04T02:24:51.301040303Z","level":"INFO","msg":"stream: closing","id":"bimbqohr"}
+{"time":"2025-09-04T02:24:51.301058678Z","level":"INFO","msg":"handler: closed","stream_id":"bimbqohr"}
+{"time":"2025-09-04T02:24:51.301129472Z","level":"INFO","msg":"sender: closed","stream_id":"bimbqohr"}
+{"time":"2025-09-04T02:24:51.301139261Z","level":"INFO","msg":"stream: closed","id":"bimbqohr"}

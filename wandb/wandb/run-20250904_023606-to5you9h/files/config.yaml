@@ -1,0 +1,112 @@
+_wandb:
+    value:
+        cli_version: 0.21.3
+        e:
+            57vi3dgzxysh0pfwtoqbxf2bd1hii3rp:
+                codePath: base_line.ipynb
+                codePathLocal: base_line.ipynb
+                cpu_count: 32
+                cpu_count_logical: 64
+                cudaVersion: "12.2"
+                disk:
+                    /:
+                        total: "1964618686464"
+                        used: "105663066112"
+                email: kimsunmin0227@gmail.com
+                executable: /opt/conda/bin/python
+                gpu: NVIDIA GeForce RTX 3090
+                gpu_count: 1
+                gpu_nvidia:
+                    - architecture: Ampere
+                      cudaCores: 10496
+                      memoryTotal: "25769803776"
+                      name: NVIDIA GeForce RTX 3090
+                      uuid: GPU-90eb9e8c-d9da-9675-eb74-e2a35213868e
+                host: instance-15783
+                memory:
+                    total: "270133551104"
+                os: Linux-5.4.0-167-generic-x86_64-with-glibc2.31
+                program: /root/CV_competition/wandb/base_line.ipynb
+                python: CPython 3.10.13
+                root: /root/CV_competition/wandb
+                startedAt: "2025-09-04T02:36:06.576206Z"
+                writerId: 57vi3dgzxysh0pfwtoqbxf2bd1hii3rp
+        m: []
+        python_version: 3.10.13
+        t:
+            "1":
+                - 1
+                - 5
+                - 35
+                - 41
+                - 49
+                - 53
+                - 63
+                - 80
+            "2":
+                - 1
+                - 5
+                - 35
+                - 41
+                - 49
+                - 53
+                - 63
+                - 80
+            "3":
+                - 2
+                - 3
+                - 13
+                - 15
+                - 16
+            "4": 3.10.13
+            "5": 0.21.3
+            "8":
+                - 1
+            "10":
+                - 20
+            "12": 0.21.3
+            "13": linux-x86_64
+architecture:
+    value: EfficientNet-B3
+batch_size:
+    value: 32
+cv_strategy:
+    value: StratifiedKFold
+data_path:
+    value: ../data/
+device:
+    value: cuda
+epochs:
+    value: 10
+gradient_clipping:
+    value: 1
+img_size:
+    value: 384
+label_smoothing:
+    value: 0.2
+lr:
+    value: 0.0005
+mixed_precision:
+    value: true
+mixup_alpha:
+    value: 1
+mixup_prob:
+    value: 0.3
+model_name:
+    value: efficientnet_b3
+n_folds:
+    value: 5
+num_classes:
+    value: 17
+num_workers:
+    value: 30
+optimizer:
+    value: Adam
+scheduler:
+    value: CosineAnnealingLR
+seed:
+    value: 42
+test_transforms:
+    value: Basic
+train_transforms:
+    value: Advanced
