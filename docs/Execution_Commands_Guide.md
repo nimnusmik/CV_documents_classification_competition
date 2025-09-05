@@ -737,5 +737,3 @@ python3 --version >> system_info.txt
 pip list | grep -E "torch|pandas|numpy" >> system_info.txt
 nvidia-smi >> system_info.txt
 ```
-
-**🎯 이 가이드를 통해 모든 실행 시나리오를 커버할 수 있습니다!** 🚀

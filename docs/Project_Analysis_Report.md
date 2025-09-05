@@ -308,5 +308,3 @@ python src/inference/infer_main.py --mode highperf --fold-results experiments/tr
 2. **설정 파일**: YAML 파일 구문 확인
 3. **의존성**: `pip list`로 패키지 버전 확인
 4. **GPU 메모리**: `nvidia-smi`로 GPU 상태 확인
-
-**프로젝트는 프로덕션 레벨의 품질을 갖추고 있습니다!** 🚀✨
