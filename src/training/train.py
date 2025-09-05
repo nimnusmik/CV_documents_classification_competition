@@ -9,26 +9,26 @@ import os, time, numpy as np, torch, torch.nn as nn, pandas as pd, psutil
 # psutil   : 시스템 메모리 사용량 추적
 
 # ------------------------- PyTorch 유틸 ------------------------- #
-from torch.utils.data import DataLoader              # 데이터 로더
-from sklearn.model_selection import StratifiedKFold  # 계층적 K-폴드 분할
-from torch.cuda.amp import autocast, GradScaler      # AMP (자동 혼합 정밀도) 지원
-from torch.optim import Adam, AdamW                  # 옵티마이저 (Adam, AdamW)
-from torch.optim.lr_scheduler import CosineAnnealingLR # 학습률 스케줄러 (코사인 감쇠)
+from torch.utils.data import DataLoader                             # 데이터 로더
+from sklearn.model_selection import StratifiedKFold                 # 계층적 K-폴드 분할
+from torch.cuda.amp import autocast, GradScaler                     # AMP (자동 혼합 정밀도) 지원
+from torch.optim import Adam, AdamW                                 # 옵티마이저 (Adam, AdamW)
+from torch.optim.lr_scheduler import CosineAnnealingLR              # 학습률 스케줄러 (코사인 감쇠)
 from tqdm import tqdm                                # 진행바 시각화
 
 # ------------------------- 프로젝트 유틸 ------------------------- #
-from src.utils.seed import set_seed                  # 랜덤 시드 고정
-from src.utils.logger import Logger                  # 로그 기록 클래스
-from src.utils.common import (                       # 공통 유틸 함수들
+from src.utils.seed import set_seed                                 # 랜덤 시드 고정
+from src.logging.logger import Logger                               # 로그 기록 클래스
+from src.utils.common import (                                      # 공통 유틸 함수들
     load_yaml, ensure_dir, dump_yaml, jsonl_append, short_uid,
     resolve_path, require_file, require_dir
 )
 
 # ------------------------- 데이터/모델 관련 ------------------------- #
-from src.data.dataset import DocClsDataset           # 문서 분류 Dataset 클래스
+from src.data.dataset import DocClsDataset                          # 문서 분류 Dataset 클래스
 from src.data.transforms import build_train_tfms, build_valid_tfms  # 학습/검증 변환
-from src.models.build import build_model             # 모델 생성기
-from src.metrics.f1 import macro_f1_from_logits      # 매크로 F1 스코어 계산 함수
+from src.models.build import build_model                            # 모델 생성기
+from src.metrics.f1 import macro_f1_from_logits                     # 매크로 F1 스코어 계산 함수
 
 
 # ---------------------------
@@ -49,11 +49,12 @@ def _make_run_dirs(cfg, run_id, logger):
     cfg_path = os.path.join(exp_root, "config.yaml")
     # 현재 설정을 YAML로 저장
     dump_yaml(cfg, cfg_path)
+    
     # 로그 기록
-    logger.write(f"[ARTIFACTS] exp_root={exp_root}")
-    logger.write(f"[ARTIFACTS] ckpt_dir={ckpt_dir}")
-    logger.write(f"[ARTIFACTS] metrics_path={metrics_path}")
-    logger.write(f"[ARTIFACTS] cfg_snapshot={cfg_path}")
+    logger.write(f"[ARTIFACTS] exp_root={exp_root}")            # 실험 루트 디렉터리
+    logger.write(f"[ARTIFACTS] ckpt_dir={ckpt_dir}")            # 체크포인트 디렉터리
+    logger.write(f"[ARTIFACTS] metrics_path={metrics_path}")    # 메트릭 기록 파일 경로
+    logger.write(f"[ARTIFACTS] cfg_snapshot={cfg_path}")        # 설정 스냅샷 저장 경로
     # 경로 반환
     return exp_root, ckpt_dir, metrics_path, cfg_path
 
@@ -69,11 +70,14 @@ def _make_logger(cfg, run_id):
     logger = Logger(log_path)
     # 표준 입출력 리다이렉트 시작
     logger.start_redirect()
+    
     # tqdm 출력도 로거에 리다이렉트할 수 있는 경우
     if hasattr(logger, "tqdm_redirect"):
-        logger.tqdm_redirect()
+        logger.tqdm_redirect()  # tqdm 출력 리다이렉트
+        
     # 로그 시작 메시지 기록
     logger.write(f">> Logger started: {log_path}")
+    
     # logger 반환
     return logger
 
@@ -102,11 +106,13 @@ def _opt_and_sch(params, cfg, steps_per_epoch, logger):
     # CosineAnnealingLR 스케줄러 생성 (epochs * steps 기준)
     sch = CosineAnnealingLR(opt, T_max=max(1, cfg["train"]["epochs"]*max(1, steps_per_epoch))) \
           if cfg["train"]["scheduler"]=="cosine" else None
+          
     # 로그 기록
     logger.write(
         f"[OPTIM] optimizer={opt.__class__.__name__}, lr={lr}, weight_decay={wd}, " # 옵티마이저
         f"scheduler={sch.__class__.__name__ if sch else 'none'}"                    # 스케줄러
     )
+    
     # 옵티마이저와 스케줄러 반환
     return opt, sch
 
