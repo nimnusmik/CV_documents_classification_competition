@@ -159,3 +159,6 @@ nosetests.xml # Test results
 
 !logs/**/*.log
 !notebooks/**/*.log
+
+# Personal VS Code workspace files
+*.code-workspace
