@@ -1,8 +1,11 @@
+# ------------------------- pipeline 패키지 초기화 모듈 ------------------------- #
 # src/pipeline/__init__.py
 """
 통합 파이프라인 모듈
 """
 
-from .full_pipeline import run_full_pipeline
+# ------------------------- 파이프라인 모듈 Import ------------------------- #
+from .full_pipeline import run_full_pipeline    # 전체 파이프라인 실행 함수
 
-__all__ = ["run_full_pipeline"]
+# ------------------------- 외부 노출 함수 정의 ------------------------- #
+__all__ = ["run_full_pipeline"]                 # 외부에서 사용 가능한 함수 목록
