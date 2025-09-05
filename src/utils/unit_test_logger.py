@@ -22,7 +22,7 @@ import json
 class UnitTestLogger:
     """단위 테스트용 로거 클래스"""
     
-    def __init__(self, test_name: str, base_log_dir: str = "logs"):
+    def __init__(self, test_name: str, base_log_dir: str = "notebooks"):
         """
         Args:
             test_name: 테스트 이름 (예: "highperf_dataset", "mixup_augmentation")
@@ -32,7 +32,7 @@ class UnitTestLogger:
         self.timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         
         # 로그 디렉토리 구조 생성
-        self.base_dir = Path(base_log_dir) / "notebooks" / "modular" / "unit_test" / test_name / self.timestamp
+        self.base_dir = Path(base_log_dir) / "modular" / "unit_tests" / test_name / self.timestamp
         self.log_dir = self.base_dir / "logs"
         self.image_dir = self.base_dir / "images"
         self.data_dir = self.base_dir / "data"
