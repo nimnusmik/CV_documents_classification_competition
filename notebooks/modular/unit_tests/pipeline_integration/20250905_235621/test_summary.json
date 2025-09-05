@@ -1,0 +1,18 @@
+{
+  "test_name": "pipeline_integration",
+  "start_time": "2025-09-05T23:56:21.305269",
+  "end_time": "2025-09-06T00:03:31.424499",
+  "duration_seconds": 430.11923,
+  "total_sections": 1,
+  "results": {
+    "pipeline_integration_test": {
+      "pipeline_result": "submissions/20250905/v094-swin-highperf_ensemble_20250905_2357.csv",
+      "config_file": "configs/train_highperf.yaml",
+      "skip_training": true,
+      "status": "success",
+      "timestamp": "2025-09-06T00:03:31.424114",
+      "section": "pipeline_integration_test"
+    }
+  },
+  "log_directory": "notebooks/modular/unit_tests/pipeline_integration/20250905_235621"
+}

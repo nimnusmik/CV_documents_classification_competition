@@ -1,0 +1,8 @@
+{
+  "pipeline_result": "submissions/20250905/v094-swin-highperf_ensemble_20250905_2357.csv",
+  "config_file": "configs/train_highperf.yaml",
+  "skip_training": true,
+  "status": "success",
+  "timestamp": "2025-09-06T00:03:31.424114",
+  "section": "pipeline_integration_test"
+}

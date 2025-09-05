@@ -1,0 +1,19 @@
+{
+  "test_name": "gpu_auto_check",
+  "start_time": "2025-09-06T00:39:09.774823",
+  "end_time": "2025-09-06T00:39:22.169605",
+  "duration_seconds": 12.394782,
+  "total_sections": 1,
+  "results": {
+    "gpu_check_test": {
+      "gpu_available": true,
+      "gpu_name": "NVIDIA GeForce RTX 4090",
+      "gpu_count": 1,
+      "gpu_memory_mb": 24563,
+      "cuda_version": "12.1",
+      "timestamp": "2025-09-06T00:39:22.169040",
+      "section": "gpu_check_test"
+    }
+  },
+  "log_directory": "notebooks/modular/unit_tests/gpu_auto_check/20250906_003909"
+}

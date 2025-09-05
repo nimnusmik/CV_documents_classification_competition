@@ -11,7 +11,7 @@ from typing import Dict, Any, Optional
 import torch
 
 
-class WandBLogger:
+class WandbLogger:
     """WandB 로깅 클래스"""
     
     def __init__(
@@ -175,7 +175,7 @@ def create_wandb_config(
     return config
 
 
-def log_fold_results(logger: WandBLogger, fold: int, metrics: Dict[str, float]):
+def log_fold_results(logger: WandbLogger, fold: int, metrics: Dict[str, float]):
     """Fold 결과 로깅"""
     logger.log_metrics({
         f"fold_{fold}_train_f1": metrics.get("train_f1", 0),

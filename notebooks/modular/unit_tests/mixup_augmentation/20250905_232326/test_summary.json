@@ -1,0 +1,17 @@
+{
+  "test_name": "mixup_augmentation",
+  "start_time": "2025-09-05T23:23:26.778156",
+  "end_time": "2025-09-05T23:23:28.065392",
+  "duration_seconds": 1.287236,
+  "total_sections": 1,
+  "results": {
+    "mixup_test": {
+      "dataset_size": 50,
+      "samples_visualized": 5,
+      "augmentation_type": "mixup",
+      "timestamp": "2025-09-05T23:23:28.065241",
+      "section": "mixup_test"
+    }
+  },
+  "log_directory": "notebooks/modular/unit_tests/mixup_augmentation/20250905_232326"
+}

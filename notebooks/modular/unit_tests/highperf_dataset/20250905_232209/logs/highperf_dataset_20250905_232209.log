@@ -1,0 +1,7 @@
+2025-09-05 23:22:09,819 - unit_test_highperf_dataset - INFO - 단위 테스트 시작: highperf_dataset
+2025-09-05 23:22:09,819 - unit_test_highperf_dataset - INFO - 로그 디렉토리: notebooks/modular/unit_tests/highperf_dataset/20250905_232209
+2025-09-05 23:22:09,845 - unit_test_highperf_dataset - INFO - SUCCESS: 데이터프레임 저장: notebooks/modular/unit_tests/highperf_dataset/20250905_232209/data/class_distribution.csv (17 행)
+2025-09-05 23:22:10,204 - unit_test_highperf_dataset - INFO - SUCCESS: 그림 저장: notebooks/modular/unit_tests/highperf_dataset/20250905_232209/images/고품질_샘플_라벨_16.png
+2025-09-05 23:22:10,701 - unit_test_highperf_dataset - INFO - 테스트 결과 저장: basic_test
+2025-09-05 23:22:10,701 - unit_test_highperf_dataset - INFO - SUCCESS: 테스트 완료! 총 소요 시간: 0.88초
+2025-09-05 23:22:10,701 - unit_test_highperf_dataset - INFO - SUCCESS: 결과 요약: notebooks/modular/unit_tests/highperf_dataset/20250905_232209/test_summary.json

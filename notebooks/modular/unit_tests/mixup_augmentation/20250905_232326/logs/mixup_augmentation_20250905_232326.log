@@ -1,0 +1,10 @@
+2025-09-05 23:23:26,778 - unit_test_mixup_augmentation - INFO - 단위 테스트 시작: mixup_augmentation
+2025-09-05 23:23:26,778 - unit_test_mixup_augmentation - INFO - 로그 디렉토리: notebooks/modular/unit_tests/mixup_augmentation/20250905_232326
+2025-09-05 23:23:27,151 - unit_test_mixup_augmentation - INFO - SUCCESS: 그림 저장: notebooks/modular/unit_tests/mixup_augmentation/20250905_232326/images/mixup_샘플_1_라벨_16.png
+2025-09-05 23:23:27,397 - unit_test_mixup_augmentation - INFO - SUCCESS: 그림 저장: notebooks/modular/unit_tests/mixup_augmentation/20250905_232326/images/mixup_샘플_2_라벨_10.png
+2025-09-05 23:23:27,639 - unit_test_mixup_augmentation - INFO - SUCCESS: 그림 저장: notebooks/modular/unit_tests/mixup_augmentation/20250905_232326/images/mixup_샘플_3_라벨_10.png
+2025-09-05 23:23:27,863 - unit_test_mixup_augmentation - INFO - SUCCESS: 그림 저장: notebooks/modular/unit_tests/mixup_augmentation/20250905_232326/images/mixup_샘플_4_라벨_4.png
+2025-09-05 23:23:28,064 - unit_test_mixup_augmentation - INFO - SUCCESS: 그림 저장: notebooks/modular/unit_tests/mixup_augmentation/20250905_232326/images/mixup_샘플_5_라벨_16.png
+2025-09-05 23:23:28,065 - unit_test_mixup_augmentation - INFO - 테스트 결과 저장: mixup_test
+2025-09-05 23:23:28,065 - unit_test_mixup_augmentation - INFO - SUCCESS: 테스트 완료! 총 소요 시간: 1.29초
+2025-09-05 23:23:28,065 - unit_test_mixup_augmentation - INFO - SUCCESS: 결과 요약: notebooks/modular/unit_tests/mixup_augmentation/20250905_232326/test_summary.json

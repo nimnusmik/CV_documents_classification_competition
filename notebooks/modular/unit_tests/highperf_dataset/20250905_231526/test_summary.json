@@ -1,0 +1,17 @@
+{
+  "test_name": "highperf_dataset",
+  "start_time": "2025-09-05T23:15:26.850178",
+  "end_time": "2025-09-05T23:15:27.195179",
+  "duration_seconds": 0.345001,
+  "total_sections": 1,
+  "results": {
+    "basic_test": {
+      "dataset_size": 100,
+      "first_label": 16,
+      "class_count": 17,
+      "timestamp": "2025-09-05T23:15:27.194480",
+      "section": "basic_test"
+    }
+  },
+  "log_directory": "notebooks/modular/unit_tests/highperf_dataset/20250905_231526"
+}

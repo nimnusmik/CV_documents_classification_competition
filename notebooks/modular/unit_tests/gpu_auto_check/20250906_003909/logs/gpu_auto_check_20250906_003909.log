@@ -1,0 +1,5 @@
+2025-09-06 00:39:09,774 - unit_test_gpu_auto_check - INFO - 단위 테스트 시작: gpu_auto_check
+2025-09-06 00:39:09,774 - unit_test_gpu_auto_check - INFO - 로그 디렉토리: notebooks/modular/unit_tests/gpu_auto_check/20250906_003909
+2025-09-06 00:39:22,169 - unit_test_gpu_auto_check - INFO - 테스트 결과 저장: gpu_check_test
+2025-09-06 00:39:22,169 - unit_test_gpu_auto_check - INFO - SUCCESS: 테스트 완료! 총 소요 시간: 12.39초
+2025-09-06 00:39:22,169 - unit_test_gpu_auto_check - INFO - SUCCESS: 결과 요약: notebooks/modular/unit_tests/gpu_auto_check/20250906_003909/test_summary.json

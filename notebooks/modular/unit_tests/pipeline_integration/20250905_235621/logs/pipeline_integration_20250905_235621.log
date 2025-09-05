@@ -1,0 +1,5 @@
+2025-09-05 23:56:21,305 - unit_test_pipeline_integration - INFO - 단위 테스트 시작: pipeline_integration
+2025-09-05 23:56:21,305 - unit_test_pipeline_integration - INFO - 로그 디렉토리: notebooks/modular/unit_tests/pipeline_integration/20250905_235621
+2025-09-06 00:03:31,424 - unit_test_pipeline_integration - INFO - 테스트 결과 저장: pipeline_integration_test
+2025-09-06 00:03:31,424 - unit_test_pipeline_integration - INFO - SUCCESS: 테스트 완료! 총 소요 시간: 430.12초
+2025-09-06 00:03:31,424 - unit_test_pipeline_integration - INFO - SUCCESS: 결과 요약: notebooks/modular/unit_tests/pipeline_integration/20250905_235621/test_summary.json

@@ -1,0 +1,5 @@
+2025-09-06 00:31:55,707 - unit_test_wandb_integration - INFO - 단위 테스트 시작: wandb_integration
+2025-09-06 00:31:55,707 - unit_test_wandb_integration - INFO - 로그 디렉토리: notebooks/modular/unit_tests/wandb_integration/20250906_003155
+2025-09-06 00:32:21,195 - unit_test_wandb_integration - INFO - 테스트 결과 저장: wandb_integration_test
+2025-09-06 00:32:21,195 - unit_test_wandb_integration - INFO - SUCCESS: 테스트 완료! 총 소요 시간: 25.49초
+2025-09-06 00:32:21,195 - unit_test_wandb_integration - INFO - SUCCESS: 결과 요약: notebooks/modular/unit_tests/wandb_integration/20250906_003155/test_summary.json

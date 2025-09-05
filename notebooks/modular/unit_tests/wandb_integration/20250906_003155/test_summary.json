@@ -1,0 +1,21 @@
+{
+  "test_name": "wandb_integration",
+  "start_time": "2025-09-06T00:31:55.707110",
+  "end_time": "2025-09-06T00:32:21.195354",
+  "duration_seconds": 25.488244,
+  "total_sections": 1,
+  "results": {
+    "wandb_integration_test": {
+      "wandb_status": "success",
+      "test_metrics": {
+        "test_metric": 0.95,
+        "accuracy": 0.87
+      },
+      "project_name": "document-classification-team",
+      "experiment_name": "v094-swin-highperf",
+      "timestamp": "2025-09-06T00:32:21.194523",
+      "section": "wandb_integration_test"
+    }
+  },
+  "log_directory": "notebooks/modular/unit_tests/wandb_integration/20250906_003155"
+}
