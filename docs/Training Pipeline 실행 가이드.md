@@ -1,25 +1,34 @@
-# 📘 Training Pipeline 실행 가이드
+# 📘 Training Pipeline 실행 가이드 (🚀 HIGH-PERFORMANCE VERSION)
 
 ## 1) 실행 명령어
 
+### 🏆 고성능 모드 (권장 - F1 ~0.934 목표)
 ```bash
-python -m src.training.train_main --config configs/train.yaml
+python -m src.training.train_main --config configs/train_highperf.yaml --mode highperf
+```
+
+### 📚 기본 모드 (기존 버전)
+```bash
+python -m src.training.train_main --config configs/train.yaml --mode basic
 ```
 
 **무슨 뜻?**
 
 - `m src.training.train_main` → `src/training/train_main.py` 모듈을 **엔트리포인트**로 실행합니다.
-- `-config configs/train_v087.yaml` → 학습 파이프라인에 사용할 **설정 파일 경로**를 전달합니다.
+- `--config configs/train_highperf.yaml` → 고성능 학습용 **설정 파일 경로**를 전달합니다.
+- `--mode highperf` → **고성능 모드** 활성화 (Swin Transformer + Hard Aug + Mixup + WandB)
+
+> 🎯 **성능 비교**
+> - **기본 모드**: F1 ~0.87 (EfficientNet-B3 기반)
+> - **고성능 모드**: F1 ~0.934 (Swin Transformer + 고급 기법들)
 
 > ⚙️ 환경 변수
-> 
 > 
 > 프로젝트 루트에서 실행하면 보통 자동으로 OK입니다. 필요 시 다음을 먼저 실행하세요.
 > 
 > ```bash
 > export PYTHONPATH="$(pwd):$PYTHONPATH"
 > ```
-> 
 
 ---
 

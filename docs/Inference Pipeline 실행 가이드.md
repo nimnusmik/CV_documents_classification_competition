@@ -1,15 +1,30 @@
-# 📘 Inference Pipeline 실행 가이드
+# 📘 Inference Pipeline 실행 가이드 (🚀 HIGH-PERFORMANCE VERSION)
 
 ## 1) 실행 명령어
 
+### 🏆 고성능 모드 (권장 - 앙상블 + TTA)
 ```bash
-python -m src.inference.infer_main --config configs/infer.yaml
+python -m src.inference.infer_main \
+  --config configs/train_highperf.yaml \
+  --mode highperf \
+  --fold-results experiments/train/YYYYMMDD/v094-swin-highperf/fold_results.yaml
+```
+
+### 📚 기본 모드 (단일 모델)
+```bash
+python -m src.inference.infer_main --config configs/infer.yaml --mode basic
 ```
 
 **무슨 뜻?**
 
 - `m src.inference.infer_main` → `src/inference/infer_main.py`를 **엔트리포인트**로 실행
-- `-config configs/infer.yaml` → 추론용 **설정 파일** 지정
+- `--config configs/train_highperf.yaml` → 고성능 추론용 **설정 파일** 지정
+- `--mode highperf` → **고성능 모드** (5-Fold 앙상블 + TTA)
+- `--fold-results ...` → 학습 완료 후 생성된 **폴드 결과 파일** 경로
+
+> 🎯 **성능 비교**
+> - **기본 모드**: 단일 모델 예측
+> - **고성능 모드**: 5-Fold 앙상블 + Test Time Augmentation (TTA)
 
 > ⚙️ 환경 변수(필요 시)
 > 

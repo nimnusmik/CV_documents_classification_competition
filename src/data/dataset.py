@@ -3,7 +3,11 @@ import os                                                   # 경로/파일 처�
 import cv2                                                  # OpenCV (이미지 로딩/처리)
 import numpy as np                                          # 배열 연산 라이브러리
 import pandas as pd                                         # CSV 및 데이터프레임 처리
+import torch                                                # PyTorch 텐서 연산
 from torch.utils.data import Dataset                        # PyTorch Dataset 상속 클래스
+from PIL import Image                                       # PIL Image 처리
+import albumentations as A                                  # Albumentations 증강
+from albumentations.pytorch import ToTensorV2               # Tensor 변환
 
 from src.utils.logger import Logger                         # 로그 기록용 Logger 클래스
 from typing import Optional, List                           # 타입 힌트 (옵션, 리스트)
@@ -129,3 +133,161 @@ class DocClsDataset(Dataset):
         else:                                               # 학습/검증 모드
             label = int(row[self.target_col])               # 타깃 라벨 추출
             return img, label                               # 이미지와 라벨 반환
+
+
+# ==================== High-Performance Dataset with Hard Augmentation ==================== #
+class HighPerfDocClsDataset(Dataset):
+    """
+    고성능 문서 분류용 Dataset
+    - Hard Augmentation 지원
+    - Epoch에 따른 Augmentation 강도 조절
+    - PIL 이미지 로딩 (Albumentations 호환)
+    """
+    
+    def __init__(
+        self,
+        df: pd.DataFrame,
+        image_dir: str,
+        img_size: int = 384,
+        epoch: int = 0,
+        total_epochs: int = 10,
+        is_train: bool = True,
+        id_col: str = "ID",
+        target_col: Optional[str] = None,
+        logger: Optional[Logger] = None,
+    ):
+        self.df = df.reset_index(drop=True)
+        self.image_dir = image_dir
+        self.img_size = img_size
+        self.epoch = epoch
+        self.total_epochs = total_epochs
+        self.is_train = is_train
+        self.id_col = id_col
+        self.target_col = target_col
+        self.logger = logger
+        
+        # Hard augmentation 확률 계산 (epoch이 진행될수록 강해짐)
+        self.p_hard = 0.2 + 0.3 * (epoch / total_epochs) if is_train else 0
+        
+        self._setup_transforms()
+        
+        if self.logger:
+            self.logger.write(
+                f"[HighPerfDataset] size={len(self.df)} img_size={img_size} "
+                f"epoch={epoch}/{total_epochs} p_hard={self.p_hard:.3f} is_train={is_train}"
+            )
+    
+    def _setup_transforms(self):
+        """변환 파이프라인 설정"""
+        if not self.is_train:
+            # 검증/테스트용 변환
+            self.transform = A.Compose([
+                A.LongestMaxSize(max_size=self.img_size),
+                A.PadIfNeeded(min_height=self.img_size, min_width=self.img_size, border_mode=0, value=0),
+                A.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+                ToTensorV2(),
+            ])
+            return
+        
+        # Normal augmentation
+        self.normal_aug = A.Compose([
+            A.LongestMaxSize(max_size=self.img_size),
+            A.PadIfNeeded(min_height=self.img_size, min_width=self.img_size, border_mode=0, value=0),
+            A.OneOf([
+                A.Rotate(limit=[90,90], p=1.0),
+                A.Rotate(limit=[180,180], p=1.0),
+                A.Rotate(limit=[270,270], p=1.0),
+            ], p=0.6),
+            A.RandomBrightnessContrast(brightness_limit=0.3, contrast_limit=0.3, p=0.8),
+            A.GaussNoise(var_limit=(30.0, 100.0), p=0.7),
+            A.HorizontalFlip(p=0.5),
+            A.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+            ToTensorV2(),
+        ])
+        
+        # Hard augmentation
+        self.hard_aug = A.Compose([
+            A.LongestMaxSize(max_size=self.img_size),
+            A.PadIfNeeded(min_height=self.img_size, min_width=self.img_size, border_mode=0, value=0),
+            A.OneOf([
+                A.Rotate(limit=[90,90], p=1.0),
+                A.Rotate(limit=[180,180], p=1.0),
+                A.Rotate(limit=[270,270], p=1.0),
+                A.Rotate(limit=[-15,15], p=1.0),
+            ], p=0.8),
+            A.OneOf([
+                A.MotionBlur(blur_limit=15, p=1.0),
+                A.GaussianBlur(blur_limit=15, p=1.0),
+            ], p=0.95),
+            A.RandomBrightnessContrast(brightness_limit=0.5, contrast_limit=0.5, p=0.9),
+            A.GaussNoise(var_limit=(50.0, 150.0), p=0.8),
+            A.JpegCompression(quality_lower=70, quality_upper=100, p=0.5),
+            A.HorizontalFlip(p=0.5),
+            A.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+            ToTensorV2(),
+        ])
+    
+    def update_epoch(self, epoch: int):
+        """에포크 업데이트 시 호출"""
+        self.epoch = epoch
+        self.p_hard = 0.2 + 0.3 * (epoch / self.total_epochs) if self.is_train else 0
+        if self.logger:
+            self.logger.write(f"[HighPerfDataset] updated epoch={epoch}, p_hard={self.p_hard:.3f}")
+    
+    def _resolve_image_path(self, image_id: str) -> str:
+        """이미지 경로 해석"""
+        # 기본적으로 .jpg 확장자 사용
+        if not image_id.endswith(('.jpg', '.jpeg', '.png', '.JPG', '.JPEG', '.PNG')):
+            image_id = image_id + '.jpg'
+        return os.path.join(self.image_dir, image_id)
+    
+    def _read_image(self, image_id: str):
+        """PIL로 이미지 로드 (Albumentations 호환)"""
+        path = self._resolve_image_path(image_id)
+        
+        if not os.path.exists(path):
+            if self.logger:
+                self.logger.write(f"[HighPerfDataset][WARN] 이미지 파일 없음: {path}")
+            raise FileNotFoundError(f"이미지 로드 실패: {path}")
+        
+        img = np.array(Image.open(path))
+        return img
+    
+    def __len__(self):
+        return len(self.df)
+    
+    def __getitem__(self, idx):
+        row = self.df.iloc[idx]
+        image_id = str(row[self.id_col])
+        img = self._read_image(image_id)
+        
+        # 변환 적용
+        if self.is_train and np.random.random() < self.p_hard:
+            # Hard augmentation 적용
+            img = self.hard_aug(image=img)["image"]
+        elif self.is_train:
+            # Normal augmentation 적용
+            img = self.normal_aug(image=img)["image"]
+        else:
+            # 검증/테스트 변환 적용
+            img = self.transform(image=img)["image"]
+        
+        if self.target_col is None:
+            return img, image_id
+        else:
+            label = int(row[self.target_col])
+            return img, label
+
+
+# ==================== Mixup 데이터 증강 함수 ==================== #
+def mixup_data(x, y, alpha=1.0):
+    """Mixup 데이터 증강"""
+    if alpha > 0:
+        lam = np.random.beta(alpha, alpha)
+    else:
+        lam = 1
+    batch_size = x.size()[0]
+    index = torch.randperm(batch_size).cuda()
+    mixed_x = lam * x + (1 - lam) * x[index, :]
+    y_a, y_b = y, y[index]
+    return mixed_x, y_a, y_b, lam

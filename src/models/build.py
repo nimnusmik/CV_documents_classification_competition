@@ -7,6 +7,19 @@ import torch.nn as nn                           # PyTorch 신경망 모듈
 # - 일부 timm 모델은 'avg'가 디폴트
 _VALID_POOLS = {"avg", "avgmax", "catavgmax", "max", "gem", "token"}
 
+# 고성능 모델 추천 목록
+RECOMMENDED_MODELS = {
+    "swin_base_384": "swin_base_patch4_window12_384_in22k",
+    "convnext_base_384": "convnext_base_384_in22ft1k", 
+    "efficientnet_b3": "efficientnet_b3",
+    "efficientnet_v2_b3": "tf_efficientnetv2_b3",
+    "resnet50": "resnet50",
+}
+
+def get_recommended_model(key: str) -> str:
+    """추천 모델 이름 반환"""
+    return RECOMMENDED_MODELS.get(key, key)
+
 
 # ----------------------------- 모델 생성 함수 ----------------------------- #
 def build_model(

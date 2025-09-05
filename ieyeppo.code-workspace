@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "../.."
+		},
+		{
+			"path": "../cv-document-type-classification"
+		},
+		{
+			"path": "."
+		}
+	],
+	"settings": {}
+}
