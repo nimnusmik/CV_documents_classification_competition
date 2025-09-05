@@ -38,13 +38,44 @@ chmod +x run_highperf_training.sh
 ./run_highperf_training.sh
 ```
 
-또는 직접 실행:
+### 사전 준비 (권장)
 ```bash
+# 1. pyenv 가상환경 활성화
+pyenv activate cv_py3_11_9
+
+# 2. GPU 호환성 빠른 체크
+python src/utils/team_gpu_check.py
+
+# 3. 자동 배치 크기 최적화
+python src/utils/auto_batch_size.py --config configs/train_highperf.yaml
+```
+
+### 고성능 학습 실행
+```bash
+# 직접 실행 (권장)
+python -m src.training.train_highperf configs/train_highperf.yaml
+
+# 또는 메인 스크립트 사용
+python src/training/train_main.py --mode highperf
+```
+
+### 완전한 실행 시퀀스
+```bash
+# 1-3. 사전 준비
+pyenv activate cv_py3_11_9
+python src/utils/team_gpu_check.py
+python src/utils/auto_batch_size.py --config configs/train_highperf.yaml
+
+# 4. 고성능 학습 시작
 python -m src.training.train_highperf configs/train_highperf.yaml
 ```
 
 ### 3. 추론 실행
 ```bash
+# 추론용 배치 크기 최적화 (옵션)
+python src/utils/auto_batch_size.py --config configs/infer.yaml --test-only
+
+# 추론 실행
 python -m src.inference.infer_highperf \
   configs/train_highperf.yaml \
   experiments/train/YYYYMMDD/v094-swin-highperf/fold_results.yaml \

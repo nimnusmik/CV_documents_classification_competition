@@ -95,6 +95,18 @@ for config in configs:
 
 ## 🎓 학습 파이프라인
 
+### **사전 준비 (필수 단계)**
+```bash
+# 1. pyenv 가상환경 활성화
+pyenv activate cv_py3_11_9
+
+# 2. GPU 호환성 빠른 체크
+python src/utils/team_gpu_check.py
+
+# 3. 자동 배치 크기 최적화
+python src/utils/auto_batch_size.py --config configs/train.yaml
+```
+
 ### **1. 기본 학습**
 
 #### **단일 Fold 학습**
@@ -114,6 +126,11 @@ CUDA_VISIBLE_DEVICES=0 python src/training/train_main.py --fold 0
 
 #### **실행 예시**
 ```bash
+# 완전한 실행 순서
+pyenv activate cv_py3_11_9
+python src/utils/team_gpu_check.py
+python src/utils/auto_batch_size.py --config configs/train.yaml
+
 # Fold 0 학습 (기본 설정)
 python src/training/train_main.py --fold 0
 
@@ -130,6 +147,14 @@ python src/training/train_main.py --fold 0
 
 ### **2. 고성능 학습 (권장)**
 
+#### **사전 준비 (고성능 모드용)**
+```bash
+# 고성능 설정 최적화
+pyenv activate cv_py3_11_9
+python src/utils/team_gpu_check.py
+python src/utils/auto_batch_size.py --config configs/train_highperf.yaml
+```
+
 #### **전체 K-Fold 학습**
 ```bash
 # 고성능 모드 (5-fold 전체)
@@ -143,6 +168,17 @@ nohup python src/training/train_main.py --mode highperf > training.log 2>&1 &
 
 # 실행 상태 확인
 tail -f training.log
+```
+
+#### **완전한 실행 시퀀스 (권장)**
+```bash
+# 1-4. 사전 준비
+pyenv activate cv_py3_11_9
+python src/utils/team_gpu_check.py
+python src/utils/auto_batch_size.py --config configs/train_highperf.yaml
+
+# 5. 고성능 학습 시작
+python src/training/train_main.py --mode highperf
 ```
 
 #### **특정 Fold들만 학습**
@@ -271,6 +307,21 @@ print(f'클래스 분포: {df.iloc[:, 1].value_counts().head()}')
 
 ## 🔄 전체 파이프라인
 
+### **사전 준비 (전체 파이프라인용)**
+```bash
+# pyenv 가상환경 활성화
+pyenv activate cv_py3_11_9
+
+# GPU 호환성 체크
+python src/utils/team_gpu_check.py
+
+# 학습용 배치 크기 최적화
+python src/utils/auto_batch_size.py --config configs/train_highperf.yaml
+
+# 추론용 배치 크기 최적화 (옵션)
+python src/utils/auto_batch_size.py --config configs/infer.yaml --test-only
+```
+
 ### **1. 완전 자동화 파이프라인**
 ```bash
 # 학습 + 추론 전체 파이프라인
@@ -285,6 +336,11 @@ nohup python src/pipeline/full_pipeline.py > full_pipeline.log 2>&1 &
 
 ### **2. 단계별 실행**
 ```bash
+# 사전 준비
+pyenv activate cv_py3_11_9
+python src/utils/team_gpu_check.py
+python src/utils/auto_batch_size.py --config configs/train_highperf.yaml
+
 # 1단계: 고성능 학습
 echo "🎓 1단계: 학습 시작..."
 python src/training/train_main.py --mode highperf

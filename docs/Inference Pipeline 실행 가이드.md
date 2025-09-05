@@ -1,9 +1,29 @@
 # 📘 Inference Pipeline 실행 가이드 (🚀 HIGH-PERFORMANCE VERSION)
 
+## 📋 사전 준비 (권장)
+
+### 🔧 추론용 환경 최적화
+```bash
+# 1. pyenv 가상환경 활성화
+pyenv activate cv_py3_11_9
+
+# 2. GPU 호환성 빠른 체크
+python src/utils/team_gpu_check.py
+
+# 3. 추론용 배치 크기 최적화 (옵션)
+python src/utils/auto_batch_size.py --config configs/infer.yaml --test-only
+```
+
 ## 1) 실행 명령어
 
 ### 🏆 고성능 모드 (권장 - 앙상블 + TTA)
 ```bash
+# 완전한 실행 시퀀스
+pyenv activate cv_py3_11_9
+python src/utils/team_gpu_check.py
+python src/utils/auto_batch_size.py --config configs/infer.yaml --test-only
+
+# 고성능 추론 시작
 python -m src.inference.infer_main \
   --config configs/train_highperf.yaml \
   --mode highperf \
@@ -12,6 +32,11 @@ python -m src.inference.infer_main \
 
 ### 📚 기본 모드 (단일 모델)
 ```bash
+# 사전 준비
+pyenv activate cv_py3_11_9
+python src/utils/team_gpu_check.py
+
+# 기본 추론 시작
 python -m src.inference.infer_main --config configs/infer.yaml --mode basic
 ```
 

@@ -1,14 +1,40 @@
 # 📘 Training Pipeline 실행 가이드 (🚀 HIGH-PERFORMANCE VERSION)
 
+## 📋 사전 준비 (필수)
+
+### 🔧 환경 설정 및 GPU 최적화
+```bash
+# 1. pyenv 가상환경 활성화
+pyenv activate cv_py3_11_9
+
+# 2. GPU 호환성 빠른 체크
+python src/utils/team_gpu_check.py
+
+# 3. 자동 배치 크기 최적화
+python src/utils/auto_batch_size.py --config configs/train_highperf.yaml
+```
+
 ## 1) 실행 명령어
 
 ### 🏆 고성능 모드 (권장 - F1 ~0.934 목표)
 ```bash
+# 완전한 실행 시퀀스
+pyenv activate cv_py3_11_9
+python src/utils/team_gpu_check.py
+python src/utils/auto_batch_size.py --config configs/train_highperf.yaml
+
+# 고성능 학습 시작
 python -m src.training.train_main --config configs/train_highperf.yaml --mode highperf
 ```
 
 ### 📚 기본 모드 (기존 버전)
 ```bash
+# 사전 준비
+pyenv activate cv_py3_11_9
+python src/utils/team_gpu_check.py
+python src/utils/auto_batch_size.py --config configs/train.yaml
+
+# 기본 학습 시작
 python -m src.training.train_main --config configs/train.yaml --mode basic
 ```
 

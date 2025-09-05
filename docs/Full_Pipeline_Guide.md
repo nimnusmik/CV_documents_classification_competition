@@ -281,6 +281,19 @@ print(f'에포크: {cfg[\"training\"][\"epochs\"]}')
 
 가장 간단하고 효율적인 방법으로, 학습부터 추론까지 한 번에 실행합니다.
 
+#### **사전 준비 (필수)**
+```bash
+# 1. pyenv 가상환경 활성화
+pyenv activate cv_py3_11_9
+
+# 2. GPU 호환성 빠른 체크
+python src/utils/team_gpu_check.py
+
+# 3. 자동 배치 크기 최적화
+python src/utils/auto_batch_size.py --config configs/train_highperf.yaml
+```
+
+#### **파이프라인 실행**
 ```bash
 # 기본 고성능 파이프라인 실행
 python src/training/train_main.py --mode full-pipeline
@@ -297,6 +310,17 @@ CUDA_VISIBLE_DEVICES=0 python src/training/train_main.py --mode full-pipeline
 nohup python src/training/train_main.py --mode full-pipeline > training.log 2>&1 &
 ```
 
+#### **완전한 실행 시퀀스**
+```bash
+# 1-3. 사전 준비
+pyenv activate cv_py3_11_9
+python src/utils/team_gpu_check.py
+python src/utils/auto_batch_size.py --config configs/train_highperf.yaml
+
+# 4. 전체 파이프라인 실행
+python src/training/train_main.py --mode full-pipeline
+```
+
 **실행 과정**:
 1. 설정 파일 로드 및 검증
 2. 데이터셋 준비 및 분할
@@ -309,9 +333,21 @@ nohup python src/training/train_main.py --mode full-pipeline > training.log 2>&1
 
 더 세밀한 제어가 필요한 경우 단계별로 실행할 수 있습니다.
 
+#### **2-1. 고성능 학습만 실행**
 ```bash
+# 사전 준비
+pyenv activate cv_py3_11_9
+python src/utils/team_gpu_check.py
+python src/utils/auto_batch_size.py --config configs/train_highperf.yaml
+
 # 1단계: 고성능 학습만 실행
 python src/training/train_main.py --mode highperf
+```
+
+#### **2-2. 학습된 모델로 추론**
+```bash
+# 추론용 배치 크기 최적화 (옵션)
+python src/utils/auto_batch_size.py --config configs/infer.yaml --test-only
 
 # 2단계: 학습된 모델로 추론
 python src/inference/infer_main.py \
