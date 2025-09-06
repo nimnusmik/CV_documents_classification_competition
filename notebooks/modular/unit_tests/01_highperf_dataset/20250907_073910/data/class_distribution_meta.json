@@ -1,0 +1,14 @@
+{
+  "filename": "class_distribution.csv",
+  "description": "클래스 분포",
+  "shape": [
+    17,
+    2
+  ],
+  "columns": [
+    "class_id",
+    "count"
+  ],
+  "timestamp": "20250907_073910",
+  "file_name": "01_highperf_dataset"
+}

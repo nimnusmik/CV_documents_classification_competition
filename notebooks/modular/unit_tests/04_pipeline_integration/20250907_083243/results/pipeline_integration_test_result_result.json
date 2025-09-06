@@ -1,0 +1,6 @@
+{
+  "status": "failed",
+  "error": "stack expects a non-empty TensorList",
+  "timestamp": "2025-09-07T08:32:43.981100",
+  "section": "pipeline_integration_test_result"
+}

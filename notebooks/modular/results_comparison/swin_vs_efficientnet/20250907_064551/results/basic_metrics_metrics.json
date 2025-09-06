@@ -1,0 +1,11 @@
+{
+  "metrics": {
+    "total": 3140,
+    "same": 2905,
+    "different": 235,
+    "match_rate": 92.52
+  },
+  "file_name": "swin_vs_efficientnet",
+  "section": "basic_metrics",
+  "timestamp": "2025-09-07T06:45:53.332315"
+}

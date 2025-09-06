@@ -1,0 +1,15 @@
+{
+  "filename": "differences.csv",
+  "description": "차이점 데이터",
+  "shape": [
+    235,
+    3
+  ],
+  "columns": [
+    "ID",
+    "target_file1",
+    "target_file2"
+  ],
+  "timestamp": "20250907_064551",
+  "file_name": "swin_vs_efficientnet"
+}

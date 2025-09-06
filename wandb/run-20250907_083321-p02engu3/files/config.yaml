@@ -1,0 +1,106 @@
+_wandb:
+    value:
+        cli_version: 0.21.3
+        e:
+            w93c7w7xo6twam4urxis1itafbsbwyc1:
+                codePath: notebooks/modular/unit_tests/05_wandb_integration.ipynb
+                codePathLocal: notebooks/modular/unit_tests/05_wandb_integration.ipynb
+                email: ieyeppo.job@gmail.com
+                executable: /home/ieyeppo/.pyenv/versions/cv_py3_11_9/bin/python
+                git:
+                    commit: 8215e5851d52dad0e91fa1e645475b9fc5a00548
+                    remote: git@github.com:iejob/computer-vision-competition-1SEN.git
+                host: PotG
+                os: Linux-6.6.87.1-microsoft-standard-WSL2-x86_64-with-glibc2.39
+                program: /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/notebooks/modular/unit_tests/05_wandb_integration.ipynb
+                python: CPython 3.11.9
+                root: /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN
+                startedAt: "2025-09-06T23:33:21.962366Z"
+                writerId: w93c7w7xo6twam4urxis1itafbsbwyc1
+        m: []
+        python_version: 3.11.9
+        t:
+            "1":
+                - 1
+                - 105
+            "2":
+                - 1
+                - 105
+            "3":
+                - 2
+                - 13
+                - 15
+                - 16
+            "4": 3.11.9
+            "5": 0.21.3
+            "8":
+                - 1
+            "10":
+                - 20
+            "12": 0.21.3
+            "13": linux-x86_64
+data:
+    value:
+        folds: 5
+        id_col: ID
+        image_dir_test: ../data/raw/test
+        image_dir_train: ../data/raw/train
+        image_ext: .jpg
+        num_classes: 17
+        root: ../data
+        sample_csv: ../data/raw/sample_submission.csv
+        stratify: true
+        target_col: target
+        train_csv: ../data/raw/train.csv
+        valid_fold: all
+model:
+    value:
+        drop_path_rate: 0.1
+        drop_rate: 0.1
+        name: swin_base_384
+        pooling: avg
+        pretrained: true
+output:
+    value:
+        exp_dir: experiments/train
+        log_dir: logs/train
+        snapshots: true
+project:
+    value:
+        date_format: '%Y%m%d'
+        device: cuda
+        log_prefix: train_highperf
+        num_workers: 4
+        run_name: swin-sighperf
+        seed: 42
+        time_format: '%H%M'
+        verbose: true
+train:
+    value:
+        batch_size: 32
+        epochs: 15
+        hard_augmentation: true
+        img_size: 384
+        label_smoothing: 0.1
+        log_interval: 50
+        lr: 0.0001
+        max_grad_norm: 1
+        mixed_precision: true
+        mixup_alpha: 1
+        optimizer: adamw
+        scheduler: cosine
+        use_mixup: true
+        weight_decay: 0.01
+training:
+    value:
+        batch_size: 48
+wandb:
+    value:
+        entity: null
+        experiment_name: swin-highperf
+        project_name: document-classification-team
+        tags:
+            - swin
+            - high-performance
+            - mixup
+            - hard-aug

@@ -1,0 +1,22 @@
+{
+  "file_name": "05_wandb_integration",
+  "folder_name": "unit_tests",
+  "start_time": "2025-09-07T08:33:20.370695",
+  "end_time": "2025-09-07T08:33:24.219893",
+  "duration_seconds": 3.849198,
+  "total_sections": 1,
+  "results": {
+    "wandb_integration_test_result": {
+      "wandb_status": "success",
+      "test_metrics": {
+        "test_metric": 0.95,
+        "accuracy": 0.87
+      },
+      "project_name": "document-classification-team",
+      "experiment_name": "swin-sighperf",
+      "timestamp": "2025-09-07T08:33:24.219251",
+      "section": "wandb_integration_test_result"
+    }
+  },
+  "log_directory": "notebooks/modular/unit_tests/05_wandb_integration/20250907_083320"
+}

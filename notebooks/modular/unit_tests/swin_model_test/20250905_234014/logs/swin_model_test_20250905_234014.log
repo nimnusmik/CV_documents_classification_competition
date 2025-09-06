@@ -1,8 +1,0 @@
-2025-09-05 23:40:14,002 - unit_test_swin_model_test - INFO - 단위 테스트 시작: swin_model_test
-2025-09-05 23:40:14,002 - unit_test_swin_model_test - INFO - 로그 디렉토리: notebooks/modular/unit_tests/swin_model_test/20250905_234014
-2025-09-05 23:40:24,531 - unit_test_swin_model_test - INFO - 테스트 결과 저장: swin_model_test
-2025-09-05 23:40:24,531 - unit_test_swin_model_test - INFO - SUCCESS: 테스트 완료! 총 소요 시간: 10.53초
-2025-09-05 23:40:24,531 - unit_test_swin_model_test - INFO - SUCCESS: 결과 요약: notebooks/modular/unit_tests/swin_model_test/20250905_234014/test_summary.json
-2025-09-05 23:43:58,195 - unit_test_swin_model_test - INFO - 테스트 결과 저장: swin_model_test
-2025-09-05 23:43:58,195 - unit_test_swin_model_test - INFO - SUCCESS: 테스트 완료! 총 소요 시간: 224.19초
-2025-09-05 23:43:58,195 - unit_test_swin_model_test - INFO - SUCCESS: 결과 요약: notebooks/modular/unit_tests/swin_model_test/20250905_234014/test_summary.json

@@ -1,0 +1,5 @@
+2025-09-07 07:55:59,221 - notebook_unit_tests - INFO - 노트북 작업 시작: unit_tests
+2025-09-07 07:55:59,221 - notebook_unit_tests - INFO - 로그 디렉토리: notebooks/modular/06_gpu_auto_check/unit_tests/20250907_075559
+2025-09-07 07:55:59,222 - notebook_unit_tests - INFO - 결과 저장: gpu_check_test_result
+2025-09-07 07:55:59,222 - notebook_unit_tests - INFO - SUCCESS: 작업 완료! 총 소요 시간: 0.00초
+2025-09-07 07:55:59,222 - notebook_unit_tests - INFO - SUCCESS: 결과 요약: notebooks/modular/06_gpu_auto_check/unit_tests/20250907_075559/summary.json
