@@ -1,14 +1,31 @@
 # 📄 2025-09-06 모듈화 V1.0.0 완료 문서
 
-> **Production-Ready Enterprise-Level Computer Vision Framewo├── 📁 docs/                             # 📚 Enterprise Documentation
-│   ├── 📂 experiments/                  # 실험 가이드
-│   │   └── 고성능_학습_가이드.md          # 고성능 학습 전략
-│   ├── 📂 pipelines/                    # 파이프라인 가이드
-│   │   ├── 실행_명령어_가이드.md          # 실행 명령어 (796줄)
-│   │   ├── 학습_파이프라인_가이드.md       # 학습 가이드
-│   │   ├── 추론_파이프라인_가이드.md       # 추론 가이드
-│   │   └── 전체_파이프라인_가이드.md       # 전체 파이프라인 고성능 문서 분류 시스템 with GPU 자동 최적화 & 완전 자동화된 팀 협업 도구
-
+> docs/ : 가이드 및 보고서 문서 폴더
+```
+📁 docs/                                 # Enterprise Documentation
+├── 📂 experiments/                      # 실험 가이드
+│   └── 고성능_학습_가이드.md               # 고성능 학습 전략 (F1 0.934)
+├── 📂 pipelines/                        # 파이프라인 가이드
+│   ├── 실행_명령어_가이드.md               # 실행 명령어
+│   ├── 학습_파이프라인_가이드.md           # 학습 파이프라인 상세 가이드
+│   ├── 추론_파이프라인_가이드.md           # 추론 파이프라인 & TTA 가이드
+│   └── 전체_파이프라인_가이드.md           # 완전 자동화 파이프라인 가이드
+├── 📂 guides/                           # 시스템 통합 가이드
+│   └── 로깅_시스템_통합_가이드.md          # WandB & 로깅 시스템 통합
+├── 📂 logs/                             # 로깅 시스템 문서
+│   └── 로깅_시스템_통합_가이드.md          # 로깅 아키텍처 & 구현
+├── 📂 utils/                            # 유틸리티 & 최적화 가이드
+│   ├── GPU_자동_설정_가이드.md             # GPU 메모리 & 배치 최적화
+│   ├── 팀_GPU_최적화_가이드.md             # 다양한 GPU 환경 지원 가이드
+│   └── 유닛_테스트_가이드.md               # 단위 테스트 & QA 가이드
+├── 📂 reports/                          # 분석 & 성과 보고서
+│   ├── 팀_최종_보고서.md                   # 프로젝트 성과 종합 보고서
+│   └── 프로젝트_분석_보고서.md             # 기술 분석 & 성능 평가
+├── 📂 specs/                            # 기술 사양 & 스펙
+│   └── 프로젝트_스펙_및_로그_분석.md       # 시스템 스펙 & 로그 분석
+└── 📂 models/                           # 모델 아키텍처 문서
+    └── (추가 예정)                       # Swin Transformer & EfficientNet 상세
+```
 [![Python](https://img.shields.io/badge/Python-3.11.9-blue.svg)](https://python.org)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.5.1-red.svg)](https://pytorch.org)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
