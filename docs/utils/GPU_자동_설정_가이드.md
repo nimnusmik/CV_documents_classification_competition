@@ -179,7 +179,7 @@ Team GPU Compatibility Checker
    2. 설정 파일 업데이트:
       python src/utils/auto_batch_size.py --config configs/train.yaml
    3. 훈련 시작:
-      python src/training/train_main.py --mode highperf
+      python src/training/train_main.py --config configs/train_highperf.yaml --mode highperf
 
 🐍 PyTorch 정보:
    버전: 2.1.0+cu121
@@ -227,7 +227,7 @@ git merge optimize/gpu-[GPU_NAME]
 ### 5단계: 훈련 시작
 ```bash
 # 최적화된 설정으로 훈련
-python src/training/train_main.py --mode highperf
+python src/training/train_main.py --config configs/train_highperf.yaml --mode highperf
 ```
 
 ---

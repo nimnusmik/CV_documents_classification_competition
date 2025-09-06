@@ -50,3 +50,12 @@ output:
   log_dir: "logs/train"                             # 로그 저장 디렉토리
   exp_dir: "experiments/train"                      # 실험 결과(모델/메트릭) 저장 루트
   snapshots: true                                   # config 스냅샷 저장 여부
+
+# ------------------------------- WandB 설정 ------------------------------- #
+wandb:
+  project_name: document-classification-basic       # WandB 프로젝트명 (기본 학습용)
+  entity: null                                      # WandB 엔티티 (팀/사용자)
+  experiment_name: efficientnet-basic               # 실험명
+  tags:                                             # 실험 태그
+  - efficientnet                                    # EfficientNet 태그
+  - basic                                           # 기본 모드 태그

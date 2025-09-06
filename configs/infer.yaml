@@ -43,3 +43,13 @@ output:
   logs_dir: "logs/infer"                            # 추론 로그 저장 디렉토리
   exp_dir: "../experiments/train"                   # 실험 결과 저장 루트 디렉토리
   snapshots: true                                   # 실행 시 config 스냅샷 저장 여부
+
+# ------------------------------- WandB 설정 (선택적) ---------------------------- #
+wandb:
+  project_name: document-classification-inference   # WandB 프로젝트명 (추론용)
+  entity: null                                      # WandB 엔티티 (팀/사용자)
+  experiment_name: efficientnet-inference           # 실험명
+  tags:                                             # 실험 태그
+  - efficientnet                                    # EfficientNet 태그
+  - inference                                       # 추론 태그
+  enabled: false                                    # 추론시 WandB 비활성화 (기본값)

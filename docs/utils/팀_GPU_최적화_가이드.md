@@ -117,7 +117,7 @@ git commit -m "Optimize batch size for [GPU_NAME]"
 ### 3. 실험 실행
 ```bash
 # 최적화된 설정으로 훈련
-python src/training/train_main.py --mode highperf
+python src/training/train_main.py --config configs/train_highperf.yaml --mode highperf
 
 # GPU 모니터링
 nvidia-smi -l 1

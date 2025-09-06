@@ -8,6 +8,7 @@ project:
   device: cuda                                  # 학습 디바이스 (GPU 사용)
   verbose: true                                 # 상세 로그 출력 여부
   log_prefix: train_highperf                    # 로그 파일 접두사
+
 # ------------------------------- 데이터 설정 ------------------------------- #
 data:
   root: ../data                                 # 데이터 루트 디렉토리
@@ -22,6 +23,7 @@ data:
   folds: 5                                      # K-Fold 교차검증 폴드 수
   valid_fold: all                               # 검증 폴드 (전체 폴드 학습)
   stratify: true                                # 계층적 분할 사용
+
 # ------------------------------- 학습 설정 ------------------------------- #
 train:
   img_size: 384                                 # 입력 이미지 크기 (384x384)
@@ -38,6 +40,7 @@ train:
   mixup_alpha: 1.0                              # Mixup 알파 파라미터
   hard_augmentation: true                       # 강한 데이터 증강 적용
   log_interval: 50                              # 로그 출력 간격 (스텝 단위)
+
 # ------------------------------- 모델 설정 ------------------------------- #
 model:
   name: swin_base_384                           # 모델 아키텍처 (Swin Transformer Base)
@@ -45,11 +48,13 @@ model:
   drop_rate: 0.1                                # 드롭아웃 비율
   drop_path_rate: 0.1                           # 드롭패스 비율 (Stochastic Depth)
   pooling: avg                                  # 전역 풀링 방식 (평균 풀링)
+
 # ------------------------------- 출력 설정 ------------------------------- #
 output:
   log_dir: logs/train                           # 로그 파일 저장 디렉토리
   exp_dir: experiments/train                    # 실험 결과 저장 디렉토리
   snapshots: true                               # 설정 스냅샷 저장 여부
+
 # ------------------------------- WandB 설정 ------------------------------- #
 wandb:
   project_name: document-classification-team    # WandB 프로젝트명
