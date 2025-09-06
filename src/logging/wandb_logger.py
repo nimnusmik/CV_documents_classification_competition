@@ -182,58 +182,6 @@ class WandbLogger:
         self.finish()                            # 실행 종료
 
 
-    # ---------------------- 편의 함수들 ---------------------- #
-    # WandB 설정 생성 함수 정의
-    def create_wandb_config(
-        model_name: str,                             # 모델 이름
-        img_size: int,                               # 이미지 크기
-        batch_size: int,                             # 배치 크기
-        learning_rate: float,                        # 학습률
-        epochs: int,                                 # 에포크 수
-        **kwargs                                     # 추가 인자
-    ) -> Dict[str, Any]:                             # 설정 딕셔너리 반환
-        """WandB config 생성 함수"""
-        config = {                                   # 기본 설정 딕셔너리
-            "architecture": model_name,              # 모델 구조
-            "image_size": img_size,                  # 이미지 크기
-            "batch_size": batch_size,                # 배치 크기
-            "learning_rate": learning_rate,          # 학습률
-            "epochs": epochs,                        # 에포크 수
-            "framework": "PyTorch",                  # 프레임워크
-            "dataset": "Document Classification",    # 데이터셋
-        }                                            # 기본 설정 완료
-        config.update(kwargs)                        # 추가 설정 업데이트
-        return config                                # 설정 딕셔너리 반환
-
-
-    # 폴드 결과 로깅 함수 정의
-    def log_fold_results(logger: WandbLogger, fold: int, metrics: Dict[str, float]):
-        # 폴드별 메트릭 로깅
-        logger.log_metrics({
-            f"fold_{fold}_train_f1": metrics.get("train_f1", 0),      # 폴드별 학습 F1
-            f"fold_{fold}_val_f1": metrics.get("val_f1", 0),          # 폴드별 검증 F1
-            f"fold_{fold}_train_loss": metrics.get("train_loss", 0),  # 폴드별 학습 손실
-            f"fold_{fold}_val_loss": metrics.get("val_loss", 0),      # 폴드별 검증 손실
-        })
-
-    # 실행 종료 함수 정의
-    def finish(self):
-        # 실행 객체가 존재하는 경우
-        if self.run is not None:
-            wandb.finish()                       # WandB 실행 종료
-            self.is_initialized = False          # 초기화 상태 리셋
-
-
-    # 컨텍스트 매니저 진입 함수 정의
-    def __enter__(self):
-        return self     # 자기 자신 반환
-    
-    
-    # 컨텍스트 매니저 종료 함수 정의
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        self.finish()   # 실행 종료
-
-
 # 편의 함수들
 def create_wandb_config(
     model_name: str,                            # 모델 이름
