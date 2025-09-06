@@ -159,6 +159,9 @@ nosetests.xml # Test results
 
 !logs/**/*.log
 !notebooks/**/*.log
+!wandb/**/*.log
 
 # Personal VS Code workspace files
 *.code-workspace
+# Large model files (>100MB)
+experiments/train/**/ckpt/*.pth

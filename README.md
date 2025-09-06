@@ -191,11 +191,14 @@ python src/utils/auto_batch_size.py    # 자동 배치 크기 최적화 (안전 
 # 완전 자동화 (학습→추론→제출)
 python src/pipeline/full_pipeline.py --config configs/train_highperf.yaml
 
-# 고성능 학습 (K-Fold + WandB + Progressive Augmentation)
-python src/training/train_main.py --mode highperf
+# EfficientNet 기본 학습 (K-Fold + WandB 통합)
+python src/training/train_main.py --config configs/train.yaml
+
+# Swin 학습 (K-Fold + WandB + TTA)
+python src/training/train_main.py --config configs/train_highperf.yaml --mode highperf
 
 # 앙상블 추론 (TTA + Multi-Model + Confidence Scoring)
-python src/inference/infer_main.py --mode highperf --fold-results experiments/train/latest/
+python src/inference/infer_main.py --config configs/infer_highperf.yaml --mode highperf --fold-results experiments/train/20250907/swin-sighperf/fold_results.yaml
 ```
 
 #### 3. 📊 Enterprise Monitoring

@@ -1,0 +1,26 @@
+2025-09-07 00:21:34 | [BOOT] high-performance inference pipeline started
+2025-09-07 00:21:34 | [BOOT] device=cuda
+2025-09-07 00:21:34 | [DATA] loaded test data | shape=(3140, 2)
+2025-09-07 00:21:34 | [HighPerfDataset] size=3140 img_size=384 epoch=0/10 p_hard=0.000 is_train=False
+2025-09-07 00:21:34 | [DATA] test dataset size: 3140
+2025-09-07 00:21:34 | [INFERENCE] starting ensemble prediction...
+2025-09-07 00:22:46 | [SUCCESS] Inference completed | output: submissions/20250907/efficientnet_b3_ensemble_20250907_0016.csv
+2025-09-07 00:22:46 | [RESULT] Prediction distribution:
+2025-09-07 00:22:46 | Class 0: 203 samples (6.5%)
+2025-09-07 00:22:46 | Class 1: 101 samples (3.2%)
+2025-09-07 00:22:46 | Class 2: 200 samples (6.4%)
+2025-09-07 00:22:46 | Class 3: 178 samples (5.7%)
+2025-09-07 00:22:46 | Class 4: 233 samples (7.4%)
+2025-09-07 00:22:46 | Class 5: 200 samples (6.4%)
+2025-09-07 00:22:46 | Class 6: 205 samples (6.5%)
+2025-09-07 00:22:46 | Class 7: 169 samples (5.4%)
+2025-09-07 00:22:46 | Class 8: 200 samples (6.4%)
+2025-09-07 00:22:46 | Class 9: 200 samples (6.4%)
+2025-09-07 00:22:46 | Class 10: 238 samples (7.6%)
+2025-09-07 00:22:46 | Class 11: 187 samples (6.0%)
+2025-09-07 00:22:46 | Class 12: 193 samples (6.1%)
+2025-09-07 00:22:46 | Class 13: 164 samples (5.2%)
+2025-09-07 00:22:46 | Class 14: 69 samples (2.2%)
+2025-09-07 00:22:46 | Class 15: 200 samples (6.4%)
+2025-09-07 00:22:46 | Class 16: 200 samples (6.4%)
+2025-09-07 00:22:46 | [SHUTDOWN] Inference pipeline ended

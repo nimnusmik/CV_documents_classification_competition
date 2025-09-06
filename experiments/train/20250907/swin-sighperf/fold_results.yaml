@@ -1,0 +1,17 @@
+fold_results:
+- fold: 0
+  best_f1: 0.9395748005433321
+  model_path: experiments/train/20250907/swin-sighperf/ckpt/best_model_fold_1.pth
+- fold: 1
+  best_f1: 0.9373351744226923
+  model_path: experiments/train/20250907/swin-sighperf/ckpt/best_model_fold_2.pth
+- fold: 2
+  best_f1: 0.9436258289773354
+  model_path: experiments/train/20250907/swin-sighperf/ckpt/best_model_fold_3.pth
+- fold: 3
+  best_f1: 0.9229848536889733
+  model_path: experiments/train/20250907/swin-sighperf/ckpt/best_model_fold_4.pth
+- fold: 4
+  best_f1: 0.9345580956165077
+  model_path: experiments/train/20250907/swin-sighperf/ckpt/best_model_fold_5.pth
+average_f1: 0.9356157506497681
