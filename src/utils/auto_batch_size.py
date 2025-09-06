@@ -187,7 +187,7 @@ def find_optimal_batch_size(model_name: str, img_size: int, gpu_info: Dict[str, 
     elif img_size <= 384:                                       # 384px 이하인 경우
         batch_config = gpu_info['profile']['batch_384']         # 384px 프로필 선택
     else:                                                       # 512px 이상인 경우
-    batch_config = gpu_info['profile']['batch_512']             # 512px 프로필 선택
+        batch_config = gpu_info['profile']['batch_512']             # 512px 프로필 선택
     
     start_batch = batch_config['start']                         # 시작 배치 크기
     max_batch = batch_config['max']                             # 최대 배치 크기
