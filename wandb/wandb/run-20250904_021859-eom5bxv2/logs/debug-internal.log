@@ -1,8 +1,0 @@
-{"time":"2025-09-04T02:19:00.098448432Z","level":"INFO","msg":"stream: starting","core version":"0.21.3"}
-{"time":"2025-09-04T02:19:00.558469528Z","level":"INFO","msg":"stream: created new stream","id":"eom5bxv2"}
-{"time":"2025-09-04T02:19:00.558523821Z","level":"INFO","msg":"stream: started","id":"eom5bxv2"}
-{"time":"2025-09-04T02:19:00.558544651Z","level":"INFO","msg":"sender: started","stream_id":"eom5bxv2"}
-{"time":"2025-09-04T02:19:00.558544911Z","level":"INFO","msg":"writer: started","stream_id":"eom5bxv2"}
-{"time":"2025-09-04T02:19:00.558593864Z","level":"INFO","msg":"handler: started","stream_id":"eom5bxv2"}
-{"time":"2025-09-04T02:19:00.749637402Z","level":"ERROR","msg":"HTTP error","status":404,"method":"POST","url":"https://api.wandb.ai/graphql"}
-{"time":"2025-09-04T02:19:00.749730087Z","level":"ERROR","msg":"runupserter: failed to init run","error":"returned error 404: {\"data\":{\"upsertBucket\":null},\"errors\":[{\"message\":\"entity 1SEN not found during upsertBucket\",\"path\":[\"upsertBucket\"]}]}"}

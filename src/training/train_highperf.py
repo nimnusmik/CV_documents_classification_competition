@@ -343,9 +343,15 @@ def run_highperf_training(cfg_path: str):
             logger.write(f"[FOLD {fold}] train={len(trn_df)} valid={len(val_df)}")
             
             #-------------------------- WandB 로거 초기화 -------------------------- #
+            # 동적 실행 이름 생성 (submissions와 동일한 형식)
+            current_date = pd.Timestamp.now().strftime('%Y%m%d')
+            current_time = pd.Timestamp.now().strftime('%H%M')
+            model_name = cfg["model"]["name"]
+            dynamic_experiment_name = f"{current_date}_{current_time}_{model_name}_ensemble_tta"
+            
             # WandB 초기화
             wandb_logger = WandbLogger(
-                experiment_name=f'{cfg["project"]["run_name"]}-{cfg["model"]["name"]}', # 실험명
+                experiment_name=dynamic_experiment_name,        # 동적 실험명
                 config=wandb_config,                            # 설정 딕셔너리
                 tags=["high-performance", "mixup", "hard-aug"]  # 태그 리스트
             )

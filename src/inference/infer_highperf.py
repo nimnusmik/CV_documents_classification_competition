@@ -193,10 +193,13 @@ def run_highperf_inference(cfg_path: str, fold_results_path: str, output_path: O
         final_predictions = ensemble_preds.argmax(dim=1).numpy()    # 가장 높은 확률의 클래스 선택
         
         #-------------- 결과 저장 및 로그 ---------------------- #
-        # 출력 경로가 지정되지 않은 경우
+        # 출력 경로가 지정되지 않은 경우 동적 파일명 생성
         if output_path is None:
-            # confing/infer.yaml에 정의된 결과 파일 저장 경로 생성
-            output_path = f"submissions/{pd.Timestamp.now().strftime('%Y%m%d')}/highperf_ensemble.csv"
+            current_date = pd.Timestamp.now().strftime('%Y%m%d')
+            current_time = pd.Timestamp.now().strftime('%H%M')
+            model_name = cfg["model"]["name"]
+            filename = f"{current_date}_{current_time}_{model_name}_ensemble_tta.csv"
+            output_path = f"submissions/{current_date}/{filename}"
         
         # 출력 디렉터리 생성
         os.makedirs(os.path.dirname(output_path), exist_ok=True)

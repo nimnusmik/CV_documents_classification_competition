@@ -122,7 +122,14 @@ def run_inference(cfg_path: str, out: str|None=None, ckpt: str|None=None):
         # ckpt 존재 확인
         require_file(ckpt_path, "--ckpt로 직접 지정하거나 학습 결과 경로 확인")
         state = torch.load(ckpt_path, map_location=device)          # 체크포인트 로드
-        model.load_state_dict(state["model"], strict=True)          # 가중치 로드
+        
+        # 체크포인트 구조에 따라 모델 가중치 로드
+        if "model" in state:
+            model.load_state_dict(state["model"], strict=True)      # 구형 체크포인트 형식
+        elif "model_state_dict" in state:
+            model.load_state_dict(state["model_state_dict"], strict=True)  # 신형 체크포인트 형식
+        else:
+            model.load_state_dict(state, strict=True)               # state_dict 직접 저장된 경우
         logger.write(f"[CKPT] loaded: {ckpt_path}")                 # 로드 로그
 
         # ---------------------- TTA 설정 ---------------------- #
@@ -160,8 +167,17 @@ def run_inference(cfg_path: str, out: str|None=None, ckpt: str|None=None):
         preds = probs.argmax(axis=1)                     # 예측 클래스 산출
 
         # ---------------------- 결과 저장 ---------------------- #
-        # 출력 경로
-        out_path = resolve_path(cfg_dir, out or cfg["inference"]["out_csv"])
+        # 동적 파일명 생성 (날짜_모델명 형식)
+        if out is None:
+            current_date = pd.Timestamp.now().strftime('%Y%m%d')
+            current_time = pd.Timestamp.now().strftime('%H%M')
+            model_name = cfg["model"]["name"]
+            tta_suffix = "_tta" if cfg.get("inference", {}).get("tta", False) else ""
+            filename = f"{current_date}_{current_time}_{model_name}{tta_suffix}.csv"
+            out_path = f"submissions/{current_date}/{filename}"
+        else:
+            out_path = resolve_path(cfg_dir, out)
+            
         # 디렉토리 보장
         ensure_dir(os.path.dirname(out_path))
         

@@ -31,7 +31,7 @@ class WandbLogger:
         
         # 타임스탬프 추가
         timestamp = datetime.now().strftime("%m%d-%H%M")    # 현재 시간 타임스탬프 생성
-        self.run_name = f"{experiment_name}-{timestamp}"    # 실행 이름 생성
+        self.run_name = f"{timestamp}-{experiment_name}"    # 실행 이름 생성
         
         self.run = None                                     # WandB 실행 객체 초기화
         self.is_initialized = False                         # 초기화 상태 플래그

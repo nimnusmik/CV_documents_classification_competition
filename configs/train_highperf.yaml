@@ -1,58 +1,66 @@
+# ----------------------------- 프로젝트 기본 설정 ----------------------------- #
 project:
-  run_name: v094-swin-highperf
-  seed: 42
-  date_format: '%Y%m%d'
-  time_format: '%H%M'
-  num_workers: 4
-  device: cuda
-  verbose: true
-  log_prefix: train_highperf
+  run_name: swin-sighperf                       # 실행명 (고성능 Swin Transformer)
+  seed: 42                                      # 랜덤 시드 (재현 가능한 실험)
+  date_format: '%Y%m%d'                         # 날짜 포맷 (예: 20250906)
+  time_format: '%H%M'                           # 시간 포맷 (예: 1430)
+  num_workers: 4                                # 데이터 로더 워커 수
+  device: cuda                                  # 학습 디바이스 (GPU 사용)
+  verbose: true                                 # 상세 로그 출력 여부
+  log_prefix: train_highperf                    # 로그 파일 접두사
+# ------------------------------- 데이터 설정 ------------------------------- #
 data:
-  root: ../data
-  train_csv: ../data/raw/train.csv
-  sample_csv: ../data/raw/sample_submission.csv
-  image_dir_train: ../data/raw/train
-  image_dir_test: ../data/raw/test
-  image_ext: .jpg
-  id_col: ID
-  target_col: target
-  num_classes: 17
-  folds: 5
-  valid_fold: all
-  stratify: true
+  root: ../data                                 # 데이터 루트 디렉토리
+  train_csv: ../data/raw/train.csv              # 학습 데이터 CSV 파일
+  sample_csv: ../data/raw/sample_submission.csv # 제출 샘플 CSV
+  image_dir_train: ../data/raw/train            # 학습 이미지 디렉토리
+  image_dir_test: ../data/raw/test              # 테스트 이미지 디렉토리
+  image_ext: .jpg                               # 이미지 파일 확장자
+  id_col: ID                                    # ID 컬럼명
+  target_col: target                            # 타깃 컬럼명 (레이블)
+  num_classes: 17                               # 분류 클래스 수
+  folds: 5                                      # K-Fold 교차검증 폴드 수
+  valid_fold: all                               # 검증 폴드 (전체 폴드 학습)
+  stratify: true                                # 계층적 분할 사용
+# ------------------------------- 학습 설정 ------------------------------- #
 train:
-  img_size: 384
-  batch_size: 32
-  epochs: 15
-  lr: 0.0001
-  weight_decay: 0.01
-  optimizer: adamw
-  scheduler: cosine
-  mixed_precision: true
-  max_grad_norm: 1.0
-  label_smoothing: 0.1
-  use_mixup: true
-  mixup_alpha: 1.0
-  hard_augmentation: true
-  log_interval: 50
+  img_size: 384                                 # 입력 이미지 크기 (384x384)
+  batch_size: 32                                # 배치 크기 (GPU 메모리 고려)
+  epochs: 15                                    # 학습 에포크 수
+  lr: 0.0001                                    # 학습률 (1e-4)
+  weight_decay: 0.01                            # L2 정규화 계수
+  optimizer: adamw                              # 옵티마이저 (AdamW)
+  scheduler: cosine                             # 스케줄러 (코사인 감쇠)
+  mixed_precision: true                         # 혼합 정밀도 학습 (메모리 효율성)
+  max_grad_norm: 1.0                            # 그래디언트 클리핑 임계값
+  label_smoothing: 0.1                          # 레이블 스무딩 (과적합 방지)
+  use_mixup: true                               # Mixup 데이터 증강 사용
+  mixup_alpha: 1.0                              # Mixup 알파 파라미터
+  hard_augmentation: true                       # 강한 데이터 증강 적용
+  log_interval: 50                              # 로그 출력 간격 (스텝 단위)
+# ------------------------------- 모델 설정 ------------------------------- #
 model:
-  name: swin_base_384
-  pretrained: true
-  drop_rate: 0.1
-  drop_path_rate: 0.1
-  pooling: avg
+  name: swin_base_384                           # 모델 아키텍처 (Swin Transformer Base)
+  pretrained: true                              # 사전학습 가중치 사용
+  drop_rate: 0.1                                # 드롭아웃 비율
+  drop_path_rate: 0.1                           # 드롭패스 비율 (Stochastic Depth)
+  pooling: avg                                  # 전역 풀링 방식 (평균 풀링)
+# ------------------------------- 출력 설정 ------------------------------- #
 output:
-  log_dir: logs/train
-  exp_dir: experiments/train
-  snapshots: true
+  log_dir: logs/train                           # 로그 파일 저장 디렉토리
+  exp_dir: experiments/train                    # 실험 결과 저장 디렉토리
+  snapshots: true                               # 설정 스냅샷 저장 여부
+# ------------------------------- WandB 설정 ------------------------------- #
 wandb:
-  project_name: document-classification-team
-  entity: null
-  experiment_name: swin-highperf
-  tags:
-  - swin
-  - high-performance
-  - mixup
-  - hard-aug
+  project_name: document-classification-team    # WandB 프로젝트명
+  entity: null                                  # WandB 엔티티 (팀/사용자)
+  experiment_name: swin-highperf                # 실험명
+  tags:                                         # 실험 태그
+  - swin                                        # Swin Transformer 태그
+  - high-performance                            # 고성능 태그
+  - mixup                                       # Mixup 태그
+  - hard-aug                                    # 강한 증강 태그
+
+# ------------------------------- 추가 학습 설정 ------------------------------- #
 training:
-  batch_size: 48
+  batch_size: 48                                # 추가 배치 크기 설정 (메모리 여유시)
