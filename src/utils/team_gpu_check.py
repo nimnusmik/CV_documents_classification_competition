@@ -70,7 +70,7 @@ def check_gpu_compatibility():
     print(f"   2. 설정 파일 업데이트:")                                                             # 2단계 안내  
     print(f"      python src/utils/auto_batch_size.py --config configs/train.yaml")              # 업데이트 명령어
     print(f"   3. 훈련 시작:")                                                                     # 3단계 안내
-    print(f"      python src/training/train_main.py --mode highperf")                            # 훈련 시작 명령어
+    print(f"      python src/training/train_main.py --config configs/train_highperf.yaml --mode highperf")  # 훈련 시작 명령어
     
     # PyTorch 환경 정보 출력
     print(f"\n🐍 PyTorch 정보:")                                            # PyTorch 정보 제목

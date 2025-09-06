@@ -4,7 +4,7 @@
 
 **실행 일시**: 2025-09-06 23:35:03 ~ 23:39:31  
 **소요 시간**: 4분 28초  
-**실행 명령어**: `python src/inference/infer_main.py --mode highperf --config configs/infer_highperf.yaml`  
+**실행 명령어**: `python src/inference/infer_main.py --config configs/infer_highperf.yaml --mode highperf`  
 **추론 모드**: 고성능 앙상블 + TTA (Test-Time Augmentation)
 
 ---

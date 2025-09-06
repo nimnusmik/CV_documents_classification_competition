@@ -384,7 +384,7 @@ def main():
         
         # 완료 안내 메시지
         print(f"\n✅ 완료! 이제 다음 명령어로 최적화된 훈련을 시작하세요:")    # 완료 메시지
-        print(f"   python src/training/train_main.py --mode highperf")  # 실행 명령어 안내
+        print(f"   python src/training/train_main.py --config configs/train_highperf.yaml --mode highperf")  # 실행 명령어 안내
     # 테스트 전용 모드인 경우
     else:
         # 테스트 모드 안내

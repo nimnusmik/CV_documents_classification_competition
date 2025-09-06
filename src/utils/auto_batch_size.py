@@ -355,7 +355,7 @@ def main():
         update_config_file(args.config, optimal_batch)                          # 설정 파일에 배치 크기 업데이트
         
         print(f"\n✅ 완료! 이제 다음 명령어로 최적화된 훈련을 시작하세요:")           # 완료 메시지
-        print(f"   python src/training/train_main.py --mode highperf")         # 실행 명령어 안내
+        print(f"   python src/training/train_main.py --config configs/train_highperf.yaml --mode highperf")  # 실행 명령어 안내
         
         # GPU별 추가 권장사항
         print(f"\n💡 {gpu_info['tier']} GPU 추가 권장사항:")  # 추가 권장사항 제목

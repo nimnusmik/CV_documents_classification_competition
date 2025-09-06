@@ -26,7 +26,7 @@ echo ""
 echo "🏃‍♂️ 학습 시작..."
 
 # 고성능 학습 실행
-python -m src.training.train_highperf configs/train_highperf.yaml
+python src/training/train_main.py --config configs/train_highperf.yaml --mode highperf
 
 echo ""
 echo "✅ 학습 완료! 결과는 experiments/train/ 폴더에서 확인하세요."
