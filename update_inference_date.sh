@@ -80,7 +80,8 @@ backup_file() {
 # infer.yaml 업데이트
 echo -e "\n${BLUE}🔧 configs/infer.yaml 업데이트 중...${NC}"
 if [ -f "configs/infer.yaml" ] && [ -n "$EFFICIENTNET_DIR" ]; then
-    backup_file "configs/infer.yaml"
+    # configs/infer.yaml 기존 파일 백업
+    # backup_file "configs/infer.yaml"
     
     # 날짜와 폴더명 업데이트
     sed -i.tmp "s|experiments/train/[0-9]\{8\}/[^/]*/ckpt|experiments/train/$TARGET_DATE/$EFFICIENTNET_DIR/ckpt|g" configs/infer.yaml
@@ -94,7 +95,8 @@ fi
 # infer_highperf.yaml 업데이트
 echo -e "\n${BLUE}🔧 configs/infer_highperf.yaml 업데이트 중...${NC}"
 if [ -f "configs/infer_highperf.yaml" ] && [ -n "$SWIN_DIR" ]; then
-    backup_file "configs/infer_highperf.yaml"
+    # configs/infer_highperf.yaml 기존 파일 백업
+    # backup_file "configs/infer_highperf.yaml"
     
     # 날짜와 폴더명 업데이트
     sed -i.tmp "s|experiments/train/[0-9]\{8\}/[^/]*/fold_results.yaml|experiments/train/$TARGET_DATE/$SWIN_DIR/fold_results.yaml|g" configs/infer_highperf.yaml
