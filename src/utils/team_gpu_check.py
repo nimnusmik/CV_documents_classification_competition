@@ -41,22 +41,22 @@ def check_gpu_compatibility():
         # 고급 GPU
         if any(gpu in device_name for gpu in ['RTX 4090', 'RTX 4080', 'RTX 3090', 'A100', 'V100']):
             tier = "🏆 HIGH-END"                                                        # 고급 등급 설정
-            batch_rec = "64-128 (224px), 32-64 (384px)"                                 # 배치 크기 권장사항
-            note = "최고 성능! Multi-GPU 훈련 가능"                                        # 성능 메모
+            batch_rec = "96-256 (224px), 80-128 (384px)"                                # 배치 크기 권장사항 (최적화됨)
+            note = "최고 성능! Multi-GPU 훈련 가능, 95% 안전 계수 적용"                     # 성능 메모
         # 중급 GPU
         elif any(gpu in device_name for gpu in ['RTX 3080', 'RTX 3070', 'RTX 4070']):
             tier = "🥈 MID-RANGE"                                                       # 중급 등급 설정
-            batch_rec = "32-64 (224px), 16-32 (384px)"                                  # 배치 크기 권장사항
-            note = "우수한 성능! gradient_accumulation_steps=2 권장"                      # 성능 메모
+            batch_rec = "64-128 (224px), 32-64 (384px)"                                 # 배치 크기 권장사항 (최적화됨)
+            note = "우수한 성능! gradient_accumulation_steps=2 권장, 90% 안전 계수"        # 성능 메모
         # 보급형 GPU
         elif any(gpu in device_name for gpu in ['RTX 3060', 'RTX 2070', 'RTX 2080']):
             tier = "🥉 BUDGET"                                                          # 보급형 등급 설정
-            batch_rec = "16-32 (224px), 8-16 (384px)"                                    # 배치 크기 권장사항
-            note = "적절한 성능! gradient_accumulation_steps=3-4 권장"                     # 성능 메모
+            batch_rec = "32-64 (224px), 16-32 (384px)"                                  # 배치 크기 권장사항 (최적화됨)
+            note = "적절한 성능! gradient_accumulation_steps=3-4 권장, 90% 안전 계수"       # 성능 메모
         # 기타 GPU (저사양)
         else:
             tier = "⚠️ LOW-END"                                                         # 저사양 등급 설정
-            batch_rec = "8-16 (224px), 4-8 (384px)"                                     # 배치 크기 권장사항
+            batch_rec = "16-32 (224px), 8-16 (384px)"                                   # 배치 크기 권장사항 (최적화됨)
             note = "주의! mixed precision 비활성화, gradient_accumulation_steps=6-8 권장"  # 성능 메모
         
         print(f"🏷️ 등급: {tier}")               # GPU 등급 출력

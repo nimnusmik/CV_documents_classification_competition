@@ -43,33 +43,33 @@ def get_gpu_info_and_recommendations() -> Optional[Dict[str, Any]]:
         # 고성능 GPU (20GB+)
         "high_end": {                                                   # 고성능 GPU 설정
             "memory_threshold": 20.0,                                   # 메모리 임계값 (GB)
-            "batch_224": {"start": 64, "max": 128, "safety": 0.85},     # 224px 이미지 배치 설정
-            "batch_384": {"start": 32, "max": 64, "safety": 0.80},      # 384px 이미지 배치 설정
-            "batch_512": {"start": 16, "max": 32, "safety": 0.75},      # 512px 이미지 배치 설정
+            "batch_224": {"start": 64, "max": 256, "safety": 0.95},     # 224px 이미지 배치 설정 (최대 향상)
+            "batch_384": {"start": 32, "max": 128, "safety": 0.95},     # 384px 이미지 배치 설정 (최대 향상)
+            "batch_512": {"start": 16, "max": 64, "safety": 0.95},      # 512px 이미지 배치 설정 (최대 향상)
             "examples": ["RTX 4090", "RTX 3090", "A100", "V100"]        # 해당 GPU 예시
         },
         # 중급 GPU (10-20GB)
         "mid_range": {                                                  # 중급 GPU 설정
             "memory_threshold": 10.0,                                   # 메모리 임계값 (GB)
-            "batch_224": {"start": 32, "max": 64, "safety": 0.80},      # 224px 이미지 배치 설정
-            "batch_384": {"start": 16, "max": 32, "safety": 0.75},      # 384px 이미지 배치 설정
-            "batch_512": {"start": 8, "max": 16, "safety": 0.70},       # 512px 이미지 배치 설정
+            "batch_224": {"start": 32, "max": 128, "safety": 0.90},     # 224px 이미지 배치 설정 (향상)
+            "batch_384": {"start": 16, "max": 64, "safety": 0.90},      # 384px 이미지 배치 설정 (향상)
+            "batch_512": {"start": 8, "max": 32, "safety": 0.90},       # 512px 이미지 배치 설정 (향상)
             "examples": ["RTX 3080", "RTX 3070", "RTX 2080 Ti"]         # 해당 GPU 예시
         },
         # 보급형 GPU (6-10GB)
         "budget": {                                                     # 보급형 GPU 설정
             "memory_threshold": 6.0,                                    # 메모리 임계값 (GB)
-            "batch_224": {"start": 16, "max": 32, "safety": 0.75},      # 224px 이미지 배치 설정
-            "batch_384": {"start": 8, "max": 16, "safety": 0.70},       # 384px 이미지 배치 설정
-            "batch_512": {"start": 4, "max": 8, "safety": 0.65},        # 512px 이미지 배치 설정
+            "batch_224": {"start": 16, "max": 64, "safety": 0.90},      # 224px 이미지 배치 설정 (향상)
+            "batch_384": {"start": 8, "max": 32, "safety": 0.90},       # 384px 이미지 배치 설정 (향상)
+            "batch_512": {"start": 4, "max": 16, "safety": 0.90},       # 512px 이미지 배치 설정 (향상)
             "examples": ["RTX 3060", "RTX 2070", "GTX 1080 Ti"]         # 해당 GPU 예시
         },
         # 저사양 GPU (<6GB)
         "low_end": {                                                    # 저사양 GPU 설정
             "memory_threshold": 0.0,                                    # 메모리 임계값 (GB)
-            "batch_224": {"start": 8, "max": 16, "safety": 0.70},       # 224px 이미지 배치 설정
-            "batch_384": {"start": 4, "max": 8, "safety": 0.65},        # 384px 이미지 배치 설정
-            "batch_512": {"start": 2, "max": 4, "safety": 0.60},        # 512px 이미지 배치 설정
+            "batch_224": {"start": 8, "max": 32, "safety": 0.85},       # 224px 이미지 배치 설정 (향상)
+            "batch_384": {"start": 4, "max": 16, "safety": 0.85},       # 384px 이미지 배치 설정 (향상)
+            "batch_512": {"start": 2, "max": 8, "safety": 0.85},        # 512px 이미지 배치 설정 (향상)
             "examples": ["GTX 1660", "GTX 1080", "RTX 2060"]            # 해당 GPU 예시
         }
     }
@@ -266,13 +266,15 @@ def update_config_file(config_path: str, batch_size: int):
         config = yaml.safe_load(f)                          # YAML 파일 파싱
     
     # 배치 크기 업데이트
-    # training 섹션이 있는 경우 업데이트
-    if 'training' in config:
-        config['training']['batch_size'] = batch_size       # batch_size 값 업데이트
-        
-    # train 섹션이 있는 경우 업데이트 (train 키가 있는 경우)
+    # train 섹션이 있는 경우 우선 업데이트 (현재 프로젝트 표준)
     if 'train' in config:
         config['train']['batch_size'] = batch_size          # batch_size 값 업데이트
+    # training 섹션이 있는 경우 업데이트 (레거시 지원)
+    elif 'training' in config:
+        config['training']['batch_size'] = batch_size       # batch_size 값 업데이트
+    # 둘 다 없는 경우 train 섹션 생성
+    else:
+        config['train'] = {'batch_size': batch_size}        # train 섹션 생성
     
     # 백업 파일 생성
     backup_path = config_path + '.backup'                   # 백업 파일 경로 생성

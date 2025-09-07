@@ -45,33 +45,33 @@ def get_gpu_info_and_recommendations() -> Dict[str, Any]:
     if any(gpu in device_name for gpu in ['RTX 4090', 'RTX 4080', 'RTX 3090', 'A100', 'V100']):
         tier = 'high_end'                                               # 등급: 하이엔드
         profile = {                                                     # 하이엔드 GPU 배치 설정
-            'batch_224': {'start': 64, 'max': 128, 'safety': 0.8},      # 224px: 시작 64, 최대 128
-            'batch_384': {'start': 32, 'max': 64, 'safety': 0.8},       # 384px: 시작 32, 최대 64
-            'batch_512': {'start': 16, 'max': 32, 'safety': 0.8}        # 512px: 시작 16, 최대 32
+            'batch_224': {'start': 64, 'max': 256, 'safety': 0.95},     # 224px: 시작 64, 최대 256 (향상)
+            'batch_384': {'start': 32, 'max': 128, 'safety': 0.95},     # 384px: 시작 32, 최대 128 (향상)
+            'batch_512': {'start': 16, 'max': 64, 'safety': 0.95}       # 512px: 시작 16, 최대 64 (향상)
         }
     # 미드레인지 GPU 확인
     elif any(gpu in device_name for gpu in ['RTX 3080', 'RTX 3070', 'RTX 4070']):
         tier = 'mid_range'                                              # 등급: 미드레인지
         profile = {                                                     # 미드레인지 GPU 배치 설정
-            'batch_224': {'start': 32, 'max': 64, 'safety': 0.8},       # 224px: 시작 32, 최대 64
-            'batch_384': {'start': 16, 'max': 32, 'safety': 0.8},       # 384px: 시작 16, 최대 32
-            'batch_512': {'start': 8, 'max': 16, 'safety': 0.8}         # 512px: 시작 8, 최대 16
+            'batch_224': {'start': 32, 'max': 128, 'safety': 0.90},     # 224px: 시작 32, 최대 128 (향상)
+            'batch_384': {'start': 16, 'max': 64, 'safety': 0.90},      # 384px: 시작 16, 최대 64 (향상)
+            'batch_512': {'start': 8, 'max': 32, 'safety': 0.90}        # 512px: 시작 8, 최대 32 (향상)
         }
     # 보급형 GPU 확인
     elif any(gpu in device_name for gpu in ['RTX 3060', 'RTX 2070', 'RTX 2080']):
         tier = 'budget'                                                 # 등급: 보급형
         profile = {                                                     # 보급형 GPU 배치 설정
-            'batch_224': {'start': 16, 'max': 32, 'safety': 0.85},      # 224px: 시작 16, 최대 32
-            'batch_384': {'start': 8, 'max': 16, 'safety': 0.85},       # 384px: 시작 8, 최대 16
-            'batch_512': {'start': 4, 'max': 8, 'safety': 0.85}         # 512px: 시작 4, 최대 8
+            'batch_224': {'start': 16, 'max': 64, 'safety': 0.90},      # 224px: 시작 16, 최대 64 (향상)
+            'batch_384': {'start': 8, 'max': 32, 'safety': 0.90},       # 384px: 시작 8, 최대 32 (향상)
+            'batch_512': {'start': 4, 'max': 16, 'safety': 0.90}        # 512px: 시작 4, 최대 16 (향상)
         }
     # GTX 1660, GTX 1080 등 구형 GPU
     else:
         tier = 'low_end'                                                # 등급: 로우엔드
         profile = {                                                     # 로우엔드 GPU 배치 설정
-            'batch_224': {'start': 8, 'max': 16, 'safety': 0.9},        # 224px: 시작 8, 최대 16
-            'batch_384': {'start': 4, 'max': 8, 'safety': 0.9},         # 384px: 시작 4, 최대 8
-            'batch_512': {'start': 2, 'max': 4, 'safety': 0.9}          # 512px: 시작 2, 최대 4
+            'batch_224': {'start': 8, 'max': 32, 'safety': 0.85},       # 224px: 시작 8, 최대 32 (향상)
+            'batch_384': {'start': 4, 'max': 16, 'safety': 0.85},       # 384px: 시작 4, 최대 16 (향상)
+            'batch_512': {'start': 2, 'max': 8, 'safety': 0.85}         # 512px: 시작 2, 최대 8 (향상)
         }
     
     # GPU 정보 및 설정 반환
@@ -267,10 +267,10 @@ def update_config_file(config_path: str, batch_size: int):
         with open(config_path, 'r', encoding='utf-8') as f: # 설정 파일 읽기
             config = yaml.safe_load(f)                      # YAML 파일 로드
         
-        if 'training' not in config:                        # training 섹션이 없는 경우
-            config['training'] = {}                         # training 섹션 생성
+        if 'train' not in config:                          # train 섹션이 없는 경우
+            config['train'] = {}                           # train 섹션 생성
         
-        config['training']['batch_size'] = batch_size       # 배치 크기 설정
+        config['train']['batch_size'] = batch_size         # 배치 크기 설정
         
         with open(config_path, 'w', encoding='utf-8') as f: # 설정 파일 쓰기
             yaml.dump(config, f, default_flow_style=False, allow_unicode=True, sort_keys=False)  # YAML 파일 저장
@@ -316,9 +316,6 @@ def main():
     print(f"💾 GPU 메모리: {gpu_info['total_memory']:.1f} GB")    # GPU 메모리 용량 출력
     print(f"🏆 GPU 등급: {gpu_info['tier']}")                    # GPU 등급 출력
 
-    batch_range = gpu_info['profile']['batch_224']              # 224px 배치 설정 조회
-    print(f"💡 권장 배치 범위: {batch_range['start']} ~ {batch_range['max']}")  # 권장 범위 출력
-    
     # 설정 파일 로드
     with open(args.config, 'r', encoding='utf-8') as f:         # 설정 파일 열기
         config = yaml.safe_load(f)                              # YAML 파일 로드
@@ -340,6 +337,17 @@ def main():
     print(f"📊 모델: {model_name}")                                 # 모델 이름 출력
     print(f"📏 이미지 크기: {img_size}")                             # 이미지 크기 출력
     
+    # 실제 사용된 배치 설정 가져오기
+    actual_profile_key = f"batch_{img_size}"  # 실제 사용된 이미지 크기에 맞는 프로필 키
+    if actual_profile_key in gpu_info['profile']:
+        actual_batch_range = gpu_info['profile'][actual_profile_key]
+        print(f"💡 권장 배치 범위: {actual_batch_range['start']} ~ {actual_batch_range['max']}")
+    else:
+        # 기본값으로 224 사용 (호환성)
+        actual_batch_range = gpu_info['profile']['batch_224']
+        print(f"💡 권장 배치 범위: {actual_batch_range['start']} ~ {actual_batch_range['max']} (기본값)")
+    print(f"📏 이미지 크기: {img_size}")                             # 이미지 크기 출력
+    
     # 최적 배치 크기 찾기
     optimal_batch = find_optimal_batch_size(model_name, img_size, gpu_info)  # 최적 배치 크기 탐색
     
@@ -347,7 +355,7 @@ def main():
     print(f"🎉 최종 결과:")                                         # 최종 결과 제목
     print(f"   최적 배치 크기: {optimal_batch}")                     # 최적 배치 크기 출력
     print(f"   GPU 등급: {gpu_info['tier']}")                       # GPU 등급 출력
-    print(f"   예상 메모리 사용률: ~{(optimal_batch/batch_range['max'])*100:.0f}%")  # 메모리 사용률 출력
+    print(f"   예상 메모리 사용률: ~{(optimal_batch/actual_batch_range['max'])*100:.0f}%")  # 메모리 사용률 출력
     
     # 테스트 전용 모드가 아닌 경우
     if not args.test_only:
