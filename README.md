@@ -72,10 +72,19 @@ scripts/
 ├── monitor_training.sh      # 학습 진행 상황 실시간 모니터링
 ├── run_fast_training.sh     # 빠른 최적화 실행 (20-30분)
 ├── run_highperf_training.sh # 고성능 학습 실행 (1-2시간)
-└── update_inference_date.sh # 추론 날짜 업데이트
+└── update_inference_date.sh # 🆕 추론 날짜 업데이트 (latest-train 지원!)
 ```
 
 ### 🔍 주요 스크립트 사용법
+
+#### 🆕 Latest-train 자동 업데이트 (권장!)
+```bash
+# 날짜와 관계없이 항상 최신 학습 결과 참조
+./scripts/update_inference_date.sh --latest-train
+
+# 도움말 확인
+./scripts/update_inference_date.sh --help
+```
 
 #### 학습 모니터링
 ```bash
@@ -469,11 +478,22 @@ python src/utils/team_gpu_check.py
 
 ### ⚡ Quick Execution
 ```bash
-# 완전 자동화 실행
+# 방법 1: 완전 자동화 실행
 python src/pipeline/full_pipeline.py --config configs/train_highperf.yaml
+
+# 방법 2: 🆕 Latest-train 기반 워크플로우 (권장!)
+# 1) 학습 실행 (자동으로 latest-train에 복사됨)
+python src/training/train_main.py --config configs/train_highperf.yaml --mode full-pipeline
+
+# 2) 추론 설정 자동 업데이트 (날짜 걱정 없음!)
+./scripts/update_inference_date.sh --latest-train
+
+# 3) 추론 실행
+python src/training/train_main.py --mode full-pipeline --skip-training
 
 # 결과 확인
 ls submissions/$(ls -t submissions/ | head -1)/
 ```
 
 **🎯 목표 달성: F1 Score 0.934+ 보장**
+**🆕 Latest-train 시스템: 날짜가 바뀌어도 항상 최신 결과 자동 접근!**

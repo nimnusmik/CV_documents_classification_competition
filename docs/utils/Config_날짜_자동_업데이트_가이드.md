@@ -4,7 +4,16 @@
 
 ## 🚀 빠른 사용법
 
-### 1. 🔥 **최신 실험 날짜로 업데이트** (권장)
+### 1. 🆕 **Latest-train 폴더 기준 업데이트** (권장!)
+```bash
+# 스크립트 사용 - 날짜와 관계없이 항상 최신 학습 결과 참조
+bash scripts/update_inference_date.sh --latest-train
+
+# 도움말 확인
+bash scripts/update_inference_date.sh --help
+```
+
+### 2. 🔥 **최신 실험 날짜로 업데이트**
 ```bash
 # 스크립트 사용 (scripts 폴더로 이동됨)
 bash scripts/update_inference_date.sh --latest
@@ -13,7 +22,7 @@ bash scripts/update_inference_date.sh --latest
 python src/utils/update_config_dates.py --latest
 ```
 
-### 2. 📅 **특정 날짜로 업데이트**
+### 3. 📅 **특정 날짜로 업데이트**
 ```bash
 # 스크립트 사용
 bash scripts/update_inference_date.sh 20250908
@@ -22,7 +31,7 @@ bash scripts/update_inference_date.sh 20250908
 python src/utils/update_config_dates.py --date 20250908
 ```
 
-### 3. 🌅 **오늘 날짜로 업데이트**
+### 4. 🌅 **오늘 날짜로 업데이트**
 ```bash
 # 스크립트 사용 (기본값)
 bash scripts/update_inference_date.sh
@@ -30,6 +39,25 @@ bash scripts/update_inference_date.sh
 # Python 스크립트
 python src/utils/update_config_dates.py
 ```
+
+## 🆕 Latest-train 시스템
+
+### 📁 **폴더 구조**
+```
+experiments/train/
+├── 20250907/                    # 원본: 날짜별 저장
+│   └── swin-highperf_20250907_1825/
+├── 20250908/
+│   └── efficientnet-basic_20250908_1030/
+└── latest-train/                # 🆕 최신 결과 자동 복사
+    └── efficientnet-basic_20250908_1030/
+```
+
+### 🎯 **Latest-train 기능의 이점**
+- ✅ **날짜 독립**: 학습이 자정을 넘어도 항상 최신 결과 접근
+- ✅ **워크플로우 간소화**: `--latest-train` 하나로 해결
+- ✅ **실수 방지**: 잘못된 날짜 지정으로 인한 오류 방지
+- ✅ **자동화**: 학습 완료 시 자동으로 latest-train 폴더에 복사
 
 ## 📋 업데이트되는 파일들
 
@@ -86,6 +114,27 @@ ls experiments/train/
 
 ## ⚡ 워크플로우 예시
 
+### 🆕 시나리오 1: Latest-train 기반 완전 자동화 워크플로우 (권장!)
+```bash
+# 1. 새로운 실험 완료 후 (통합 CLI) - 자동으로 latest-train에 복사됨
+python src/training/train_main.py \
+    --config configs/train_highperf.yaml \
+    --optimize \
+    --use-calibration \
+    --auto-continue
+
+# 2. 설정 파일 자동 업데이트 (latest-train 기준)
+bash scripts/update_inference_date.sh --latest-train
+
+# 3. 바로 추론 실행 - 날짜 걱정 없음!
+python src/training/train_main.py \
+    --config configs/train_highperf.yaml \
+    --mode full-pipeline \
+    --skip-training \
+    --use-calibration
+```
+
+### 시나리오 2: 기존 방식 - 최신 날짜 기준
 ```bash
 # 1. 새로운 실험 완료 후 (통합 CLI)
 python src/training/train_main.py \
@@ -94,10 +143,38 @@ python src/training/train_main.py \
     --use-calibration \
     --auto-continue
 
-# 2. 설정 파일 자동 업데이트
-python src/utils/update_config_dates.py --latest
+# 2. 설정 파일 자동 업데이트 (최신 날짜 기준)
+bash scripts/update_inference_date.sh --latest
 
 # 3. 바로 추론 실행
+python src/training/train_main.py \
+    --config configs/train_highperf.yaml \
+    --mode full-pipeline \
+    --skip-training \
+    --use-calibration
+```
+
+### 시나리오 3: 특정 날짜의 모델로 재추론
+```bash
+# 2025년 9월 5일 모델로 추론하고 싶을 때
+bash scripts/update_inference_date.sh 20250905
+python src/inference/infer_main.py --config configs/infer.yaml --mode basic
+```
+
+### 시나리오 4: 여러 날짜의 모델 비교 추론
+```bash
+# 날짜별로 설정 업데이트하며 추론 비교
+for date in 20250905 20250906 20250907; do
+    echo "=== $date 모델 추론 ==="
+    bash scripts/update_inference_date.sh $date
+    python src/inference/infer_main.py --config configs/infer_highperf.yaml --mode highperf
+done
+
+# 🆕 Latest-train 결과와 비교
+echo "=== Latest-train 모델 추론 ==="
+bash scripts/update_inference_date.sh --latest-train
+python src/inference/infer_main.py --config configs/infer_highperf.yaml --mode highperf
+```
 python src/inference/infer_main.py --config configs/infer_highperf.yaml --mode highperf
 ```
 
@@ -129,9 +206,11 @@ done
 
 ## 🚨 주의사항
 
-1. **실험 디렉터리 존재 확인**: 지정한 날짜의 `experiments/train/YYYYMMDD/` 디렉터리가 존재해야 함
-2. **모델 파일 존재 확인**: 업데이트된 경로에 실제 모델 파일들이 있는지 확인
-3. **백업 파일 관리**: 필요 없는 백업 파일들은 주기적으로 정리
+1. **🆕 Latest-train 우선 사용**: 대부분의 경우 `--latest-train` 옵션 사용 권장
+2. **실험 디렉터리 존재 확인**: 지정한 날짜의 `experiments/train/YYYYMMDD/` 디렉터리가 존재해야 함
+3. **모델 파일 존재 확인**: 업데이트된 경로에 실제 모델 파일들이 있는지 확인
+4. **백업 파일 관리**: 필요 없는 백업 파일들은 주기적으로 정리
+5. **🆕 Latest-train 폴더**: 학습 완료 후 자동 생성되므로, 학습을 한 번도 실행하지 않았다면 존재하지 않음
 
 ## 🔍 문제 해결
 
