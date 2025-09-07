@@ -1,0 +1,11 @@
+{
+  "metrics": {
+    "total": 3140,
+    "same": 2961,
+    "different": 179,
+    "match_rate": 94.3
+  },
+  "file_name": "swin_vs_swin_base_384_ensemble_tta_basic_augmentation",
+  "section": "basic_metrics",
+  "timestamp": "2025-09-08T02:21:20.119498"
+}
