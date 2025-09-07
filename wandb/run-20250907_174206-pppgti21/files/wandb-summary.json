@@ -1,0 +1,1 @@
+{"train/loss":0.40365418307720474,"val/f1":0.9488777124358186,"_runtime":220,"val/loss":0.1566185904889231,"train/epoch":15,"best_f1":0.9488777124358186,"_wandb":{"runtime":220},"train/batch_loss":0.3649263083934784,"fold":2,"train/step":70,"_step":134,"train/learning_rate":1.4192133431691338e-06,"_timestamp":1.7572347508967261e+09,"val/epoch":15,"epoch":15}

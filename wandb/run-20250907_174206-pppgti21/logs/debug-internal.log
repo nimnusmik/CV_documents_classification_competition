@@ -1,0 +1,12 @@
+{"time":"2025-09-07T17:42:06.510655244+09:00","level":"INFO","msg":"stream: starting","core version":"0.21.3"}
+{"time":"2025-09-07T17:42:06.948834665+09:00","level":"INFO","msg":"stream: created new stream","id":"pppgti21"}
+{"time":"2025-09-07T17:42:06.948862213+09:00","level":"INFO","msg":"stream: started","id":"pppgti21"}
+{"time":"2025-09-07T17:42:06.948883499+09:00","level":"INFO","msg":"writer: started","stream_id":"pppgti21"}
+{"time":"2025-09-07T17:42:06.948904798+09:00","level":"INFO","msg":"handler: started","stream_id":"pppgti21"}
+{"time":"2025-09-07T17:42:06.948918932+09:00","level":"INFO","msg":"sender: started","stream_id":"pppgti21"}
+{"time":"2025-09-07T17:45:50.898748694+09:00","level":"INFO","msg":"handler: operation stats","stats":{"operations":[{"desc":"updating run metadata","runtime_seconds":0.000297925}],"total_operations":1}}
+{"time":"2025-09-07T17:45:51.728430122+09:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-09-07T17:45:52.102228167+09:00","level":"INFO","msg":"stream: closing","id":"pppgti21"}
+{"time":"2025-09-07T17:45:52.102244743+09:00","level":"INFO","msg":"handler: closed","stream_id":"pppgti21"}
+{"time":"2025-09-07T17:45:52.102293931+09:00","level":"INFO","msg":"sender: closed","stream_id":"pppgti21"}
+{"time":"2025-09-07T17:45:52.102298222+09:00","level":"INFO","msg":"stream: closed","id":"pppgti21"}
