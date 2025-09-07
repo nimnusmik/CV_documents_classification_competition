@@ -1,0 +1,52 @@
+project:
+  run_name: efficientnet_b3
+  seed: 42
+  date_format: '%Y%m%d'
+  time_format: '%H%M'
+  num_workers: 4
+  device: cuda
+  verbose: true
+  log_prefix: train
+data:
+  root: ./data
+  train_csv: ./data/raw/train.csv
+  sample_csv: ./data/raw/sample_submission.csv
+  image_dir_train: ./data/raw/train
+  image_dir_test: ./data/raw/test
+  image_ext: .jpg
+  id_col: ID
+  target_col: target
+  num_classes: 17
+  folds: 5
+  valid_fold: all
+  stratify: true
+train:
+  img_size: 384
+  batch_size: 64
+  use_advanced_augmentation: false
+  epochs: 10
+  lr: 0.001
+  weight_decay: 0.0
+  optimizer: adam
+  scheduler: cosine
+  amp: true
+  grad_clip_norm: 1.0
+  label_smoothing: 0.0
+  log_interval: 50
+model:
+  name: efficientnet_b3
+  pretrained: true
+  drop_rate: 0.0
+  drop_path_rate: 0.0
+  pooling: avg
+output:
+  logs_dir: logs/train
+  exp_dir: experiments/train
+  snapshots: true
+wandb:
+  project_name: document-classification-basic
+  entity: null
+  experiment_name: efficientnet-basic
+  tags:
+  - efficientnet
+  - basic

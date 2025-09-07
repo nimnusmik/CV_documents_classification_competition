@@ -1,0 +1,7 @@
+📋 실험명: fold-0-0908-0308-20250908_0308_swin_base_224_ensemble_tta
+🔗 WandB URL: https://wandb.ai/kimsunmin0227-hufs/document-classification-team/runs/l12lxuz8
+2025-09-08 03:08:54 | [ERROR] Training failed: Unknown model (swin_base_224)
+2025-09-08 03:08:54 | [SHUTDOWN] Training pipeline ended
+2025-09-08 03:08:54 | ❌ [PIPELINE] Failed: Unknown model (swin_base_224)
+2025-09-08 03:08:54 | 🏁 [PIPELINE] Full pipeline ended
+❌ Optimization failed: Unknown model (swin_base_224)

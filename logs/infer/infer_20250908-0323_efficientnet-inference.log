@@ -1,0 +1,14 @@
+2025-09-08 03:23:41 | >> 표준 출력 및 오류를 로그 파일로 리디렉션 시작
+2025-09-08 03:23:41 | >> Inference logger: logs/infer/infer_20250908-0323_efficientnet-inference.log
+2025-09-08 03:23:41 | [BOOT] inference pipeline started
+2025-09-08 03:23:41 | [PATH] OK | sample_csv=/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/data/raw/sample_submission.csv | image_dir_test=/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/data/raw/test
+2025-09-08 03:23:41 | [CFG] data={'sample_csv': '../data/raw/sample_submission.csv', 'image_dir_test': '../data/raw/test', 'image_ext': '.jpg', 'id_col': 'ID', 'target_col': 'target', 'num_classes': 17}
+2025-09-08 03:23:41 | [CFG] model={'name': 'efficientnet_b3', 'pretrained': False, 'drop_rate': 0.0, 'drop_path_rate': 0.0, 'pooling': 'avg'}
+2025-09-08 03:23:41 | [CFG] inference={'tta': True, 'tta_rot_degrees': [0, -3, 3]}
+2025-09-08 03:23:41 | [DATA] test size=3140 | head=[{'ID': '0008fdb22ddce0ce.jpg'}, {'ID': '00091bffdffd83de.jpg'}, {'ID': '00396fbc1f6cc21d.jpg'}]
+2025-09-08 03:23:41 | [DATA] dataloader built | steps=50 bs=64
+2025-09-08 03:23:41 | [ERROR] FileNotFoundError: 필수 파일이 없습니다: /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/experiments/train/20250908/efficientnet-inference/ckpt/best_fold0.pth (cwd=/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN)
+힌트: --ckpt로 직접 지정하거나 학습 결과 경로 확인
+2025-09-08 03:23:41 | [EXIT] INFERENCE ERROR code=1
+2025-09-08 03:23:41 | >> Stopping logger and restoring stdio
+2025-09-08 03:23:41 | >> 로그 리디렉션 중료.
