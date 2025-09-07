@@ -1,0 +1,9 @@
+2025-09-07 17:29:51 | 🚀 [PIPELINE] Full pipeline started
+2025-09-07 17:29:51 | 📋 Config: configs/train_optimized_20250907_1729.yaml
+2025-09-07 17:29:51 | ⚙️ Skip training: False
+2025-09-07 17:29:51 | ============================================================
+2025-09-07 17:29:51 | 🎯 [STAGE 1] HIGH-PERFORMANCE TRAINING
+2025-09-07 17:29:51 | ============================================================
+2025-09-07 17:29:51 | ❌ [PIPELINE] Failed: 필수 파일이 없습니다: /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/configs/data/raw/train.csv (cwd=/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN)
+힌트: train_csv 확인
+2025-09-07 17:29:51 | 🏁 [PIPELINE] Full pipeline ended

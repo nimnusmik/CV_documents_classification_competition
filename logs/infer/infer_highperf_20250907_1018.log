@@ -1,0 +1,19 @@
+2025-09-07 10:18:13 | [BOOT] high-performance inference pipeline started
+2025-09-07 10:18:13 | [BOOT] device=cuda
+2025-09-07 10:18:13 | [DATA] loaded test data | shape=(3140, 2)
+2025-09-07 10:18:13 | [HighPerfDataset] size=3140 img_size=384 epoch=0/10 p_hard=0.000 is_train=False
+2025-09-07 10:18:13 | [DATA] test dataset size: 3140
+2025-09-07 10:18:13 | [INFERENCE] starting ensemble prediction...
+2025-09-07 10:22:43 | [SUCCESS] Inference completed | output: submissions/20250907/swin-sighperf_ensemble_20250907_0957.csv
+2025-09-07 10:22:43 | [RESULT] Prediction distribution:
+2025-09-07 10:22:43 | Class 0: 0 samples (0.0%)
+2025-09-07 10:22:43 | Class 1: 0 samples (0.0%)
+2025-09-07 10:22:43 | Class 2: 0 samples (0.0%)
+2025-09-07 10:22:43 | Class 3: 0 samples (0.0%)
+2025-09-07 10:22:43 | Class 4: 0 samples (0.0%)
+2025-09-07 10:22:43 | Class 5: 0 samples (0.0%)
+2025-09-07 10:22:43 | Class 6: 0 samples (0.0%)
+2025-09-07 10:22:43 | Class 7: 0 samples (0.0%)
+2025-09-07 10:22:43 | Class 8: 0 samples (0.0%)
+2025-09-07 10:22:43 | Class 9: 3140 samples (100.0%)
+2025-09-07 10:22:43 | [SHUTDOWN] Inference pipeline ended

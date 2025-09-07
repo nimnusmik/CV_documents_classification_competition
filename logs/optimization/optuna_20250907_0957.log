@@ -1,0 +1,16 @@
+2025-09-07 09:57:19 | 🔍 Optuna 하이퍼파라미터 튜닝 초기화 완료
+2025-09-07 09:57:19 | 📋 Base config: configs/train_highperf.yaml
+2025-09-07 09:57:19 | 🎯 Target trials: 5
+2025-09-07 09:57:19 | 🚀 Optuna 최적화 시작...
+2025-09-07 09:57:19 | 🔬 Trial 0: {'lr': 0.005781878839883084, 'batch_size': 32, 'weight_decay': 0.08747604477869356, 'dropout': 0.21483421781764714}
+2025-09-07 09:57:19 | ❌ Trial 0 실패: [Errno 2] No such file or directory: '../data/raw/train.csv'
+2025-09-07 09:57:19 | 🔬 Trial 1: {'lr': 0.0013583396841031518, 'batch_size': 16, 'weight_decay': 0.02404022590540511, 'dropout': 0.1096956472933026}
+2025-09-07 09:57:19 | ❌ Trial 1 실패: [Errno 2] No such file or directory: '../data/raw/train.csv'
+2025-09-07 09:57:19 | 🔬 Trial 2: {'lr': 0.0001647758965588829, 'batch_size': 128, 'weight_decay': 0.022785212314149417, 'dropout': 0.1575188348699747}
+2025-09-07 09:57:19 | ❌ Trial 2 실패: [Errno 2] No such file or directory: '../data/raw/train.csv'
+2025-09-07 09:57:19 | 🔬 Trial 3: {'lr': 3.892774442433524e-05, 'batch_size': 128, 'weight_decay': 0.06830473267247686, 'dropout': 0.13144418164171814}
+2025-09-07 09:57:19 | ❌ Trial 3 실패: [Errno 2] No such file or directory: '../data/raw/train.csv'
+2025-09-07 09:57:19 | 🔬 Trial 4: {'lr': 7.785797521863647e-05, 'batch_size': 32, 'weight_decay': 0.015680043242441422, 'dropout': 0.09189029036446635}
+2025-09-07 09:57:19 | ❌ Trial 4 실패: [Errno 2] No such file or directory: '../data/raw/train.csv'
+2025-09-07 09:57:19 | ⏱️ 최적화 완료: 0.0초 소요
+2025-09-07 09:57:19 | 💾 최적 설정 저장: experiments/optimization/best_params_20250907_0957.yaml

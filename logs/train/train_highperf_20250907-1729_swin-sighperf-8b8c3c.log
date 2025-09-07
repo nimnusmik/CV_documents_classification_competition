@@ -1,0 +1,5 @@
+2025-09-07 17:29:51 | [BOOT] high-performance training pipeline started
+2025-09-07 17:29:51 | [BOOT] device=cuda
+2025-09-07 17:29:51 | [ERROR] Training failed: 필수 파일이 없습니다: /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/configs/data/raw/train.csv (cwd=/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN)
+힌트: train_csv 확인
+2025-09-07 17:29:51 | [SHUTDOWN] Training pipeline ended
