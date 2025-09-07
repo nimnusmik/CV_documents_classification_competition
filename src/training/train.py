@@ -1,5 +1,6 @@
 # ------------------------- 표준 라이브러리 ------------------------- #
 import os, time, numpy as np, torch, torch.nn as nn, pandas as pd, psutil
+import shutil                                                       # 파일/폴더 복사 유틸
 # os       : 파일/디렉터리 경로, 시스템 유틸
 # time     : 시간 측정, 로깅
 # numpy    : 수치 계산, 배열 연산
@@ -7,6 +8,7 @@ import os, time, numpy as np, torch, torch.nn as nn, pandas as pd, psutil
 # torch.nn : 신경망 계층/손실 함수 모듈
 # pandas   : 데이터프레임 처리
 # psutil   : 시스템 메모리 사용량 추적
+# shutil   : 파일/폴더 복사, 이동
 
 # ------------------------- PyTorch 유틸 ------------------------- #
 from torch.utils.data import DataLoader                             # 데이터 로더
@@ -628,6 +630,25 @@ def run_training(cfg_path: str):
                     logger.write(f"[OOF][WARN] save failed: {e}")
             # 전체 폴드 학습 종료 로그 출력
             logger.write(f"[DONE] all-fold training finished")
+            
+            # ---------------------- latest-train 폴더에 복사 ---------------------- #
+            # latest-train 폴더 경로 설정
+            latest_train_dir = os.path.join("experiments", "train", "latest-train")
+            experiment_folder_name = os.path.basename(exp_root)  # 실험 폴더명 추출
+            latest_train_model_path = os.path.join(latest_train_dir, experiment_folder_name)
+            
+            # latest-train 디렉터리 생성
+            os.makedirs(latest_train_dir, exist_ok=True)
+            
+            # 기존 모델 폴더가 있으면 삭제 (덮어쓰기를 위해)
+            if os.path.exists(latest_train_model_path):
+                shutil.rmtree(latest_train_model_path)
+                logger.write(f"[CLEANUP] Removed existing latest-train/{experiment_folder_name}")
+            
+            # 현재 실험 결과를 latest-train으로 복사
+            shutil.copytree(exp_root, latest_train_model_path)
+            logger.write(f"[COPY] Results copied to latest-train/{experiment_folder_name}")
+            logger.write(f"📁 Latest results: {latest_train_model_path}")
 
 
         # ---------------------- 잘못된 valid_fold 값 ---------------------- #
