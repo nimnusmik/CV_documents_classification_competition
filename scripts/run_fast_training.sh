@@ -17,7 +17,7 @@ python src/training/train_main.py \
     --config configs/train_fast_optimized.yaml \
     --optimize \
     --optuna-config configs/optuna_fast_config.yaml \
-    --n-trials 8 \
+    --n-trials 5 \
     --mode full-pipeline \
     --auto-continue
 

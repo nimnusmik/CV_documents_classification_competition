@@ -1,6 +1,6 @@
 # ----------------------------- 고성능 추론 메타 설정 ----------------------------- #
 project:
-  run_name: swin-ensemble-inference                   # 실행(run) 이름 (고성능 앙상블 추론)
+  run_name: swin-highperf-inference                 # 실행(run) 이름 (고성능 앙상블 추론)
   device: "cuda"                                      # 실행 디바이스 ("cuda" 가능 시 GPU, 아니면 CPU)
   num_workers: 4                                      # DataLoader 병렬 로딩 워커 수
   date_format: "%Y%m%d"                               # 날짜 포맷 (예: 20250904)
@@ -8,9 +8,9 @@ project:
 
 # ------------------------------ 앙상블 설정 (고성능용) --------------------------- #
 ensemble:
-  fold_results_path: "../../experiments/train/latest-train/fold_results.yaml"  # 앙상블용 폴드 결과
+  fold_results_path: "./experiments/train/lastest-train/swin-sighperf/fold_results.yaml"  # 폴드별 결과 파일 경로
   use_tta: true                                       # Test-Time Augmentation 사용 (고성능)
-  num_tta: 5                                          # TTA 횟수 (5회 반복으로 정확도 향상)
+  num_tta: 5                                          # TTA 횟수
 
 # ------------------------------- 데이터 설정 ------------------------------ #
 data:
@@ -32,7 +32,7 @@ model:
 # ------------------------- 추론 시 필요한 학습 설정 (고성능) ------------------------- #
 train:
   img_size: 384                                       # 학습 때 쓴 값과 동일해야 함 (Swin Transformer 최적 크기)
-  batch_size: 32                                      # 고성능 추론용 배치 크기 (메모리 사용량 고려)
+  batch_size: 64                                      # 고성능 추론용 배치 크기 (메모리 사용량 고려)
 
 # ------------------------------ 고성능 추론/제출 설정 ---------------------------- #
 inference:

@@ -5,8 +5,8 @@
 echo "🚀 Starting High-Performance Training Pipeline"
 echo "==============================================="
 
-# 프로젝트 루트로 이동
-cd "$(dirname "$0")"
+# 프로젝트 루트로 이동 (스크립트가 scripts/ 폴더에 있으므로 상위로)
+cd "$(dirname "$0")/.."
 
 # Python 환경 활성화 (필요시)
 # source venv/bin/activate
@@ -25,8 +25,8 @@ echo "- 5-Fold Cross Validation"
 echo ""
 echo "🏃‍♂️ 학습 시작..."
 
-# 고성능 학습 실행
-python src/training/train_main.py --config configs/train_highperf.yaml --mode highperf
+# 고성능 학습 실행 (full-pipeline 모드 사용)
+python src/training/train_main.py --config configs/train_highperf.yaml --mode full-pipeline
 
 echo ""
 echo "✅ 학습 완료! 결과는 experiments/train/ 폴더에서 확인하세요."

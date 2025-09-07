@@ -21,12 +21,13 @@ data:
   id_col: ID                                    # ID 컬럼명
   target_col: target                            # 타겟 컬럼명
   num_classes: 17                               # 클래스 수 (0~16)
-  num_folds: 3                                  # K-폴드 개수 (5 → 3으로 단축)
+  folds: 3                                      # K-폴드 개수 (5 → 3으로 단축)
+  valid_fold: all                               # 검증 폴드 (전체 폴드 학습)
 
 # ------------------------------- 학습 설정 ------------------------------- #
 train:
-  img_size: 224                                 # 이미지 크기 (384 → 224로 축소, 더 빠른 학습)
-  batch_size: 64                                # 배치 크기 (큰 배치로 빠른 학습)
+  img_size: 384                                 # 이미지 크기 (swin_base_384에 맞춤)
+  batch_size: 64                                # 배치 크기 (384 이미지에 맞춰 조정)
   use_advanced_augmentation: true               # 기본 증강으로 더 빠른 처리
   epochs: 5                                     # 학습 에포크 수 (짧게 설정)
   lr: 0.0002                                    # 학습률 (조금 높게 설정)
@@ -43,7 +44,7 @@ train:
 
 # ------------------------------- 모델 설정 ------------------------------- #
 model:
-  name: swin_base_224                           # 모델 아키텍처 (224 이미지용)
+  name: swin_base_384                           # 모델 아키텍처 (지원되는 모델로 변경)
   pretrained: true                              # 사전학습 가중치 사용
   drop_rate: 0.1                                # 드롭아웃 비율
   drop_path_rate: 0.1                           # 드롭패스 비율 (Stochastic Depth)
