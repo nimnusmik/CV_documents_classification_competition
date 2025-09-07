@@ -36,6 +36,21 @@ def main():
     ap.add_argument("--skip-training", action="store_true",                                 # 학습 스킵 플래그
                    help="Skip training and run inference only (full-pipeline mode)")        # 스킵 도움말
     
+    # Optuna 최적화 옵션 추가
+    ap.add_argument("--optimize", action="store_true",                                      # 하이퍼파라미터 최적화 플래그
+                   help="Run hyperparameter optimization using Optuna")                     # 최적화 도움말
+    
+    ap.add_argument("--n-trials", type=int, default=20,                                     # Optuna 시도 횟수
+                   help="Number of optimization trials for Optuna (default: 20)")          # 시도 횟수 도움말
+    
+    # 캘리브레이션 옵션 추가
+    ap.add_argument("--use-calibration", action="store_true",                               # Temperature Scaling 사용 플래그
+                   help="Use Temperature Scaling calibration for inference")                # 캘리브레이션 도움말
+    
+    # 자동 진행 옵션 추가
+    ap.add_argument("--auto-continue", action="store_true",                                 # 자동 진행 플래그
+                   help="Automatically continue with full training after optimization")     # 자동 진행 도움말
+    
     # CLI 인자 파싱 실행
     args = ap.parse_args()
 
@@ -45,16 +60,70 @@ def main():
         print(f"🚀 Starting training pipeline...")  # 파이프라인 시작 메시지
         print(f"📋 Config: {args.config}")          # 설정 파일 경로 출력
         print(f"🎯 Mode: {args.mode}")              # 실행 모드 출력
+        
+        # 추가 옵션 출력
+        if args.optimize:
+            print(f"🔍 Optuna optimization: {args.n_trials} trials")  # 최적화 설정 출력
+        if args.use_calibration:
+            print(f"🌡️ Temperature Scaling calibration enabled")      # 캘리브레이션 설정 출력
+            
         print("=" * 50)                             # 구분선 출력
         
         #------------------- 실행 모드별 분기 처리 -------------------#
+        # Optuna 최적화가 요청된 경우
+        if args.optimize:
+            print("🔍 Running HYPERPARAMETER OPTIMIZATION with Optuna")                  # 최적화 모드 안내
+            print(f"🎯 Target trials: {args.n_trials}")                                  # 시도 횟수 안내
+            
+            # Optuna 최적화 실행
+            try:
+                from src.optimization import run_hyperparameter_optimization
+                optimized_config_path = run_hyperparameter_optimization(
+                    args.config, 
+                    n_trials=args.n_trials
+                )
+                
+                print(f"🎉 Optimization completed! Best config: {optimized_config_path}")
+                
+                # 최적화된 설정으로 실제 학습 실행 여부 확인
+                if args.auto_continue:
+                    print("🚀 Auto-continuing with full training (--auto-continue enabled)")
+                    continue_training = "y"
+                else:
+                    continue_training = input("📚 Continue with full training using optimized parameters? (y/N): ")
+                    
+                if continue_training.lower() in ['y', 'yes']:
+                    if args.mode == "highperf":
+                        run_highperf_training(optimized_config_path)
+                    elif args.mode == "full-pipeline":
+                        result = run_full_pipeline(optimized_config_path, skip_training=args.skip_training)
+                        print(f"📄 Final submission: {result}")
+                    else:
+                        run_training(optimized_config_path)
+                
+            except ImportError:
+                print("❌ Optuna가 설치되지 않았습니다.")
+                print("📥 설치 명령어: pip install optuna")
+                sys.exit(1)
+            except Exception as e:
+                print(f"❌ Optimization failed: {e}")
+                sys.exit(1)
+        
         # 통합 파이프라인 모드인 경우
-        if args.mode == "full-pipeline":
+        elif args.mode == "full-pipeline":
             print("🎯 Running FULL PIPELINE (Training + Inference)")                    # 모드 안내 메시지
             print("🏆 Target: F1 ~0.934 with automatic submission file generation")     # 목표 성능 안내
             
-            # 통합 파이프라인 실행
-            result = run_full_pipeline(args.config, skip_training=args.skip_training)
+            # 캘리브레이션 사용 여부에 따른 파이프라인 선택
+            if args.use_calibration:
+                print("🌡️ Using Temperature Scaling calibration")                       # 캘리브레이션 사용 안내
+                # TODO: 캘리브레이션 파이프라인 구현 필요
+                # result = run_full_pipeline_with_calibration(args.config, skip_training=args.skip_training)
+                result = run_full_pipeline(args.config, skip_training=args.skip_training)  # 임시로 기본 파이프라인 사용
+                print("⚠️ Note: Calibration integration is in development")              # 개발 중 안내
+            else:
+                # 통합 파이프라인 실행
+                result = run_full_pipeline(args.config, skip_training=args.skip_training)
             
             # 파이프라인 완료 메시지 출력
             print(f"\n🎉 PIPELINE COMPLETED!")                                          # 완료 메시지

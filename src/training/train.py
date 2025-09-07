@@ -41,8 +41,12 @@ from src.metrics.f1 import macro_f1_from_logits                     # 매크로 
 def _make_run_dirs(cfg, run_id, logger):
     # 날짜 문자열 포맷팅 (예: 20250101)
     day = time.strftime(cfg["project"]["date_format"])
+    # 시간 문자열 포맷팅 (예: 1530)
+    time_str = time.strftime(cfg["project"]["time_format"])
+    # 타임스탬프 포함된 폴더명 생성 (예: swin-highperf_20250907_1530)
+    folder_name = f"{cfg['project']['run_name']}_{day}_{time_str}"
     # 실험 루트 디렉터리 생성
-    exp_root = ensure_dir(os.path.join(cfg["output"]["exp_dir"], day, cfg["project"]["run_name"]))
+    exp_root = ensure_dir(os.path.join(cfg["output"]["exp_dir"], day, folder_name))
     # 체크포인트 저장 디렉터리 생성
     ckpt_dir = ensure_dir(os.path.join(exp_root, "ckpt"))
     # 메트릭 기록 파일 경로
@@ -64,8 +68,9 @@ def _make_run_dirs(cfg, run_id, logger):
 def _make_logger(cfg, run_id):
     # 로그 디렉터리 생성
     logs_dir = ensure_dir(cfg["output"]["logs_dir"])
-    # 로그 파일명 생성
-    log_name = f"train_{time.strftime('%Y%m%d-%H%M')}_{cfg['project']['run_name']}.log"
+    # 증강 타입에 따른 로그 파일명 생성
+    aug_type = "advanced_augmentation" if cfg["train"].get("use_advanced_augmentation", False) else "basic_augmentation"
+    log_name = f"train_{time.strftime('%Y%m%d-%H%M')}_{cfg['project']['run_name']}_{aug_type}.log"
     # 로그 파일 전체 경로
     log_path = os.path.join(logs_dir, log_name)
     # Logger 객체 생성

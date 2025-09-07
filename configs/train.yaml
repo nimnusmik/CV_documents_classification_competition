@@ -11,11 +11,11 @@ project:
 
 # ------------------------------- 데이터 설정 ------------------------------ #
 data:
-  root: "../data"                                   # 데이터 루트 디렉토리 (프로젝트 기준)
-  train_csv: "../data/raw/train.csv"                # 학습용 CSV 경로
-  sample_csv: "../data/raw/sample_submission.csv"   # 제출용 샘플 CSV 경로
-  image_dir_train: "../data/raw/train"              # 학습 이미지 디렉토리
-  image_dir_test:  "../data/raw/test"               # 테스트/추론 이미지 디렉토리
+  root: "./data"                                    # 데이터 루트 디렉토리 (프로젝트 기준)
+  train_csv: "./data/raw/train.csv"                 # 학습용 CSV 경로
+  sample_csv: "./data/raw/sample_submission.csv"    # 제출용 샘플 CSV 경로
+  image_dir_train: "./data/raw/train"               # 학습 이미지 디렉토리
+  image_dir_test:  "./data/raw/test"                # 테스트/추론 이미지 디렉토리
   image_ext: ".jpg"                                 # 이미지 확장자 (jpg 기본, 필요시 png 변경)
   id_col: "ID"                                      # ID 컬럼 이름
   target_col: "target"                              # 타깃 컬럼 이름
@@ -28,6 +28,7 @@ data:
 train:
   img_size: 384                                     # 입력 이미지 크기 (한 변)
   batch_size: 64                                    # 배치 크기
+  use_advanced_augmentation: false                  # 고급 증강 기법 사용 여부 (transform.py true: build_advanced_train_tfms / false: build_train_tfms)
   epochs: 10                                        # 학습 epoch 수
   lr: 0.001                                         # 학습률
   weight_decay: 0.0                                 # weight decay (정규화)
@@ -36,7 +37,6 @@ train:
   amp: true                                         # 자동 혼합정밀(AMP) 사용 여부
   grad_clip_norm: 1.0                               # gradient clipping 최대 norm 값
   label_smoothing: 0.0                              # 라벨 스무딩 비율 (0=비활성)
-  use_advanced_augmentation: false                  # 고급 증강 기법 사용 여부 (베이스라인 기반)
 
 # ------------------------------- 모델 설정 -------------------------------- #
 model:
@@ -48,7 +48,7 @@ model:
 
 # ------------------------------- 출력/저장 설정 ---------------------------- #
 output:
-  log_dir: "logs/train"                             # 로그 저장 디렉토리
+  logs_dir: "logs/train"                            # 로그 저장 디렉토리
   exp_dir: "experiments/train"                      # 실험 결과(모델/메트릭) 저장 루트
   snapshots: true                                   # config 스냅샷 저장 여부
 

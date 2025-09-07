@@ -1,0 +1,91 @@
+# Optuna 하이퍼파라미터 최적화 설정
+# configs/optuna_config.yaml
+
+# ------------------------- Optuna 최적화 설정 ------------------------- #
+optuna:
+  # 기본 최적화 설정
+  enabled: true                           # Optuna 사용 여부
+  n_trials: 20                            # 최적화 시도 횟수
+  timeout: 3600                           # 최대 시간 (초, 1시간)
+  study_name: "doc-classification-optuna" # 스터디 이름
+  direction: "maximize"                   # 최적화 방향 (F1 점수 최대화)
+  
+  # 조기 중단 설정 (성능이 안 좋은 trial 빠르게 중단)
+  pruning:
+    enabled: true                         # Pruning 사용 여부
+    patience: 5                           # 조기 중단 patience
+    n_startup_trials: 10                  # 초기 랜덤 탐색 횟수
+  
+  # 빠른 검증 설정 (Optuna 평가용)
+  quick_validation:
+    epochs: 5                             # 빠른 검증용 짧은 epoch
+    folds: 5                              # 5-fold CV로 빠른 평가
+    batch_size_override: 64               # 빠른 검증용 고정 배치 크기
+
+# ------------------------- 탐색할 하이퍼파라미터 범위 ------------------------- #
+search_space:
+  # 학습률 (로그 스케일 탐색)
+  learning_rate:
+    type: "loguniform"                    # 로그 균등 분포
+    low: 1.0e-5                           # 최소값: 0.00001
+    high: 1.0e-2                          # 최대값: 0.01
+    
+  # 배치 크기 (카테고리 선택)
+  batch_size:
+    type: "categorical"                   # 카테고리 선택
+    choices: [16, 32, 64, 128]            # 선택 가능한 배치 크기
+    
+  # Weight Decay (L2 정규화)
+  weight_decay:
+    type: "uniform"                       # 균등 분포
+    low: 0.0                              # 최소값: 0.0
+    high: 0.1                             # 최대값: 0.1
+    
+  # Dropout 비율
+  dropout:
+    type: "uniform"                       # 균등 분포
+    low: 0.0                              # 최소값: 0.0 (dropout 없음)
+    high: 0.3                             # 최대값: 0.3
+    
+  # 추가 탐색 파라미터 (선택적)
+  advanced_params:
+    # 라벨 스무딩
+    label_smoothing:
+      type: "uniform"
+      low: 0.0
+      high: 0.2
+    
+    # 그래디언트 클리핑
+    grad_clip_norm:
+      type: "uniform" 
+      low: 0.5
+      high: 2.0
+
+# ------------------------- WandB 통합 (선택적) ------------------------- #
+wandb_integration:
+  enabled: false                          # WandB 로깅 사용 여부
+  project_name: "doc-classification-optuna"  # WandB 프로젝트명
+  entity: null                            # WandB 엔티티
+  tags:                                   # 실험 태그
+    - "optuna"
+    - "hyperparameter-optimization"
+    - "auto-tuning"
+
+# ------------------------- 결과 저장 설정 ------------------------- #
+output:
+  # 최적화 결과 저장 경로
+  results_dir: "experiments/optimization" # 결과 저장 디렉터리
+  save_study: true                        # Optuna study 객체 저장 여부
+  save_trials_csv: true                   # 모든 trial 결과를 CSV로 저장
+  
+  # 최적 설정 파일 생성
+  optimized_config:
+    save: true                            # 최적화된 설정 파일 저장 여부
+    template: "configs/train_highperf.yaml"  # 기본 템플릿 설정 파일
+    output_name: "train_optimized_{timestamp}.yaml"  # 출력 파일명 패턴
+
+# ------------------------- 성능 튜닝 팁 ------------------------- #
+# 1. n_trials를 20-50으로 설정하면 보통 좋은 결과를 얻을 수 있습니다
+# 2. timeout을 설정하여 최대 실행 시간을 제한할 수 있습니다  
+# 3. quick_validation의 epochs를 줄이면 더 빠른 탐색이 가능합니다
+# 4. search_space에서 불필요한 파라미터는 주석 처리하여 탐색 공간을 줄일 수 있습니다

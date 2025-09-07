@@ -263,12 +263,17 @@ def run_highperf_training(cfg_path: str):
     
     #------------------------- 실험 디렉터리 및 로거 설정 ---------------------- #
     day = time.strftime(cfg["project"]["date_format"])      # 현재 날짜 문자열
-    exp_root = ensure_dir(os.path.join(cfg["output"]["exp_dir"], day, cfg["project"]["run_name"]))  # 실험 루트 디렉터리
+    time_str = time.strftime(cfg["project"]["time_format"]) # 현재 시간 문자열
+    # 타임스탬프 포함된 폴더명 생성 (예: swin-highperf_20250907_1530)
+    folder_name = f"{cfg['project']['run_name']}_{day}_{time_str}"
+    exp_root = ensure_dir(os.path.join(cfg["output"]["exp_dir"], day, folder_name))  # 실험 루트 디렉터리
     ckpt_dir = ensure_dir(os.path.join(exp_root, "ckpt"))   # 체크포인트 디렉터리
     
     #------------------------- 설정 파일 백업 ------------------------- #
-    log_dir = ensure_dir(cfg["output"]["log_dir"])          # 로그 디렉터리 확인/생성
-    log_filename = f'{cfg["project"]["log_prefix"]}_{day}-{time.strftime("%H%M")}_{run_id}.log'  # 로그 파일명 생성
+    log_dir = ensure_dir(cfg["output"]["logs_dir"])         # 로그 디렉터리 확인/생성
+    # 증강 타입에 따른 로그 파일명 생성
+    aug_type = "advanced_augmentation" if cfg["train"].get("use_advanced_augmentation", False) else "basic_augmentation"
+    log_filename = f'{cfg["project"]["log_prefix"]}_{day}-{time.strftime("%H%M")}_{run_id}_{aug_type}.log'  # 로그 파일명 생성
     log_path = os.path.join(log_dir, log_filename)          # 로그 파일 전체 경로
     
     # 로거 객체 생성

@@ -110,14 +110,34 @@ def run_inference(cfg_path: str, out: str|None=None, ckpt: str|None=None):
 
         # ckpt 인자가 없는 경우 (기본 best_fold0.pth 사용)
         else:
-            # 학습 결과(exp_dir/날짜/run_name/ckpt/best_fold0.pth) 경로 구성
-            ckpt_path = resolve_path(cfg_dir, os.path.join(
+            # 학습 결과 디렉터리 패턴 검색
+            import glob
+            day = time.strftime(cfg["project"]["date_format"])      # 날짜 문자열
+            run_name = cfg['project']['run_name']                   # 실행 이름
+            
+            # 패턴: exp_dir/날짜/run_name_날짜_시간/ckpt/best_fold0.pth
+            pattern = resolve_path(cfg_dir, os.path.join(
                 cfg["output"]["exp_dir"],                           # 실험 결과 루트 디렉터리
-                time.strftime(cfg["project"]["date_format"]),       # 날짜 형식에 맞춘 하위 폴더
-                f"{cfg['project']['run_name']}",                    # 실행 이름(run_name) 폴더
+                day,                                                # 날짜 폴더
+                f"{run_name}_{day}_*",                             # run_name_날짜_시간 패턴
                 "ckpt",                                             # 체크포인트 저장 디렉터리
                 "best_fold0.pth"                                    # 기본 체크포인트 파일명
             ))
+            
+            # 패턴에 맞는 파일 검색
+            matching_files = glob.glob(pattern)
+            if matching_files:
+                # 가장 최근 파일 선택 (시간순 정렬)
+                ckpt_path = sorted(matching_files)[-1]
+            else:
+                # 패턴 매칭 실패 시 기존 방식으로 fallback
+                ckpt_path = resolve_path(cfg_dir, os.path.join(
+                    cfg["output"]["exp_dir"],                       # 실험 결과 루트 디렉터리
+                    day,                                            # 날짜 형식에 맞춘 하위 폴더
+                    f"{run_name}",                                  # 실행 이름(run_name) 폴더 (기존 방식)
+                    "ckpt",                                         # 체크포인트 저장 디렉터리
+                    "best_fold0.pth"                                # 기본 체크포인트 파일명
+                ))
             
         # ckpt 존재 확인
         require_file(ckpt_path, "--ckpt로 직접 지정하거나 학습 결과 경로 확인")

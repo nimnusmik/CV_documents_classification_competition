@@ -55,7 +55,16 @@ def resolve_path(base_dir: str, p: str) -> str:
     config 파일이 있는 디렉토리를 기준으로
     상대경로를 절대경로로 변환
     """
-    return p if os.path.isabs(p) else os.path.normpath(os.path.join(base_dir, p))
+    if os.path.isabs(p):
+        return p
+    
+    # ./로 시작하는 경우 프로젝트 루트 기준으로 처리
+    if p.startswith('./'):
+        # 현재 작업 디렉토리(프로젝트 루트) 기준
+        return os.path.normpath(os.path.join(os.getcwd(), p[2:]))
+    
+    # 기존 로직: config 디렉토리 기준
+    return os.path.normpath(os.path.join(base_dir, p))
 
 
 # ---------------------- 파일 필수 확인 ---------------------- #
