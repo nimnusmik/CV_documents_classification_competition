@@ -287,7 +287,7 @@ experiments/optimization/
 ├── best_params_20250907_1530.yaml           # 최적 파라미터만 따로
 ├── optuna_study_20250907_1530.pkl          # Optuna study 객체 (재분석용)
 └── trials_results_20250907_1530.csv        # 모든 trial 결과 CSV
-logs/optimization/
+logs/$(date +%Y%m%d)/optimization/
 └── optuna_20250907_1530.log                # 상세 최적화 로그
 ```
 

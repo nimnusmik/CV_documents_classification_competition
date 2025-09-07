@@ -40,7 +40,7 @@ python src/training/train_main.py --config configs/train_highperf.yaml --optimiz
 # 최적화 완료 후 생성되는 파일들:
 # - configs/train_optimized_YYYYMMDD_HHMM.yaml  (최적 설정)
 # - experiments/optimization/best_params_*.yaml  (최적 파라미터)
-# - logs/optimization/optuna_*.log               (최적화 로그)
+# - logs/YYYYMMDD/optimization/optuna_*.log    (최적화 로그)
 ```
 
 ### 🌡️ 3. Temperature Scaling 캘리브레이션
@@ -164,5 +164,5 @@ python src/training/train_main.py --config configs/train_optimized_*.yaml --mode
 - `src/calibration/` - Temperature Scaling 캘리브레이션 모듈  
 - `src/inference/infer_calibrated.py` - 캘리브레이션 적용 추론
 - `configs/optuna_config.yaml` - Optuna 설정
-- `logs/optimization/` - 최적화 로그
+- `logs/YYYYMMDD/optimization/` - 최적화 로그 (날짜별 분류)
 - `experiments/optimization/` - 최적화 결과
