@@ -148,13 +148,13 @@ def run_full_pipeline(config_path: str, skip_training: bool = False, output_dir:
 def main():
     import argparse # 명령행 인자 파싱 모듈
     
-    parser = argparse.ArgumentParser(description="Full Pipeline (Training + Inference)")    # 인자 파서 생성
+    parser = argparse.ArgumentParser(description="전체 파이프라인 (학습 + 추론)")    # 인자 파서 생성
     parser.add_argument("--config", type=str, required=True,                                # 설정 파일 인자 추가
-                       help="Path to config YAML file")                                     # 설정 파일 경로 도움말
+                       help="설정 YAML 파일 경로")                                     # 설정 파일 경로 도움말
     parser.add_argument("--skip-training", action="store_true",                             # 학습 건너뛰기 인자 추가
-                       help="Skip training and run inference only")                         # 학습 건너뛰기 도움말
+                       help="학습을 건너뛰고 추론만 실행")                         # 학습 건너뛰기 도움말
     parser.add_argument("--output-dir", type=str, default=None,                             # 출력 디렉터리 인자 추가
-                       help="Output directory for submission file")                         # 출력 디렉터리 도움말
+                       help="제출 파일을 위한 출력 디렉터리")                         # 출력 디렉터리 도움말
     
     args = parser.parse_args()  # 인자 파싱
     

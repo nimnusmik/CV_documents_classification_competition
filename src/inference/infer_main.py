@@ -12,19 +12,19 @@ from src.inference.infer_highperf import run_highperf_inference     # 고성능 
 # ---------------------- 메인 함수 ---------------------- #
 def main():
     # ArgumentParser 객체 생성
-    ap = argparse.ArgumentParser(description="Document Classification Inference Pipeline")  # 인자 파서 생성
+    ap = argparse.ArgumentParser(description="문서 분류 추론 파이프라인")  # 인자 파서 생성
     # 필수 config 인자 추가 (실행에 반드시 필요)
-    ap.add_argument("--config", type=str, required=True, help="Path to config YAML file")   # 설정 파일 인자
+    ap.add_argument("--config", type=str, required=True, help="설정 YAML 파일 경로")   # 설정 파일 인자
     # 출력 경로 지정 (옵션, 없으면 기본 경로 사용)
-    ap.add_argument("--out", type=str, default=None, help="Output CSV path")                # 출력 파일 경로 인자
+    ap.add_argument("--out", type=str, default=None, help="출력 CSV 파일 경로")                # 출력 파일 경로 인자
     # 체크포인트 경로 지정 (옵션, 없으면 config 기반 기본값 사용)
-    ap.add_argument("--ckpt", type=str, default=None, help="Model checkpoint path")         # 모델 체크포인트 인자
+    ap.add_argument("--ckpt", type=str, default=None, help="모델 체크포인트 파일 경로")         # 모델 체크포인트 인자
     # 모드 선택 추가
     ap.add_argument("--mode", type=str, choices=["basic", "highperf"], default="highperf",  # 추론 모드 선택 인자
-                   help="Inference mode: basic (single model) or highperf (ensemble + TTA)")
+                   help="추론 모드: basic (단일 모델) 또는 highperf (앙상블 + TTA)")
     # 고성능 모드용 fold_results 경로
     ap.add_argument("--fold-results", type=str, default=None,                               # 폴드 결과 파일 인자
-                   help="Path to fold_results.yaml (required for highperf mode)")
+                   help="fold_results.yaml 파일 경로 (고성능 모드에서 필수)")
     # CLI 인자 파싱
     args = ap.parse_args()  # 명령행 인자 파싱
 

@@ -20,36 +20,40 @@ from src.pipeline.full_pipeline import run_full_pipeline   # 통합 파이프라
 def main():
     """CLI 인자를 파싱하고 선택된 모드에 따라 학습 파이프라인을 실행"""
     # ArgumentParser 객체 생성
-    ap = argparse.ArgumentParser(description="Document Classification Training Pipeline")   # CLI 인자 파서 생성
+    ap = argparse.ArgumentParser(description="문서 분류 학습 파이프라인")   # CLI 인자 파서 생성
     
     # 필수 설정 파일 인자 추가
     ap.add_argument("--config", type=str, required=True,                                    # 설정 파일 경로 (필수)
-                   help="Path to training config YAML file")                                # 설정 파일 도움말
+                   help="학습 설정 YAML 파일 경로")                                # 설정 파일 도움말
     
     # 실행 모드 선택 인자 추가
     ap.add_argument("--mode", type=str,                                                     # 실행 모드 선택
                    choices=["basic", "highperf", "full-pipeline"],                          # 선택지 지정
                    default="full-pipeline",                                                 # 기본값 설정
-                   help="Execution mode: basic (original), highperf (training only), full-pipeline (train+inference)")  # 모드 도움말
+                   help="실행 모드: basic (기본), highperf (학습만), full-pipeline (학습+추론)")  # 모드 도움말
     
     # 학습 스킵 옵션 추가 (full-pipeline 모드 전용)
     ap.add_argument("--skip-training", action="store_true",                                 # 학습 스킵 플래그
-                   help="Skip training and run inference only (full-pipeline mode)")        # 스킵 도움말
+                   help="학습을 건너뛰고 추론만 실행 (full-pipeline 모드에서)")        # 스킵 도움말
     
     # Optuna 최적화 옵션 추가
     ap.add_argument("--optimize", action="store_true",                                      # 하이퍼파라미터 최적화 플래그
-                   help="Run hyperparameter optimization using Optuna")                     # 최적화 도움말
+                   help="Optuna를 사용한 하이퍼파라미터 최적화 실행")                     # 최적화 도움말
     
     ap.add_argument("--n-trials", type=int, default=20,                                     # Optuna 시도 횟수
-                   help="Number of optimization trials for Optuna (default: 20)")          # 시도 횟수 도움말
+                   help="Optuna 최적화 시도 횟수 (기본값: 20)")          # 시도 횟수 도움말
+    
+    # Optuna 설정 파일 옵션 추가
+    ap.add_argument("--optuna-config", type=str,                                            # Optuna 설정 파일 경로
+                   help="Optuna 설정 YAML 파일 경로 (선택사항)")               # Optuna 설정 파일 도움말
     
     # 캘리브레이션 옵션 추가
     ap.add_argument("--use-calibration", action="store_true",                               # Temperature Scaling 사용 플래그
-                   help="Use Temperature Scaling calibration for inference")                # 캘리브레이션 도움말
+                   help="추론 시 Temperature Scaling 캘리브레이션 사용")                # 캘리브레이션 도움말
     
     # 자동 진행 옵션 추가
     ap.add_argument("--auto-continue", action="store_true",                                 # 자동 진행 플래그
-                   help="Automatically continue with full training after optimization")     # 자동 진행 도움말
+                   help="최적화 후 자동으로 전체 학습 진행")     # 자동 진행 도움말
     
     # CLI 인자 파싱 실행
     args = ap.parse_args()
@@ -64,6 +68,8 @@ def main():
         # 추가 옵션 출력
         if args.optimize:
             print(f"🔍 Optuna optimization: {args.n_trials} trials")  # 최적화 설정 출력
+            if args.optuna_config:
+                print(f"⚙️ Optuna config: {args.optuna_config}")      # Optuna 설정 파일 출력
         if args.use_calibration:
             print(f"🌡️ Temperature Scaling calibration enabled")      # 캘리브레이션 설정 출력
             
@@ -78,6 +84,9 @@ def main():
             # Optuna 최적화 실행
             try:
                 from src.optimization import run_hyperparameter_optimization
+                
+                # 현재 run_hyperparameter_optimization 함수는 optuna_config 파라미터를 지원하지 않음
+                # TODO: optuna_config 지원 추가 필요
                 optimized_config_path = run_hyperparameter_optimization(
                     args.config, 
                     n_trials=args.n_trials
