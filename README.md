@@ -62,7 +62,58 @@ python src/pipeline/full_pipeline.py --config configs/train_highperf.yaml
 # ✨ 완료! submissions/ 폴더에서 제출 파일 확인
 ```
 
-### 📋 시스템 요구사항
+## 🛠️ Scripts Management
+
+### 📁 scripts/ 폴더 구조
+프로젝트 관리를 위한 실행 스크립트들이 `scripts/` 폴더에 정리되어 있습니다:
+
+```bash
+scripts/
+├── monitor_training.sh      # 학습 진행 상황 실시간 모니터링
+├── run_fast_training.sh     # 빠른 최적화 실행 (20-30분)
+├── run_highperf_training.sh # 고성능 학습 실행 (1-2시간)
+└── update_inference_date.sh # 추론 날짜 업데이트
+```
+
+### 🔍 주요 스크립트 사용법
+
+#### 학습 모니터링
+```bash
+# 현재 실행 중인 학습 프로세스 확인
+./scripts/monitor_training.sh
+
+# 출력 예시:
+# 📊 실행 중인 학습 프로세스:
+#   PID: 1596670 | CPU: 102% | MEM: 7.9% | TIME: 385:42
+# 📝 최신 로그: [EPOCH 7][TRAIN step 1/20] loss=0.27779
+```
+
+#### 빠른 학습 실행
+```bash
+# 20-30분 내 빠른 결과 (경진대회용)
+./scripts/run_fast_training.sh
+
+# 특징: epochs=6, batch_size=64, n_trials=8
+```
+
+#### 고성능 학습 실행
+```bash
+# 1-2시간 고품질 결과 (최종 제출용)
+./scripts/run_highperf_training.sh
+
+# 특징: epochs=15, 고급 증강, 완전 최적화
+```
+
+### � 상세 가이드 문서
+각 스크립트에 대한 자세한 사용법과 최적화 팁은 다음 문서를 참조하세요:
+
+- 📊 **[monitor_training 가이드](docs/scripts/monitor_training_가이드.md)** - 실시간 모니터링 및 문제 해결
+- ⚡ **[run_fast_training 가이드](docs/scripts/run_fast_training_가이드.md)** - 빠른 실험 및 프로토타이핑  
+- 🏆 **[run_highperf_training 가이드](docs/scripts/run_highperf_training_가이드.md)** - 고성능 최종 제출용 학습
+- 🔄 **[update_inference_date 가이드](docs/scripts/update_inference_date_가이드.md)** - 추론 설정 자동 업데이트
+- 📁 **[Scripts 종합 가이드](docs/scripts/README.md)** - 전체 워크플로우 및 최적화
+
+### �📋 시스템 요구사항
 - **Python**: 3.11.9 (pyenv 가상환경 필수)
 - **GPU**: CUDA-compatible (GTX 1660 이상 권장)
 - **Memory**: 8GB+ RAM, 6GB+ VRAM
@@ -119,7 +170,17 @@ python src/pipeline/full_pipeline.py --config configs/train_highperf.yaml
 ├── 📁 configs/                                     # 설정 관리
 │   ├── train.yaml                                  # 기본 학습 설정 (EfficientNet)
 │   ├── train_highperf.yaml                         # 고성능 설정 (Swin Transformer)
-│   └── infer.yaml                                  # 추론 설정
+│   ├── train_fast_optimized.yaml                   # 빠른 실험 설정 (20-30분)
+│   ├── train_optimized_20250907_1825.yaml          # 사전 최적화된 설정
+│   ├── infer.yaml                                  # 기본 추론 설정
+│   ├── infer_highperf.yaml                         # 고성능 추론 설정
+│   ├── optuna_config.yaml                          # Optuna 최적화 설정
+│   └── optuna_fast_config.yaml                     # 빠른 Optuna 설정
+├── 📁 scripts/                                     # 실행 스크립트 관리
+│   ├── monitor_training.sh                         # 학습 모니터링
+│   ├── run_fast_training.sh                        # 빠른 학습 (20-30분)
+│   ├── run_highperf_training.sh                    # 고성능 학습 (1-2시간)
+│   └── update_inference_date.sh                    # 추론 설정 업데이트
 ├── 📁 data/                                        # 데이터 저장소
 │   └── raw/                                        # 원본 데이터 (train.csv, test/, train/)
 ├── 📁 docs/                                        # Enterprise Documentation
@@ -130,6 +191,12 @@ python src/pipeline/full_pipeline.py --config configs/train_highperf.yaml
 │   │   ├── 학습_파이프라인_가이드.md                  # 학습 가이드
 │   │   ├── 추론_파이프라인_가이드.md                  # 추론 가이드
 │   │   └── 전체_파이프라인_가이드.md                  # 전체 파이프라인
+│   ├── 📂 scripts/                                 # 스크립트 가이드
+│   │   ├── README.md                               # 스크립트 종합 가이드
+│   │   ├── monitor_training_가이드.md               # 모니터링 가이드
+│   │   ├── run_fast_training_가이드.md              # 빠른 학습 가이드
+│   │   ├── run_highperf_training_가이드.md          # 고성능 학습 가이드
+│   │   └── update_inference_date_가이드.md          # 설정 업데이트 가이드
 │   ├── 📂 utils/                                   # 유틸리티 가이드
 │   │   ├── GPU_자동_설정_가이드.md                   # GPU 최적화
 │   │   ├── 팀_GPU_최적화_가이드.md                   # 팀 협업 GPU

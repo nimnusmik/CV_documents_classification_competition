@@ -6,29 +6,29 @@
 
 ### 1. 🔥 **최신 실험 날짜로 업데이트** (권장)
 ```bash
-# Python 스크립트 사용
-python src/utils/update_config_dates.py --latest
+# 스크립트 사용 (scripts 폴더로 이동됨)
+bash scripts/update_inference_date.sh --latest
 
-# 또는 쉘 스크립트 사용 (더 빠름)
-./update_inference_date.sh --latest
+# 또는 Python 스크립트 직접 사용
+python src/utils/update_config_dates.py --latest
 ```
 
 ### 2. 📅 **특정 날짜로 업데이트**
 ```bash
+# 스크립트 사용
+bash scripts/update_inference_date.sh 20250908
+
 # Python 스크립트
 python src/utils/update_config_dates.py --date 20250908
-
-# 쉘 스크립트
-./update_inference_date.sh 20250908
 ```
 
 ### 3. 🌅 **오늘 날짜로 업데이트**
 ```bash
+# 스크립트 사용 (기본값)
+bash scripts/update_inference_date.sh
+
 # Python 스크립트
 python src/utils/update_config_dates.py
-
-# 쉘 스크립트
-./update_inference_date.sh
 ```
 
 ## 📋 업데이트되는 파일들

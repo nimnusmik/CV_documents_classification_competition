@@ -146,15 +146,39 @@ python -c "from src.optimization import OptunaTrainer; print('✅ Optuna ready!'
 #### **방법 1: CLI를 통한 간편 실행 (권장)**
 
 ```bash
-# 기본 최적화 (20번 시도)
+# 기본 최적화 (20번 시도, 2-3시간)
 python src/training/train_main.py --config configs/train_highperf.yaml --optimize
 
-# 더 정밀한 최적화 (50번 시도)
+# ⚡ 빠른 최적화 (8번 시도, 20-30분) - 경진대회용
+python src/training/train_main.py \
+    --config configs/train_fast_optimized.yaml \
+    --optimize \
+    --optuna-config configs/optuna_fast_config.yaml \
+    --n-trials 8
+
+# 또는 관리 스크립트 사용 (권장)
+./scripts/run_fast_training.sh
+
+# 정밀한 최적화 (50번 시도)
 python src/training/train_main.py --config configs/train_highperf.yaml --optimize --n-trials 50
 
 # 빠른 테스트 (5번 시도)
 python src/training/train_main.py --config configs/train.yaml --optimize --n-trials 5
 ```
+
+#### **빠른 최적화 설정 비교**
+
+| 설정 | 기본 최적화 | 빠른 최적화 |
+|------|-------------|-------------|
+| **설정 파일** | `train_highperf.yaml` | `train_fast_optimized.yaml` |
+| **Optuna 설정** | `optuna_config.yaml` | `optuna_fast_config.yaml` |
+| **시도 횟수** | 20 | 8 |
+| **이미지 크기** | 384px | 224px |
+| **에포크** | 8-15 | 4-8 |
+| **배치 크기** | 16-48 | 32-64 |
+| **실행 시간** | 2-3시간 | 20-30분 |
+| **목표 F1** | 0.934+ | 0.92+ |
+| **사용 목적** | 최종 제출 | 빠른 실험 |
 
 #### **방법 2: 직접 모듈 실행**
 
