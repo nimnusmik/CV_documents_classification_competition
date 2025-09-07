@@ -8,7 +8,7 @@ project:
 
 # ------------------------------ 체크포인트 설정 --------------------------- #
 ckpt:
-  path: "../../experiments/train/20250907/efficientnet_b3/ckpt/best_model_fold_1.pth"  # EfficientNet 모델 가중치 경로
+  path: "../../experiments/train/latest-train/efficientnet_b3/ckpt/best_model_fold_1.pth"  # EfficientNet 모델 가중치 경로
 
 # ------------------------------- 데이터 설정 ------------------------------ #
 data:

@@ -8,7 +8,7 @@ project:
 
 # ------------------------------ 앙상블 설정 (고성능용) --------------------------- #
 ensemble:
-  fold_results_path: "../../experiments/train/20250907/swin-sighperf/fold_results.yaml"  # 앙상블용 폴드 결과
+  fold_results_path: "../../experiments/train/latest-train/fold_results.yaml"  # 앙상블용 폴드 결과
   use_tta: true                                       # Test-Time Augmentation 사용 (고성능)
   num_tta: 5                                          # TTA 횟수 (5회 반복으로 정확도 향상)
 

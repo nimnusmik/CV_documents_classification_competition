@@ -27,8 +27,8 @@ data:
 train:
   img_size: 224                                 # 이미지 크기 (384 → 224로 축소, 더 빠른 학습)
   batch_size: 64                                # 배치 크기 (큰 배치로 빠른 학습)
-  use_advanced_augmentation: false              # 기본 증강으로 더 빠른 처리
-  epochs: 6                                     # 학습 에포크 수 (짧게 설정)
+  use_advanced_augmentation: true               # 기본 증강으로 더 빠른 처리
+  epochs: 5                                     # 학습 에포크 수 (짧게 설정)
   lr: 0.0002                                    # 학습률 (조금 높게 설정)
   weight_decay: 0.01                            # L2 정규화 계수
   optimizer: adamw                              # 옵티마이저 (AdamW)
