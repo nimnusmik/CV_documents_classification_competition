@@ -108,7 +108,13 @@ def run_inference(cfg_path: str, out: str|None=None, ckpt: str|None=None):
             # 사용자 입력 ckpt 경로를 config 기준 절대경로로 변환
             ckpt_path = resolve_path(cfg_dir, ckpt)
 
-        # ckpt 인자가 없는 경우 (기본 best_fold0.pth 사용)
+        # ckpt 인자가 없는 경우 - config 파일의 ckpt.path 확인
+        elif "ckpt" in cfg and "path" in cfg["ckpt"]:
+            # config 파일의 ckpt.path 설정 사용
+            ckpt_path = resolve_path(cfg_dir, cfg["ckpt"]["path"])
+            logger.write(f"[CKPT] Using config ckpt.path: {cfg['ckpt']['path']}")
+
+        # config에도 ckpt.path가 없는 경우 (기본 best_fold0.pth 사용)
         else:
             # 학습 결과 디렉터리 패턴 검색
             import glob
