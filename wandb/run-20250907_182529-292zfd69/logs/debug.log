@@ -19,3 +19,8 @@ config: {'architecture': 'swin_base_384', 'image_size': 384, 'batch_size': 64, '
 2025-09-07 18:25:31,025 INFO    MainThread:1596670 [wandb_run.py:_redirect():2411] Wrapping output streams.
 2025-09-07 18:25:31,025 INFO    MainThread:1596670 [wandb_run.py:_redirect():2434] Redirects installed.
 2025-09-07 18:25:31,028 INFO    MainThread:1596670 [wandb_init.py:init():1057] run started, returning control to user process
+2025-09-07 20:00:57,118 INFO    MainThread:1596670 [wandb_run.py:_finish():2260] finishing run kimsunmin0227-hufs/document-classification-team/292zfd69
+2025-09-07 20:00:57,119 INFO    MainThread:1596670 [wandb_run.py:_atexit_cleanup():2459] got exitcode: 0
+2025-09-07 20:00:57,119 INFO    MainThread:1596670 [wandb_run.py:_restore():2441] restore
+2025-09-07 20:00:57,119 INFO    MainThread:1596670 [wandb_run.py:_restore():2447] restore done
+2025-09-07 20:00:58,242 INFO    MainThread:1596670 [wandb_run.py:_footer_sync_info():3855] logging synced files
