@@ -12,7 +12,7 @@ from pathlib import Path                             # 경로 처리 라이브�
 # ------------------------- 프로젝트 모듈 Import ------------------------- #
 from src.training.train_highperf import run_highperf_training   # 고성능 학습 실행 함수
 from src.inference.infer_highperf import run_highperf_inference # 고성능 추론 실행 함수
-from src.utils.common import load_yaml                # YAML 설정 파일 로드 함수
+from src.utils.common import load_yaml, create_log_path                # YAML 설정 파일 로드 함수
 from src.logging.logger import Logger                 # 로그 기록 클래스
 
 
@@ -32,8 +32,8 @@ def run_full_pipeline(config_path: str, skip_training: bool = False, output_dir:
     cfg = load_yaml(config_path)    # YAML 설정 파일 로드
     
     # 로거 설정
-    timestamp = time.strftime("%Y%m%d_%H%M")                        # 현재 시간 타임스탬프 생성
-    log_path = f"logs/pipeline/full_pipeline_{timestamp}.log"       # 로그 파일 경로 설정
+    timestamp = time.strftime("%Y%m%d_%H%M")                    # 타임스탬프 생성
+    log_path = create_log_path("pipeline", f"full_pipeline_{timestamp}.log")  # 날짜별 로그 파일 경로 설정
     os.makedirs(os.path.dirname(log_path), exist_ok=True)           # 로그 디렉터리 생성
     
     logger = Logger(log_path=log_path)                              # 로거 인스턴스 생성

@@ -21,7 +21,7 @@ from src.utils.seed import set_seed                                 # 랜덤 시
 from src.logging.logger import Logger                               # 로그 기록 클래스
 from src.utils.common import (                                      # 공통 유틸 함수들
     load_yaml, ensure_dir, dump_yaml, jsonl_append, short_uid,
-    resolve_path, require_file, require_dir
+    resolve_path, require_file, require_dir, create_log_path
 )
 
 # ------------------------- 데이터/모델 관련 ------------------------- #
@@ -66,13 +66,11 @@ def _make_run_dirs(cfg, run_id, logger):
 
 # ---------------------- 로거 생성 ---------------------- #
 def _make_logger(cfg, run_id):
-    # 로그 디렉터리 생성
-    logs_dir = ensure_dir(cfg["output"]["logs_dir"])
     # 증강 타입에 따른 로그 파일명 생성
     aug_type = "advanced_augmentation" if cfg["train"].get("use_advanced_augmentation", False) else "basic_augmentation"
     log_name = f"train_{time.strftime('%Y%m%d-%H%M')}_{cfg['project']['run_name']}_{aug_type}.log"
-    # 로그 파일 전체 경로
-    log_path = os.path.join(logs_dir, log_name)
+    # 날짜별 로그 파일 전체 경로
+    log_path = create_log_path("train", log_name)
     # Logger 객체 생성
     logger = Logger(log_path)
     # 표준 입출력 리다이렉트 시작

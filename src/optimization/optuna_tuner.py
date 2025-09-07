@@ -24,7 +24,7 @@ except ImportError:
     raise
 
 # 프로젝트 모듈 import
-from src.utils.common import load_yaml, dump_yaml
+from src.utils.common import load_yaml, dump_yaml, create_log_path
 from src.logging.logger import Logger
 # from src.training.train_highperf import run_fold_training  # 개별 폴드 학습 함수 (향후 구현)
 from .hyperopt_utils import (
@@ -55,7 +55,7 @@ class OptunaTrainer:
         
         # 로거 설정
         timestamp = time.strftime("%Y%m%d_%H%M")
-        log_path = f"logs/optimization/optuna_{timestamp}.log"
+        log_path = create_log_path("optimization", f"optuna_{timestamp}.log")
         os.makedirs(os.path.dirname(log_path), exist_ok=True)
         self.logger = Logger(log_path=log_path)
         

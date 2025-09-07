@@ -14,7 +14,7 @@ from pathlib import Path
 from typing import Optional, List, Tuple
 
 # 프로젝트 모듈 import
-from src.utils.common import load_yaml
+from src.utils.common import load_yaml, create_log_path
 from src.logging.logger import Logger
 from src.models.build import build_model
 from src.data.dataset import HighPerfDocClsDataset
@@ -46,7 +46,7 @@ def run_calibrated_inference(
     
     # 로거 설정
     timestamp = time.strftime("%Y%m%d_%H%M")
-    log_path = f"logs/infer/infer_calibrated_{timestamp}.log"
+    log_path = create_log_path("infer", f"infer_calibrated_{timestamp}.log")
     os.makedirs(os.path.dirname(log_path), exist_ok=True)
     logger = Logger(log_path=log_path)
     

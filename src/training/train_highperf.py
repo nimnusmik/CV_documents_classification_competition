@@ -29,10 +29,9 @@ from tqdm import tqdm                                               # 진행률 
 from src.utils.seed import set_seed                                 # 랜덤 시드 고정
 from src.logging.logger import Logger                               # 기본 로거 클래스
 from src.logging.wandb_logger import WandbLogger, create_wandb_config # WandB 로거 및 설정 생성
-from src.utils.common import (                                      # 공통 유틸리티 함수들
-    load_yaml, ensure_dir, dump_yaml, jsonl_append, short_uid,      # YAML/디렉터리/JSON/UID 유틸
-    resolve_path, require_file, require_dir                         # 경로 해결/파일 존재성 검증
-)                                                                   # 공통 유틸리티 import 종료
+from src.utils.common import (                                      # 공통 유틸리티 모듈
+    load_yaml, ensure_dir, dump_yaml, short_uid, resolve_path, require_file, require_dir, create_log_path
+)
 
 # ------------------------- 데이터/모델 관련 ------------------------- #
 from src.data.dataset import HighPerfDocClsDataset, mixup_data      # 고성능 데이터셋/믹스업 함수
@@ -270,11 +269,10 @@ def run_highperf_training(cfg_path: str):
     ckpt_dir = ensure_dir(os.path.join(exp_root, "ckpt"))   # 체크포인트 디렉터리
     
     #------------------------- 설정 파일 백업 ------------------------- #
-    log_dir = ensure_dir(cfg["output"]["logs_dir"])         # 로그 디렉터리 확인/생성
     # 증강 타입에 따른 로그 파일명 생성
     aug_type = "advanced_augmentation" if cfg["train"].get("use_advanced_augmentation", False) else "basic_augmentation"
     log_filename = f'{cfg["project"]["log_prefix"]}_{day}-{time.strftime("%H%M")}_{run_id}_{aug_type}.log'  # 로그 파일명 생성
-    log_path = os.path.join(log_dir, log_filename)          # 로그 파일 전체 경로
+    log_path = create_log_path("train", log_filename)       # 날짜별 로그 파일 전체 경로
     
     # 로거 객체 생성
     logger = Logger(

@@ -1,3 +1,5 @@
+from typing import Optional
+
 # 표준 라이브러리 임포트
 import os, json, yaml, time, hashlib            # os: 파일/디렉터리 조작
                                                 # json: JSON 직렬화/역직렬화
@@ -93,3 +95,30 @@ def require_dir(path: str, hint: str = ""):
         if hint:                                  # 힌트가 있으면 추가
             msg += f"\n힌트: {hint}"
         raise FileNotFoundError(msg)              # 예외 발생
+
+
+# ---------------------- 날짜별 로그 경로 생성 ---------------------- #
+def create_log_path(log_type: str, filename: Optional[str] = None) -> str:
+    """
+    날짜별 로그 경로 생성
+    
+    Args:
+        log_type: 로그 타입 (train, infer, optimization, pipeline)
+        filename: 파일명 (None이면 자동 생성)
+    
+    Returns:
+        전체 로그 파일 경로
+    """
+    # 현재 날짜 생성 (YYYYMMDD 형식)
+    today = time.strftime("%Y%m%d")
+    
+    # 날짜별 로그 디렉토리 경로 생성
+    log_dir = ensure_dir(f"logs/{today}/{log_type}")
+    
+    # 파일명이 없으면 현재 시각으로 생성
+    if filename is None:
+        timestamp = time.strftime("%Y%m%d_%H%M")
+        filename = f"{log_type}_{timestamp}.log"
+    
+    # 전체 경로 반환
+    return os.path.join(log_dir, filename)

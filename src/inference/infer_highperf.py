@@ -17,7 +17,9 @@ from typing import Optional                          # 타입 힌트 (옵셔널)
 from tqdm import tqdm                                # 진행률 표시바
 
 # ------------------------- 프로젝트 유틸 Import ------------------------- #
-from src.utils.common import load_yaml, resolve_path, require_file, require_dir  # 공통 유틸리티
+from src.utils.common import (
+    load_yaml, resolve_path, require_file, require_dir, create_log_path
+)  # 공통 유틸리티
 from src.logging.logger import Logger                # 로그 기록 클래스
 from src.data.dataset import HighPerfDocClsDataset   # 고성능 문서 분류 데이터셋
 from src.models.build import build_model, get_recommended_model  # 모델 빌드/추천 함수
@@ -138,8 +140,9 @@ def run_highperf_inference(cfg_path: str, fold_results_path: str, output_path: O
     cfg_dir = os.path.dirname(os.path.abspath(cfg_path))            # 설정 파일 디렉터리 경로
     
     # 로거 설정
+    timestamp = pd.Timestamp.now().strftime('%Y%m%d_%H%M')
     logger = Logger(
-        log_path=f"logs/infer/infer_highperf_{pd.Timestamp.now().strftime('%Y%m%d_%H%M')}.log"  # 로그 파일 경로
+        log_path=create_log_path("infer", f"infer_highperf_{timestamp}.log")  # 날짜별 로그 파일 경로
     )
     
     # 파이프라인 시작 로그
