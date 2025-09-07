@@ -87,8 +87,12 @@ ls experiments/train/
 ## ⚡ 워크플로우 예시
 
 ```bash
-# 1. 새로운 실험 완료 후
-python src/training/train_main.py --config configs/train_highperf.yaml --mode highperf
+# 1. 새로운 실험 완료 후 (통합 CLI)
+python src/training/train_main.py \
+    --config configs/train_highperf.yaml \
+    --optimize \
+    --use-calibration \
+    --auto-continue
 
 # 2. 설정 파일 자동 업데이트
 python src/utils/update_config_dates.py --latest

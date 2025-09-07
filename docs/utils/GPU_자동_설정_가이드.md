@@ -178,8 +178,12 @@ Team GPU Compatibility Checker
       python src/utils/auto_batch_size.py --config configs/train.yaml --test-only
    2. 설정 파일 업데이트:
       python src/utils/auto_batch_size.py --config configs/train.yaml
-   3. 훈련 시작:
-      python src/training/train_main.py --config configs/train_highperf.yaml --mode highperf
+   3. 훈련 시작 (통합 CLI):
+      python src/training/train_main.py \
+          --config configs/train_highperf.yaml \
+          --optimize \
+          --use-calibration \
+          --auto-continue
 
 🐍 PyTorch 정보:
    버전: 2.1.0+cu121
@@ -226,8 +230,22 @@ git merge optimize/gpu-[GPU_NAME]
 
 ### 5단계: 훈련 시작
 ```bash
-# 최적화된 설정으로 훈련
+# 기본 훈련 (설정된 배치 크기로)
 python src/training/train_main.py --config configs/train_highperf.yaml --mode highperf
+
+# 최적화 + 자동 진행 (권장)
+python src/training/train_main.py \
+    --config configs/train_highperf.yaml \
+    --optimize \
+    --n-trials 20 \
+    --use-calibration \
+    --auto-continue
+
+# 빠른 실행 (사전 최적화 설정 사용)
+python src/training/train_main.py \
+    --config configs/train_optimized_20250907_1825.yaml \
+    --use-calibration \
+    --mode full-pipeline
 ```
 
 ---
