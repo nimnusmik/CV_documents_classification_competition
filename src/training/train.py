@@ -26,7 +26,9 @@ from src.utils.common import (                                      # 공통 유
 
 # ------------------------- 데이터/모델 관련 ------------------------- #
 from src.data.dataset import DocClsDataset                          # 문서 분류 Dataset 클래스
-from src.data.transforms import build_train_tfms, build_valid_tfms  # 학습/검증 변환
+from src.data.transforms import (                                    # 학습/검증 변환 함수들
+    build_train_tfms, build_valid_tfms, build_advanced_train_tfms   # 기본/고급 변환 파이프라인
+)
 from src.models.build import build_model                            # 모델 생성기
 from src.metrics.f1 import macro_f1_from_logits                     # 매크로 F1 스코어 계산 함수
 
@@ -231,6 +233,12 @@ def _build_loaders(cfg, trn_df, val_df, image_dir, logger):
         f"img_size={cfg['train']['img_size']} | bs={cfg['train']['batch_size']}"
     )
 
+    # 변환 함수 선택 (고급 증강 vs 기본 증강)
+    use_advanced = cfg["train"].get("use_advanced_augmentation", False)  # 기본값: False
+    train_transform_fn = build_advanced_train_tfms if use_advanced else build_train_tfms
+    
+    logger.write(f"[DATA] augmentation type: {'advanced' if use_advanced else 'basic'}")
+
     # 학습용 데이터셋 생성
     train_ds = DocClsDataset(
         trn_df,                                   # 학습 데이터프레임
@@ -238,7 +246,7 @@ def _build_loaders(cfg, trn_df, val_df, image_dir, logger):
         cfg["data"]["image_ext"],                 # 이미지 확장자
         cfg["data"]["id_col"],                    # ID 컬럼명
         cfg["data"]["target_col"],                # 타깃 컬럼명
-        build_train_tfms(cfg["train"]["img_size"])# 학습용 변환 파이프라인
+        train_transform_fn(cfg["train"]["img_size"])  # 선택된 학습용 변환 파이프라인
     )
 
     # 검증용 데이터셋 생성

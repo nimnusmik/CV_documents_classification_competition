@@ -195,6 +195,7 @@ def build_highperf_loaders(cfg, trn_df, val_df, image_dir, logger, epoch=0):
 
     # 데이터로더 빌드 로그
     logger.write(f"[DATA] build highperf loaders | img_size={img_size} bs={batch_size}")
+    logger.write(f"[DATA] augmentation: baseline-advanced (normal + hard augmentation)")
     
     # 고성능 데이터셋 생성
     train_ds = HighPerfDocClsDataset(

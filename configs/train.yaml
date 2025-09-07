@@ -36,6 +36,7 @@ train:
   amp: true                                         # 자동 혼합정밀(AMP) 사용 여부
   grad_clip_norm: 1.0                               # gradient clipping 최대 norm 값
   label_smoothing: 0.0                              # 라벨 스무딩 비율 (0=비활성)
+  use_advanced_augmentation: false                  # 고급 증강 기법 사용 여부 (베이스라인 기반)
 
 # ------------------------------- 모델 설정 -------------------------------- #
 model:

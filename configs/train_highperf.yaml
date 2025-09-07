@@ -28,6 +28,7 @@ data:
 train:
   img_size: 384                                 # 입력 이미지 크기 (384x384)
   batch_size: 32                                # 배치 크기 (GPU 메모리 고려)
+  use_advanced_augmentation: true               # 고급 증강 기법 사용 여부 (베이스라인 기반)
   epochs: 15                                    # 학습 에포크 수
   lr: 0.0001                                    # 학습률 (1e-4)
   weight_decay: 0.01                            # L2 정규화 계수
