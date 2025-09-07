@@ -341,7 +341,11 @@ def create_submission_file(
     # 출력 경로 설정
     if output_path is None:
         timestamp = time.strftime("%Y%m%d_%H%M")
-        output_path = f"submissions/{timestamp}/submission_calibrated_{timestamp}.csv"
+        
+        # 증강 타입 결정 (학습 설정과 동일한 로직 사용)
+        aug_type = "advanced_augmentation" if cfg["train"].get("use_advanced_augmentation", False) else "basic_augmentation"
+        
+        output_path = f"submissions/{timestamp}/submission_calibrated_{timestamp}_{aug_type}.csv"
     
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     

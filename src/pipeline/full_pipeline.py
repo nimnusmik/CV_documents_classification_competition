@@ -109,15 +109,13 @@ def run_full_pipeline(config_path: str, skip_training: bool = False, output_dir:
         if output_dir is None:
             output_dir = f"submissions/{day}"                       # 기본 출력 디렉터리 설정
         
-        output_path = os.path.join(                                 # 출력 파일 경로 생성
-            output_dir,                                             # 출력 디렉터리
-            f"{cfg['project']['run_name']}_ensemble_{timestamp}.csv"  # 파일명
-        )
+        # 증강 타입 결정 (학습 설정과 동일한 로직 사용)
+        aug_type = "advanced_augmentation" if cfg["train"].get("use_advanced_augmentation", False) else "basic_augmentation"
         
         output_path = os.path.join(                                 # 출력 파일 경로 생성
             output_dir,                                             # 출력 디렉터리
-            f"{cfg['project']['run_name']}_ensemble_{timestamp}.csv"  # 파일명
-        )                                                           # 경로 생성 완료
+            f"{cfg['project']['run_name']}_ensemble_{timestamp}_{aug_type}.csv"  # 파일명
+        )
         
         # 고성능 추론 실행
         final_output = run_highperf_inference(config_path, fold_results_path, output_path)

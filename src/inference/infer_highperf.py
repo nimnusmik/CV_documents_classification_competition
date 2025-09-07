@@ -198,7 +198,11 @@ def run_highperf_inference(cfg_path: str, fold_results_path: str, output_path: O
             current_date = pd.Timestamp.now().strftime('%Y%m%d')
             current_time = pd.Timestamp.now().strftime('%H%M')
             model_name = cfg["model"]["name"]
-            filename = f"{current_date}_{current_time}_{model_name}_ensemble_tta.csv"
+            
+            # 증강 타입 결정 (학습 설정과 동일한 로직 사용)
+            aug_type = "advanced_augmentation" if cfg["train"].get("use_advanced_augmentation", False) else "basic_augmentation"
+            
+            filename = f"{current_date}_{current_time}_{model_name}_ensemble_tta_{aug_type}.csv"
             output_path = f"submissions/{current_date}/{filename}"
         
         # 출력 디렉터리 생성

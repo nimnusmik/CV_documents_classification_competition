@@ -193,7 +193,11 @@ def run_inference(cfg_path: str, out: str|None=None, ckpt: str|None=None):
             current_time = pd.Timestamp.now().strftime('%H%M')
             model_name = cfg["model"]["name"]
             tta_suffix = "_tta" if cfg.get("inference", {}).get("tta", False) else ""
-            filename = f"{current_date}_{current_time}_{model_name}{tta_suffix}.csv"
+            
+            # 증강 타입 결정 (학습 설정과 동일한 로직 사용)
+            aug_type = "advanced_augmentation" if cfg["train"].get("use_advanced_augmentation", False) else "basic_augmentation"
+            
+            filename = f"{current_date}_{current_time}_{model_name}{tta_suffix}_{aug_type}.csv"
             out_path = f"submissions/{current_date}/{filename}"
         else:
             out_path = resolve_path(cfg_dir, out)
