@@ -3,9 +3,9 @@ Config 날짜 자동 업데이트 유틸리티
 추론 설정 파일들의 실험 날짜를 자동으로 업데이트합니다.
 
 사용법:
-    python src/utils/update_config_dates.py                     # 오늘 날짜로 업데이트
-    python src/utils/update_config_dates.py --date 20250908     # 특정 날짜로 업데이트
-    python src/utils/update_config_dates.py --latest            # 가장 최신 실험 날짜로 업데이트
+    python src/utils/config/update_config_dates.py                     # 오늘 날짜로 업데이트
+    python src/utils/config/update_config_dates.py --date 20250908     # 특정 날짜로 업데이트
+    python src/utils/config/update_config_dates.py --latest            # 가장 최신 실험 날짜로 업데이트
 """
 
 import argparse                                                 # CLI 인자 파싱 라이브러리

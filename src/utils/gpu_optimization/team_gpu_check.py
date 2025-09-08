@@ -66,9 +66,9 @@ def check_gpu_compatibility():
     # 사용자를 위한 권장 명령어 안내
     print(f"\n🚀 다음 단계:")
     print(f"   1. 자동 배치 크기 최적화:")                                                          # 1단계 안내
-    print(f"      python src/utils/auto_batch_size.py --config configs/train.yaml --test-only")  # 테스트 명령어
+    print(f"      python src/utils/gpu_optimization/auto_batch_size.py --config configs/train.yaml --test-only")  # 테스트 명령어
     print(f"   2. 설정 파일 업데이트:")                                                             # 2단계 안내  
-    print(f"      python src/utils/auto_batch_size.py --config configs/train.yaml")              # 업데이트 명령어
+    print(f"      python src/utils/gpu_optimization/auto_batch_size.py --config configs/train.yaml")              # 업데이트 명령어
     print(f"   3. 훈련 시작:")                                                                     # 3단계 안내
     print(f"      python src/training/train_main.py --config configs/train_highperf.yaml --mode highperf")  # 훈련 시작 명령어
     
