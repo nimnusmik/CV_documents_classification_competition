@@ -99,9 +99,9 @@ flowchart TD
 ```mermaid
 graph TB
     subgraph "🔧 GPU 유틸리티"
-        AUTO_BATCH[src/utils/auto_batch_size.py<br/>동적 배치 크기 결정<br/>GPU 메모리 기반 최적화]
-        TEAM_CHECK[src/utils/team_gpu_check.py<br/>팀원 GPU 환경 분석<br/>최적 설정 추천]
-        GPU_UTILS[src/utils/gpu_optimizer.py<br/>GPU 성능 최적화<br/>메모리 관리 유틸리티]
+        AUTO_BATCH[src/utils/gpu_optimization/auto_batch_size.py<br/>동적 배치 크기 결정<br/>GPU 메모리 기반 최적화]
+        TEAM_CHECK[src/utils/gpu_optimization/team_gpu_check.py<br/>팀원 GPU 환경 분석<br/>최적 설정 추천]
+        GPU_UTILS[src/utils/gpu_optimization/<br/>GPU 최적화 패키지<br/>메모리 및 성능 관리]
     end
     
     subgraph "⚙️ 설정 관리"
@@ -193,16 +193,16 @@ for i in range(torch.cuda.device_count()):
 #### 팀원 GPU 환경 통합 분석
 ```bash
 # 팀원별 GPU 환경 체크
-python src/utils/team_gpu_check.py --detailed
+python src/utils/gpu_optimization/team_gpu_check.py --detailed
 
 # GPU 성능 벤치마크
-python src/utils/team_gpu_check.py --benchmark
+python src/utils/gpu_optimization/team_gpu_check.py --benchmark
 
 # 최적 설정 추천
-python src/utils/team_gpu_check.py --recommend
+python src/utils/gpu_optimization/team_gpu_check.py --recommend
 
 # GPU 호환성 매트릭스 생성
-python src/utils/team_gpu_check.py --compatibility-matrix
+python src/utils/gpu_optimization/team_gpu_check.py --compatibility-matrix
 ```
 
 ### 2. 🧮 메모리 최적화
@@ -210,25 +210,25 @@ python src/utils/team_gpu_check.py --compatibility-matrix
 #### 동적 배치 크기 최적화
 ```bash
 # 학습용 최적 배치 크기 찾기
-python src/utils/auto_batch_size.py \
+python src/utils/gpu_optimization/auto_batch_size.py \
     --config configs/train_highperf.yaml \
     --mode find_optimal \
     --safety_factor 0.95
 
 # 추론용 최적 배치 크기 찾기
-python src/utils/auto_batch_size.py \
+python src/utils/gpu_optimization/auto_batch_size.py \
     --config configs/infer_highperf.yaml \
     --mode find_optimal \
     --memory_fraction 0.9
 
 # 멀티 GPU 배치 크기 조정
-python src/utils/auto_batch_size.py \
+python src/utils/gpu_optimization/auto_batch_size.py \
     --config configs/train_highperf.yaml \
     --multi_gpu \
     --gpu_ids 0,1,2,3
 
 # 메모리 사용량 프로파일링
-python src/utils/auto_batch_size.py \
+python src/utils/gpu_optimization/auto_batch_size.py \
     --config configs/train.yaml \
     --profile_memory \
     --save_profile logs/memory_profile.json
@@ -319,13 +319,10 @@ for num_workers in [0, 2, 4, 8, 16]:
 print(f'최적 워커 수: {best_workers}')
 "
 
-# 데이터 로딩 성능 벤치마크
-python src/utils/benchmark_dataloader.py \
-    --dataset_path data/raw/train \
-    --batch_sizes 16,32,64,128 \
-    --num_workers 4,8,16 \
-    --pin_memory \
-    --prefetch_factor 2
+# GPU 환경 체크 및 벤치마크
+python src/utils/gpu_optimization/team_gpu_check.py \
+    --benchmark \
+    --detailed
 ```
 
 #### 모델 컴파일 최적화
@@ -385,7 +382,7 @@ python src/inference/infer_main.py \
 ```bash
 # TensorRT 엔진 생성
 python src/inference/convert_to_tensorrt.py \
-    --model_path experiments/train/20250908/efficientnet_b3_20250908_0313/ckpt/best_fold0.pth \
+    --model_path experiments/train/20250908/efficientnet_b3_20250908_0313/results/ckpt/best_fold0.pth \
     --output_path models/tensorrt/efficientnet_b3_fp16.engine \
     --precision fp16 \
     --max_batch_size 64
@@ -473,7 +470,7 @@ python src/optimization/ab_test_gpu_settings.py \
 ### RTX 4090 (24GB VRAM)
 ```bash
 # 최대 성능 설정
-python src/utils/auto_batch_size.py \
+python src/utils/gpu_optimization/auto_batch_size.py \
     --gpu_model rtx4090 \
     --max_batch_size 384 \
     --image_size 448 \
@@ -491,7 +488,7 @@ python src/training/train_main.py \
 ### RTX 4080 (16GB VRAM)
 ```bash
 # 균형 잡힌 설정
-python src/utils/auto_batch_size.py \
+python src/utils/gpu_optimization/auto_batch_size.py \
     --gpu_model rtx4080 \
     --max_batch_size 256 \
     --image_size 384 \
@@ -509,7 +506,7 @@ python src/training/train_main.py \
 ### RTX 4070 (12GB VRAM)
 ```bash
 # 메모리 효율 설정
-python src/utils/auto_batch_size.py \
+python src/utils/gpu_optimization/auto_batch_size.py \
     --gpu_model rtx4070 \
     --max_batch_size 128 \
     --image_size 320 \
@@ -527,7 +524,7 @@ python src/training/train_main.py \
 ### RTX 3080 (10GB VRAM)
 ```bash
 # 보수적 설정
-python src/utils/auto_batch_size.py \
+python src/utils/gpu_optimization/auto_batch_size.py \
     --gpu_model rtx3080 \
     --max_batch_size 96 \
     --image_size 288 \
@@ -613,10 +610,10 @@ python src/training/train_main.py \
 ### CUDA Out of Memory (OOM) 해결
 ```bash
 # OOM 발생 시 자동 배치 크기 감소
-python src/utils/oom_solver.py \
+python src/utils/gpu_optimization/auto_batch_size.py \
     --config configs/train.yaml \
-    --auto_reduce_batch_size \
-    --min_batch_size 8
+    --find-optimal \
+    --min-batch-size 8
 
 # 메모리 누수 탐지
 python src/debugging/memory_leak_detector.py \
@@ -646,11 +643,11 @@ python src/debugging/bottleneck_analyzer.py \
 # 열적 쓰로틀링 확인
 nvidia-smi -q -d temperature,power,clocks
 
-# 드라이버 최적화 확인
-python src/utils/driver_optimizer.py \
-    --check_settings \
-    --optimize_power_mode \
-    --set_persistence_mode
+# GPU 상태 및 드라이버 최적화 확인
+python src/utils/gpu_optimization/team_gpu_check.py \
+    --detailed \
+    --check-drivers \
+    --recommend-settings
 ```
 
 ## 📊 GPU 최적화 성과 측정
@@ -824,7 +821,7 @@ memory:
 #### 2. 동적 배치 크기 조정
 ```bash
 # LOW-END GPU용 자동 배치 크기 최적화
-python src/utils/auto_batch_size.py \
+python src/utils/gpu_optimization/auto_batch_size.py \
     --config configs/train_lowend_highperf.yaml \
     --gpu_memory_limit 6144 \  # 6GB 제한
     --safety_factor 0.75 \     # 보수적 안전 마진
@@ -855,11 +852,11 @@ python src/training/train_main.py \
 
 #### 모든 GPU에서 HighPerf 모드 활성화
 ```bash
-# GPU 자동 감지 및 최적 설정 생성
-python src/utils/generate_optimal_config.py \
-    --auto_detect_gpu \
-    --target_mode highperf \
-    --output_config configs/train_auto_optimized.yaml
+# GPU 최적 배치 크기 자동 감지
+python src/utils/gpu_optimization/auto_batch_size.py \
+    --config configs/train_highperf.yaml \
+    --find-optimal \
+    --save-config configs/train_auto_optimized.yaml
 
 # 생성된 설정으로 학습 실행
 python src/training/train_main.py \
@@ -870,20 +867,18 @@ python src/training/train_main.py \
 #### GPU별 맞춤 설정 파일 생성
 ```bash
 # RTX 2060용 최적화된 highperf 설정
-python src/utils/create_gpu_config.py \
-    --gpu_model "RTX 2060" \
-    --vram_gb 6 \
-    --target_mode highperf \
-    --aggressive_optimization \
-    --output configs/train_rtx2060_highperf.yaml
+python src/utils/gpu_optimization/auto_batch_size.py \
+    --config configs/train_highperf.yaml \
+    --gpu-memory 6 \
+    --aggressive-optimization \
+    --save-config configs/train_rtx2060_highperf.yaml
 
 # GTX 1660용 극한 최적화 설정  
-python src/utils/create_gpu_config.py \
-    --gpu_model "GTX 1660 Ti" \
-    --vram_gb 6 \
-    --target_mode highperf \
-    --ultra_memory_optimization \
-    --output configs/train_gtx1660_highperf.yaml
+python src/utils/gpu_optimization/auto_batch_size.py \
+    --config configs/train_highperf.yaml \
+    --gpu-memory 6 \
+    --memory-safety-margin 0.15 \
+    --save-config configs/train_gtx1660_highperf.yaml
 ```
 
 ### ⚡ 실시간 최적화 도구
@@ -905,16 +900,16 @@ python src/optimization/adaptive_training.py \
 
 ### GPU 성능 체크
 ```bash
-python src/utils/team_gpu_check.py
+python src/utils/gpu_optimization/team_gpu_check.py
 ```
 
 ### 배치 크기 자동 최적화
 ```bash
 # 테스트만 (설정 파일 변경 안함)
-python src/utils/auto_batch_size.py --config configs/train_highperf.yaml --test-only
+python src/utils/gpu_optimization/auto_batch_size.py --config configs/train_highperf.yaml --test-only
 
 # 설정 파일 업데이트
-python src/utils/auto_batch_size.py --config configs/train_highperf.yaml
+python src/utils/gpu_optimization/auto_batch_size.py --config configs/train_highperf.yaml
 ```
 
 ## 🎯 최적화 팁
