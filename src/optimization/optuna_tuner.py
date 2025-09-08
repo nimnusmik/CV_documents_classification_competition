@@ -219,7 +219,7 @@ class OptunaTrainer:
             run_name = self.base_config.get("project", {}).get("run_name", "optimization")
             
             # experiments/optimization/날짜/run_name/ 구조
-            viz_output_dir = f"experiments/optimization/{date_str}/{run_name}"
+            viz_output_dir = f"experiments/optimization/{date_str}/{timestamp}_{run_name}"
             os.makedirs(viz_output_dir, exist_ok=True)
             
             # 최적 파라미터 저장

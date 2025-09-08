@@ -21,7 +21,7 @@ from tqdm import tqdm                                # 진행바 시각화
 # ------------------------- 프로젝트 유틸 ------------------------- #
 from src.utils.config import set_seed                               # 랜덤 시드 고정
 from src.logging.logger import Logger                               # 로그 기록 클래스
-from src.utils import (                                             # 핵심 유틸 함수들
+from src.utils.common import (                                      # 공통 유틸 함수들
     load_yaml, ensure_dir, dump_yaml, jsonl_append, short_uid,
     resolve_path, require_file, require_dir, create_log_path
 )
@@ -45,8 +45,8 @@ def _make_run_dirs(cfg, run_id, logger):
     day = time.strftime(cfg["project"]["date_format"])
     # 시간 문자열 포맷팅 (예: 1530)
     time_str = time.strftime(cfg["project"]["time_format"])
-    # 타임스탬프 포함된 폴더명 생성 (예: swin-highperf_20250907_1530)
-    folder_name = f"{cfg['project']['run_name']}_{day}_{time_str}"
+    # 타임스탬프 포함된 폴더명 생성 (예: 20250907_1530_swin-highperf)
+    folder_name = f"{day}_{time_str}_{cfg['project']['run_name']}"
     # 실험 루트 디렉터리 생성
     exp_root = ensure_dir(os.path.join(cfg["output"]["exp_dir"], day, folder_name))
     # 체크포인트 저장 디렉터리 생성

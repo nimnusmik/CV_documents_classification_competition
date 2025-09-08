@@ -65,8 +65,9 @@ def run_full_pipeline(config_path: str, skip_training: bool = False, output_dir:
         
         # fold_results.yaml 파일 찾기
         day = time.strftime(cfg["project"]["date_format"])                              # 날짜 포맷 생성
-        exp_base = Path(cfg["output"]["exp_dir"]) / day / cfg["project"]["run_name"]    # 실험 기본 경로
-        
+        folder_name = f"{day}_{time.strftime(cfg['project']['time_format'])}_{cfg['project']['run_name']}"  # 폴더명 생성
+        exp_base = Path(cfg["output"]["exp_dir"]) / day / folder_name                   # 실험 기본 경로
+
         fold_results_path = None    # 폴드 결과 파일 경로 초기화
         
         # 실험 기본 경로가 존재하는 경우

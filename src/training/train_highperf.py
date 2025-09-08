@@ -264,13 +264,13 @@ def run_highperf_training(cfg_path: str):
     
     #------------------------ 랜덤 시드 및 실행 ID 설정 ---------------------- #
     set_seed(cfg["project"]["seed"])                        # 랜덤 시드 고정
-    run_id = f'{cfg["project"]["run_name"]}-{short_uid()}'  # 실행 ID 생성
+    run_id = f'{cfg["project"]["run_name"]}'  # 실행 ID 생성
     
     #------------------------- 실험 디렉터리 및 로거 설정 ---------------------- #
     day = time.strftime(cfg["project"]["date_format"])      # 현재 날짜 문자열
     time_str = time.strftime(cfg["project"]["time_format"]) # 현재 시간 문자열
     # 타임스탬프 포함된 폴더명 생성 (예: swin-highperf_20250907_1530)
-    folder_name = f"{cfg['project']['run_name']}_{day}_{time_str}"
+    folder_name = f"{day}_{time_str}_{cfg['project']['run_name']}"
     exp_root = ensure_dir(os.path.join(cfg["output"]["exp_dir"], day, folder_name))  # 실험 루트 디렉터리
     ckpt_dir = ensure_dir(os.path.join(exp_root, "ckpt"))   # 체크포인트 디렉터리
     
