@@ -1,0 +1,83 @@
+_wandb:
+    value:
+        cli_version: 0.21.3
+        e:
+            qetekghgwplojt0t6pvuq461xkvyzseu:
+                args:
+                    - --config
+                    - configs/train_fast_optimized.yaml
+                    - --optimize
+                    - --n-trials
+                    - "50"
+                    - --mode
+                    - full-pipeline
+                    - --auto-continue
+                codePath: src/training/train_main.py
+                codePathLocal: src/training/train_main.py
+                email: ieyeppo.job@gmail.com
+                executable: /home/ieyeppo/.pyenv/versions/cv_py3_11_9/bin/python
+                git:
+                    commit: 775aa8fb649ac3af20f7c104ee319491fe63b081
+                    remote: git@github.com:iejob/computer-vision-competition-1SEN.git
+                host: PotG
+                os: Linux-6.6.87.1-microsoft-standard-WSL2-x86_64-with-glibc2.39
+                program: /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train_main.py
+                python: CPython 3.11.9
+                root: /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN
+                startedAt: "2025-09-07T18:08:53.282075Z"
+                writerId: qetekghgwplojt0t6pvuq461xkvyzseu
+        m: []
+        python_version: 3.11.9
+        t:
+            "1":
+                - 1
+                - 5
+                - 35
+                - 41
+                - 49
+                - 53
+                - 63
+                - 80
+                - 105
+            "2":
+                - 1
+                - 5
+                - 35
+                - 41
+                - 49
+                - 53
+                - 63
+                - 80
+                - 105
+            "3":
+                - 13
+                - 15
+                - 16
+            "4": 3.11.9
+            "5": 0.21.3
+            "10":
+                - 20
+            "12": 0.21.3
+            "13": linux-x86_64
+architecture:
+    value: swin_base_224
+batch_size:
+    value: 64
+dataset:
+    value: Document Classification
+epochs:
+    value: 5
+framework:
+    value: PyTorch
+hard_augmentation:
+    value: true
+image_size:
+    value: 224
+learning_rate:
+    value: 0.00034866561826416145
+mixup_alpha:
+    value: 0.8
+optimizer:
+    value: adamw
+scheduler:
+    value: cosine

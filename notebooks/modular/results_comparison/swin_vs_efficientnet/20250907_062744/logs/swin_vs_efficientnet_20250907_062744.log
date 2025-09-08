@@ -1,0 +1,16 @@
+2025-09-07 06:27:44,987 - notebook_swin_vs_efficientnet - INFO - 노트북 작업 시작: swin_vs_efficientnet
+2025-09-07 06:27:44,987 - notebook_swin_vs_efficientnet - INFO - 로그 디렉토리: notebooks/modular/results_comparison/swin_vs_efficientnet/20250907_062744
+2025-09-07 06:27:44,987 - notebook_swin_vs_efficientnet - INFO - 두 파일 상세 비교 분석 시작
+2025-09-07 06:27:44,987 - notebook_swin_vs_efficientnet - INFO - 비교 대상 1: ./submissions/20250907/swin-sighperf_ensemble_20250907_0035.csv
+2025-09-07 06:27:44,987 - notebook_swin_vs_efficientnet - INFO - 비교 대상 2: ./submissions/20250907/efficientnet_b3_ensemble_20250907_0016.csv
+2025-09-07 06:27:45,869 - notebook_swin_vs_efficientnet - INFO - SUCCESS: 그림 저장: notebooks/modular/results_comparison/swin_vs_efficientnet/20250907_062744/images/overall_comparison.png
+2025-09-07 06:27:47,246 - notebook_swin_vs_efficientnet - INFO - SUCCESS: 그림 저장: notebooks/modular/results_comparison/swin_vs_efficientnet/20250907_062744/images/difference_analysis.png
+2025-09-07 06:27:47,258 - notebook_swin_vs_efficientnet - INFO - SUCCESS: 데이터프레임 저장: notebooks/modular/results_comparison/swin_vs_efficientnet/20250907_062744/data/full_comparison.csv (3140 행)
+2025-09-07 06:27:47,259 - notebook_swin_vs_efficientnet - INFO - SUCCESS: 데이터프레임 저장: notebooks/modular/results_comparison/swin_vs_efficientnet/20250907_062744/data/differences.csv (235 행)
+2025-09-07 06:27:47,260 - notebook_swin_vs_efficientnet - INFO - SUCCESS: 성능 메트릭 저장: notebooks/modular/results_comparison/swin_vs_efficientnet/20250907_062744/results/basic_metrics_metrics.json
+2025-09-07 06:27:47,261 - notebook_swin_vs_efficientnet - INFO - 결과 저장: comparison
+2025-09-07 06:27:47,262 - notebook_swin_vs_efficientnet - INFO - SUCCESS: 작업 완료! 총 소요 시간: 2.27초
+2025-09-07 06:27:47,262 - notebook_swin_vs_efficientnet - INFO - SUCCESS: 결과 요약: notebooks/modular/results_comparison/swin_vs_efficientnet/20250907_062744/summary.json
+2025-09-07 06:29:45,308 - notebook_swin_vs_efficientnet - INFO - SUCCESS: 그림 저장: notebooks/modular/results_comparison/swin_vs_efficientnet/20250907_062744/images/korean_font_test.png
+2025-09-07 06:31:42,322 - notebook_swin_vs_efficientnet - INFO - SUCCESS: 그림 저장: notebooks/modular/results_comparison/swin_vs_efficientnet/20250907_062744/images/overall_comparison.png
+2025-09-07 06:31:54,878 - notebook_swin_vs_efficientnet - INFO - SUCCESS: 그림 저장: notebooks/modular/results_comparison/swin_vs_efficientnet/20250907_062744/images/difference_analysis.png

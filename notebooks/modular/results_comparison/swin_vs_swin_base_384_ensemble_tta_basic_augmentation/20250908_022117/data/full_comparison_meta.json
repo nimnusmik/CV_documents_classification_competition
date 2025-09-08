@@ -1,0 +1,15 @@
+{
+  "filename": "full_comparison.csv",
+  "description": "전체 비교 데이터",
+  "shape": [
+    3140,
+    3
+  ],
+  "columns": [
+    "ID",
+    "target_file1",
+    "target_file2"
+  ],
+  "timestamp": "20250908_022117",
+  "file_name": "swin_vs_swin_base_384_ensemble_tta_basic_augmentation"
+}

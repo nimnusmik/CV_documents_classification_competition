@@ -1,0 +1,13 @@
+2025-09-07 08:32:43 | 🚀 [PIPELINE] Full pipeline started
+2025-09-07 08:32:43 | 📋 Config: configs/train_highperf.yaml
+2025-09-07 08:32:43 | ⚙️ Skip training: True
+2025-09-07 08:32:43 | ⏭️ [STAGE 1] Training skipped
+2025-09-07 08:32:43 | ============================================================
+2025-09-07 08:32:43 | 🔍 [STAGE 2] FINDING TRAINING RESULTS
+2025-09-07 08:32:43 | ============================================================
+2025-09-07 08:32:43 | 📁 Found fold results: experiments/train/20250907/swin-sighperf/fold_results.yaml
+2025-09-07 08:32:43 | ============================================================
+2025-09-07 08:32:43 | 🔮 [STAGE 3] HIGH-PERFORMANCE INFERENCE
+2025-09-07 08:32:43 | ============================================================
+2025-09-07 08:32:43 | ❌ [PIPELINE] Failed: stack expects a non-empty TensorList
+2025-09-07 08:32:43 | 🏁 [PIPELINE] Full pipeline ended

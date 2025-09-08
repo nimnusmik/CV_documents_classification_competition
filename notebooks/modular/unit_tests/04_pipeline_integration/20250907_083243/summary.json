@@ -1,0 +1,17 @@
+{
+  "file_name": "04_pipeline_integration",
+  "folder_name": "unit_tests",
+  "start_time": "2025-09-07T08:32:43.920108",
+  "end_time": "2025-09-07T08:32:43.981304",
+  "duration_seconds": 0.061196,
+  "total_sections": 1,
+  "results": {
+    "pipeline_integration_test_result": {
+      "status": "failed",
+      "error": "stack expects a non-empty TensorList",
+      "timestamp": "2025-09-07T08:32:43.981100",
+      "section": "pipeline_integration_test_result"
+    }
+  },
+  "log_directory": "notebooks/modular/unit_tests/04_pipeline_integration/20250907_083243"
+}

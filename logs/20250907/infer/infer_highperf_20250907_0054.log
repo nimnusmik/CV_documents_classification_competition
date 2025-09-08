@@ -1,0 +1,26 @@
+2025-09-07 00:54:49 | [BOOT] high-performance inference pipeline started
+2025-09-07 00:54:49 | [BOOT] device=cuda
+2025-09-07 00:54:49 | [DATA] loaded test data | shape=(3140, 2)
+2025-09-07 00:54:49 | [HighPerfDataset] size=3140 img_size=384 epoch=0/10 p_hard=0.000 is_train=False
+2025-09-07 00:54:49 | [DATA] test dataset size: 3140
+2025-09-07 00:54:49 | [INFERENCE] starting ensemble prediction...
+2025-09-07 00:59:15 | [SUCCESS] Inference completed | output: submissions/20250907/swin-sighperf_ensemble_20250907_0035.csv
+2025-09-07 00:59:15 | [RESULT] Prediction distribution:
+2025-09-07 00:59:15 | Class 0: 200 samples (6.4%)
+2025-09-07 00:59:15 | Class 1: 92 samples (2.9%)
+2025-09-07 00:59:15 | Class 2: 200 samples (6.4%)
+2025-09-07 00:59:15 | Class 3: 187 samples (6.0%)
+2025-09-07 00:59:15 | Class 4: 214 samples (6.8%)
+2025-09-07 00:59:15 | Class 5: 200 samples (6.4%)
+2025-09-07 00:59:15 | Class 6: 207 samples (6.6%)
+2025-09-07 00:59:15 | Class 7: 219 samples (7.0%)
+2025-09-07 00:59:15 | Class 8: 200 samples (6.4%)
+2025-09-07 00:59:15 | Class 9: 200 samples (6.4%)
+2025-09-07 00:59:15 | Class 10: 205 samples (6.5%)
+2025-09-07 00:59:15 | Class 11: 190 samples (6.1%)
+2025-09-07 00:59:15 | Class 12: 202 samples (6.4%)
+2025-09-07 00:59:15 | Class 13: 153 samples (4.9%)
+2025-09-07 00:59:15 | Class 14: 71 samples (2.3%)
+2025-09-07 00:59:15 | Class 15: 200 samples (6.4%)
+2025-09-07 00:59:15 | Class 16: 200 samples (6.4%)
+2025-09-07 00:59:15 | [SHUTDOWN] Inference pipeline ended

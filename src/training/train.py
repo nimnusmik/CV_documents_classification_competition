@@ -1,5 +1,6 @@
 # ------------------------- 표준 라이브러리 ------------------------- #
 import os, time, numpy as np, torch, torch.nn as nn, pandas as pd, psutil
+import shutil                                                       # 파일/폴더 복사 유틸
 # os       : 파일/디렉터리 경로, 시스템 유틸
 # time     : 시간 측정, 로깅
 # numpy    : 수치 계산, 배열 연산
@@ -7,28 +8,31 @@ import os, time, numpy as np, torch, torch.nn as nn, pandas as pd, psutil
 # torch.nn : 신경망 계층/손실 함수 모듈
 # pandas   : 데이터프레임 처리
 # psutil   : 시스템 메모리 사용량 추적
+# shutil   : 파일/폴더 복사, 이동
 
 # ------------------------- PyTorch 유틸 ------------------------- #
-from torch.utils.data import DataLoader              # 데이터 로더
-from sklearn.model_selection import StratifiedKFold  # 계층적 K-폴드 분할
-from torch.cuda.amp import autocast, GradScaler      # AMP (자동 혼합 정밀도) 지원
-from torch.optim import Adam, AdamW                  # 옵티마이저 (Adam, AdamW)
-from torch.optim.lr_scheduler import CosineAnnealingLR # 학습률 스케줄러 (코사인 감쇠)
+from torch.utils.data import DataLoader                             # 데이터 로더
+from sklearn.model_selection import StratifiedKFold                 # 계층적 K-폴드 분할
+from torch.cuda.amp import autocast, GradScaler                     # AMP (자동 혼합 정밀도) 지원
+from torch.optim import Adam, AdamW                                 # 옵티마이저 (Adam, AdamW)
+from torch.optim.lr_scheduler import CosineAnnealingLR              # 학습률 스케줄러 (코사인 감쇠)
 from tqdm import tqdm                                # 진행바 시각화
 
 # ------------------------- 프로젝트 유틸 ------------------------- #
-from src.utils.seed import set_seed                  # 랜덤 시드 고정
-from src.utils.logger import Logger                  # 로그 기록 클래스
-from src.utils.common import (                       # 공통 유틸 함수들
+from src.utils.seed import set_seed                                 # 랜덤 시드 고정
+from src.logging.logger import Logger                               # 로그 기록 클래스
+from src.utils.common import (                                      # 공통 유틸 함수들
     load_yaml, ensure_dir, dump_yaml, jsonl_append, short_uid,
-    resolve_path, require_file, require_dir
+    resolve_path, require_file, require_dir, create_log_path
 )
 
 # ------------------------- 데이터/모델 관련 ------------------------- #
-from src.data.dataset import DocClsDataset           # 문서 분류 Dataset 클래스
-from src.data.transforms import build_train_tfms, build_valid_tfms  # 학습/검증 변환
-from src.models.build import build_model             # 모델 생성기
-from src.metrics.f1 import macro_f1_from_logits      # 매크로 F1 스코어 계산 함수
+from src.data.dataset import DocClsDataset                          # 문서 분류 Dataset 클래스
+from src.data.transforms import (                                    # 학습/검증 변환 함수들
+    build_train_tfms, build_valid_tfms, build_advanced_train_tfms   # 기본/고급 변환 파이프라인
+)
+from src.models.build import build_model                            # 모델 생성기
+from src.metrics.f1 import macro_f1_from_logits                     # 매크로 F1 스코어 계산 함수
 
 
 # ---------------------------
@@ -39,8 +43,12 @@ from src.metrics.f1 import macro_f1_from_logits      # 매크로 F1 스코어 �
 def _make_run_dirs(cfg, run_id, logger):
     # 날짜 문자열 포맷팅 (예: 20250101)
     day = time.strftime(cfg["project"]["date_format"])
+    # 시간 문자열 포맷팅 (예: 1530)
+    time_str = time.strftime(cfg["project"]["time_format"])
+    # 타임스탬프 포함된 폴더명 생성 (예: swin-highperf_20250907_1530)
+    folder_name = f"{cfg['project']['run_name']}_{day}_{time_str}"
     # 실험 루트 디렉터리 생성
-    exp_root = ensure_dir(os.path.join(cfg["output"]["exp_dir"], day, cfg["project"]["run_name"]))
+    exp_root = ensure_dir(os.path.join(cfg["output"]["exp_dir"], day, folder_name))
     # 체크포인트 저장 디렉터리 생성
     ckpt_dir = ensure_dir(os.path.join(exp_root, "ckpt"))
     # 메트릭 기록 파일 경로
@@ -49,31 +57,34 @@ def _make_run_dirs(cfg, run_id, logger):
     cfg_path = os.path.join(exp_root, "config.yaml")
     # 현재 설정을 YAML로 저장
     dump_yaml(cfg, cfg_path)
+    
     # 로그 기록
-    logger.write(f"[ARTIFACTS] exp_root={exp_root}")
-    logger.write(f"[ARTIFACTS] ckpt_dir={ckpt_dir}")
-    logger.write(f"[ARTIFACTS] metrics_path={metrics_path}")
-    logger.write(f"[ARTIFACTS] cfg_snapshot={cfg_path}")
+    logger.write(f"[ARTIFACTS] exp_root={exp_root}")            # 실험 루트 디렉터리
+    logger.write(f"[ARTIFACTS] ckpt_dir={ckpt_dir}")            # 체크포인트 디렉터리
+    logger.write(f"[ARTIFACTS] metrics_path={metrics_path}")    # 메트릭 기록 파일 경로
+    logger.write(f"[ARTIFACTS] cfg_snapshot={cfg_path}")        # 설정 스냅샷 저장 경로
     # 경로 반환
     return exp_root, ckpt_dir, metrics_path, cfg_path
 
 # ---------------------- 로거 생성 ---------------------- #
 def _make_logger(cfg, run_id):
-    # 로그 디렉터리 생성
-    logs_dir = ensure_dir(cfg["output"]["logs_dir"])
-    # 로그 파일명 생성
-    log_name = f"train_{time.strftime('%Y%m%d-%H%M')}_{cfg['project']['run_name']}.log"
-    # 로그 파일 전체 경로
-    log_path = os.path.join(logs_dir, log_name)
+    # 증강 타입에 따른 로그 파일명 생성
+    aug_type = "advanced_augmentation" if cfg["train"].get("use_advanced_augmentation", False) else "basic_augmentation"
+    log_name = f"train_{time.strftime('%Y%m%d-%H%M')}_{cfg['project']['run_name']}_{aug_type}.log"
+    # 날짜별 로그 파일 전체 경로
+    log_path = create_log_path("train", log_name)
     # Logger 객체 생성
     logger = Logger(log_path)
     # 표준 입출력 리다이렉트 시작
     logger.start_redirect()
+    
     # tqdm 출력도 로거에 리다이렉트할 수 있는 경우
     if hasattr(logger, "tqdm_redirect"):
-        logger.tqdm_redirect()
+        logger.tqdm_redirect()  # tqdm 출력 리다이렉트
+        
     # 로그 시작 메시지 기록
     logger.write(f">> Logger started: {log_path}")
+    
     # logger 반환
     return logger
 
@@ -102,11 +113,13 @@ def _opt_and_sch(params, cfg, steps_per_epoch, logger):
     # CosineAnnealingLR 스케줄러 생성 (epochs * steps 기준)
     sch = CosineAnnealingLR(opt, T_max=max(1, cfg["train"]["epochs"]*max(1, steps_per_epoch))) \
           if cfg["train"]["scheduler"]=="cosine" else None
+          
     # 로그 기록
     logger.write(
         f"[OPTIM] optimizer={opt.__class__.__name__}, lr={lr}, weight_decay={wd}, " # 옵티마이저
         f"scheduler={sch.__class__.__name__ if sch else 'none'}"                    # 스케줄러
     )
+    
     # 옵티마이저와 스케줄러 반환
     return opt, sch
 
@@ -225,6 +238,12 @@ def _build_loaders(cfg, trn_df, val_df, image_dir, logger):
         f"img_size={cfg['train']['img_size']} | bs={cfg['train']['batch_size']}"
     )
 
+    # 변환 함수 선택 (고급 증강 vs 기본 증강)
+    use_advanced = cfg["train"].get("use_advanced_augmentation", False)  # 기본값: False
+    train_transform_fn = build_advanced_train_tfms if use_advanced else build_train_tfms
+    
+    logger.write(f"[DATA] augmentation type: {'advanced' if use_advanced else 'basic'}")
+
     # 학습용 데이터셋 생성
     train_ds = DocClsDataset(
         trn_df,                                   # 학습 데이터프레임
@@ -232,7 +251,7 @@ def _build_loaders(cfg, trn_df, val_df, image_dir, logger):
         cfg["data"]["image_ext"],                 # 이미지 확장자
         cfg["data"]["id_col"],                    # ID 컬럼명
         cfg["data"]["target_col"],                # 타깃 컬럼명
-        build_train_tfms(cfg["train"]["img_size"])# 학습용 변환 파이프라인
+        train_transform_fn(cfg["train"]["img_size"])  # 선택된 학습용 변환 파이프라인
     )
 
     # 검증용 데이터셋 생성
@@ -611,6 +630,25 @@ def run_training(cfg_path: str):
                     logger.write(f"[OOF][WARN] save failed: {e}")
             # 전체 폴드 학습 종료 로그 출력
             logger.write(f"[DONE] all-fold training finished")
+            
+            # ---------------------- lastest-train 폴더에 복사 ---------------------- #
+            # lastest-train 폴더 경로 설정
+            lastest_train_dir = os.path.join("experiments", "train", "lastest-train")
+            experiment_folder_name = cfg["project"]["run_name"]  # 실험 폴더명 추출
+            lastest_train_model_path = os.path.join(lastest_train_dir, experiment_folder_name)
+            
+            # lastest-train 디렉터리 생성
+            os.makedirs(lastest_train_dir, exist_ok=True)
+            
+            # 기존 모델 폴더가 있으면 삭제 (덮어쓰기를 위해)
+            if os.path.exists(lastest_train_model_path):
+                shutil.rmtree(lastest_train_model_path)
+                logger.write(f"[CLEANUP] Removed existing lastest-train/{experiment_folder_name}")
+            
+            # 현재 실험 결과를 lastest-train으로 복사
+            shutil.copytree(exp_root, lastest_train_model_path)
+            logger.write(f"[COPY] Results copied to lastest-train/{experiment_folder_name}")
+            logger.write(f"📁 Latest results: {lastest_train_model_path}")
 
 
         # ---------------------- 잘못된 valid_fold 값 ---------------------- #

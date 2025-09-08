@@ -1,0 +1,15 @@
+2025-09-08 07:05:08 | [BOOT] high-performance training pipeline started
+2025-09-08 07:05:08 | [BOOT] device=cuda
+2025-09-08 07:05:08 | [DATA] loaded train data | shape=(1570, 2)
+2025-09-08 07:05:08 | ==================================================
+2025-09-08 07:05:08 | FOLD 1/5 START
+2025-09-08 07:05:08 | ==================================================
+2025-09-08 07:05:08 | [FOLD 0] train=1256 valid=314
+2025-09-08 07:05:11 | [DATA] build highperf loaders | img_size=384 bs=64
+2025-09-08 07:05:11 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-08 07:05:11 | [HighPerfDataset] size=1256 img_size=384 epoch=0/5 p_hard=0.200 is_train=True
+2025-09-08 07:05:11 | [HighPerfDataset] size=314 img_size=384 epoch=0/5 p_hard=0.000 is_train=False
+2025-09-08 07:05:11 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-08 07:05:11 | [HighPerfDataset] updated epoch=1, p_hard=0.260
+2025-09-08 07:05:11 | [EPOCH 1] >>> TRAIN start | steps=20 mixup=True
+2025-09-08 07:05:31 | [SHUTDOWN] Training pipeline ended

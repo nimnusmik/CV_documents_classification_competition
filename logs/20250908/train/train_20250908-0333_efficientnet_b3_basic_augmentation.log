@@ -1,0 +1,648 @@
+2025-09-08 03:33:54 | >> 표준 출력 및 오류를 로그 파일로 리디렉션 시작
+2025-09-08 03:33:54 | >> Logger started: logs/20250908/train/train_20250908-0333_efficientnet_b3_basic_augmentation.log
+2025-09-08 03:33:54 | [BOOT] training pipeline started
+2025-09-08 03:33:54 | [BOOT] device=cuda
+2025-09-08 03:33:54 | [CFG] loaded config from configs/train.yaml
+2025-09-08 03:33:54 | [CFG] data section: {'root': './data', 'train_csv': './data/raw/train.csv', 'sample_csv': './data/raw/sample_submission.csv', 'image_dir_train': './data/raw/train', 'image_dir_test': './data/raw/test', 'image_ext': '.jpg', 'id_col': 'ID', 'target_col': 'target', 'num_classes': 17, 'folds': 5, 'valid_fold': 'all', 'stratify': True}
+2025-09-08 03:33:54 | [CFG] train section: {'img_size': 384, 'batch_size': 64, 'use_advanced_augmentation': False, 'epochs': 10, 'lr': 0.001, 'weight_decay': 0.0, 'optimizer': 'adam', 'scheduler': 'cosine', 'amp': True, 'grad_clip_norm': 1.0, 'label_smoothing': 0.0, 'log_interval': 50}
+2025-09-08 03:33:54 | [CFG] model section: {'name': 'efficientnet_b3', 'pretrained': True, 'drop_rate': 0.0, 'drop_path_rate': 0.0, 'pooling': 'avg'}
+2025-09-08 03:33:54 | [CFG] output section: {'logs_dir': 'logs/train', 'exp_dir': 'experiments/train', 'snapshots': True}
+2025-09-08 03:33:54 | [PATH] OK | train_csv=/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/data/raw/train.csv | sample_csv=/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/data/raw/sample_submission.csv | image_dir_train=/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/data/raw/train
+2025-09-08 03:33:54 | [DATA] columns=['ID', 'target'] | required=('ID', 'target')
+2025-09-08 03:33:54 | [FOLD] preparing | folds=5 stratify=True
+2025-09-08 03:33:54 | [FOLD] distribution={0: 314, 1: 314, 2: 314, 3: 314, 4: 314}
+2025-09-08 03:33:54 | [ARTIFACTS] exp_root=experiments/train/20250908/efficientnet_b3_20250908_0333
+2025-09-08 03:33:54 | [ARTIFACTS] ckpt_dir=experiments/train/20250908/efficientnet_b3_20250908_0333/ckpt
+2025-09-08 03:33:54 | [ARTIFACTS] metrics_path=experiments/train/20250908/efficientnet_b3_20250908_0333/metrics.jsonl
+2025-09-08 03:33:54 | [ARTIFACTS] cfg_snapshot=experiments/train/20250908/efficientnet_b3_20250908_0333/config.yaml
+2025-09-08 03:33:54 | [MODE] valid_fold=all
+2025-09-08 03:33:54 | [FOLD 0] >>> start | train=1256 valid=314
+2025-09-08 03:33:54 | [DATA] build loaders | img_dir=/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/data/raw/train | img_size=384 | bs=64
+2025-09-08 03:33:54 | [DATA] augmentation type: basic
+2025-09-08 03:33:54 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-08 03:33:54 | [MODEL] name=efficientnet_b3 pretrained=True pooling=avg params(total/trainable)=10722361/10722361
+2025-09-08 03:33:54 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:519: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  scaler = GradScaler(enabled=bool(cfg["train"]["amp"]))
+2025-09-08 03:33:54 | [OPTIM] optimizer=Adam, lr=0.001, weight_decay=0.0, scheduler=CosineAnnealingLR
+2025-09-08 03:33:54 | [FOLD 0][EPOCH 1] ---------- start ----------
+2025-09-08 03:33:54 | [EPOCH 1] >>> TRAIN start | steps=20
+2025-09-08 03:33:55 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:146: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-08 03:33:56 | [EPOCH 1][TRAIN step 1/20] loss=3.45618 lr=0.001000 bs=64
+2025-09-08 03:34:00 | [EPOCH 1][TRAIN step 20/20] loss=0.55977 lr=0.001000 bs=40
+2025-09-08 03:34:00 | [EPOCH 1] <<< TRAIN end | loss=0.91190 mem=2778MiB
+2025-09-08 03:34:00 | [EPOCH 1] >>> VALID start | steps=5
+2025-09-08 03:34:00 | [EPOCH 1] <<< VALID end | loss=0.31431 macro_f1=0.87506
+2025-09-08 03:34:00 | [FOLD 0][EPOCH 1] metrics={'fold': 0, 'epoch': 1, 'train_loss': 0.911897515415386, 'valid_loss': 0.31431140062535645, 'macro_f1': 0.8750606105393856, 'lr': 0.0009999383162408303, 'time_s': 6.20429539680481, 'mem_MiB': 2777.5625}
+2025-09-08 03:34:01 | [FOLD 0][EPOCH 1] NEW_BEST F1=0.87506 -> experiments/train/20250908/efficientnet_b3_20250908_0333/ckpt/best_fold0.pth
+2025-09-08 03:34:01 | [FOLD 0][EPOCH 1] ----------- end -----------
+2025-09-08 03:34:01 | [FOLD 0][EPOCH 2] ---------- start ----------
+2025-09-08 03:34:01 | [EPOCH 2] >>> TRAIN start | steps=20
+2025-09-08 03:34:01 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:146: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-08 03:34:01 | [EPOCH 2][TRAIN step 1/20] loss=0.07729 lr=0.001000 bs=64
+2025-09-08 03:34:04 | [EPOCH 2][TRAIN step 20/20] loss=0.29273 lr=0.001000 bs=40
+2025-09-08 03:34:04 | [EPOCH 2] <<< TRAIN end | loss=0.18837 mem=2848MiB
+2025-09-08 03:34:04 | [EPOCH 2] >>> VALID start | steps=5
+2025-09-08 03:34:05 | [EPOCH 2] <<< VALID end | loss=0.46405 macro_f1=0.85378
+2025-09-08 03:34:05 | [FOLD 0][EPOCH 2] metrics={'fold': 0, 'epoch': 2, 'train_loss': 0.18837484299756918, 'valid_loss': 0.4640467037820512, 'macro_f1': 0.8537832206053153, 'lr': 0.0009997532801828658, 'time_s': 4.701477766036987, 'mem_MiB': 2847.5625}
+2025-09-08 03:34:05 | [FOLD 0][EPOCH 2] ----------- end -----------
+2025-09-08 03:34:05 | [FOLD 0][EPOCH 3] ---------- start ----------
+2025-09-08 03:34:05 | [EPOCH 3] >>> TRAIN start | steps=20
+2025-09-08 03:34:06 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:146: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-08 03:34:06 | [EPOCH 3][TRAIN step 1/20] loss=0.06963 lr=0.001000 bs=64
+2025-09-08 03:34:09 | [EPOCH 3][TRAIN step 20/20] loss=0.14697 lr=0.001000 bs=40
+2025-09-08 03:34:09 | [EPOCH 3] <<< TRAIN end | loss=0.08266 mem=2848MiB
+2025-09-08 03:34:09 | [EPOCH 3] >>> VALID start | steps=5
+2025-09-08 03:34:10 | [EPOCH 3] <<< VALID end | loss=0.50462 macro_f1=0.90137
+2025-09-08 03:34:10 | [FOLD 0][EPOCH 3] metrics={'fold': 0, 'epoch': 3, 'train_loss': 0.08266142086618265, 'valid_loss': 0.5046205759807757, 'macro_f1': 0.9013722852587529, 'lr': 0.0009994449374809851, 'time_s': 4.661638021469116, 'mem_MiB': 2847.73828125}
+2025-09-08 03:34:10 | [FOLD 0][EPOCH 3] NEW_BEST F1=0.90137 -> experiments/train/20250908/efficientnet_b3_20250908_0333/ckpt/best_fold0.pth
+2025-09-08 03:34:10 | [FOLD 0][EPOCH 3] ----------- end -----------
+2025-09-08 03:34:10 | [FOLD 0][EPOCH 4] ---------- start ----------
+2025-09-08 03:34:10 | [EPOCH 4] >>> TRAIN start | steps=20
+2025-09-08 03:34:10 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:146: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-08 03:34:11 | [EPOCH 4][TRAIN step 1/20] loss=0.12918 lr=0.000999 bs=64
+2025-09-08 03:34:14 | [EPOCH 4][TRAIN step 20/20] loss=0.15814 lr=0.000999 bs=40
+2025-09-08 03:34:14 | [EPOCH 4] <<< TRAIN end | loss=0.08545 mem=2849MiB
+2025-09-08 03:34:14 | [EPOCH 4] >>> VALID start | steps=5
+2025-09-08 03:34:15 | [EPOCH 4] <<< VALID end | loss=0.31200 macro_f1=0.90673
+2025-09-08 03:34:15 | [FOLD 0][EPOCH 4] metrics={'fold': 0, 'epoch': 4, 'train_loss': 0.08545473692523446, 'valid_loss': 0.3120009891546456, 'macro_f1': 0.9067345736227409, 'lr': 0.0009990133642141358, 'time_s': 4.5411553382873535, 'mem_MiB': 2848.97265625}
+2025-09-08 03:34:15 | [FOLD 0][EPOCH 4] NEW_BEST F1=0.90673 -> experiments/train/20250908/efficientnet_b3_20250908_0333/ckpt/best_fold0.pth
+2025-09-08 03:34:15 | [FOLD 0][EPOCH 4] ----------- end -----------
+2025-09-08 03:34:15 | [FOLD 0][EPOCH 5] ---------- start ----------
+2025-09-08 03:34:15 | [EPOCH 5] >>> TRAIN start | steps=20
+2025-09-08 03:34:15 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:146: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-08 03:34:15 | [EPOCH 5][TRAIN step 1/20] loss=0.06160 lr=0.000999 bs=64
+2025-09-08 03:34:18 | [EPOCH 5][TRAIN step 20/20] loss=0.09381 lr=0.000999 bs=40
+2025-09-08 03:34:18 | [EPOCH 5] <<< TRAIN end | loss=0.06783 mem=2849MiB
+2025-09-08 03:34:18 | [EPOCH 5] >>> VALID start | steps=5
+2025-09-08 03:34:19 | [EPOCH 5] <<< VALID end | loss=0.41519 macro_f1=0.90112
+2025-09-08 03:34:19 | [FOLD 0][EPOCH 5] metrics={'fold': 0, 'epoch': 5, 'train_loss': 0.06783024136238038, 'valid_loss': 0.41519332928642344, 'macro_f1': 0.9011223319970457, 'lr': 0.000998458666866564, 'time_s': 4.626034736633301, 'mem_MiB': 2849.0234375}
+2025-09-08 03:34:19 | [FOLD 0][EPOCH 5] ----------- end -----------
+2025-09-08 03:34:19 | [FOLD 0][EPOCH 6] ---------- start ----------
+2025-09-08 03:34:19 | [EPOCH 6] >>> TRAIN start | steps=20
+2025-09-08 03:34:20 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:146: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-08 03:34:20 | [EPOCH 6][TRAIN step 1/20] loss=0.12741 lr=0.000998 bs=64
+2025-09-08 03:34:23 | [EPOCH 6][TRAIN step 20/20] loss=0.13858 lr=0.000998 bs=40
+2025-09-08 03:34:23 | [EPOCH 6] <<< TRAIN end | loss=0.05758 mem=2849MiB
+2025-09-08 03:34:23 | [EPOCH 6] >>> VALID start | steps=5
+2025-09-08 03:34:24 | [EPOCH 6] <<< VALID end | loss=0.52329 macro_f1=0.88961
+2025-09-08 03:34:24 | [FOLD 0][EPOCH 6] metrics={'fold': 0, 'epoch': 6, 'train_loss': 0.057583093358452915, 'valid_loss': 0.5232943349583133, 'macro_f1': 0.8896148341060032, 'lr': 0.00099778098230154, 'time_s': 4.619865655899048, 'mem_MiB': 2848.98046875}
+2025-09-08 03:34:24 | [FOLD 0][EPOCH 6] ----------- end -----------
+2025-09-08 03:34:24 | [FOLD 0][EPOCH 7] ---------- start ----------
+2025-09-08 03:34:24 | [EPOCH 7] >>> TRAIN start | steps=20
+2025-09-08 03:34:24 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:146: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-08 03:34:24 | [EPOCH 7][TRAIN step 1/20] loss=0.14496 lr=0.000998 bs=64
+2025-09-08 03:34:28 | [EPOCH 7][TRAIN step 20/20] loss=0.07657 lr=0.000998 bs=40
+2025-09-08 03:34:28 | [EPOCH 7] <<< TRAIN end | loss=0.06473 mem=2849MiB
+2025-09-08 03:34:28 | [EPOCH 7] >>> VALID start | steps=5
+2025-09-08 03:34:28 | [EPOCH 7] <<< VALID end | loss=0.36747 macro_f1=0.91548
+2025-09-08 03:34:28 | [FOLD 0][EPOCH 7] metrics={'fold': 0, 'epoch': 7, 'train_loss': 0.06473474479784631, 'valid_loss': 0.3674738830441882, 'macro_f1': 0.9154767658502878, 'lr': 0.0009969804777275899, 'time_s': 4.642886400222778, 'mem_MiB': 2849.1015625}
+2025-09-08 03:34:29 | [FOLD 0][EPOCH 7] NEW_BEST F1=0.91548 -> experiments/train/20250908/efficientnet_b3_20250908_0333/ckpt/best_fold0.pth
+2025-09-08 03:34:29 | [FOLD 0][EPOCH 7] ----------- end -----------
+2025-09-08 03:34:29 | [FOLD 0][EPOCH 8] ---------- start ----------
+2025-09-08 03:34:29 | [EPOCH 8] >>> TRAIN start | steps=20
+2025-09-08 03:34:29 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:146: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-08 03:34:29 | [EPOCH 8][TRAIN step 1/20] loss=0.08773 lr=0.000997 bs=64
+2025-09-08 03:34:33 | [EPOCH 8][TRAIN step 20/20] loss=0.00390 lr=0.000997 bs=40
+2025-09-08 03:34:33 | [EPOCH 8] <<< TRAIN end | loss=0.02850 mem=2849MiB
+2025-09-08 03:34:33 | [EPOCH 8] >>> VALID start | steps=5
+2025-09-08 03:34:33 | [EPOCH 8] <<< VALID end | loss=0.28702 macro_f1=0.94945
+2025-09-08 03:34:33 | [FOLD 0][EPOCH 8] metrics={'fold': 0, 'epoch': 8, 'train_loss': 0.028500125663366856, 'valid_loss': 0.2870208313510676, 'macro_f1': 0.9494465924199786, 'lr': 0.000996057350657239, 'time_s': 4.740908861160278, 'mem_MiB': 2849.15625}
+2025-09-08 03:34:33 | [FOLD 0][EPOCH 8] NEW_BEST F1=0.94945 -> experiments/train/20250908/efficientnet_b3_20250908_0333/ckpt/best_fold0.pth
+2025-09-08 03:34:33 | [FOLD 0][EPOCH 8] ----------- end -----------
+2025-09-08 03:34:33 | [FOLD 0][EPOCH 9] ---------- start ----------
+2025-09-08 03:34:33 | [EPOCH 9] >>> TRAIN start | steps=20
+2025-09-08 03:34:34 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:146: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-08 03:34:34 | [EPOCH 9][TRAIN step 1/20] loss=0.00450 lr=0.000996 bs=64
+2025-09-08 03:34:37 | [EPOCH 9][TRAIN step 20/20] loss=0.07211 lr=0.000996 bs=40
+2025-09-08 03:34:37 | [EPOCH 9] <<< TRAIN end | loss=0.01437 mem=2849MiB
+2025-09-08 03:34:37 | [EPOCH 9] >>> VALID start | steps=5
+2025-09-08 03:34:38 | [EPOCH 9] <<< VALID end | loss=0.45867 macro_f1=0.92275
+2025-09-08 03:34:38 | [FOLD 0][EPOCH 9] metrics={'fold': 0, 'epoch': 9, 'train_loss': 0.014371990777884319, 'valid_loss': 0.4586652429999819, 'macro_f1': 0.9227516650519545, 'lr': 0.0009950118288582787, 'time_s': 4.543060064315796, 'mem_MiB': 2849.1796875}
+2025-09-08 03:34:38 | [FOLD 0][EPOCH 9] ----------- end -----------
+2025-09-08 03:34:38 | [FOLD 0][EPOCH 10] ---------- start ----------
+2025-09-08 03:34:38 | [EPOCH 10] >>> TRAIN start | steps=20
+2025-09-08 03:34:38 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:146: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-08 03:34:39 | [EPOCH 10][TRAIN step 1/20] loss=0.01828 lr=0.000995 bs=64
+2025-09-08 03:34:42 | [EPOCH 10][TRAIN step 20/20] loss=0.04939 lr=0.000995 bs=40
+2025-09-08 03:34:42 | [EPOCH 10] <<< TRAIN end | loss=0.05240 mem=2849MiB
+2025-09-08 03:34:42 | [EPOCH 10] >>> VALID start | steps=5
+2025-09-08 03:34:43 | [EPOCH 10] <<< VALID end | loss=0.32332 macro_f1=0.93424
+2025-09-08 03:34:43 | [FOLD 0][EPOCH 10] metrics={'fold': 0, 'epoch': 10, 'train_loss': 0.052404018225753385, 'valid_loss': 0.32332227298408556, 'macro_f1': 0.9342442252745302, 'lr': 0.0009938441702975688, 'time_s': 4.495646715164185, 'mem_MiB': 2849.10546875}
+2025-09-08 03:34:43 | [FOLD 0][EPOCH 10] ----------- end -----------
+2025-09-08 03:34:43 | [FOLD 0] <<< end | best_f1=0.94945
+2025-09-08 03:34:43 | [FOLD 1] >>> start | train=1256 valid=314
+2025-09-08 03:34:43 | [DATA] build loaders | img_dir=/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/data/raw/train | img_size=384 | bs=64
+2025-09-08 03:34:43 | [DATA] augmentation type: basic
+2025-09-08 03:34:43 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-08 03:34:43 | [MODEL] name=efficientnet_b3 pretrained=True pooling=avg params(total/trainable)=10722361/10722361
+2025-09-08 03:34:43 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:519: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  scaler = GradScaler(enabled=bool(cfg["train"]["amp"]))
+2025-09-08 03:34:43 | [OPTIM] optimizer=Adam, lr=0.001, weight_decay=0.0, scheduler=CosineAnnealingLR
+2025-09-08 03:34:43 | [FOLD 1][EPOCH 1] ---------- start ----------
+2025-09-08 03:34:43 | [EPOCH 1] >>> TRAIN start | steps=20
+2025-09-08 03:34:43 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:146: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-08 03:34:43 | [EPOCH 1][TRAIN step 1/20] loss=3.74093 lr=0.001000 bs=64
+2025-09-08 03:34:47 | [EPOCH 1][TRAIN step 20/20] loss=0.27774 lr=0.001000 bs=40
+2025-09-08 03:34:47 | [EPOCH 1] <<< TRAIN end | loss=0.96753 mem=2887MiB
+2025-09-08 03:34:47 | [EPOCH 1] >>> VALID start | steps=5
+2025-09-08 03:34:47 | [EPOCH 1] <<< VALID end | loss=0.39210 macro_f1=0.84135
+2025-09-08 03:34:47 | [FOLD 1][EPOCH 1] metrics={'fold': 1, 'epoch': 1, 'train_loss': 0.9675338636538026, 'valid_loss': 0.39210177758696735, 'macro_f1': 0.8413514131092907, 'lr': 0.0009999383162408303, 'time_s': 4.600022792816162, 'mem_MiB': 2886.6953125}
+2025-09-08 03:34:48 | [FOLD 1][EPOCH 1] NEW_BEST F1=0.84135 -> experiments/train/20250908/efficientnet_b3_20250908_0333/ckpt/best_fold1.pth
+2025-09-08 03:34:48 | [FOLD 1][EPOCH 1] ----------- end -----------
+2025-09-08 03:34:48 | [FOLD 1][EPOCH 2] ---------- start ----------
+2025-09-08 03:34:48 | [EPOCH 2] >>> TRAIN start | steps=20
+2025-09-08 03:34:48 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:146: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-08 03:34:48 | [EPOCH 2][TRAIN step 1/20] loss=0.16090 lr=0.001000 bs=64
+2025-09-08 03:34:51 | [EPOCH 2][TRAIN step 20/20] loss=0.40670 lr=0.001000 bs=40
+2025-09-08 03:34:51 | [EPOCH 2] <<< TRAIN end | loss=0.20387 mem=2887MiB
+2025-09-08 03:34:51 | [EPOCH 2] >>> VALID start | steps=5
+2025-09-08 03:34:52 | [EPOCH 2] <<< VALID end | loss=0.49139 macro_f1=0.88787
+2025-09-08 03:34:52 | [FOLD 1][EPOCH 2] metrics={'fold': 1, 'epoch': 2, 'train_loss': 0.20386808579135093, 'valid_loss': 0.4913904589072914, 'macro_f1': 0.8878669524489958, 'lr': 0.0009997532801828658, 'time_s': 4.600178241729736, 'mem_MiB': 2886.78125}
+2025-09-08 03:34:52 | [FOLD 1][EPOCH 2] NEW_BEST F1=0.88787 -> experiments/train/20250908/efficientnet_b3_20250908_0333/ckpt/best_fold1.pth
+2025-09-08 03:34:52 | [FOLD 1][EPOCH 2] ----------- end -----------
+2025-09-08 03:34:52 | [FOLD 1][EPOCH 3] ---------- start ----------
+2025-09-08 03:34:52 | [EPOCH 3] >>> TRAIN start | steps=20
+2025-09-08 03:34:53 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:146: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-08 03:34:53 | [EPOCH 3][TRAIN step 1/20] loss=0.22240 lr=0.001000 bs=64
+2025-09-08 03:34:56 | [EPOCH 3][TRAIN step 20/20] loss=0.20580 lr=0.001000 bs=40
+2025-09-08 03:34:56 | [EPOCH 3] <<< TRAIN end | loss=0.12709 mem=2887MiB
+2025-09-08 03:34:56 | [EPOCH 3] >>> VALID start | steps=5
+2025-09-08 03:34:57 | [EPOCH 3] <<< VALID end | loss=0.40254 macro_f1=0.86311
+2025-09-08 03:34:57 | [FOLD 1][EPOCH 3] metrics={'fold': 1, 'epoch': 3, 'train_loss': 0.12709392967877114, 'valid_loss': 0.4025376091717155, 'macro_f1': 0.8631100000427193, 'lr': 0.0009994449374809851, 'time_s': 4.584752082824707, 'mem_MiB': 2886.76953125}
+2025-09-08 03:34:57 | [FOLD 1][EPOCH 3] ----------- end -----------
+2025-09-08 03:34:57 | [FOLD 1][EPOCH 4] ---------- start ----------
+2025-09-08 03:34:57 | [EPOCH 4] >>> TRAIN start | steps=20
+2025-09-08 03:34:57 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:146: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-08 03:34:57 | [EPOCH 4][TRAIN step 1/20] loss=0.04469 lr=0.000999 bs=64
+2025-09-08 03:35:01 | [EPOCH 4][TRAIN step 20/20] loss=0.00424 lr=0.000999 bs=40
+2025-09-08 03:35:01 | [EPOCH 4] <<< TRAIN end | loss=0.06243 mem=2887MiB
+2025-09-08 03:35:01 | [EPOCH 4] >>> VALID start | steps=5
+2025-09-08 03:35:01 | [EPOCH 4] <<< VALID end | loss=0.28969 macro_f1=0.90025
+2025-09-08 03:35:01 | [FOLD 1][EPOCH 4] metrics={'fold': 1, 'epoch': 4, 'train_loss': 0.06242624637641155, 'valid_loss': 0.2896934014027286, 'macro_f1': 0.9002497650334285, 'lr': 0.0009990133642141358, 'time_s': 4.552979230880737, 'mem_MiB': 2886.7890625}
+2025-09-08 03:35:01 | [FOLD 1][EPOCH 4] NEW_BEST F1=0.90025 -> experiments/train/20250908/efficientnet_b3_20250908_0333/ckpt/best_fold1.pth
+2025-09-08 03:35:01 | [FOLD 1][EPOCH 4] ----------- end -----------
+2025-09-08 03:35:01 | [FOLD 1][EPOCH 5] ---------- start ----------
+2025-09-08 03:35:01 | [EPOCH 5] >>> TRAIN start | steps=20
+2025-09-08 03:35:02 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:146: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-08 03:35:02 | [EPOCH 5][TRAIN step 1/20] loss=0.00299 lr=0.000999 bs=64
+2025-09-08 03:35:05 | [EPOCH 5][TRAIN step 20/20] loss=0.39837 lr=0.000999 bs=40
+2025-09-08 03:35:05 | [EPOCH 5] <<< TRAIN end | loss=0.03872 mem=2887MiB
+2025-09-08 03:35:05 | [EPOCH 5] >>> VALID start | steps=5
+2025-09-08 03:35:06 | [EPOCH 5] <<< VALID end | loss=0.42447 macro_f1=0.90699
+2025-09-08 03:35:06 | [FOLD 1][EPOCH 5] metrics={'fold': 1, 'epoch': 5, 'train_loss': 0.038724939060059325, 'valid_loss': 0.4244726353390202, 'macro_f1': 0.9069938803763634, 'lr': 0.000998458666866564, 'time_s': 4.652935028076172, 'mem_MiB': 2886.80078125}
+2025-09-08 03:35:06 | [FOLD 1][EPOCH 5] NEW_BEST F1=0.90699 -> experiments/train/20250908/efficientnet_b3_20250908_0333/ckpt/best_fold1.pth
+2025-09-08 03:35:06 | [FOLD 1][EPOCH 5] ----------- end -----------
+2025-09-08 03:35:06 | [FOLD 1][EPOCH 6] ---------- start ----------
+2025-09-08 03:35:06 | [EPOCH 6] >>> TRAIN start | steps=20
+2025-09-08 03:35:07 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:146: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-08 03:35:07 | [EPOCH 6][TRAIN step 1/20] loss=0.01435 lr=0.000998 bs=64
+2025-09-08 03:35:10 | [EPOCH 6][TRAIN step 20/20] loss=0.07291 lr=0.000998 bs=40
+2025-09-08 03:35:10 | [EPOCH 6] <<< TRAIN end | loss=0.08350 mem=2887MiB
+2025-09-08 03:35:10 | [EPOCH 6] >>> VALID start | steps=5
+2025-09-08 03:35:11 | [EPOCH 6] <<< VALID end | loss=0.44020 macro_f1=0.87512
+2025-09-08 03:35:11 | [FOLD 1][EPOCH 6] metrics={'fold': 1, 'epoch': 6, 'train_loss': 0.08350362443620232, 'valid_loss': 0.44019768296912976, 'macro_f1': 0.8751200598318268, 'lr': 0.00099778098230154, 'time_s': 4.687645673751831, 'mem_MiB': 2886.765625}
+2025-09-08 03:35:11 | [FOLD 1][EPOCH 6] ----------- end -----------
+2025-09-08 03:35:11 | [FOLD 1][EPOCH 7] ---------- start ----------
+2025-09-08 03:35:11 | [EPOCH 7] >>> TRAIN start | steps=20
+2025-09-08 03:35:11 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:146: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-08 03:35:11 | [EPOCH 7][TRAIN step 1/20] loss=0.01983 lr=0.000998 bs=64
+2025-09-08 03:35:15 | [EPOCH 7][TRAIN step 20/20] loss=0.07314 lr=0.000998 bs=40
+2025-09-08 03:35:15 | [EPOCH 7] <<< TRAIN end | loss=0.09063 mem=2887MiB
+2025-09-08 03:35:15 | [EPOCH 7] >>> VALID start | steps=5
+2025-09-08 03:35:15 | [EPOCH 7] <<< VALID end | loss=0.35344 macro_f1=0.92054
+2025-09-08 03:35:15 | [FOLD 1][EPOCH 7] metrics={'fold': 1, 'epoch': 7, 'train_loss': 0.09062954797676415, 'valid_loss': 0.35343837334661726, 'macro_f1': 0.9205429119207265, 'lr': 0.0009969804777275899, 'time_s': 4.588694095611572, 'mem_MiB': 2886.73046875}
+2025-09-08 03:35:16 | [FOLD 1][EPOCH 7] NEW_BEST F1=0.92054 -> experiments/train/20250908/efficientnet_b3_20250908_0333/ckpt/best_fold1.pth
+2025-09-08 03:35:16 | [FOLD 1][EPOCH 7] ----------- end -----------
+2025-09-08 03:35:16 | [FOLD 1][EPOCH 8] ---------- start ----------
+2025-09-08 03:35:16 | [EPOCH 8] >>> TRAIN start | steps=20
+2025-09-08 03:35:16 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:146: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-08 03:35:16 | [EPOCH 8][TRAIN step 1/20] loss=0.01473 lr=0.000997 bs=64
+2025-09-08 03:35:19 | [EPOCH 8][TRAIN step 20/20] loss=0.08801 lr=0.000997 bs=40
+2025-09-08 03:35:19 | [EPOCH 8] <<< TRAIN end | loss=0.05835 mem=2887MiB
+2025-09-08 03:35:19 | [EPOCH 8] >>> VALID start | steps=5
+2025-09-08 03:35:20 | [EPOCH 8] <<< VALID end | loss=0.56242 macro_f1=0.87401
+2025-09-08 03:35:20 | [FOLD 1][EPOCH 8] metrics={'fold': 1, 'epoch': 8, 'train_loss': 0.058346382277027056, 'valid_loss': 0.5624237861602929, 'macro_f1': 0.8740054535108174, 'lr': 0.000996057350657239, 'time_s': 4.611797332763672, 'mem_MiB': 2886.84765625}
+2025-09-08 03:35:20 | [FOLD 1][EPOCH 8] ----------- end -----------
+2025-09-08 03:35:20 | [FOLD 1][EPOCH 9] ---------- start ----------
+2025-09-08 03:35:20 | [EPOCH 9] >>> TRAIN start | steps=20
+2025-09-08 03:35:20 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:146: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-08 03:35:21 | [EPOCH 9][TRAIN step 1/20] loss=0.03708 lr=0.000996 bs=64
+2025-09-08 03:35:24 | [EPOCH 9][TRAIN step 20/20] loss=0.01279 lr=0.000996 bs=40
+2025-09-08 03:35:24 | [EPOCH 9] <<< TRAIN end | loss=0.04074 mem=2887MiB
+2025-09-08 03:35:24 | [EPOCH 9] >>> VALID start | steps=5
+2025-09-08 03:35:25 | [EPOCH 9] <<< VALID end | loss=0.34996 macro_f1=0.91936
+2025-09-08 03:35:25 | [FOLD 1][EPOCH 9] metrics={'fold': 1, 'epoch': 9, 'train_loss': 0.0407420915972655, 'valid_loss': 0.3499624362796735, 'macro_f1': 0.9193555991121914, 'lr': 0.0009950118288582787, 'time_s': 4.659178972244263, 'mem_MiB': 2886.8046875}
+2025-09-08 03:35:25 | [FOLD 1][EPOCH 9] ----------- end -----------
+2025-09-08 03:35:25 | [FOLD 1][EPOCH 10] ---------- start ----------
+2025-09-08 03:35:25 | [EPOCH 10] >>> TRAIN start | steps=20
+2025-09-08 03:35:25 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:146: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-08 03:35:25 | [EPOCH 10][TRAIN step 1/20] loss=0.00097 lr=0.000995 bs=64
+2025-09-08 03:35:29 | [EPOCH 10][TRAIN step 20/20] loss=0.07975 lr=0.000995 bs=40
+2025-09-08 03:35:29 | [EPOCH 10] <<< TRAIN end | loss=0.02278 mem=2887MiB
+2025-09-08 03:35:29 | [EPOCH 10] >>> VALID start | steps=5
+2025-09-08 03:35:29 | [EPOCH 10] <<< VALID end | loss=0.43318 macro_f1=0.92423
+2025-09-08 03:35:29 | [FOLD 1][EPOCH 10] metrics={'fold': 1, 'epoch': 10, 'train_loss': 0.022779259806985308, 'valid_loss': 0.4331752357968859, 'macro_f1': 0.9242294482341138, 'lr': 0.0009938441702975688, 'time_s': 4.575798273086548, 'mem_MiB': 2886.86328125}
+2025-09-08 03:35:29 | [FOLD 1][EPOCH 10] NEW_BEST F1=0.92423 -> experiments/train/20250908/efficientnet_b3_20250908_0333/ckpt/best_fold1.pth
+2025-09-08 03:35:29 | [FOLD 1][EPOCH 10] ----------- end -----------
+2025-09-08 03:35:29 | [FOLD 1] <<< end | best_f1=0.92423
+2025-09-08 03:35:29 | [FOLD 2] >>> start | train=1256 valid=314
+2025-09-08 03:35:29 | [DATA] build loaders | img_dir=/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/data/raw/train | img_size=384 | bs=64
+2025-09-08 03:35:29 | [DATA] augmentation type: basic
+2025-09-08 03:35:29 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-08 03:35:30 | [MODEL] name=efficientnet_b3 pretrained=True pooling=avg params(total/trainable)=10722361/10722361
+2025-09-08 03:35:30 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:519: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  scaler = GradScaler(enabled=bool(cfg["train"]["amp"]))
+2025-09-08 03:35:30 | [OPTIM] optimizer=Adam, lr=0.001, weight_decay=0.0, scheduler=CosineAnnealingLR
+2025-09-08 03:35:30 | [FOLD 2][EPOCH 1] ---------- start ----------
+2025-09-08 03:35:30 | [EPOCH 1] >>> TRAIN start | steps=20
+2025-09-08 03:35:30 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:146: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-08 03:35:30 | [EPOCH 1][TRAIN step 1/20] loss=3.34791 lr=0.001000 bs=64
+2025-09-08 03:35:34 | [EPOCH 1][TRAIN step 20/20] loss=0.54955 lr=0.001000 bs=40
+2025-09-08 03:35:34 | [EPOCH 1] <<< TRAIN end | loss=0.89301 mem=2889MiB
+2025-09-08 03:35:34 | [EPOCH 1] >>> VALID start | steps=5
+2025-09-08 03:35:35 | [EPOCH 1] <<< VALID end | loss=0.45625 macro_f1=0.82928
+2025-09-08 03:35:35 | [FOLD 2][EPOCH 1] metrics={'fold': 2, 'epoch': 1, 'train_loss': 0.893006413225915, 'valid_loss': 0.45624929040100926, 'macro_f1': 0.8292798957261001, 'lr': 0.0009999383162408303, 'time_s': 4.760518550872803, 'mem_MiB': 2889.09375}
+2025-09-08 03:35:35 | [FOLD 2][EPOCH 1] NEW_BEST F1=0.82928 -> experiments/train/20250908/efficientnet_b3_20250908_0333/ckpt/best_fold2.pth
+2025-09-08 03:35:35 | [FOLD 2][EPOCH 1] ----------- end -----------
+2025-09-08 03:35:35 | [FOLD 2][EPOCH 2] ---------- start ----------
+2025-09-08 03:35:35 | [EPOCH 2] >>> TRAIN start | steps=20
+2025-09-08 03:35:35 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:146: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-08 03:35:35 | [EPOCH 2][TRAIN step 1/20] loss=0.26694 lr=0.001000 bs=64
+2025-09-08 03:35:38 | [EPOCH 2][TRAIN step 20/20] loss=0.17935 lr=0.001000 bs=40
+2025-09-08 03:35:38 | [EPOCH 2] <<< TRAIN end | loss=0.22441 mem=2889MiB
+2025-09-08 03:35:38 | [EPOCH 2] >>> VALID start | steps=5
+2025-09-08 03:35:39 | [EPOCH 2] <<< VALID end | loss=0.28491 macro_f1=0.91268
+2025-09-08 03:35:39 | [FOLD 2][EPOCH 2] metrics={'fold': 2, 'epoch': 2, 'train_loss': 0.22441032794630453, 'valid_loss': 0.2849123134354877, 'macro_f1': 0.9126780926467646, 'lr': 0.0009997532801828658, 'time_s': 4.712547063827515, 'mem_MiB': 2889.109375}
+2025-09-08 03:35:39 | [FOLD 2][EPOCH 2] NEW_BEST F1=0.91268 -> experiments/train/20250908/efficientnet_b3_20250908_0333/ckpt/best_fold2.pth
+2025-09-08 03:35:39 | [FOLD 2][EPOCH 2] ----------- end -----------
+2025-09-08 03:35:39 | [FOLD 2][EPOCH 3] ---------- start ----------
+2025-09-08 03:35:39 | [EPOCH 3] >>> TRAIN start | steps=20
+2025-09-08 03:35:40 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:146: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-08 03:35:40 | [EPOCH 3][TRAIN step 1/20] loss=0.05922 lr=0.001000 bs=64
+2025-09-08 03:35:43 | [EPOCH 3][TRAIN step 20/20] loss=0.10108 lr=0.001000 bs=40
+2025-09-08 03:35:43 | [EPOCH 3] <<< TRAIN end | loss=0.11895 mem=2889MiB
+2025-09-08 03:35:43 | [EPOCH 3] >>> VALID start | steps=5
+2025-09-08 03:35:44 | [EPOCH 3] <<< VALID end | loss=0.26770 macro_f1=0.87949
+2025-09-08 03:35:44 | [FOLD 2][EPOCH 3] metrics={'fold': 2, 'epoch': 3, 'train_loss': 0.11895342835575153, 'valid_loss': 0.2677005058640887, 'macro_f1': 0.8794906403158779, 'lr': 0.0009994449374809851, 'time_s': 4.705299615859985, 'mem_MiB': 2889.2109375}
+2025-09-08 03:35:44 | [FOLD 2][EPOCH 3] ----------- end -----------
+2025-09-08 03:35:44 | [FOLD 2][EPOCH 4] ---------- start ----------
+2025-09-08 03:35:44 | [EPOCH 4] >>> TRAIN start | steps=20
+2025-09-08 03:35:45 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:146: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-08 03:35:45 | [EPOCH 4][TRAIN step 1/20] loss=0.04999 lr=0.000999 bs=64
+2025-09-08 03:35:48 | [EPOCH 4][TRAIN step 20/20] loss=0.10717 lr=0.000999 bs=40
+2025-09-08 03:35:48 | [EPOCH 4] <<< TRAIN end | loss=0.07119 mem=2889MiB
+2025-09-08 03:35:48 | [EPOCH 4] >>> VALID start | steps=5
+2025-09-08 03:35:49 | [EPOCH 4] <<< VALID end | loss=0.51472 macro_f1=0.90871
+2025-09-08 03:35:49 | [FOLD 2][EPOCH 4] metrics={'fold': 2, 'epoch': 4, 'train_loss': 0.0711902334906493, 'valid_loss': 0.5147161965916871, 'macro_f1': 0.9087097275416673, 'lr': 0.0009990133642141358, 'time_s': 4.630444288253784, 'mem_MiB': 2889.1171875}
+2025-09-08 03:35:49 | [FOLD 2][EPOCH 4] ----------- end -----------
+2025-09-08 03:35:49 | [FOLD 2][EPOCH 5] ---------- start ----------
+2025-09-08 03:35:49 | [EPOCH 5] >>> TRAIN start | steps=20
+2025-09-08 03:35:49 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:146: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-08 03:35:49 | [EPOCH 5][TRAIN step 1/20] loss=0.01216 lr=0.000999 bs=64
+2025-09-08 03:35:52 | [EPOCH 5][TRAIN step 20/20] loss=0.03254 lr=0.000999 bs=40
+2025-09-08 03:35:52 | [EPOCH 5] <<< TRAIN end | loss=0.06872 mem=2889MiB
+2025-09-08 03:35:52 | [EPOCH 5] >>> VALID start | steps=5
+2025-09-08 03:35:53 | [EPOCH 5] <<< VALID end | loss=0.30782 macro_f1=0.89638
+2025-09-08 03:35:53 | [FOLD 2][EPOCH 5] metrics={'fold': 2, 'epoch': 5, 'train_loss': 0.0687227311075493, 'valid_loss': 0.3078238836898925, 'macro_f1': 0.8963824223407488, 'lr': 0.000998458666866564, 'time_s': 4.5319225788116455, 'mem_MiB': 2889.16796875}
+2025-09-08 03:35:53 | [FOLD 2][EPOCH 5] ----------- end -----------
+2025-09-08 03:35:53 | [FOLD 2][EPOCH 6] ---------- start ----------
+2025-09-08 03:35:53 | [EPOCH 6] >>> TRAIN start | steps=20
+2025-09-08 03:35:54 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:146: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-08 03:35:54 | [EPOCH 6][TRAIN step 1/20] loss=0.00222 lr=0.000998 bs=64
+2025-09-08 03:35:57 | [EPOCH 6][TRAIN step 20/20] loss=0.01032 lr=0.000998 bs=40
+2025-09-08 03:35:57 | [EPOCH 6] <<< TRAIN end | loss=0.04864 mem=2889MiB
+2025-09-08 03:35:57 | [EPOCH 6] >>> VALID start | steps=5
+2025-09-08 03:35:58 | [EPOCH 6] <<< VALID end | loss=0.29773 macro_f1=0.91494
+2025-09-08 03:35:58 | [FOLD 2][EPOCH 6] metrics={'fold': 2, 'epoch': 6, 'train_loss': 0.04864174062326835, 'valid_loss': 0.2977281400732174, 'macro_f1': 0.9149411826297396, 'lr': 0.00099778098230154, 'time_s': 4.599691152572632, 'mem_MiB': 2889.12109375}
+2025-09-08 03:35:58 | [FOLD 2][EPOCH 6] NEW_BEST F1=0.91494 -> experiments/train/20250908/efficientnet_b3_20250908_0333/ckpt/best_fold2.pth
+2025-09-08 03:35:58 | [FOLD 2][EPOCH 6] ----------- end -----------
+2025-09-08 03:35:58 | [FOLD 2][EPOCH 7] ---------- start ----------
+2025-09-08 03:35:58 | [EPOCH 7] >>> TRAIN start | steps=20
+2025-09-08 03:35:58 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:146: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-08 03:35:58 | [EPOCH 7][TRAIN step 1/20] loss=0.01905 lr=0.000998 bs=64
+2025-09-08 03:36:02 | [EPOCH 7][TRAIN step 20/20] loss=0.01073 lr=0.000998 bs=40
+2025-09-08 03:36:02 | [EPOCH 7] <<< TRAIN end | loss=0.05809 mem=2889MiB
+2025-09-08 03:36:02 | [EPOCH 7] >>> VALID start | steps=5
+2025-09-08 03:36:02 | [EPOCH 7] <<< VALID end | loss=0.38757 macro_f1=0.92100
+2025-09-08 03:36:02 | [FOLD 2][EPOCH 7] metrics={'fold': 2, 'epoch': 7, 'train_loss': 0.058093271069940486, 'valid_loss': 0.38757311652420434, 'macro_f1': 0.9210020940995638, 'lr': 0.0009969804777275899, 'time_s': 4.508285999298096, 'mem_MiB': 2889.0390625}
+2025-09-08 03:36:03 | [FOLD 2][EPOCH 7] NEW_BEST F1=0.92100 -> experiments/train/20250908/efficientnet_b3_20250908_0333/ckpt/best_fold2.pth
+2025-09-08 03:36:03 | [FOLD 2][EPOCH 7] ----------- end -----------
+2025-09-08 03:36:03 | [FOLD 2][EPOCH 8] ---------- start ----------
+2025-09-08 03:36:03 | [EPOCH 8] >>> TRAIN start | steps=20
+2025-09-08 03:36:03 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:146: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-08 03:36:03 | [EPOCH 8][TRAIN step 1/20] loss=0.02464 lr=0.000997 bs=64
+2025-09-08 03:36:06 | [EPOCH 8][TRAIN step 20/20] loss=0.01185 lr=0.000997 bs=40
+2025-09-08 03:36:06 | [EPOCH 8] <<< TRAIN end | loss=0.04295 mem=2889MiB
+2025-09-08 03:36:06 | [EPOCH 8] >>> VALID start | steps=5
+2025-09-08 03:36:07 | [EPOCH 8] <<< VALID end | loss=0.30852 macro_f1=0.90837
+2025-09-08 03:36:07 | [FOLD 2][EPOCH 8] metrics={'fold': 2, 'epoch': 8, 'train_loss': 0.04294818753649475, 'valid_loss': 0.308522899059733, 'macro_f1': 0.9083688010560742, 'lr': 0.000996057350657239, 'time_s': 4.626622676849365, 'mem_MiB': 2889.01953125}
+2025-09-08 03:36:07 | [FOLD 2][EPOCH 8] ----------- end -----------
+2025-09-08 03:36:07 | [FOLD 2][EPOCH 9] ---------- start ----------
+2025-09-08 03:36:07 | [EPOCH 9] >>> TRAIN start | steps=20
+2025-09-08 03:36:08 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:146: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-08 03:36:08 | [EPOCH 9][TRAIN step 1/20] loss=0.00186 lr=0.000996 bs=64
+2025-09-08 03:36:11 | [EPOCH 9][TRAIN step 20/20] loss=0.25816 lr=0.000996 bs=40
+2025-09-08 03:36:11 | [EPOCH 9] <<< TRAIN end | loss=0.03773 mem=2889MiB
+2025-09-08 03:36:11 | [EPOCH 9] >>> VALID start | steps=5
+2025-09-08 03:36:12 | [EPOCH 9] <<< VALID end | loss=0.45218 macro_f1=0.90919
+2025-09-08 03:36:12 | [FOLD 2][EPOCH 9] metrics={'fold': 2, 'epoch': 9, 'train_loss': 0.03772953361462636, 'valid_loss': 0.45218499166191006, 'macro_f1': 0.9091913833331312, 'lr': 0.0009950118288582787, 'time_s': 4.62088942527771, 'mem_MiB': 2888.94921875}
+2025-09-08 03:36:12 | [FOLD 2][EPOCH 9] ----------- end -----------
+2025-09-08 03:36:12 | [FOLD 2][EPOCH 10] ---------- start ----------
+2025-09-08 03:36:12 | [EPOCH 10] >>> TRAIN start | steps=20
+2025-09-08 03:36:12 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:146: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-08 03:36:12 | [EPOCH 10][TRAIN step 1/20] loss=0.00121 lr=0.000995 bs=64
+2025-09-08 03:36:16 | [EPOCH 10][TRAIN step 20/20] loss=0.35413 lr=0.000995 bs=40
+2025-09-08 03:36:16 | [EPOCH 10] <<< TRAIN end | loss=0.03059 mem=2889MiB
+2025-09-08 03:36:16 | [EPOCH 10] >>> VALID start | steps=5
+2025-09-08 03:36:16 | [EPOCH 10] <<< VALID end | loss=0.65034 macro_f1=0.90896
+2025-09-08 03:36:16 | [FOLD 2][EPOCH 10] metrics={'fold': 2, 'epoch': 10, 'train_loss': 0.030590291805328077, 'valid_loss': 0.6503421772437491, 'macro_f1': 0.9089557149286817, 'lr': 0.0009938441702975688, 'time_s': 4.624980688095093, 'mem_MiB': 2888.98828125}
+2025-09-08 03:36:16 | [FOLD 2][EPOCH 10] ----------- end -----------
+2025-09-08 03:36:16 | [FOLD 2] <<< end | best_f1=0.92100
+2025-09-08 03:36:16 | [FOLD 3] >>> start | train=1256 valid=314
+2025-09-08 03:36:16 | [DATA] build loaders | img_dir=/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/data/raw/train | img_size=384 | bs=64
+2025-09-08 03:36:16 | [DATA] augmentation type: basic
+2025-09-08 03:36:16 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-08 03:36:17 | [MODEL] name=efficientnet_b3 pretrained=True pooling=avg params(total/trainable)=10722361/10722361
+2025-09-08 03:36:17 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:519: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  scaler = GradScaler(enabled=bool(cfg["train"]["amp"]))
+2025-09-08 03:36:17 | [OPTIM] optimizer=Adam, lr=0.001, weight_decay=0.0, scheduler=CosineAnnealingLR
+2025-09-08 03:36:17 | [FOLD 3][EPOCH 1] ---------- start ----------
+2025-09-08 03:36:17 | [EPOCH 1] >>> TRAIN start | steps=20
+2025-09-08 03:36:17 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:146: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-08 03:36:17 | [EPOCH 1][TRAIN step 1/20] loss=3.89567 lr=0.001000 bs=64
+2025-09-08 03:36:21 | [EPOCH 1][TRAIN step 20/20] loss=0.47060 lr=0.001000 bs=40
+2025-09-08 03:36:21 | [EPOCH 1] <<< TRAIN end | loss=0.89912 mem=2889MiB
+2025-09-08 03:36:21 | [EPOCH 1] >>> VALID start | steps=5
+2025-09-08 03:36:21 | [EPOCH 1] <<< VALID end | loss=0.24209 macro_f1=0.89913
+2025-09-08 03:36:21 | [FOLD 3][EPOCH 1] metrics={'fold': 3, 'epoch': 1, 'train_loss': 0.8991213135278908, 'valid_loss': 0.24208545760743938, 'macro_f1': 0.8991336306065854, 'lr': 0.0009999383162408303, 'time_s': 4.642567157745361, 'mem_MiB': 2889.41796875}
+2025-09-08 03:36:21 | [FOLD 3][EPOCH 1] NEW_BEST F1=0.89913 -> experiments/train/20250908/efficientnet_b3_20250908_0333/ckpt/best_fold3.pth
+2025-09-08 03:36:21 | [FOLD 3][EPOCH 1] ----------- end -----------
+2025-09-08 03:36:21 | [FOLD 3][EPOCH 2] ---------- start ----------
+2025-09-08 03:36:21 | [EPOCH 2] >>> TRAIN start | steps=20
+2025-09-08 03:36:22 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:146: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-08 03:36:22 | [EPOCH 2][TRAIN step 1/20] loss=0.20809 lr=0.001000 bs=64
+2025-09-08 03:36:25 | [EPOCH 2][TRAIN step 20/20] loss=0.49573 lr=0.001000 bs=40
+2025-09-08 03:36:25 | [EPOCH 2] <<< TRAIN end | loss=0.22455 mem=2890MiB
+2025-09-08 03:36:25 | [EPOCH 2] >>> VALID start | steps=5
+2025-09-08 03:36:26 | [EPOCH 2] <<< VALID end | loss=0.38342 macro_f1=0.87609
+2025-09-08 03:36:26 | [FOLD 3][EPOCH 2] metrics={'fold': 3, 'epoch': 2, 'train_loss': 0.22455225495775794, 'valid_loss': 0.3834212306578448, 'macro_f1': 0.8760893267442071, 'lr': 0.0009997532801828658, 'time_s': 4.667100191116333, 'mem_MiB': 2889.5390625}
+2025-09-08 03:36:26 | [FOLD 3][EPOCH 2] ----------- end -----------
+2025-09-08 03:36:26 | [FOLD 3][EPOCH 3] ---------- start ----------
+2025-09-08 03:36:26 | [EPOCH 3] >>> TRAIN start | steps=20
+2025-09-08 03:36:26 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:146: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-08 03:36:27 | [EPOCH 3][TRAIN step 1/20] loss=0.03681 lr=0.001000 bs=64
+2025-09-08 03:36:30 | [EPOCH 3][TRAIN step 20/20] loss=0.04854 lr=0.001000 bs=40
+2025-09-08 03:36:30 | [EPOCH 3] <<< TRAIN end | loss=0.09946 mem=2890MiB
+2025-09-08 03:36:30 | [EPOCH 3] >>> VALID start | steps=5
+2025-09-08 03:36:31 | [EPOCH 3] <<< VALID end | loss=0.37445 macro_f1=0.89928
+2025-09-08 03:36:31 | [FOLD 3][EPOCH 3] metrics={'fold': 3, 'epoch': 3, 'train_loss': 0.09946170026899144, 'valid_loss': 0.374454075933262, 'macro_f1': 0.8992793142284519, 'lr': 0.0009994449374809851, 'time_s': 4.634886741638184, 'mem_MiB': 2889.61328125}
+2025-09-08 03:36:31 | [FOLD 3][EPOCH 3] NEW_BEST F1=0.89928 -> experiments/train/20250908/efficientnet_b3_20250908_0333/ckpt/best_fold3.pth
+2025-09-08 03:36:31 | [FOLD 3][EPOCH 3] ----------- end -----------
+2025-09-08 03:36:31 | [FOLD 3][EPOCH 4] ---------- start ----------
+2025-09-08 03:36:31 | [EPOCH 4] >>> TRAIN start | steps=20
+2025-09-08 03:36:31 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:146: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-08 03:36:31 | [EPOCH 4][TRAIN step 1/20] loss=0.03878 lr=0.000999 bs=64
+2025-09-08 03:36:35 | [EPOCH 4][TRAIN step 20/20] loss=0.04138 lr=0.000999 bs=40
+2025-09-08 03:36:35 | [EPOCH 4] <<< TRAIN end | loss=0.09483 mem=2890MiB
+2025-09-08 03:36:35 | [EPOCH 4] >>> VALID start | steps=5
+2025-09-08 03:36:35 | [EPOCH 4] <<< VALID end | loss=0.61151 macro_f1=0.85436
+2025-09-08 03:36:35 | [FOLD 3][EPOCH 4] metrics={'fold': 3, 'epoch': 4, 'train_loss': 0.09483319357227368, 'valid_loss': 0.6115086648114927, 'macro_f1': 0.8543554858672877, 'lr': 0.0009990133642141358, 'time_s': 4.614234447479248, 'mem_MiB': 2889.69921875}
+2025-09-08 03:36:35 | [FOLD 3][EPOCH 4] ----------- end -----------
+2025-09-08 03:36:35 | [FOLD 3][EPOCH 5] ---------- start ----------
+2025-09-08 03:36:35 | [EPOCH 5] >>> TRAIN start | steps=20
+2025-09-08 03:36:36 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:146: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-08 03:36:36 | [EPOCH 5][TRAIN step 1/20] loss=0.08544 lr=0.000999 bs=64
+2025-09-08 03:36:39 | [EPOCH 5][TRAIN step 20/20] loss=0.02755 lr=0.000999 bs=40
+2025-09-08 03:36:39 | [EPOCH 5] <<< TRAIN end | loss=0.04940 mem=2890MiB
+2025-09-08 03:36:39 | [EPOCH 5] >>> VALID start | steps=5
+2025-09-08 03:36:40 | [EPOCH 5] <<< VALID end | loss=0.31603 macro_f1=0.90857
+2025-09-08 03:36:40 | [FOLD 3][EPOCH 5] metrics={'fold': 3, 'epoch': 5, 'train_loss': 0.049401115732872564, 'valid_loss': 0.3160337882626588, 'macro_f1': 0.9085670328553971, 'lr': 0.000998458666866564, 'time_s': 4.725900411605835, 'mem_MiB': 2889.890625}
+2025-09-08 03:36:40 | [FOLD 3][EPOCH 5] NEW_BEST F1=0.90857 -> experiments/train/20250908/efficientnet_b3_20250908_0333/ckpt/best_fold3.pth
+2025-09-08 03:36:40 | [FOLD 3][EPOCH 5] ----------- end -----------
+2025-09-08 03:36:40 | [FOLD 3][EPOCH 6] ---------- start ----------
+2025-09-08 03:36:40 | [EPOCH 6] >>> TRAIN start | steps=20
+2025-09-08 03:36:41 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:146: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-08 03:36:41 | [EPOCH 6][TRAIN step 1/20] loss=0.01242 lr=0.000998 bs=64
+2025-09-08 03:36:44 | [EPOCH 6][TRAIN step 20/20] loss=0.11133 lr=0.000998 bs=40
+2025-09-08 03:36:44 | [EPOCH 6] <<< TRAIN end | loss=0.08796 mem=2890MiB
+2025-09-08 03:36:44 | [EPOCH 6] >>> VALID start | steps=5
+2025-09-08 03:36:45 | [EPOCH 6] <<< VALID end | loss=0.32228 macro_f1=0.89188
+2025-09-08 03:36:45 | [FOLD 3][EPOCH 6] metrics={'fold': 3, 'epoch': 6, 'train_loss': 0.0879605723794099, 'valid_loss': 0.32228014955095424, 'macro_f1': 0.8918785228066051, 'lr': 0.00099778098230154, 'time_s': 4.614917278289795, 'mem_MiB': 2889.8828125}
+2025-09-08 03:36:45 | [FOLD 3][EPOCH 6] ----------- end -----------
+2025-09-08 03:36:45 | [FOLD 3][EPOCH 7] ---------- start ----------
+2025-09-08 03:36:45 | [EPOCH 7] >>> TRAIN start | steps=20
+2025-09-08 03:36:45 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:146: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-08 03:36:45 | [EPOCH 7][TRAIN step 1/20] loss=0.01444 lr=0.000998 bs=64
+2025-09-08 03:36:49 | [EPOCH 7][TRAIN step 20/20] loss=0.21355 lr=0.000998 bs=40
+2025-09-08 03:36:49 | [EPOCH 7] <<< TRAIN end | loss=0.03592 mem=2890MiB
+2025-09-08 03:36:49 | [EPOCH 7] >>> VALID start | steps=5
+2025-09-08 03:36:50 | [EPOCH 7] <<< VALID end | loss=0.75621 macro_f1=0.88135
+2025-09-08 03:36:50 | [FOLD 3][EPOCH 7] metrics={'fold': 3, 'epoch': 7, 'train_loss': 0.03591987689968887, 'valid_loss': 0.7562101422601445, 'macro_f1': 0.8813457777718855, 'lr': 0.0009969804777275899, 'time_s': 4.6798765659332275, 'mem_MiB': 2889.87890625}
+2025-09-08 03:36:50 | [FOLD 3][EPOCH 7] ----------- end -----------
+2025-09-08 03:36:50 | [FOLD 3][EPOCH 8] ---------- start ----------
+2025-09-08 03:36:50 | [EPOCH 8] >>> TRAIN start | steps=20
+2025-09-08 03:36:50 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:146: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-08 03:36:50 | [EPOCH 8][TRAIN step 1/20] loss=0.00328 lr=0.000997 bs=64
+2025-09-08 03:36:53 | [EPOCH 8][TRAIN step 20/20] loss=0.00695 lr=0.000997 bs=40
+2025-09-08 03:36:53 | [EPOCH 8] <<< TRAIN end | loss=0.04861 mem=2890MiB
+2025-09-08 03:36:53 | [EPOCH 8] >>> VALID start | steps=5
+2025-09-08 03:36:54 | [EPOCH 8] <<< VALID end | loss=0.27010 macro_f1=0.93291
+2025-09-08 03:36:54 | [FOLD 3][EPOCH 8] metrics={'fold': 3, 'epoch': 8, 'train_loss': 0.04860706028831043, 'valid_loss': 0.27010044882631606, 'macro_f1': 0.9329067861962599, 'lr': 0.000996057350657239, 'time_s': 4.667369842529297, 'mem_MiB': 2889.8515625}
+2025-09-08 03:36:54 | [FOLD 3][EPOCH 8] NEW_BEST F1=0.93291 -> experiments/train/20250908/efficientnet_b3_20250908_0333/ckpt/best_fold3.pth
+2025-09-08 03:36:54 | [FOLD 3][EPOCH 8] ----------- end -----------
+2025-09-08 03:36:54 | [FOLD 3][EPOCH 9] ---------- start ----------
+2025-09-08 03:36:54 | [EPOCH 9] >>> TRAIN start | steps=20
+2025-09-08 03:36:55 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:146: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-08 03:36:55 | [EPOCH 9][TRAIN step 1/20] loss=0.01562 lr=0.000996 bs=64
+2025-09-08 03:36:58 | [EPOCH 9][TRAIN step 20/20] loss=0.00930 lr=0.000996 bs=40
+2025-09-08 03:36:58 | [EPOCH 9] <<< TRAIN end | loss=0.04487 mem=2890MiB
+2025-09-08 03:36:58 | [EPOCH 9] >>> VALID start | steps=5
+2025-09-08 03:36:59 | [EPOCH 9] <<< VALID end | loss=0.37421 macro_f1=0.91299
+2025-09-08 03:36:59 | [FOLD 3][EPOCH 9] metrics={'fold': 3, 'epoch': 9, 'train_loss': 0.04487441042378829, 'valid_loss': 0.3742127650102992, 'macro_f1': 0.9129933956429078, 'lr': 0.0009950118288582787, 'time_s': 4.618737697601318, 'mem_MiB': 2889.8828125}
+2025-09-08 03:36:59 | [FOLD 3][EPOCH 9] ----------- end -----------
+2025-09-08 03:36:59 | [FOLD 3][EPOCH 10] ---------- start ----------
+2025-09-08 03:36:59 | [EPOCH 10] >>> TRAIN start | steps=20
+2025-09-08 03:36:59 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:146: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-08 03:36:59 | [EPOCH 10][TRAIN step 1/20] loss=0.01311 lr=0.000995 bs=64
+2025-09-08 03:37:03 | [EPOCH 10][TRAIN step 20/20] loss=0.00532 lr=0.000995 bs=40
+2025-09-08 03:37:03 | [EPOCH 10] <<< TRAIN end | loss=0.03061 mem=2890MiB
+2025-09-08 03:37:03 | [EPOCH 10] >>> VALID start | steps=5
+2025-09-08 03:37:03 | [EPOCH 10] <<< VALID end | loss=0.31444 macro_f1=0.94375
+2025-09-08 03:37:03 | [FOLD 3][EPOCH 10] metrics={'fold': 3, 'epoch': 10, 'train_loss': 0.030609737817720053, 'valid_loss': 0.314444016190661, 'macro_f1': 0.9437487261016673, 'lr': 0.0009938441702975688, 'time_s': 4.550000190734863, 'mem_MiB': 2889.8515625}
+2025-09-08 03:37:04 | [FOLD 3][EPOCH 10] NEW_BEST F1=0.94375 -> experiments/train/20250908/efficientnet_b3_20250908_0333/ckpt/best_fold3.pth
+2025-09-08 03:37:04 | [FOLD 3][EPOCH 10] ----------- end -----------
+2025-09-08 03:37:04 | [FOLD 3] <<< end | best_f1=0.94375
+2025-09-08 03:37:04 | [FOLD 4] >>> start | train=1256 valid=314
+2025-09-08 03:37:04 | [DATA] build loaders | img_dir=/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/data/raw/train | img_size=384 | bs=64
+2025-09-08 03:37:04 | [DATA] augmentation type: basic
+2025-09-08 03:37:04 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-08 03:37:04 | [MODEL] name=efficientnet_b3 pretrained=True pooling=avg params(total/trainable)=10722361/10722361
+2025-09-08 03:37:04 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:519: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  scaler = GradScaler(enabled=bool(cfg["train"]["amp"]))
+2025-09-08 03:37:04 | [OPTIM] optimizer=Adam, lr=0.001, weight_decay=0.0, scheduler=CosineAnnealingLR
+2025-09-08 03:37:04 | [FOLD 4][EPOCH 1] ---------- start ----------
+2025-09-08 03:37:04 | [EPOCH 1] >>> TRAIN start | steps=20
+2025-09-08 03:37:04 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:146: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-08 03:37:04 | [EPOCH 1][TRAIN step 1/20] loss=3.93407 lr=0.001000 bs=64
+2025-09-08 03:37:08 | [EPOCH 1][TRAIN step 20/20] loss=0.76010 lr=0.001000 bs=40
+2025-09-08 03:37:08 | [EPOCH 1] <<< TRAIN end | loss=0.92615 mem=2890MiB
+2025-09-08 03:37:08 | [EPOCH 1] >>> VALID start | steps=5
+2025-09-08 03:37:08 | [EPOCH 1] <<< VALID end | loss=0.54364 macro_f1=0.80210
+2025-09-08 03:37:08 | [FOLD 4][EPOCH 1] metrics={'fold': 4, 'epoch': 1, 'train_loss': 0.9261457396161025, 'valid_loss': 0.5436375642278392, 'macro_f1': 0.8021047446909838, 'lr': 0.0009999383162408303, 'time_s': 4.626823902130127, 'mem_MiB': 2889.59375}
+2025-09-08 03:37:09 | [FOLD 4][EPOCH 1] NEW_BEST F1=0.80210 -> experiments/train/20250908/efficientnet_b3_20250908_0333/ckpt/best_fold4.pth
+2025-09-08 03:37:09 | [FOLD 4][EPOCH 1] ----------- end -----------
+2025-09-08 03:37:09 | [FOLD 4][EPOCH 2] ---------- start ----------
+2025-09-08 03:37:09 | [EPOCH 2] >>> TRAIN start | steps=20
+2025-09-08 03:37:09 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:146: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-08 03:37:09 | [EPOCH 2][TRAIN step 1/20] loss=0.18688 lr=0.001000 bs=64
+2025-09-08 03:37:12 | [EPOCH 2][TRAIN step 20/20] loss=0.12828 lr=0.001000 bs=40
+2025-09-08 03:37:12 | [EPOCH 2] <<< TRAIN end | loss=0.22687 mem=2889MiB
+2025-09-08 03:37:12 | [EPOCH 2] >>> VALID start | steps=5
+2025-09-08 03:37:13 | [EPOCH 2] <<< VALID end | loss=0.45088 macro_f1=0.85150
+2025-09-08 03:37:13 | [FOLD 4][EPOCH 2] metrics={'fold': 4, 'epoch': 2, 'train_loss': 0.22686620217979334, 'valid_loss': 0.45087722456379303, 'macro_f1': 0.8514975794557614, 'lr': 0.0009997532801828658, 'time_s': 4.61853289604187, 'mem_MiB': 2889.4296875}
+2025-09-08 03:37:13 | [FOLD 4][EPOCH 2] NEW_BEST F1=0.85150 -> experiments/train/20250908/efficientnet_b3_20250908_0333/ckpt/best_fold4.pth
+2025-09-08 03:37:13 | [FOLD 4][EPOCH 2] ----------- end -----------
+2025-09-08 03:37:13 | [FOLD 4][EPOCH 3] ---------- start ----------
+2025-09-08 03:37:13 | [EPOCH 3] >>> TRAIN start | steps=20
+2025-09-08 03:37:14 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:146: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-08 03:37:14 | [EPOCH 3][TRAIN step 1/20] loss=0.18944 lr=0.001000 bs=64
+2025-09-08 03:37:17 | [EPOCH 3][TRAIN step 20/20] loss=0.04891 lr=0.001000 bs=40
+2025-09-08 03:37:17 | [EPOCH 3] <<< TRAIN end | loss=0.14422 mem=2889MiB
+2025-09-08 03:37:17 | [EPOCH 3] >>> VALID start | steps=5
+2025-09-08 03:37:18 | [EPOCH 3] <<< VALID end | loss=0.49111 macro_f1=0.87496
+2025-09-08 03:37:18 | [FOLD 4][EPOCH 3] metrics={'fold': 4, 'epoch': 3, 'train_loss': 0.14422244934519385, 'valid_loss': 0.49110863675737076, 'macro_f1': 0.8749555572692811, 'lr': 0.0009994449374809851, 'time_s': 4.64663028717041, 'mem_MiB': 2889.30078125}
+2025-09-08 03:37:18 | [FOLD 4][EPOCH 3] NEW_BEST F1=0.87496 -> experiments/train/20250908/efficientnet_b3_20250908_0333/ckpt/best_fold4.pth
+2025-09-08 03:37:18 | [FOLD 4][EPOCH 3] ----------- end -----------
+2025-09-08 03:37:18 | [FOLD 4][EPOCH 4] ---------- start ----------
+2025-09-08 03:37:18 | [EPOCH 4] >>> TRAIN start | steps=20
+2025-09-08 03:37:18 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:146: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-08 03:37:19 | [EPOCH 4][TRAIN step 1/20] loss=0.02044 lr=0.000999 bs=64
+2025-09-08 03:37:22 | [EPOCH 4][TRAIN step 20/20] loss=0.21351 lr=0.000999 bs=40
+2025-09-08 03:37:22 | [EPOCH 4] <<< TRAIN end | loss=0.11216 mem=2889MiB
+2025-09-08 03:37:22 | [EPOCH 4] >>> VALID start | steps=5
+2025-09-08 03:37:23 | [EPOCH 4] <<< VALID end | loss=0.45132 macro_f1=0.86807
+2025-09-08 03:37:23 | [FOLD 4][EPOCH 4] metrics={'fold': 4, 'epoch': 4, 'train_loss': 0.11216220753208088, 'valid_loss': 0.45132325466271417, 'macro_f1': 0.8680697740696625, 'lr': 0.0009990133642141358, 'time_s': 4.681005477905273, 'mem_MiB': 2889.375}
+2025-09-08 03:37:23 | [FOLD 4][EPOCH 4] ----------- end -----------
+2025-09-08 03:37:23 | [FOLD 4][EPOCH 5] ---------- start ----------
+2025-09-08 03:37:23 | [EPOCH 5] >>> TRAIN start | steps=20
+2025-09-08 03:37:23 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:146: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-08 03:37:23 | [EPOCH 5][TRAIN step 1/20] loss=0.15324 lr=0.000999 bs=64
+2025-09-08 03:37:26 | [EPOCH 5][TRAIN step 20/20] loss=0.06714 lr=0.000999 bs=40
+2025-09-08 03:37:26 | [EPOCH 5] <<< TRAIN end | loss=0.06510 mem=2889MiB
+2025-09-08 03:37:26 | [EPOCH 5] >>> VALID start | steps=5
+2025-09-08 03:37:27 | [EPOCH 5] <<< VALID end | loss=0.32736 macro_f1=0.89516
+2025-09-08 03:37:27 | [FOLD 4][EPOCH 5] metrics={'fold': 4, 'epoch': 5, 'train_loss': 0.06509515272963579, 'valid_loss': 0.32736129783521034, 'macro_f1': 0.895164552377415, 'lr': 0.000998458666866564, 'time_s': 4.6193647384643555, 'mem_MiB': 2889.33984375}
+2025-09-08 03:37:27 | [FOLD 4][EPOCH 5] NEW_BEST F1=0.89516 -> experiments/train/20250908/efficientnet_b3_20250908_0333/ckpt/best_fold4.pth
+2025-09-08 03:37:27 | [FOLD 4][EPOCH 5] ----------- end -----------
+2025-09-08 03:37:27 | [FOLD 4][EPOCH 6] ---------- start ----------
+2025-09-08 03:37:27 | [EPOCH 6] >>> TRAIN start | steps=20
+2025-09-08 03:37:28 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:146: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-08 03:37:28 | [EPOCH 6][TRAIN step 1/20] loss=0.03208 lr=0.000998 bs=64
+2025-09-08 03:37:31 | [EPOCH 6][TRAIN step 20/20] loss=0.00739 lr=0.000998 bs=40
+2025-09-08 03:37:31 | [EPOCH 6] <<< TRAIN end | loss=0.05699 mem=2889MiB
+2025-09-08 03:37:31 | [EPOCH 6] >>> VALID start | steps=5
+2025-09-08 03:37:32 | [EPOCH 6] <<< VALID end | loss=0.47573 macro_f1=0.88486
+2025-09-08 03:37:32 | [FOLD 4][EPOCH 6] metrics={'fold': 4, 'epoch': 6, 'train_loss': 0.05698987395817023, 'valid_loss': 0.4757343462318372, 'macro_f1': 0.8848593767731207, 'lr': 0.00099778098230154, 'time_s': 4.717396020889282, 'mem_MiB': 2889.25}
+2025-09-08 03:37:32 | [FOLD 4][EPOCH 6] ----------- end -----------
+2025-09-08 03:37:32 | [FOLD 4][EPOCH 7] ---------- start ----------
+2025-09-08 03:37:32 | [EPOCH 7] >>> TRAIN start | steps=20
+2025-09-08 03:37:32 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:146: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-08 03:37:33 | [EPOCH 7][TRAIN step 1/20] loss=0.01055 lr=0.000998 bs=64
+2025-09-08 03:37:36 | [EPOCH 7][TRAIN step 20/20] loss=0.15222 lr=0.000998 bs=40
+2025-09-08 03:37:36 | [EPOCH 7] <<< TRAIN end | loss=0.05177 mem=2889MiB
+2025-09-08 03:37:36 | [EPOCH 7] >>> VALID start | steps=5
+2025-09-08 03:37:37 | [EPOCH 7] <<< VALID end | loss=0.71244 macro_f1=0.85343
+2025-09-08 03:37:37 | [FOLD 4][EPOCH 7] metrics={'fold': 4, 'epoch': 7, 'train_loss': 0.05176756175080682, 'valid_loss': 0.7124405514662433, 'macro_f1': 0.8534313287541407, 'lr': 0.0009969804777275899, 'time_s': 4.606907844543457, 'mem_MiB': 2889.34375}
+2025-09-08 03:37:37 | [FOLD 4][EPOCH 7] ----------- end -----------
+2025-09-08 03:37:37 | [FOLD 4][EPOCH 8] ---------- start ----------
+2025-09-08 03:37:37 | [EPOCH 8] >>> TRAIN start | steps=20
+2025-09-08 03:37:37 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:146: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-08 03:37:37 | [EPOCH 8][TRAIN step 1/20] loss=0.09150 lr=0.000997 bs=64
+2025-09-08 03:37:40 | [EPOCH 8][TRAIN step 20/20] loss=0.46303 lr=0.000997 bs=40
+2025-09-08 03:37:40 | [EPOCH 8] <<< TRAIN end | loss=0.08259 mem=2889MiB
+2025-09-08 03:37:40 | [EPOCH 8] >>> VALID start | steps=5
+2025-09-08 03:37:41 | [EPOCH 8] <<< VALID end | loss=0.46884 macro_f1=0.89972
+2025-09-08 03:37:41 | [FOLD 4][EPOCH 8] metrics={'fold': 4, 'epoch': 8, 'train_loss': 0.08259466214544454, 'valid_loss': 0.46884327310665397, 'macro_f1': 0.899723739682005, 'lr': 0.000996057350657239, 'time_s': 4.63430643081665, 'mem_MiB': 2889.32421875}
+2025-09-08 03:37:41 | [FOLD 4][EPOCH 8] NEW_BEST F1=0.89972 -> experiments/train/20250908/efficientnet_b3_20250908_0333/ckpt/best_fold4.pth
+2025-09-08 03:37:41 | [FOLD 4][EPOCH 8] ----------- end -----------
+2025-09-08 03:37:41 | [FOLD 4][EPOCH 9] ---------- start ----------
+2025-09-08 03:37:41 | [EPOCH 9] >>> TRAIN start | steps=20
+2025-09-08 03:37:42 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:146: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-08 03:37:42 | [EPOCH 9][TRAIN step 1/20] loss=0.00505 lr=0.000996 bs=64
+2025-09-08 03:37:45 | [EPOCH 9][TRAIN step 20/20] loss=0.00360 lr=0.000996 bs=40
+2025-09-08 03:37:45 | [EPOCH 9] <<< TRAIN end | loss=0.03892 mem=2889MiB
+2025-09-08 03:37:45 | [EPOCH 9] >>> VALID start | steps=5
+2025-09-08 03:37:46 | [EPOCH 9] <<< VALID end | loss=0.57142 macro_f1=0.89513
+2025-09-08 03:37:46 | [FOLD 4][EPOCH 9] metrics={'fold': 4, 'epoch': 9, 'train_loss': 0.03891649680763815, 'valid_loss': 0.5714247241900985, 'macro_f1': 0.8951271422795651, 'lr': 0.0009950118288582787, 'time_s': 4.700265884399414, 'mem_MiB': 2889.390625}
+2025-09-08 03:37:46 | [FOLD 4][EPOCH 9] ----------- end -----------
+2025-09-08 03:37:46 | [FOLD 4][EPOCH 10] ---------- start ----------
+2025-09-08 03:37:46 | [EPOCH 10] >>> TRAIN start | steps=20
+2025-09-08 03:37:47 | /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train.py:146: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-08 03:37:47 | [EPOCH 10][TRAIN step 1/20] loss=0.00063 lr=0.000995 bs=64
+2025-09-08 03:37:50 | [EPOCH 10][TRAIN step 20/20] loss=0.12023 lr=0.000995 bs=40
+2025-09-08 03:37:50 | [EPOCH 10] <<< TRAIN end | loss=0.03760 mem=2889MiB
+2025-09-08 03:37:50 | [EPOCH 10] >>> VALID start | steps=5
+2025-09-08 03:37:51 | [EPOCH 10] <<< VALID end | loss=0.28383 macro_f1=0.93225
+2025-09-08 03:37:51 | [FOLD 4][EPOCH 10] metrics={'fold': 4, 'epoch': 10, 'train_loss': 0.03760030172812711, 'valid_loss': 0.283829341363755, 'macro_f1': 0.9322542486949374, 'lr': 0.0009938441702975688, 'time_s': 4.660816431045532, 'mem_MiB': 2889.421875}
+2025-09-08 03:37:51 | [FOLD 4][EPOCH 10] NEW_BEST F1=0.93225 -> experiments/train/20250908/efficientnet_b3_20250908_0333/ckpt/best_fold4.pth
+2025-09-08 03:37:51 | [FOLD 4][EPOCH 10] ----------- end -----------
+2025-09-08 03:37:51 | [FOLD 4] <<< end | best_f1=0.93225
+2025-09-08 03:37:51 | [OOF] macro-F1=0.93455; per-fold=['0.94945', '0.92423', '0.92100', '0.94375', '0.93225']
+2025-09-08 03:37:51 | [OOF] saved arrays -> experiments/train/20250908/efficientnet_b3_20250908_0333/oof
+2025-09-08 03:37:51 | [DONE] all-fold training finished
+2025-09-08 03:37:51 | [COPY] Results copied to latest-train/efficientnet_b3_20250908_0333
+2025-09-08 03:37:51 | 📁 Latest results: experiments/train/latest-train/efficientnet_b3_20250908_0333
+2025-09-08 03:37:51 | [BOOT] training pipeline finished successfully
+2025-09-08 03:37:51 | [EXIT] TRAINING SUCCESS code=0
+2025-09-08 03:37:51 | >> Stopping logger and restoring stdio
+2025-09-08 03:37:51 | >> 로그 리디렉션 중료.

@@ -1,0 +1,62 @@
+# 빠른 최적화 옵튜나 설정 파일
+# 목표: 20-30분 내 빠른 결과 도출
+
+study_name: swin-fast-optimization         # 연구명
+direction: maximize                        # 목표 방향 (최대화)
+metric: macro_f1                          # 최적화할 지표
+
+# Optuna 설정
+n_trials: 5                               # 시도 횟수
+timeout: 1800                             # 30분 타임아웃 설정
+n_jobs: 1                                 # 병렬 작업 수 (안정성)
+
+# 하이퍼파라미터 검색 공간
+params:
+  # 학습률 (더 넓은 범위에서 빠르게 탐색)
+  lr:
+    type: float
+    low: 0.0001
+    high: 0.001
+    log: true
+    
+  # 배치 크기 (큰 배치로 빠른 학습)
+  batch_size:
+    type: categorical
+    choices: [32, 48, 64]
+    
+  # 에포크 수 (매우 짧게)
+  epochs:
+    type: int
+    low: 4
+    high: 8
+    
+  # 드롭아웃 (간단한 범위)
+  drop_rate:
+    type: float
+    low: 0.0
+    high: 0.2
+    
+  # 가중치 감쇠
+  weight_decay:
+    type: float
+    low: 0.01
+    high: 0.1
+    log: true
+
+# 프루닝 설정 (빠른 조기 종료)
+pruning:
+  enabled: true
+  patience: 1                             # 1 에포크만 기다림
+  min_delta: 0.001                        # 작은 개선도 허용
+  
+# 조기 종료 설정
+early_stopping:
+  enabled: true
+  patience: 2                             # 매우 짧은 대기
+  min_delta: 0.001
+  
+# 체크포인트 설정
+checkpoint:
+  save_best_only: true
+  monitor: val_macro_f1
+  mode: max

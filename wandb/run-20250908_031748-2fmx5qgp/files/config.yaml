@@ -1,0 +1,99 @@
+_wandb:
+    value:
+        cli_version: 0.21.3
+        e:
+            b3hxdvd2riys0xbky1py139dd75tvb2s:
+                args:
+                    - --config
+                    - configs/train_fast_optimized.yaml
+                    - --optimize
+                    - --n-trials
+                    - "2"
+                    - --mode
+                    - full-pipeline
+                    - --auto-continue
+                codePath: src/training/train_main.py
+                codePathLocal: src/training/train_main.py
+                cpu_count: 8
+                cpu_count_logical: 16
+                cudaVersion: "12.6"
+                disk:
+                    /:
+                        total: "1081101176832"
+                        used: "126719844352"
+                email: ieyeppo.job@gmail.com
+                executable: /home/ieyeppo/.pyenv/versions/cv_py3_11_9/bin/python
+                git:
+                    commit: 775aa8fb649ac3af20f7c104ee319491fe63b081
+                    remote: git@github.com:iejob/computer-vision-competition-1SEN.git
+                gpu: NVIDIA GeForce RTX 4090
+                gpu_count: 1
+                gpu_nvidia:
+                    - architecture: Ada
+                      memoryTotal: "25757220864"
+                      name: NVIDIA GeForce RTX 4090
+                      uuid: GPU-b2b9e31d-4ca9-4907-d713-96771c28a1dd
+                host: PotG
+                memory:
+                    total: "42058575872"
+                os: Linux-6.6.87.1-microsoft-standard-WSL2-x86_64-with-glibc2.39
+                program: /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train_main.py
+                python: CPython 3.11.9
+                root: /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN
+                startedAt: "2025-09-07T18:17:48.220816Z"
+                writerId: b3hxdvd2riys0xbky1py139dd75tvb2s
+        m: []
+        python_version: 3.11.9
+        t:
+            "1":
+                - 1
+                - 5
+                - 35
+                - 41
+                - 49
+                - 53
+                - 63
+                - 80
+                - 105
+            "2":
+                - 1
+                - 5
+                - 35
+                - 41
+                - 49
+                - 53
+                - 63
+                - 80
+                - 105
+            "3":
+                - 13
+                - 15
+                - 16
+            "4": 3.11.9
+            "5": 0.21.3
+            "10":
+                - 20
+            "12": 0.21.3
+            "13": linux-x86_64
+architecture:
+    value: swin_base_384
+batch_size:
+    value: 16
+dataset:
+    value: Document Classification
+epochs:
+    value: 5
+framework:
+    value: PyTorch
+hard_augmentation:
+    value: true
+image_size:
+    value: 384
+learning_rate:
+    value: 0.004562154059548615
+mixup_alpha:
+    value: 0.8
+optimizer:
+    value: adamw
+scheduler:
+    value: cosine

@@ -1,0 +1,15 @@
+{
+  "filename": "differences.csv",
+  "description": "차이점 데이터",
+  "shape": [
+    179,
+    3
+  ],
+  "columns": [
+    "ID",
+    "target_file1",
+    "target_file2"
+  ],
+  "timestamp": "20250908_022117",
+  "file_name": "swin_vs_swin_base_384_ensemble_tta_basic_augmentation"
+}

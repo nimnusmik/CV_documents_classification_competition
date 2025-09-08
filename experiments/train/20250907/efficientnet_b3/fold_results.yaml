@@ -1,0 +1,17 @@
+fold_results:
+- fold: 0
+  best_f1: 0.9096248574476695
+  model_path: experiments/train/20250907/efficientnet_b3/ckpt/best_model_fold_1.pth
+- fold: 1
+  best_f1: 0.9382190111484676
+  model_path: experiments/train/20250907/efficientnet_b3/ckpt/best_model_fold_2.pth
+- fold: 2
+  best_f1: 0.9478976322922399
+  model_path: experiments/train/20250907/efficientnet_b3/ckpt/best_model_fold_3.pth
+- fold: 3
+  best_f1: 0.9192974171217394
+  model_path: experiments/train/20250907/efficientnet_b3/ckpt/best_model_fold_4.pth
+- fold: 4
+  best_f1: 0.9111113859950016
+  model_path: experiments/train/20250907/efficientnet_b3/ckpt/best_model_fold_5.pth
+average_f1: 0.9252300608010235

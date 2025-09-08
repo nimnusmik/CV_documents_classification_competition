@@ -1,0 +1,7 @@
+{
+  "filename": "overall_comparison.png",
+  "title": "두 파일 전체 비교 시각화 - 클래스 분포, 차이 매트릭스, 트렌드, 일치율",
+  "timestamp": "20250908_022117",
+  "dpi": 300,
+  "file_name": "swin_vs_swin_base_384_ensemble_tta_basic_augmentation"
+}

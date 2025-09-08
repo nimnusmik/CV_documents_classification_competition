@@ -1,0 +1,5 @@
+2025-09-08 02:56:19 | [BOOT] high-performance training pipeline started
+2025-09-08 02:56:19 | [BOOT] device=cuda
+2025-09-08 02:56:19 | [DATA] loaded train data | shape=(1570, 2)
+2025-09-08 02:56:19 | [ERROR] Training failed: 'folds'
+2025-09-08 02:56:19 | [SHUTDOWN] Training pipeline ended

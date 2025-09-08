@@ -6,7 +6,7 @@ import torchvision.transforms.functional as TF           # torchvision 이미지
 import PIL.Image as Image                                # 이미지 처리
 
 # 프로젝트 내부 유틸 import
-from src.utils.logger import Logger                      # 로그 기록 유틸
+from src.logging.logger import Logger                      # 로그 기록 유틸
 from src.utils.common import load_yaml, ensure_dir, resolve_path, require_file, require_dir  # 공용 유틸
 from src.data.dataset import DocClsDataset               # 데이터셋 클래스
 from src.data.transforms import build_valid_tfms         # 검증용 변환 파이프라인
@@ -108,21 +108,54 @@ def run_inference(cfg_path: str, out: str|None=None, ckpt: str|None=None):
             # 사용자 입력 ckpt 경로를 config 기준 절대경로로 변환
             ckpt_path = resolve_path(cfg_dir, ckpt)
 
-        # ckpt 인자가 없는 경우 (기본 best_fold0.pth 사용)
+        # ckpt 인자가 없는 경우 - config 파일의 ckpt.path 확인
+        elif "ckpt" in cfg and "path" in cfg["ckpt"]:
+            # config 파일의 ckpt.path 설정 사용
+            ckpt_path = resolve_path(cfg_dir, cfg["ckpt"]["path"])
+            logger.write(f"[CKPT] Using config ckpt.path: {cfg['ckpt']['path']}")
+
+        # config에도 ckpt.path가 없는 경우 (기본 best_fold0.pth 사용)
         else:
-            # 학습 결과(exp_dir/날짜/run_name/ckpt/best_fold0.pth) 경로 구성
-            ckpt_path = resolve_path(cfg_dir, os.path.join(
+            # 학습 결과 디렉터리 패턴 검색
+            import glob
+            day = time.strftime(cfg["project"]["date_format"])      # 날짜 문자열
+            run_name = cfg['project']['run_name']                   # 실행 이름
+            
+            # 패턴: exp_dir/날짜/run_name_날짜_시간/ckpt/best_fold0.pth
+            pattern = resolve_path(cfg_dir, os.path.join(
                 cfg["output"]["exp_dir"],                           # 실험 결과 루트 디렉터리
-                time.strftime(cfg["project"]["date_format"]),       # 날짜 형식에 맞춘 하위 폴더
-                f"{cfg['project']['run_name']}",                    # 실행 이름(run_name) 폴더
+                day,                                                # 날짜 폴더
+                f"{run_name}_{day}_*",                             # run_name_날짜_시간 패턴
                 "ckpt",                                             # 체크포인트 저장 디렉터리
                 "best_fold0.pth"                                    # 기본 체크포인트 파일명
             ))
             
+            # 패턴에 맞는 파일 검색
+            matching_files = glob.glob(pattern)
+            if matching_files:
+                # 가장 최근 파일 선택 (시간순 정렬)
+                ckpt_path = sorted(matching_files)[-1]
+            else:
+                # 패턴 매칭 실패 시 기존 방식으로 fallback
+                ckpt_path = resolve_path(cfg_dir, os.path.join(
+                    cfg["output"]["exp_dir"],                       # 실험 결과 루트 디렉터리
+                    day,                                            # 날짜 형식에 맞춘 하위 폴더
+                    f"{run_name}",                                  # 실행 이름(run_name) 폴더 (기존 방식)
+                    "ckpt",                                         # 체크포인트 저장 디렉터리
+                    "best_fold0.pth"                                # 기본 체크포인트 파일명
+                ))
+            
         # ckpt 존재 확인
         require_file(ckpt_path, "--ckpt로 직접 지정하거나 학습 결과 경로 확인")
         state = torch.load(ckpt_path, map_location=device)          # 체크포인트 로드
-        model.load_state_dict(state["model"], strict=True)          # 가중치 로드
+        
+        # 체크포인트 구조에 따라 모델 가중치 로드
+        if "model" in state:
+            model.load_state_dict(state["model"], strict=True)      # 구형 체크포인트 형식
+        elif "model_state_dict" in state:
+            model.load_state_dict(state["model_state_dict"], strict=True)  # 신형 체크포인트 형식
+        else:
+            model.load_state_dict(state, strict=True)               # state_dict 직접 저장된 경우
         logger.write(f"[CKPT] loaded: {ckpt_path}")                 # 로드 로그
 
         # ---------------------- TTA 설정 ---------------------- #
@@ -160,8 +193,21 @@ def run_inference(cfg_path: str, out: str|None=None, ckpt: str|None=None):
         preds = probs.argmax(axis=1)                     # 예측 클래스 산출
 
         # ---------------------- 결과 저장 ---------------------- #
-        # 출력 경로
-        out_path = resolve_path(cfg_dir, out or cfg["inference"]["out_csv"])
+        # 동적 파일명 생성 (날짜_모델명 형식)
+        if out is None:
+            current_date = pd.Timestamp.now().strftime('%Y%m%d')
+            current_time = pd.Timestamp.now().strftime('%H%M')
+            model_name = cfg["model"]["name"]
+            tta_suffix = "_tta" if cfg.get("inference", {}).get("tta", False) else ""
+            
+            # 증강 타입 결정 (학습 설정과 동일한 로직 사용)
+            aug_type = "advanced_augmentation" if cfg["train"].get("use_advanced_augmentation", False) else "basic_augmentation"
+            
+            filename = f"{current_date}_{current_time}_{model_name}{tta_suffix}_{aug_type}.csv"
+            out_path = f"submissions/{current_date}/{filename}"
+        else:
+            out_path = resolve_path(cfg_dir, out)
+            
         # 디렉토리 보장
         ensure_dir(os.path.dirname(out_path))
         

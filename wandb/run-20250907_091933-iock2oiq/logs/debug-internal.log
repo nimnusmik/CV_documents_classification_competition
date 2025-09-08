@@ -1,0 +1,12 @@
+{"time":"2025-09-07T09:19:33.063972622+09:00","level":"INFO","msg":"stream: starting","core version":"0.21.3"}
+{"time":"2025-09-07T09:19:33.385539975+09:00","level":"INFO","msg":"stream: created new stream","id":"iock2oiq"}
+{"time":"2025-09-07T09:19:33.385567115+09:00","level":"INFO","msg":"stream: started","id":"iock2oiq"}
+{"time":"2025-09-07T09:19:33.385633853+09:00","level":"INFO","msg":"sender: started","stream_id":"iock2oiq"}
+{"time":"2025-09-07T09:19:33.385644581+09:00","level":"INFO","msg":"handler: started","stream_id":"iock2oiq"}
+{"time":"2025-09-07T09:19:33.38565169+09:00","level":"INFO","msg":"writer: started","stream_id":"iock2oiq"}
+{"time":"2025-09-07T09:23:45.105494588+09:00","level":"INFO","msg":"handler: operation stats","stats":{"operations":[{"desc":"updating run metadata","runtime_seconds":0.000497012}],"total_operations":1}}
+{"time":"2025-09-07T09:23:45.901443126+09:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-09-07T09:23:46.238136904+09:00","level":"INFO","msg":"stream: closing","id":"iock2oiq"}
+{"time":"2025-09-07T09:23:46.238160546+09:00","level":"INFO","msg":"handler: closed","stream_id":"iock2oiq"}
+{"time":"2025-09-07T09:23:46.23820227+09:00","level":"INFO","msg":"sender: closed","stream_id":"iock2oiq"}
+{"time":"2025-09-07T09:23:46.238207429+09:00","level":"INFO","msg":"stream: closed","id":"iock2oiq"}
