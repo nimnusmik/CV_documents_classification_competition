@@ -27,7 +27,7 @@ data:
 # ------------------------------- 학습 설정 -------------------------------- #
 train:
   img_size: 384                                     # 입력 이미지 크기 (한 변)
-  batch_size: 64                                    # 배치 크기
+  batch_size: 120                                   # 배치 크기
   use_advanced_augmentation: false                  # 고급 증강 기법 사용 여부 (transform.py true: build_advanced_train_tfms / false: build_train_tfms)
   epochs: 5                                         # 학습 epoch 수
   lr: 0.001                                         # 학습률

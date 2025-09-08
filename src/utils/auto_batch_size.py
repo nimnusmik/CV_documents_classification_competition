@@ -282,8 +282,20 @@ def find_optimal_batch_size(model_name: str, img_size: int, gpu_info: Dict[str, 
 
 # ==================== 설정 파일 업데이트 함수 ==================== #
 def update_config_file(config_path: str, batch_size: int):
-    """설정 파일의 배치 크기 업데이트"""
+    """설정 파일의 배치 크기 업데이트 (백업 포함)"""
     try:                                                    # 예외 처리 시작
+        # 백업 파일 생성
+        import shutil
+        from datetime import datetime
+        import os
+        
+        # 백업 파일 경로 생성 (타임스탬프 포함)
+        backup_path = f"{config_path}.backup_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+        
+        # 원본 파일 백업
+        shutil.copy2(config_path, backup_path)
+        print(f"📂 백업 파일 생성: {os.path.basename(backup_path)}")
+        
         with open(config_path, 'r', encoding='utf-8') as f: # 설정 파일 읽기
             config = yaml.safe_load(f)                      # YAML 파일 로드
         
@@ -291,6 +303,11 @@ def update_config_file(config_path: str, batch_size: int):
             config['train'] = {}                           # train 섹션 생성
         
         config['train']['batch_size'] = batch_size         # 배치 크기 설정
+        
+        # training 섹션도 확인하여 동일하게 업데이트
+        if 'training' in config:                           # training 섹션이 있는 경우
+            config['training']['batch_size'] = batch_size  # training 배치 크기도 동일하게 설정
+            print(f"📝 training.batch_size도 {batch_size}로 동기화")
         
         with open(config_path, 'w', encoding='utf-8') as f: # 설정 파일 쓰기
             yaml.dump(config, f, default_flow_style=False, allow_unicode=True, sort_keys=False)  # YAML 파일 저장

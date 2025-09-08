@@ -31,6 +31,10 @@ python src/inference/infer_main.py --config configs/infer_highperf.yaml --mode h
 
 # ✨ 완료! 고성능 제출 파일 생성됨
 ```
+
+### 📁 프로젝트 문서 구조
+
+```
 📁 docs/                                 # Enterprise Documentation
 ├── 📂 experiments/                      # 실험 가이드
 │   └── 고성능_학습_가이드.md               # 고성능 학습 전략 (F1 0.934)
@@ -55,6 +59,7 @@ python src/inference/infer_main.py --config configs/infer_highperf.yaml --mode h
 └── 📂 models/                           # 모델 아키텍처 문서
     └── (추가 예정)                       # Swin Transformer & EfficientNet 상세
 ```
+
 [![Python](https://img.shields.io/badge/Python-3.11.9-blue.svg)](https://python.org)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.5.1-red.svg)](https://pytorch.org)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
