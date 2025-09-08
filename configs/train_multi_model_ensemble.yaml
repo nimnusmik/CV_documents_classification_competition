@@ -1,0 +1,76 @@
+# ----------------------------- 다중 모델 앙상블 설정 ----------------------------- #
+project:
+  run_name: multi-model-ensemble                # 실행명 (다중 모델 앙상블)
+  seed: 42                                      # 랜덤 시드
+  date_format: '%Y%m%d'                         # 날짜 포맷
+  time_format: '%H%M'                           # 시간 포맷
+  num_workers: 4                                # 데이터 로더 워커 수
+  device: cuda                                  # 학습 디바이스
+  verbose: true                                 # 상세 로그 출력
+  log_prefix: train_multi_ensemble              # 로그 파일 접두사
+
+# ------------------------------- 데이터 설정 ------------------------------- #
+data:
+  root: ./data                                  # 데이터 루트 디렉토리
+  train_csv: ./data/raw/train.csv               # 학습 데이터 CSV
+  sample_csv: ./data/raw/sample_submission.csv  # 제출 샘플 CSV
+  image_dir_train: ./data/raw/train             # 학습 이미지 디렉토리
+  image_dir_test: ./data/raw/test               # 테스트 이미지 디렉토리
+  image_ext: .jpg                               # 이미지 파일 확장자
+  id_col: ID                                    # ID 컬럼명
+  target_col: target                            # 타깃 컬럼명
+  num_classes: 17                               # 분류 클래스 수
+  folds: 5                                      # K-Fold 폴드 수
+  valid_fold: all                               # 검증 폴드 (전체 폴드 학습)
+  stratify: true                                # 계층적 분할 사용
+
+# ------------------------------- 학습 설정 ------------------------------- #
+train:
+  img_size: 384                                 # 입력 이미지 크기
+  batch_size: 64                                # 배치 크기
+  use_advanced_augmentation: true               # 고급 증강 기법 사용
+  epochs: 5                                     # 학습 에포크 수
+  lr: 0.0001                                    # 학습률
+  weight_decay: 0.01                            # L2 정규화 계수
+  optimizer: adamw                              # 옵티마이저
+  scheduler: cosine                             # 스케줄러
+  mixed_precision: true                         # 혼합 정밀도 학습
+  max_grad_norm: 1.0                            # 그래디언트 클리핑
+  label_smoothing: 0.1                          # 레이블 스무딩
+  use_mixup: true                               # Mixup 사용
+  mixup_alpha: 1.0                              # Mixup 알파 파라미터
+  hard_augmentation: true                       # 강한 데이터 증강
+  log_interval: 50                              # 로그 출력 간격
+
+# ------------------------------- 다중 모델 설정 ------------------------------- #
+# 폴드별로 다른 모델 사용 (실험적 기능)
+models:
+  fold_0: "swin_base_384"                       # Fold 0: Swin Transformer
+  fold_1: "convnext_base_384"                   # Fold 1: ConvNeXt
+  fold_2: "efficientnet_v2_b3"                  # Fold 2: EfficientNet-V2
+  fold_3: "vit_base"                            # Fold 3: Vision Transformer
+  fold_4: "maxvit_base"                         # Fold 4: MaxViT
+
+# 기본 모델 설정 (모든 폴드에 공통 적용)
+model:
+  pretrained: true                              # 사전학습 가중치 사용
+  drop_rate: 0.1                                # 드롭아웃 비율
+  drop_path_rate: 0.1                           # 드롭패스 비율
+  pooling: "avg"                                # 전역 풀링 방식
+
+# ------------------------------- 출력/저장 설정 ---------------------------- #
+output:
+  exp_dir: "./experiments/train"                # 실험 결과 디렉터리
+  snapshots: true                               # 설정 스냅샷 저장
+  save_predictions: true                        # 예측 결과 저장
+
+# ------------------------------- WandB 설정 ------------------------------- #
+wandb:
+  project_name: document-classification-multi   # WandB 프로젝트명
+  entity: null                                  # WandB 엔티티
+  experiment_name: multi-model-ensemble         # 실험명
+  tags:                                         # 실험 태그
+    - multi-model
+    - ensemble
+    - diverse-architectures
+  enabled: true                                 # WandB 활성화
