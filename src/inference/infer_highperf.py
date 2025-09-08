@@ -24,6 +24,9 @@ from src.logging.logger import Logger                # 로그 기록 클래스
 from src.data.dataset import HighPerfDocClsDataset   # 고성능 문서 분류 데이터셋
 from src.models.build import build_model, get_recommended_model  # 모델 빌드/추천 함수
 
+# ------------------------- 시각화 및 출력 관리 ------------------------- #
+from src.utils.visualizations import visualize_inference_pipeline, create_organized_output_structure
+
 
 # ---------------------- TTA 예측 함수 ---------------------- #
 @torch.no_grad()    # gradient 계산 비활성화
@@ -195,6 +198,9 @@ def run_highperf_inference(cfg_path: str, fold_results_path: str, output_path: O
         # 최종 예측 클래스
         final_predictions = ensemble_preds.argmax(dim=1).numpy()    # 가장 높은 확률의 클래스 선택
         
+        # 신뢰도 점수 계산
+        confidence_scores = ensemble_preds.max(dim=1)[0].numpy()    # 최대 확률값을 신뢰도로 사용
+        
         #-------------- 결과 저장 및 로그 ---------------------- #
         # 출력 경로가 지정되지 않은 경우 동적 파일명 생성
         if output_path is None:
@@ -223,6 +229,26 @@ def run_highperf_inference(cfg_path: str, fold_results_path: str, output_path: O
         for i, count in enumerate(np.bincount(final_predictions)):
             # 클래스별 분포 로그
             logger.write(f"  Class {i}: {count} samples ({count/len(final_predictions)*100:.1f}%)")
+        
+        #-------------- 추론 결과 시각화 ---------------------- #
+        try:
+            # 시각화를 위한 출력 디렉터리 설정
+            viz_output_dir = os.path.dirname(output_path)
+            model_name = cfg["model"]["name"]
+            
+            # 시각화 생성
+            visualize_inference_pipeline(
+                predictions=ensemble_preds.numpy(),
+                model_name=model_name,
+                output_dir=viz_output_dir,
+                confidence_scores=confidence_scores,
+                ensemble_weights=None,  # 앙상블 가중치 정보가 있다면 여기에 추가
+                tta_results=None       # TTA 결과 정보가 있다면 여기에 추가
+            )
+            logger.write(f"[VIZ] Inference visualizations created in {viz_output_dir}")
+            
+        except Exception as viz_error:
+            logger.write(f"[WARNING] Visualization failed: {str(viz_error)}")
         
         # 출력 파일 경로 반환
         return output_path

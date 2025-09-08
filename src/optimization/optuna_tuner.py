@@ -35,6 +35,9 @@ from .hyperopt_utils import (
     update_config_with_best_params
 )
 
+# 시각화 모듈 import
+from src.utils.visualizations import visualize_optimization_pipeline, create_organized_output_structure
+
 
 class OptunaTrainer:
     """
@@ -218,6 +221,30 @@ class OptunaTrainer:
             dump_yaml(best_config, best_params_path)
             
             self.logger.write(f"💾 최적 설정 저장: {best_params_path}")
+            
+            #-------------- 최적화 결과 시각화 ---------------------- #
+            try:
+                # 시각화를 위한 출력 디렉터리 설정
+                viz_output_dir = os.path.dirname(best_params_path)
+                model_name = self.base_config.get("model", {}).get("name", "unknown")
+                
+                # Study 객체 저장 (시각화용)
+                import pickle
+                study_path = os.path.join(viz_output_dir, f"study_{time.strftime('%Y%m%d_%H%M')}.pkl")
+                with open(study_path, 'wb') as f:
+                    pickle.dump(self.study, f)
+                
+                # 시각화 생성
+                visualize_optimization_pipeline(
+                    study_path=study_path,
+                    model_name=model_name,
+                    output_dir=viz_output_dir,
+                    trials_df=None
+                )
+                self.logger.write(f"[VIZ] Optimization visualizations created in {viz_output_dir}")
+                
+            except Exception as viz_error:
+                self.logger.write(f"[WARNING] Visualization failed: {str(viz_error)}")
             
             return self.study.best_params
             

@@ -35,6 +35,10 @@ from src.utils.common import (                                      # 공통 유
     load_yaml, ensure_dir, dump_yaml, short_uid, resolve_path, require_file, require_dir, create_log_path
 )
 
+# ------------------------- 시각화 및 출력 관리 ------------------------- #
+from src.utils.visualizations import visualize_training_pipeline, create_organized_output_structure
+from src.utils.visualizations import ExperimentOutputManager
+
 # ------------------------- 데이터/모델 관련 ------------------------- #
 from src.data.dataset import HighPerfDocClsDataset, mixup_data      # 고성능 데이터셋/믹스업 함수
 from src.models.build import build_model, get_recommended_model     # 모델 빌드/추천 함수
@@ -479,6 +483,38 @@ def run_highperf_training(cfg_path: str):
         
         # 결과를 YAML로 저장
         dump_yaml({"fold_results": fold_results, "average_f1": avg_f1}, results_path)
+        
+        # ---------------------- 시각화 생성 ---------------------- #
+        try:
+            # 시각화를 위한 히스토리 데이터 준비
+            # WandB 로그에서 기록된 데이터를 사용하거나 기본 구조 생성
+            history_data = {
+                'train_loss': [],
+                'val_loss': [],
+                'val_f1': [],
+                'epochs': list(range(1, cfg["train"]["epochs"] + 1))
+            }
+            
+            # 시각화 생성
+            model_name = cfg["model"]["name"]
+            
+            # fold_results를 딕셔너리 형태로 변환
+            fold_results_dict = {
+                'fold_results': fold_results,
+                'average_f1': avg_f1,
+                'total_folds': cfg["train"]["n_folds"]
+            }
+            
+            visualize_training_pipeline(
+                fold_results=fold_results_dict,
+                model_name=model_name,
+                output_dir=exp_root,
+                history_data=history_data
+            )
+            logger.write(f"[VIZ] Training visualizations created in {exp_root}")
+            
+        except Exception as viz_error:
+            logger.write(f"[WARNING] Visualization failed: {str(viz_error)}")
         
         # ---------------------- lastest-train 폴더에 복사 ---------------------- #
         # lastest-train 폴더 경로 설정
