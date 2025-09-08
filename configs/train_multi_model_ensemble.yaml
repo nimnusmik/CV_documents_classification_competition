@@ -1,13 +1,15 @@
 # ----------------------------- 다중 모델 앙상블 설정 ----------------------------- #
 project:
-  run_name: multi-model-ensemble                # 실행명 (다중 모델 앙상블)
+  run_name: multi-model-ensemble-rtx4090        # 실행명 (RTX 4090 최적화)
   seed: 42                                      # 랜덤 시드
   date_format: '%Y%m%d'                         # 날짜 포맷
   time_format: '%H%M'                           # 시간 포맷
-  num_workers: 4                                # 데이터 로더 워커 수
+  num_workers: 8                                # 데이터 로더 워커 수 (RTX 4090 최적화)
   device: cuda                                  # 학습 디바이스
   verbose: true                                 # 상세 로그 출력
   log_prefix: train_multi_ensemble              # 로그 파일 접두사
+  pin_memory: true                              # 메모리 고정 (GPU 전송 속도 향상)
+  persistent_workers: true                      # 워커 재사용 (속도 향상)
 
 # ------------------------------- 데이터 설정 ------------------------------- #
 data:
@@ -27,35 +29,42 @@ data:
 # ------------------------------- 학습 설정 ------------------------------- #
 train:
   img_size: 384                                 # 입력 이미지 크기
-  batch_size: 64                                # 배치 크기
+  batch_size: auto                              # 자동 배치 크기 (RTX 4090 최적화)
+  initial_batch_size: 96                        # 초기 배치 크기 (train_highperf.yaml 기준)
+  max_batch_size: 160                           # 최대 배치 크기 (train.yaml 120보다 여유있게)
+  auto_scale_batch_size: binsearch              # 이진 탐색으로 최적 배치 찾기
   use_advanced_augmentation: true               # 고급 증강 기법 사용
-  epochs: 5                                     # 학습 에포크 수
-  lr: 0.0001                                    # 학습률
+  epochs: 10                                    # 학습 에포크 수
+  lr: 0.0001                                    # 학습률 (train_highperf.yaml 기준)
   weight_decay: 0.01                            # L2 정규화 계수
   optimizer: adamw                              # 옵티마이저
   scheduler: cosine                             # 스케줄러
-  mixed_precision: true                         # 혼합 정밀도 학습
+  warmup_epochs: 1                              # 웜업 에포크 (안정적 학습 시작)
+  min_lr: 0.000001                              # 최소 학습률
+  mixed_precision: true                         # 혼합 정밀도 학습 (메모리 절약)
   max_grad_norm: 1.0                            # 그래디언트 클리핑
   label_smoothing: 0.1                          # 레이블 스무딩
   use_mixup: true                               # Mixup 사용
-  mixup_alpha: 1.0                              # Mixup 알파 파라미터
+  mixup_alpha: 0.8                              # Mixup 알파 (조금 낮춤)
+  cutmix_alpha: 1.0                             # CutMix 추가
+  use_cutmix: true                              # CutMix 사용
   hard_augmentation: true                       # 강한 데이터 증강
   log_interval: 50                              # 로그 출력 간격
 
 # ------------------------------- 다중 모델 설정 ------------------------------- #
-# 폴드별로 다른 모델 사용 (실험적 기능)
+# 폴드별로 다른 모델 사용 - 최고 성능 모델 조합
 models:
-  fold_0: "swin_base_384"                       # Fold 0: Swin Transformer
-  fold_1: "convnext_base_384"                   # Fold 1: ConvNeXt
-  fold_2: "efficientnet_v2_b3"                  # Fold 2: EfficientNet-V2
-  fold_3: "vit_base"                            # Fold 3: Vision Transformer
-  fold_4: "maxvit_base"                         # Fold 4: MaxViT
+  fold_0: "swin_base_384"                       # Fold 0: Swin Transformer (최고 성능)
+  fold_1: "convnext_base_384"                   # Fold 1: ConvNeXt (차세대 CNN 최강)
+  fold_2: "convnext_large"                      # Fold 2: ConvNeXt Large (대형 모델)
+  fold_3: "vit_large"                           # Fold 3: ViT Large (대형 Transformer)
+  fold_4: "swin_base_384"                       # Fold 4: Swin Transformer (검증된 최고 성능)
 
 # 기본 모델 설정 (모든 폴드에 공통 적용)
 model:
   pretrained: true                              # 사전학습 가중치 사용
-  drop_rate: 0.1                                # 드롭아웃 비율
-  drop_path_rate: 0.1                           # 드롭패스 비율
+  drop_rate: 0.15                               # 드롭아웃 비율 (과적합 방지 강화)
+  drop_path_rate: 0.15                          # 드롭패스 비율 (정규화 강화)
   pooling: "avg"                                # 전역 풀링 방식
 
 # ------------------------------- 출력/저장 설정 ---------------------------- #
