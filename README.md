@@ -1,4 +1,4 @@
-# 🚀 Computer Vision Competition - Document Classification
+# 🏆 Computer Vision Competition - Document Classification
 
 ## 📋 Project Overview
 
@@ -67,7 +67,33 @@ python src/training/train_main.py --config configs/train_highperf.yaml
 python src/pipeline/full_pipeline.py --config configs/train_highperf.yaml --mode highperf
 ```
 
-### 🔍 Inference (추론 실행)
+### � Advanced Training (고급 학습 - 모든 기능 통합)
+
+```bash
+# 완전 자동화 파이프라인 (학습 + 최적화 + 캘리브레이션 + 앙상블)
+python src/training/train_main.py \
+  --config configs/train_multi_model_ensemble.yaml \
+  --mode full-pipeline \
+  --use-calibration \
+  --optimize \
+  --optuna-config configs/optuna_config.yaml \
+  --auto-continue
+
+# 다중 모델 앙상블 학습
+python src/training/train_main.py \
+  --config configs/train_multi_model_ensemble.yaml \
+  --ensemble-models efficientnet,swin \
+  --k-fold 5
+
+# 자동 하이퍼파라미터 최적화 + 학습
+python src/training/train_main.py \
+  --config configs/train_highperf.yaml \
+  --optimize \
+  --optuna-trials 100 \
+  --auto-gpu-optimization
+```
+
+### �🔍 Inference (추론 실행)
 
 ```bash
 # 기본 추론
@@ -75,6 +101,14 @@ python src/inference/infer_main.py --config configs/infer.yaml
 
 # 고성능 추론 (TTA + Ensemble)
 python src/inference/infer_main.py --config configs/infer_highperf.yaml
+
+# 고급 추론 옵션
+python src/inference/infer_main.py \
+  --config configs/infer_highperf.yaml \
+  --tta-mode aggressive \
+  --ensemble-weight 0.7,0.3 \
+  --calibration-temperature 1.5 \
+  --batch-size auto
 ```
 
 ### 📊 Training Monitoring (실시간 모니터링)
@@ -86,6 +120,167 @@ python src/inference/infer_main.py --config configs/infer_highperf.yaml
 # WandB 대시보드 확인
 # https://wandb.ai/your-account/your-project
 ```
+
+---
+
+## 🛠️ Command Line Options
+
+### 📋 Help Commands
+
+모든 스크립트는 `--help` 옵션으로 사용 가능한 모든 옵션을 확인할 수 있습니다:
+
+```bash
+# 학습 옵션 확인
+python src/training/train_main.py --help
+
+# 추론 옵션 확인  
+python src/inference/infer_main.py --help
+
+# 최적화 옵션 확인
+python src/optimization/optuna_optimizer.py --help
+
+# 전체 파이프라인 옵션 확인
+python src/pipeline/full_pipeline.py --help
+```
+
+### 🎓 Training Options
+
+| 옵션 | 설명 | 예시 |
+|------|------|------|
+| `--config` | 설정 파일 경로 (필수) | `configs/train_highperf.yaml` |
+| `--mode` | 실행 모드 | `fast`, `highperf`, `full-pipeline` |
+| `--optimize` | 하이퍼파라미터 최적화 활성화 | `--optimize` |
+| `--optuna-config` | Optuna 설정 파일 | `configs/optuna_config.yaml` |
+| `--optuna-trials` | Optuna 시행 횟수 | `--optuna-trials 100` |
+| `--use-calibration` | 모델 캘리브레이션 사용 | `--use-calibration` |
+| `--ensemble-models` | 앙상블 모델 지정 | `efficientnet,swin` |
+| `--k-fold` | K-Fold 교차 검증 | `--k-fold 5` |
+| `--auto-continue` | 중단된 학습 자동 재시작 | `--auto-continue` |
+| `--auto-gpu-optimization` | GPU 자동 최적화 | `--auto-gpu-optimization` |
+| `--wandb-project` | WandB 프로젝트 이름 | `--wandb-project my-project` |
+| `--seed` | 랜덤 시드 설정 | `--seed 42` |
+| `--debug` | 디버그 모드 | `--debug` |
+
+### 🔍 Inference Options
+
+| 옵션 | 설명 | 예시 |
+|------|------|------|
+| `--config` | 설정 파일 경로 (필수) | `configs/infer_highperf.yaml` |
+| `--model-path` | 모델 파일 경로 | `experiments/train/20250908/model.pth` |
+| `--tta-mode` | TTA 모드 | `basic`, `aggressive`, `conservative` |
+| `--ensemble-weight` | 앙상블 가중치 | `0.7,0.3` |
+| `--calibration-temperature` | 캘리브레이션 온도 | `--calibration-temperature 1.5` |
+| `--batch-size` | 배치 크기 | `auto`, `16`, `32` |
+| `--output-dir` | 결과 저장 디렉토리 | `submissions/20250908/` |
+| `--save-predictions` | 예측 결과 저장 | `--save-predictions` |
+| `--confidence-threshold` | 신뢰도 임계값 | `--confidence-threshold 0.9` |
+| `--visualization` | 시각화 생성 | `--visualization` |
+
+### ⚡ Optimization Options
+
+| 옵션 | 설명 | 예시 |
+|------|------|------|
+| `--config` | Optuna 설정 파일 (필수) | `configs/optuna_config.yaml` |
+| `--study-name` | 연구 이름 | `--study-name efficientnet-opt` |
+| `--n-trials` | 최적화 시행 횟수 | `--n-trials 100` |
+| `--timeout` | 최적화 시간 제한 (초) | `--timeout 3600` |
+| `--pruning` | 가지치기 활성화 | `--pruning` |
+| `--sampler` | 샘플러 타입 | `tpe`, `random`, `cmaes` |
+| `--parallel-jobs` | 병렬 작업 수 | `--parallel-jobs 2` |
+| `--storage-url` | 데이터베이스 URL | `sqlite:///optuna.db` |
+| `--load-if-exists` | 기존 연구 로드 | `--load-if-exists` |
+
+### 🔧 Common Options (모든 스크립트 공통)
+
+| 옵션 | 설명 | 예시 |
+|------|------|------|
+| `--verbose` | 상세 로그 출력 | `--verbose` |
+| `--quiet` | 최소 로그 출력 | `--quiet` |
+| `--log-level` | 로그 레벨 설정 | `DEBUG`, `INFO`, `WARNING`, `ERROR` |
+| `--no-wandb` | WandB 비활성화 | `--no-wandb` |
+| `--force` | 강제 실행 | `--force` |
+| `--dry-run` | 테스트 실행 (실제 작업 안함) | `--dry-run` |
+
+### 💡 Advanced Usage Examples
+
+#### 🎯 완전 자동화 프로덕션 파이프라인
+```bash
+# 모든 기능을 통합한 원클릭 실행
+python src/training/train_main.py \
+  --config configs/train_multi_model_ensemble.yaml \
+  --mode full-pipeline \
+  --use-calibration \
+  --optimize \
+  --optuna-config configs/optuna_config.yaml \
+  --optuna-trials 50 \
+  --k-fold 5 \
+  --auto-continue \
+  --auto-gpu-optimization \
+  --wandb-project cv-competition-final \
+  --verbose
+```
+
+#### 🚀 빠른 프로토타이핑 (개발/테스트용)
+```bash
+# 20분 내 빠른 실험
+python src/training/train_main.py \
+  --config configs/train_fast_optimized.yaml \
+  --mode fast \
+  --dry-run \
+  --debug \
+  --no-wandb
+```
+
+#### 🏆 최종 제출용 고성능 학습
+```bash
+# 최고 성능을 위한 설정
+python src/training/train_main.py \
+  --config configs/train_highperf.yaml \
+  --mode highperf \
+  --use-calibration \
+  --ensemble-models efficientnet,swin \
+  --tta-mode aggressive \
+  --k-fold 10 \
+  --seed 42
+```
+
+#### 📊 하이퍼파라미터 최적화 전용
+```bash
+# 2시간 동안 최적화 실행
+python src/optimization/optuna_optimizer.py \
+  --config configs/optuna_config.yaml \
+  --study-name final-optimization \
+  --n-trials 200 \
+  --timeout 7200 \
+  --pruning \
+  --parallel-jobs 2
+```
+
+#### 🔍 고급 추론 및 앙상블
+```bash
+# 복수 모델 앙상블 추론
+python src/inference/infer_main.py \
+  --config configs/infer_highperf.yaml \
+  --tta-mode aggressive \
+  --ensemble-weight 0.6,0.4 \
+  --calibration-temperature 1.3 \
+  --confidence-threshold 0.95 \
+  --save-predictions \
+  --visualization
+```
+
+#### 🤝 팀 협업용 GPU 최적화
+```bash
+# 팀원별 GPU 환경 자동 감지 후 학습
+python src/utils/gpu_optimization/team_gpu_check.py && \
+python src/training/train_main.py \
+  --config configs/train_highperf.yaml \
+  --auto-gpu-optimization \
+  --batch-size auto \
+  --wandb-project team-experiment
+```
+| `--force` | 강제 실행 | `--force` |
+| `--dry-run` | 테스트 실행 (실제 작업 안함) | `--dry-run` |
 
 ---
 
@@ -164,13 +359,13 @@ python src/inference/infer_main.py --config configs/infer_highperf.yaml
 ├── 📁 data/                                        # 데이터 저장소
 │   └── raw/                                        # 원본 데이터 (train.csv, test/, train/)
 ├── 📁 docs/                                        # 종합 문서화 시스템
-│   ├── GPU_최적화_가이드.md                         # GPU 자동 최적화 가이드
-│   ├── 모델_설정_가이드.md                          # 모델 설정 및 구성 가이드
-│   ├── 문제해결_가이드.md                           # 트러블슈팅 가이드
-│   ├── 시각화_시스템_가이드.md                       # 시각화 시스템 사용법
-│   ├── 전체_파이프라인_가이드.md                     # 전체 파이프라인 워크플로우
-│   ├── 추론_파이프라인_가이드.md                     # 추론 시스템 가이드
-│   └── 학습_파이프라인_가이드.md                     # 학습 시스템 가이드
+│   ├── GPU_최적화_가이드.md                          # GPU 자동 최적화 가이드
+│   ├── 모델_설정_가이드.md                           # 모델 설정 및 구성 가이드
+│   ├── 문제해결_가이드.md                            # 트러블슈팅 가이드
+│   ├── 시각화_시스템_가이드.md                        # 시각화 시스템 사용법
+│   ├── 전체_파이프라인_가이드.md                      # 전체 파이프라인 워크플로우
+│   ├── 추론_파이프라인_가이드.md                      # 추론 시스템 가이드
+│   └── 학습_파이프라인_가이드.md                      # 학습 시스템 가이드
 ├── 📁 src/                                         # 모듈화된 Core Framework
 │   ├── 📂 data/                                    # 데이터 처리 엔진
 │   │   ├── dataset.py                              # Dataset 클래스 (Basic + HighPerf)
@@ -397,13 +592,3 @@ python src/utils/gpu_optimization/team_gpu_check.py
 1. **문서 확인**: `docs/` 폴더의 관련 가이드 참조
 2. **문제해결 가이드**: `docs/문제해결_가이드.md` 확인
 3. **이슈 리포트**: GitHub Issues 또는 팀 채널 활용
-
----
-
-## 📜 License
-
-이 프로젝트는 MIT License 하에 배포됩니다.
-
----
-
-**🚀 Happy Coding & Good Luck with the Competition! 🏆**
