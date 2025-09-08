@@ -12,3 +12,4 @@ timm==0.9.12
 plotly
 matplotlib
 optuna
+wandb
