@@ -19,9 +19,9 @@ from torch.optim.lr_scheduler import CosineAnnealingLR              # 학습률 
 from tqdm import tqdm                                # 진행바 시각화
 
 # ------------------------- 프로젝트 유틸 ------------------------- #
-from src.utils.seed import set_seed                                 # 랜덤 시드 고정
+from src.utils.config import set_seed                               # 랜덤 시드 고정
 from src.logging.logger import Logger                               # 로그 기록 클래스
-from src.utils.common import (                                      # 공통 유틸 함수들
+from src.utils import (                                             # 핵심 유틸 함수들
     load_yaml, ensure_dir, dump_yaml, jsonl_append, short_uid,
     resolve_path, require_file, require_dir, create_log_path
 )

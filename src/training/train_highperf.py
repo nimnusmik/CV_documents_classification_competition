@@ -28,10 +28,10 @@ from torch.optim.lr_scheduler import CosineAnnealingLR              # 코사인 
 from tqdm import tqdm                                               # 진행률 표시바
 
 # ------------------------- 프로젝트 유틸 ------------------------- #
-from src.utils.seed import set_seed                                 # 랜덤 시드 고정
+from src.utils.config import set_seed                               # 랜덤 시드 고정
 from src.logging.logger import Logger                               # 기본 로거 클래스
 from src.logging.wandb_logger import WandbLogger, create_wandb_config # WandB 로거 및 설정 생성
-from src.utils.common import (                                      # 공통 유틸리티 모듈
+from src.utils import (                                             # 핵심 유틸리티 모듈
     load_yaml, ensure_dir, dump_yaml, short_uid, resolve_path, require_file, require_dir, create_log_path
 )
 

@@ -7,7 +7,7 @@ import PIL.Image as Image                                # 이미지 처리
 
 # 프로젝트 내부 유틸 import
 from src.logging.logger import Logger                      # 로그 기록 유틸
-from src.utils.common import load_yaml, ensure_dir, resolve_path, require_file, require_dir  # 공용 유틸
+from src.utils import load_yaml, ensure_dir, resolve_path, require_file, require_dir  # 핵심 유틸
 from src.data.dataset import DocClsDataset               # 데이터셋 클래스
 from src.data.transforms import build_valid_tfms         # 검증용 변환 파이프라인
 from src.models.build import build_model                 # 모델 빌드 함수
@@ -181,7 +181,12 @@ def run_inference(cfg_path: str, out: str|None=None, ckpt: str|None=None):
                 # 확률 누적
                 probs_accum = probs if probs_accum is None else probs_accum + probs
                 
-            probs = (probs_accum / len(degs)).cpu().numpy()     # 평균 확률 계산
+            # probs_accum이 None이 아님을 보장
+            if probs_accum is not None:
+                probs = (probs_accum / len(degs)).cpu().numpy()     # 평균 확률 계산
+            else:
+                # 백업: probs_accum이 None인 경우 (에러 방지)
+                probs = torch.zeros((imgs.size(0), 17)).cpu().numpy()
             logits_all.append(probs)                            # 결과 저장
             
             # 주기적으로 로그

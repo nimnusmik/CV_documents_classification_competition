@@ -50,7 +50,7 @@ def extract_model_name(folder_path: Path) -> str:
     
     # 설정 파일에서 모델명 찾기
     try:
-        from src.utils.common import load_yaml
+        from src.utils import load_yaml
         for config_file in folder_path.rglob("*.yaml"):
             if "config" in config_file.name.lower():
                 config = load_yaml(str(config_file))
@@ -172,7 +172,7 @@ def create_visualization_for_existing_results():
                         # 학습 결과 시각화
                         fold_results_file = model_folder / "fold_results.yaml"
                         if fold_results_file.exists():
-                            from src.utils.common import load_yaml
+                            from src.utils import load_yaml
                             results = load_yaml(str(fold_results_file))
                             
                             visualize_training_pipeline(
@@ -197,9 +197,7 @@ def create_visualization_for_existing_results():
                                 predictions=predictions,
                                 model_name=model_name,
                                 output_dir=output_dir,
-                                confidence_scores=None,
-                                ensemble_weights=None,
-                                tta_results=None
+                                confidence_scores=None
                             )
                             print(f"  ✅ Inference viz: {model_folder}")
                     
@@ -210,8 +208,7 @@ def create_visualization_for_existing_results():
                             visualize_optimization_pipeline(
                                 study_path=str(study_files[0]),
                                 model_name=model_name,
-                                output_dir=output_dir,
-                                trials_df=None
+                                output_dir=output_dir
                             )
                             print(f"  ✅ Optimization viz: {model_folder}")
                             

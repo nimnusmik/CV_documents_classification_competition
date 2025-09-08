@@ -12,7 +12,7 @@ from pathlib import Path                             # 경로 처리 라이브�
 # ------------------------- 프로젝트 모듈 Import ------------------------- #
 from src.training.train_highperf import run_highperf_training   # 고성능 학습 실행 함수
 from src.inference.infer_highperf import run_highperf_inference # 고성능 추론 실행 함수
-from src.utils.common import load_yaml, create_log_path                # YAML 설정 파일 로드 함수
+from src.utils import load_yaml, create_log_path               # 핵심 유틸리티 함수
 from src.logging.logger import Logger                 # 로그 기록 클래스
 
 

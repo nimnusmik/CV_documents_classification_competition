@@ -14,7 +14,7 @@ from pathlib import Path
 from typing import Optional, List, Tuple
 
 # 프로젝트 모듈 import
-from src.utils.common import load_yaml, create_log_path
+from src.utils import load_yaml, create_log_path
 from src.logging.logger import Logger
 from src.models.build import build_model
 from src.data.dataset import HighPerfDocClsDataset

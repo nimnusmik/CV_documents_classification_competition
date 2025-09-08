@@ -24,7 +24,7 @@ except ImportError:
     raise
 
 # 프로젝트 모듈 import
-from src.utils.common import load_yaml, dump_yaml, create_log_path
+from src.utils import load_yaml, dump_yaml, create_log_path
 from src.logging.logger import Logger
 # from src.training.train_highperf import run_fold_training  # 개별 폴드 학습 함수 (향후 구현)
 from .hyperopt_utils import (
@@ -97,7 +97,7 @@ class OptunaTrainer:
             
             self.logger.write(f"✅ Trial {trial.number} 완료: F1 {mean_f1:.4f} (fold scores: {f1_scores})")
             
-            return mean_f1
+            return float(mean_f1)
             
         except Exception as e:
             self.logger.write(f"❌ Trial {trial.number} 실패: {str(e)}")
@@ -238,8 +238,7 @@ class OptunaTrainer:
                 visualize_optimization_pipeline(
                     study_path=study_path,
                     model_name=model_name,
-                    output_dir=viz_output_dir,
-                    trials_df=None
+                    output_dir=viz_output_dir
                 )
                 self.logger.write(f"[VIZ] Optimization visualizations created in {viz_output_dir}")
                 

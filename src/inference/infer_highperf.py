@@ -17,9 +17,9 @@ from typing import Optional                          # 타입 힌트 (옵셔널)
 from tqdm import tqdm                                # 진행률 표시바
 
 # ------------------------- 프로젝트 유틸 Import ------------------------- #
-from src.utils.common import (
+from src.utils import (
     load_yaml, resolve_path, require_file, require_dir, create_log_path
-)  # 공통 유틸리티
+)  # 핵심 유틸리티
 from src.logging.logger import Logger                # 로그 기록 클래스
 from src.data.dataset import HighPerfDocClsDataset   # 고성능 문서 분류 데이터셋
 from src.models.build import build_model, get_recommended_model  # 모델 빌드/추천 함수
@@ -241,9 +241,7 @@ def run_highperf_inference(cfg_path: str, fold_results_path: str, output_path: O
                 predictions=ensemble_preds.numpy(),
                 model_name=model_name,
                 output_dir=viz_output_dir,
-                confidence_scores=confidence_scores,
-                ensemble_weights=None,  # 앙상블 가중치 정보가 있다면 여기에 추가
-                tta_results=None       # TTA 결과 정보가 있다면 여기에 추가
+                confidence_scores=confidence_scores
             )
             logger.write(f"[VIZ] Inference visualizations created in {viz_output_dir}")
             
