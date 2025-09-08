@@ -1,0 +1,200 @@
+📋 실험명: fold-1-0908-1629-20250908_1629_efficientnet_b3_ensemble_tta
+🔗 WandB URL: https://wandb.ai/kimsunmin0227-hufs/document-classification-team/runs/7wqad52m
+/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train_highperf.py:403: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  scaler = GradScaler() if cfg["train"].get("mixed_precision", True) else None
+2025-09-08 16:29:19 | [DATA] build highperf loaders | img_size=384 bs=128
+2025-09-08 16:29:19 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+/home/ieyeppo/.pyenv/versions/cv_py3_11_9/lib/python3.11/site-packages/albumentations/augmentations/transforms.py:1692: UserWarning: Using default interpolation INTER_NEAREST, which is sub-optimal.Please specify interpolation mode for downscale and upscale explicitly.For additional information see this PR https://github.com/albumentations-team/albumentations/pull/584
+  warnings.warn(
+2025-09-08 16:29:19 | [HighPerfDataset] size=1256 img_size=384 epoch=0/3 p_hard=0.200 is_train=True
+2025-09-08 16:29:19 | [HighPerfDataset] size=314 img_size=384 epoch=0/3 p_hard=0.000 is_train=False
+2025-09-08 16:29:19 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-08 16:29:19 | [HighPerfDataset] updated epoch=1, p_hard=0.300
+2025-09-08 16:29:19 | [EPOCH 1] >>> TRAIN start | steps=10 mixup=True
+Train Epoch 1:   0%|                                                                                 | 0/10 [00:00<?, ?it/s]/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train_highperf.py:92: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):      # AMP 자동 캐스팅 적용
+2025-09-08 16:29:26 | [EPOCH 1][TRAIN step 1/10] loss=3.64156 lr=0.000210 bs=128
+Train Epoch 1:  10%|███████▎                                                                 | 1/10 [00:06<00:59,  6.58s/it]/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train_highperf.py:84: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+Train Epoch 1: 100%|████████████████████████████████████████████████████████████████████████| 10/10 [00:46<00:00,  4.66s/it]
+2025-09-08 16:30:06 | [EPOCH 1][TRAIN step 10/10] loss=1.87877 lr=0.000210 bs=104
+2025-09-08 16:30:06 | [EPOCH 1] <<< TRAIN end | loss=2.82427
+2025-09-08 16:30:06 | [EPOCH 1] >>> VALID start | steps=3
+Valid Epoch 1: 100%|██████████████████████████████████████████████████████████████████████████| 3/3 [00:08<00:00,  2.68s/it]
+2025-09-08 16:30:14 | [EPOCH 1] <<< VALID end | loss=1.36882 macro_f1=0.52569
+2025-09-08 16:30:14 | [FOLD 1] NEW BEST F1: 0.52569 (epoch 1)
+2025-09-08 16:30:14 | [DATA] build highperf loaders | img_size=384 bs=128
+2025-09-08 16:30:14 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+/home/ieyeppo/.pyenv/versions/cv_py3_11_9/lib/python3.11/site-packages/albumentations/augmentations/transforms.py:1692: UserWarning: Using default interpolation INTER_NEAREST, which is sub-optimal.Please specify interpolation mode for downscale and upscale explicitly.For additional information see this PR https://github.com/albumentations-team/albumentations/pull/584
+  warnings.warn(
+2025-09-08 16:30:14 | [HighPerfDataset] size=1256 img_size=384 epoch=1/3 p_hard=0.300 is_train=True
+2025-09-08 16:30:14 | [HighPerfDataset] size=314 img_size=384 epoch=1/3 p_hard=0.000 is_train=False
+2025-09-08 16:30:14 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-08 16:30:14 | [HighPerfDataset] updated epoch=2, p_hard=0.400
+2025-09-08 16:30:14 | [EPOCH 2] >>> TRAIN start | steps=10 mixup=True
+Train Epoch 2:   0%|                                                                                 | 0/10 [00:00<?, ?it/s]/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train_highperf.py:84: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-08 16:30:23 | [EPOCH 2][TRAIN step 1/10] loss=2.19528 lr=0.000157 bs=128
+Train Epoch 2:  20%|██████████████▌                                                          | 2/10 [00:14<00:54,  6.79s/it]/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train_highperf.py:92: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):      # AMP 자동 캐스팅 적용
+Train Epoch 2: 100%|████████████████████████████████████████████████████████████████████████| 10/10 [00:57<00:00,  5.76s/it]
+2025-09-08 16:31:12 | [EPOCH 2][TRAIN step 10/10] loss=1.29366 lr=0.000157 bs=104
+2025-09-08 16:31:12 | [EPOCH 2] <<< TRAIN end | loss=1.94576
+2025-09-08 16:31:12 | [EPOCH 2] >>> VALID start | steps=3
+Valid Epoch 2: 100%|██████████████████████████████████████████████████████████████████████████| 3/3 [00:08<00:00,  2.96s/it]
+2025-09-08 16:31:21 | [EPOCH 2] <<< VALID end | loss=0.77980 macro_f1=0.71297
+2025-09-08 16:31:21 | [FOLD 1] NEW BEST F1: 0.71297 (epoch 2)
+2025-09-08 16:31:21 | [DATA] build highperf loaders | img_size=384 bs=128
+2025-09-08 16:31:21 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+/home/ieyeppo/.pyenv/versions/cv_py3_11_9/lib/python3.11/site-packages/albumentations/augmentations/transforms.py:1692: UserWarning: Using default interpolation INTER_NEAREST, which is sub-optimal.Please specify interpolation mode for downscale and upscale explicitly.For additional information see this PR https://github.com/albumentations-team/albumentations/pull/584
+  warnings.warn(
+2025-09-08 16:31:21 | [HighPerfDataset] size=1256 img_size=384 epoch=2/3 p_hard=0.400 is_train=True
+2025-09-08 16:31:21 | [HighPerfDataset] size=314 img_size=384 epoch=2/3 p_hard=0.000 is_train=False
+2025-09-08 16:31:21 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-08 16:31:21 | [HighPerfDataset] updated epoch=3, p_hard=0.500
+2025-09-08 16:31:21 | [EPOCH 3] >>> TRAIN start | steps=10 mixup=True
+Train Epoch 3:   0%|                                                                                 | 0/10 [00:00<?, ?it/s]Exception ignored in: <function Image.__del__ at 0x7630d0e9ce00>
+Traceback (most recent call last):
+  File "/home/ieyeppo/.pyenv/versions/3.11.9/lib/python3.11/tkinter/__init__.py", line 4105, in __del__
+    self.tk.call('image', 'delete', self.name)
+RuntimeError: main thread is not in main loop
+Exception ignored in: <function Variable.__del__ at 0x7630d0fee020>
+Traceback (most recent call last):
+  File "/home/ieyeppo/.pyenv/versions/3.11.9/lib/python3.11/tkinter/__init__.py", line 410, in __del__
+    if self._tk.getboolean(self._tk.call("info", "exists", self._name)):
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: main thread is not in main loop
+Exception ignored in: <function Variable.__del__ at 0x7630d0fee020>
+Traceback (most recent call last):
+  File "/home/ieyeppo/.pyenv/versions/3.11.9/lib/python3.11/tkinter/__init__.py", line 410, in __del__
+    if self._tk.getboolean(self._tk.call("info", "exists", self._name)):
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: main thread is not in main loop
+Exception ignored in: <function Variable.__del__ at 0x7630d0fee020>
+Traceback (most recent call last):
+  File "/home/ieyeppo/.pyenv/versions/3.11.9/lib/python3.11/tkinter/__init__.py", line 410, in __del__
+    if self._tk.getboolean(self._tk.call("info", "exists", self._name)):
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: main thread is not in main loop
+Exception ignored in: <function Variable.__del__ at 0x7630d0fee020>
+Traceback (most recent call last):
+  File "/home/ieyeppo/.pyenv/versions/3.11.9/lib/python3.11/tkinter/__init__.py", line 410, in __del__
+    if self._tk.getboolean(self._tk.call("info", "exists", self._name)):
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: main thread is not in main loop
+Exception ignored in: <function Variable.__del__ at 0x7630d0fee020>
+Traceback (most recent call last):
+  File "/home/ieyeppo/.pyenv/versions/3.11.9/lib/python3.11/tkinter/__init__.py", line 410, in __del__
+    if self._tk.getboolean(self._tk.call("info", "exists", self._name)):
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: main thread is not in main loop
+Exception ignored in: <function Variable.__del__ at 0x7630d0fee020>
+Traceback (most recent call last):
+  File "/home/ieyeppo/.pyenv/versions/3.11.9/lib/python3.11/tkinter/__init__.py", line 410, in __del__
+    if self._tk.getboolean(self._tk.call("info", "exists", self._name)):
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: main thread is not in main loop
+Exception ignored in: <function Variable.__del__ at 0x7630d0fee020>
+Traceback (most recent call last):
+  File "/home/ieyeppo/.pyenv/versions/3.11.9/lib/python3.11/tkinter/__init__.py", line 410, in __del__
+    if self._tk.getboolean(self._tk.call("info", "exists", self._name)):
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: main thread is not in main loop
+Exception ignored in: <function Variable.__del__ at 0x7630d0fee020>
+Traceback (most recent call last):
+  File "/home/ieyeppo/.pyenv/versions/3.11.9/lib/python3.11/tkinter/__init__.py", line 410, in __del__
+    if self._tk.getboolean(self._tk.call("info", "exists", self._name)):
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: main thread is not in main loop
+Exception ignored in: <function Image.__del__ at 0x7630d0e9ce00>
+Traceback (most recent call last):
+  File "/home/ieyeppo/.pyenv/versions/3.11.9/lib/python3.11/tkinter/__init__.py", line 4105, in __del__
+    self.tk.call('image', 'delete', self.name)
+RuntimeError: main thread is not in main loop
+Exception ignored in: <function Image.__del__ at 0x7630d0e9ce00>
+Traceback (most recent call last):
+  File "/home/ieyeppo/.pyenv/versions/3.11.9/lib/python3.11/tkinter/__init__.py", line 4105, in __del__
+    self.tk.call('image', 'delete', self.name)
+RuntimeError: main thread is not in main loop
+Exception ignored in: <function Variable.__del__ at 0x7630d0fee020>
+Traceback (most recent call last):
+  File "/home/ieyeppo/.pyenv/versions/3.11.9/lib/python3.11/tkinter/__init__.py", line 410, in __del__
+    if self._tk.getboolean(self._tk.call("info", "exists", self._name)):
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: main thread is not in main loop
+Exception ignored in: <function Variable.__del__ at 0x7630d0fee020>
+Traceback (most recent call last):
+  File "/home/ieyeppo/.pyenv/versions/3.11.9/lib/python3.11/tkinter/__init__.py", line 410, in __del__
+    if self._tk.getboolean(self._tk.call("info", "exists", self._name)):
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: main thread is not in main loop
+Exception ignored in: <function Variable.__del__ at 0x7630d0fee020>
+Traceback (most recent call last):
+  File "/home/ieyeppo/.pyenv/versions/3.11.9/lib/python3.11/tkinter/__init__.py", line 410, in __del__
+    if self._tk.getboolean(self._tk.call("info", "exists", self._name)):
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: main thread is not in main loop
+Exception ignored in: <function Variable.__del__ at 0x7630d0fee020>
+Traceback (most recent call last):
+  File "/home/ieyeppo/.pyenv/versions/3.11.9/lib/python3.11/tkinter/__init__.py", line 410, in __del__
+    if self._tk.getboolean(self._tk.call("info", "exists", self._name)):
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: main thread is not in main loop
+Exception ignored in: <function Variable.__del__ at 0x7630d0fee020>
+Traceback (most recent call last):
+  File "/home/ieyeppo/.pyenv/versions/3.11.9/lib/python3.11/tkinter/__init__.py", line 410, in __del__
+    if self._tk.getboolean(self._tk.call("info", "exists", self._name)):
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: main thread is not in main loop
+Exception ignored in: <function Variable.__del__ at 0x7630d0fee020>
+Traceback (most recent call last):
+  File "/home/ieyeppo/.pyenv/versions/3.11.9/lib/python3.11/tkinter/__init__.py", line 410, in __del__
+    if self._tk.getboolean(self._tk.call("info", "exists", self._name)):
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: main thread is not in main loop
+Exception ignored in: <function Variable.__del__ at 0x7630d0fee020>
+Traceback (most recent call last):
+  File "/home/ieyeppo/.pyenv/versions/3.11.9/lib/python3.11/tkinter/__init__.py", line 410, in __del__
+    if self._tk.getboolean(self._tk.call("info", "exists", self._name)):
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: main thread is not in main loop
+Exception ignored in: <function Variable.__del__ at 0x7630d0fee020>
+Traceback (most recent call last):
+  File "/home/ieyeppo/.pyenv/versions/3.11.9/lib/python3.11/tkinter/__init__.py", line 410, in __del__
+    if self._tk.getboolean(self._tk.call("info", "exists", self._name)):
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: main thread is not in main loop
+Exception ignored in: <function Image.__del__ at 0x7630d0e9ce00>
+Traceback (most recent call last):
+  File "/home/ieyeppo/.pyenv/versions/3.11.9/lib/python3.11/tkinter/__init__.py", line 4105, in __del__
+    self.tk.call('image', 'delete', self.name)
+RuntimeError: main thread is not in main loop
+Exception ignored in: <function Image.__del__ at 0x7630d0e9ce00>
+Traceback (most recent call last):
+  File "/home/ieyeppo/.pyenv/versions/3.11.9/lib/python3.11/tkinter/__init__.py", line 4105, in __del__
+    self.tk.call('image', 'delete', self.name)
+RuntimeError: main thread is not in main loop
+Exception ignored in: <function Variable.__del__ at 0x7630d0fee020>
+Traceback (most recent call last):
+  File "/home/ieyeppo/.pyenv/versions/3.11.9/lib/python3.11/tkinter/__init__.py", line 410, in __del__
+    if self._tk.getboolean(self._tk.call("info", "exists", self._name)):
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: main thread is not in main loop
+Exception ignored in: <function Variable.__del__ at 0x7630d0fee020>
+Traceback (most recent call last):
+  File "/home/ieyeppo/.pyenv/versions/3.11.9/lib/python3.11/tkinter/__init__.py", line 410, in __del__
+    if self._tk.getboolean(self._tk.call("info", "exists", self._name)):
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: main thread is not in main loop
+Exception ignored in: <function Variable.__del__ at 0x7630d0fee020>
+Traceback (most recent call last):
+  File "/home/ieyeppo/.pyenv/versions/3.11.9/lib/python3.11/tkinter/__init__.py", line 410, in __del__
+    if self._tk.getboolean(self._tk.call("info", "exists", self._name)):
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: main thread is not in main loop
+Exception ignored in: <function Variable.__del__ at 0x7630d0fee020>
+Traceback (most recent call last):
+  File "/home/ieyeppo/.pyenv/versions/3.11.9/lib/python3.11/tkinter/__init__.py", line 410, in __del__
+    if self._tk.getboolean(self._tk.call("info", "exists", self._name)):
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: main thread is not in main loop

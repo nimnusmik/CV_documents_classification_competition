@@ -1,0 +1,50 @@
+{
+  "os": "Linux-6.6.87.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "python": "CPython 3.11.9",
+  "startedAt": "2025-09-08T07:29:18.669892Z",
+  "args": [
+    "--config",
+    "configs/train_optimized_20250908_1616.yaml",
+    "--mode",
+    "full-pipeline",
+    "--use-calibration",
+    "--optimize",
+    "--optuna-config",
+    "configs/optuna_config.yaml",
+    "--auto-continue"
+  ],
+  "program": "/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train_main.py",
+  "codePath": "src/training/train_main.py",
+  "codePathLocal": "src/training/train_main.py",
+  "git": {
+    "remote": "git@github.com:iejob/computer-vision-competition-1SEN.git",
+    "commit": "b760b11addae1379cfb3d651486a41871731356e"
+  },
+  "email": "ieyeppo.job@gmail.com",
+  "root": "/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN",
+  "host": "PotG",
+  "executable": "/home/ieyeppo/.pyenv/versions/cv_py3_11_9/bin/python",
+  "cpu_count": 8,
+  "cpu_count_logical": 16,
+  "gpu": "NVIDIA GeForce RTX 4090",
+  "gpu_count": 1,
+  "disk": {
+    "/": {
+      "total": "1081101176832",
+      "used": "124657557504"
+    }
+  },
+  "memory": {
+    "total": "42058575872"
+  },
+  "gpu_nvidia": [
+    {
+      "name": "NVIDIA GeForce RTX 4090",
+      "memoryTotal": "25757220864",
+      "architecture": "Ada",
+      "uuid": "GPU-b2b9e31d-4ca9-4907-d713-96771c28a1dd"
+    }
+  ],
+  "cudaVersion": "12.6",
+  "writerId": "ymhvctpixgzcvvuqd5atdnydpw0l267m"
+}

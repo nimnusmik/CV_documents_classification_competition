@@ -213,10 +213,17 @@ class OptunaTrainer:
             self.logger.write(f"⏱️ 최적화 완료: {elapsed_time:.1f}초 소요")
             print_optimization_summary(self.study)
             
-            # 최적 파라미터 저장
-            best_params_path = f"experiments/optimization/best_params_{time.strftime('%Y%m%d_%H%M')}.yaml"
-            os.makedirs(os.path.dirname(best_params_path), exist_ok=True)
+            # 올바른 폴더 구조로 저장 경로 생성
+            timestamp = time.strftime('%Y%m%d_%H%M')
+            date_str = time.strftime('%Y%m%d')
+            run_name = self.base_config.get("project", {}).get("run_name", "optimization")
             
+            # experiments/optimization/날짜/run_name/ 구조
+            viz_output_dir = f"experiments/optimization/{date_str}/{run_name}"
+            os.makedirs(viz_output_dir, exist_ok=True)
+            
+            # 최적 파라미터 저장
+            best_params_path = os.path.join(viz_output_dir, f"best_params_{timestamp}.yaml")
             best_config = update_config_with_best_params(self.base_config, self.study.best_params)
             dump_yaml(best_config, best_params_path)
             
@@ -224,13 +231,11 @@ class OptunaTrainer:
             
             #-------------- 최적화 결과 시각화 ---------------------- #
             try:
-                # 시각화를 위한 출력 디렉터리 설정
-                viz_output_dir = os.path.dirname(best_params_path)
                 model_name = self.base_config.get("model", {}).get("name", "unknown")
                 
                 # Study 객체 저장 (시각화용)
                 import pickle
-                study_path = os.path.join(viz_output_dir, f"study_{time.strftime('%Y%m%d_%H%M')}.pkl")
+                study_path = os.path.join(viz_output_dir, f"study_{timestamp}.pkl")
                 with open(study_path, 'wb') as f:
                     pickle.dump(self.study, f)
                 
