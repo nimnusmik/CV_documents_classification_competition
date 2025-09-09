@@ -29,7 +29,7 @@ train:
   img_size: 384                                 # 입력 이미지 크기 (384x384, 메모리 최적화)
   batch_size: 48                                # 배치 크기 (메모리 최적화)
   use_advanced_augmentation: true               # 고급 증강 기법 사용 여부 (trainsform.py true: build_advanced_train_tfms / false: build_train_tfms)
-  epochs: 25                                    # 학습 에포크 수 (메모리 최적화)
+  epochs: 10                                    # 학습 에포크 수 (메모리 최적화)
   lr: 0.0002                                    # 학습률 (1e-4)
   weight_decay: 0.01                            # L2 정규화 계수
   optimizer: adamw                              # 옵티마이저 (AdamW)

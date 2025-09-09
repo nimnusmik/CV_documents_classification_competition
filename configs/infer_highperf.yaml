@@ -37,7 +37,8 @@ train:
 # ------------------------------ 고성능 추론/제출 설정 ---------------------------- #
 inference:
   tta: true                                           # Test-Time Augmentation 사용 여부
-  tta_rot_degrees: [0, -3, 3]                         # TTA 시 회전 각도 리스트
+  tta_type: "comprehensive"                           # TTA 타입: 'src/data/transforms.py' >> "essential" (5가지) 또는 "comprehensive" (15가지)  
+  tta_rot_degrees: [0, -3, 3]                         # TTA 시 회전 각도 리스트 (레거시 설정)
   confidence_threshold: 0.9                           # 앙상블 신뢰도 임계값
   # out_csv 제거: 동적으로 날짜_모델명_ensemble_tta 형식으로 생성
 
