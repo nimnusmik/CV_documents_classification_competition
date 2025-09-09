@@ -6,9 +6,9 @@ direction: maximize                        # 목표 방향 (최대화)
 metric: macro_f1                          # 최적화할 지표
 
 # Optuna 설정
-n_trials: 100                               # 시도 횟수
+n_trials: 10                                # 시도 횟수 (메모리 최적화)
 timeout: 8200                             # 20분 타임아웃 설정 (30분 완료용)
-n_jobs: 8                                 # 병렬 작업 수 (안정성)
+n_jobs: 4                                  # 병렬 작업 수 (메모리 최적화)
 
 # 하이퍼파라미터 검색 공간
 params:
@@ -22,7 +22,7 @@ params:
   # 배치 크기 (큰 배치로 빠른 학습)
   batch_size:
     type: categorical
-    choices: [48, 64, 96, 128]      # RTX 4090에 맞는 큰 배치들
+    choices: [16, 32, 48, 64]       # RTX 4090에 맞는 배치들 (메모리 최적화)
     
   # 에포크 수 (매우 짧게)
   epochs:

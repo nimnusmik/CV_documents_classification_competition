@@ -4,10 +4,10 @@ project:
   seed: 42                                      # 랜덤 시드 (재현 가능한 실험)
   date_format: '%Y%m%d'                         # 날짜 포맷 (예: 20250906)
   time_format: '%H%M'                           # 시간 포맷 (예: 1430)
-  num_workers: 8                                # 데이터 로더 워커 수
+  num_workers: 8                                # 데이터 로더 워커 수 (메모리 최적화)
   device: cuda                                  # 학습 디바이스 (GPU 사용)
   verbose: true                                 # 상세 로그 출력 여부
-  log_prefix: train_highperf                    # 로그 파일 접두사
+  log_prefix: train_highperf_convnext_base_384  # 로그 파일 접두사
 
 # ------------------------------- 데이터 설정 ------------------------------- #
 data:
@@ -26,17 +26,17 @@ data:
 
 # ------------------------------- 학습 설정 ------------------------------- #
 train:
-  img_size: 384                                 # 입력 이미지 크기 (384x384)
-  batch_size: 64                                # 배치 크기 (빠른 학습용)
+  img_size: 384                                 # 입력 이미지 크기 (384x384, 메모리 최적화)
+  batch_size: 48                                # 배치 크기 (메모리 최적화)
   use_advanced_augmentation: true               # 고급 증강 기법 사용 여부 (trainsform.py true: build_advanced_train_tfms / false: build_train_tfms)
-  epochs: 50                                    # 학습 에포크 수 (30분 완료용)
-  lr: 0.0001                                    # 학습률 (1e-4)
+  epochs: 25                                    # 학습 에포크 수 (메모리 최적화)
+  lr: 0.0002                                    # 학습률 (1e-4)
   weight_decay: 0.01                            # L2 정규화 계수
   optimizer: adamw                              # 옵티마이저 (AdamW)
   scheduler: cosine                             # 스케줄러 (코사인 감쇠)
   mixed_precision: true                         # 혼합 정밀도 학습 (메모리 효율성)
   max_grad_norm: 1.0                            # 그래디언트 클리핑 임계값
-  label_smoothing: 0.1                          # 레이블 스무딩 (과적합 방지)
+  label_smoothing: 0.05                         # 레이블 스무딩 (과적합 방지)
   use_mixup: true                               # Mixup 데이터 증강 사용
   mixup_alpha: 1.0                              # Mixup 알파 파라미터
   hard_augmentation: true                       # 강한 데이터 증강 적용
@@ -44,7 +44,7 @@ train:
 
 # ------------------------------- 모델 설정 ------------------------------- #
 model:
-  name: convnext_base_384                           # 모델 아키텍처 (Swin Transformer Base)
+  name: convnext_base_384                       # 모델 아키텍처
   pretrained: true                              # 사전학습 가중치 사용
   drop_rate: 0.1                                # 드롭아웃 비율
   drop_path_rate: 0.1                           # 드롭패스 비율 (Stochastic Depth)
@@ -60,13 +60,13 @@ output:
 wandb:
   project_name: document-classification-team    # WandB 프로젝트명
   entity: null                                  # WandB 엔티티 (팀/사용자)
-  experiment_name: swin-highperf                # 실험명
+  experiment_name: convnext_base_384-highperf   # 실험명
   tags:                                         # 실험 태그
-  - swin                                        # Swin Transformer 태그
+  - convnext_base_384                           # ConvNeXt 태그
   - high-performance                            # 고성능 태그
   - mixup                                       # Mixup 태그
   - hard-aug                                    # 강한 증강 태그
 
 # ------------------------------- 추가 학습 설정 ------------------------------- #
 training:
-  batch_size: 64                                # 추가 배치 크기 설정 (메모리 여유시)
+  batch_size: 48                                # 추가 배치 크기 설정 (메모리 최적화)

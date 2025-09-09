@@ -1,13 +1,13 @@
 # ----------------------------- 기본 메타 설정 ----------------------------- #
 project:
-  run_name: efficientnet_b3                         # 실험 이름/ID (로그/아티팩트 경로에 사용됨)
+  run_name: convnext_base_384                       # 실험 이름/ID (로그/아티팩트 경로에 사용됨)
   seed: 42                                          # 랜덤 시드 (재현성 확보)
   date_format: "%Y%m%d"                             # 날짜 포맷 (예: 20250904)
   time_format: "%H%M"                               # 시간 포맷 (예: 1530)
-  num_workers: 8                                    # DataLoader 워커 수 (병렬 데이터 로딩)
+  num_workers: 8                                    # DataLoader 워커 수 (메모리 최적화)
   device: "cuda"                                    # 실행 디바이스 ("cuda" 가능 시 GPU, 아니면 CPU)
   verbose: true                                     # 상세 로그 출력 여부
-  log_prefix: "train"                               # 로그 파일 접두사
+  log_prefix: "train_convnext_base_384"             # 로그 파일 접두사
 
 # ------------------------------- 데이터 설정 ------------------------------ #
 data:
@@ -26,10 +26,10 @@ data:
 
 # ------------------------------- 학습 설정 -------------------------------- #
 train:
-  img_size: 384                                     # 입력 이미지 크기 (한 변)
-  batch_size: 160                                   # 배치 크기 (빠른 학습용)
+  img_size: 384                                     # 입력 이미지 크기 (메모리 최적화)
+  batch_size: 48                                    # 배치 크기 (메모리 최적화)
   use_advanced_augmentation: false                  # 고급 증강 기법 사용 여부 (transform.py true: build_advanced_train_tfms / false: build_train_tfms)
-  epochs: 20                                        # 학습 epoch 수 (30분 완료용)
+  epochs: 15                                        # 학습 epoch 수 (메모리 최적화)
   lr: 0.001                                         # 학습률
   weight_decay: 0.0                                 # weight decay (정규화)
   optimizer: "adam"                                 # 옵티마이저 ("adam" | "adamw")
@@ -40,7 +40,7 @@ train:
 
 # ------------------------------- 모델 설정 -------------------------------- #
 model:
-  name: "efficientnet_b3"                           # 모델 아키텍처 이름 (timm 지원 모델)
+  name: "convnext_base_384"                         # 모델 아키텍처 이름 (timm 지원 모델)
   pretrained: true                                  # 사전학습 가중치 사용 여부
   drop_rate: 0.0                                    # dropout 비율
   drop_path_rate: 0.0                               # stochastic depth 비율
@@ -56,7 +56,7 @@ output:
 wandb:
   project_name: document-classification-basic       # WandB 프로젝트명 (기본 학습용)
   entity: null                                      # WandB 엔티티 (팀/사용자)
-  experiment_name: efficientnet-basic               # 실험명
+  experiment_name: convnext_base_384                # 실험명
   tags:                                             # 실험 태그
-  - efficientnet                                    # EfficientNet 태그
+  - convnext_base_384                               # EfficientNet 태그
   - basic                                           # 기본 모드 태그

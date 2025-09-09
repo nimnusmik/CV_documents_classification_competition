@@ -2,7 +2,7 @@
 project:
   run_name: multi-model-ensemble-inference           # 실행명 (다중 모델 앙상블 추론)
   device: "cuda"                                      # 실행 디바이스
-  num_workers: 8                                      # DataLoader 병렬 워커 수 (RTX 4090 최적화)
+  num_workers: 8                                      # DataLoader 병렬 워커 수 (메모리 최적화)
   date_format: "%Y%m%d"                               # 날짜 포맷
   time_format: "%H%M"                                 # 시간 포맷
   pin_memory: true                                    # 메모리 고정 (GPU 전송 속도 향상)
@@ -12,7 +12,7 @@ project:
 ensemble:
   fold_results_path: "./experiments/train/lastest-train/multi-model-ensemble/fold_results.yaml"  # 폴드 결과 파일 경로 (동적 감지)
   use_tta: true                                       # Test-Time Augmentation 사용
-  num_tta: 8                                          # TTA 횟수 (다중 모델이므로 더 많이)
+  num_tta: 20                                         # TTA 횟수 (다중 모델이므로 더 많이)
   use_multi_model: true                               # 다중 모델 앙상블 활성화
 
 # ------------------------------- 데이터 설정 ------------------------------ #
@@ -25,18 +25,18 @@ data:
   num_classes: 17                                     # 분류 클래스 수
 
 # ------------------------------- 다중 모델 설정 (폴드별) ---------------------------- #
-# 학습 시와 동일한 모델 구성 - 각 폴드별로 다른 모델 사용
+# 학습 시와 동일한 모델 구성 - 각 폴드별로 다른 모델 사용 가능
 models:
   fold_0:
-    name: "swin_base_384"                             # Fold 0: Swin Transformer
+    name: "convnext_base_384_in22ft1k"
   fold_1:
-    name: "convnext_base_384"                         # Fold 1: ConvNeXt Base
+    name: "swin_base_384"
   fold_2:
-    name: "convnext_large"                            # Fold 2: ConvNeXt Large
+    name: "swin_base_384"
   fold_3:
-    name: "vit_large"                                 # Fold 3: ViT Large (384 크기)
+    name: "convnext_base_384_in22ft1k"
   fold_4:
-    name: "swin_base_384"                             # Fold 4: Swin Transformer
+    name: "convnext_base_384_in22ft1k"
 
 # 기본 모델 설정 (모든 폴드에 공통 적용)
 model:
@@ -47,8 +47,8 @@ model:
 
 # ------------------------- 추론 시 필요한 학습 설정 ------------------------- #
 train:
-  img_size: 384                                       # 학습 시와 동일한 이미지 크기
-  batch_size: 32                                      # 다중 모델 추론용 배치 크기 (메모리 고려)
+  img_size: 320                                       # 학습 시와 동일한 이미지 크기 (메모리 최적화)
+  batch_size: 16                                      # 다중 모델 추론용 배치 크기 (메모리 최적화)
 
 # ------------------------------ 고성능 다중 모델 추론 설정 ---------------------------- #
 inference:

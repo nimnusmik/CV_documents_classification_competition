@@ -5,7 +5,7 @@ project:
   seed: 42                                      # 랜덤 시드 (재현 가능한 실험)
   date_format: '%Y%m%d'                         # 날짜 포맷 (예: 20250906)
   time_format: '%H%M'                           # 시간 포맷 (예: 1430)
-  num_workers: 4                                # 데이터 로더 워커 수
+  num_workers: 2                                # 데이터 로더 워커 수 (메모리 최적화)
   device: cuda                                  # 학습 디바이스 (GPU 사용)
   verbose: true                                 # 상세 로그 출력 여부
   log_prefix: train_fast_opt                    # 로그 파일 접두사
@@ -26,8 +26,8 @@ data:
 
 # ------------------------------- 학습 설정 ------------------------------- #
 train:
-  img_size: 384                                 # 이미지 크기 (swin_base_384에 맞춤)
-  batch_size: 128                               # 배치 크기 (빠른 학습용)
+  img_size: 320                                 # 이미지 크기 (메모리 최적화)
+  batch_size: 32                                # 배치 크기 (메모리 최적화)
   use_advanced_augmentation: true               # 기본 증강으로 더 빠른 처리
   epochs: 1                                     # 학습 에포크 수 (30분 완료용)
   lr: 0.0002                                    # 학습률 (조금 높게 설정)

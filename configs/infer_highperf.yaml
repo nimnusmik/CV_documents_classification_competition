@@ -1,14 +1,14 @@
 # ----------------------------- 고성능 추론 메타 설정 ----------------------------- #
 project:
-  run_name: swin-highperf-inference                 # 실행(run) 이름 (고성능 앙상블 추론)
+  run_name: convnext_base_384_highperf_inference      # 실행(run) 이름 (고성능 앙상블 추론)
   device: "cuda"                                      # 실행 디바이스 ("cuda" 가능 시 GPU, 아니면 CPU)
-  num_workers: 8                                      # DataLoader 병렬 로딩 워커 수
+  num_workers: 8                                      # DataLoader 병렬 로딩 워커 수 (메모리 최적화)
   date_format: "%Y%m%d"                               # 날짜 포맷 (예: 20250904)
   time_format: "%H%M"                                 # 시간 포맷 (예: 1530)
 
 # ------------------------------ 앙상블 설정 (고성능용) --------------------------- #
 ensemble:
-  fold_results_path: "./experiments/train/lastest-train/swin-sighperf/fold_results.yaml"  # 폴드별 결과 파일 경로
+  fold_results_path: "./experiments/train/lastest-train/fold_results.yaml"  # 폴드별 결과 파일 경로
   use_tta: true                                       # Test-Time Augmentation 사용 (고성능)
   num_tta: 20                                         # TTA 횟수
 
@@ -21,18 +21,18 @@ data:
   target_col: "target"                                # 타깃 컬럼명
   num_classes: 17                                     # 분류 클래스 수
 
-# ------------------------------- 모델 설정 (Swin Transformer) -------------------------------- #
+# ------------------------------- 모델 설정  -------------------------------- #
 model:
-  name: "swin_base_384"                               # 모델 아키텍처 이름 (Swin Transformer)
+  name: "convnext_base_384_highperf"                  # 모델 아키텍처 이름
   pretrained: False                                   # 사전학습 가중치 사용 여부 (False → 학습된 가중치 사용)
-  drop_rate: 0.1                                      # dropout 비율 (학습시와 동일)
+  drop_rate: 0.05                                     # dropout 비율 (학습시와 동일)
   drop_path_rate: 0.1                                 # stochastic depth 비율 (학습시와 동일)
   pooling: "avg"                                      # 전역 풀링 방식 ("avg" 권장)
 
 # ------------------------- 추론 시 필요한 학습 설정 (고성능) ------------------------- #
 train:
-  img_size: 384                                       # 학습 때 쓴 값과 동일해야 함 (Swin Transformer 최적 크기)
-  batch_size: 64                                      # 고성능 추론용 배치 크기 (메모리 사용량 고려)
+  img_size: 384                                       # 학습 때 쓴 값과 동일해야 함 (메모리 최적화)
+  batch_size: 48                                      # 추론용 배치 크기 (메모리 최적화)
 
 # ------------------------------ 고성능 추론/제출 설정 ---------------------------- #
 inference:
@@ -51,9 +51,9 @@ output:
 wandb:
   project_name: document-classification-inference     # WandB 프로젝트명 (고성능 추론용)
   entity: null                                        # WandB 엔티티 (팀/사용자)
-  experiment_name: swin-ensemble-inference            # 실험명
+  experiment_name: convnext_base_384_higherf_inference# 실험명
   tags:                                               # 실험 태그
-  - swin                                              # Swin Transformer 태그
+  - convnext_base_384                                 # ConvNeXt Base 384 태그
   - ensemble                                          # 앙상블 태그
   - tta                                               # TTA 태그
   - high-performance                                  # 고성능 태그
