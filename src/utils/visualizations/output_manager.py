@@ -26,18 +26,30 @@ class ExperimentOutputManager:
         """학습 결과 출력 디렉토리 생성"""
         output_dir = self.base_dir / "train" / self.date_str / model_name
         self._create_standard_structure(output_dir)
+        
+        # lastest-train 심볼릭 링크 생성
+        self._create_lastest_link(output_dir, self.base_dir / "train" / "lastest-train")
+        
         return output_dir
     
     def create_inference_output_dir(self, model_name: str) -> Path:
         """추론 결과 출력 디렉토리 생성"""
         output_dir = self.base_dir / "infer" / self.date_str / model_name
         self._create_standard_structure(output_dir)
+        
+        # lastest-infer 심볼릭 링크 생성
+        self._create_lastest_link(output_dir, self.base_dir / "infer" / "lastest-infer")
+        
         return output_dir
     
     def create_optimization_output_dir(self, model_name: str) -> Path:
         """최적화 결과 출력 디렉토리 생성"""
         output_dir = self.base_dir / "optimization" / self.date_str / model_name
         self._create_standard_structure(output_dir)
+        
+        # lastest-optimization 심볼릭 링크 생성
+        self._create_lastest_link(output_dir, self.base_dir / "optimization" / "lastest-optimization")
+        
         return output_dir
     
     def _create_standard_structure(self, output_dir: Path):
@@ -48,6 +60,22 @@ class ExperimentOutputManager:
         folders = ['images', 'logs', 'configs', 'results']
         for folder in folders:
             (output_dir / folder).mkdir(exist_ok=True)
+    
+    def _create_lastest_link(self, target_dir: Path, link_path: Path):
+        """lastest 심볼릭 링크 생성"""
+        try:
+            # 기존 링크가 있으면 제거
+            if link_path.exists() or link_path.is_symlink():
+                link_path.unlink()
+            
+            # 상대 경로로 심볼릭 링크 생성
+            relative_target = os.path.relpath(target_dir, link_path.parent)
+            link_path.symlink_to(relative_target)
+            print(f"🔗 Created lastest link: {link_path} -> {target_dir}")
+            
+        except Exception as e:
+            print(f"⚠️ Could not create lastest link {link_path}: {e}")
+            # 심볼릭 링크 생성 실패해도 계속 진행
     
     def move_optimization_files(self, source_pattern: str, model_name: str):
         """기존 최적화 파일들을 새로운 구조로 이동"""

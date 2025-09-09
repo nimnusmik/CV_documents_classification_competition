@@ -21,13 +21,13 @@ echo ""
 
 # 최신 로그 파일 확인
 echo "📝 최신 로그 파일:"
-latest_log=$(find logs/ -name "*.log" -mtime -1 | sort -r | head -1)
-if [ -n "$latest_log" ]; then
-    echo "  파일: $latest_log"
-    echo "  마지막 업데이트: $(stat -c %y "$latest_log")"
+lastest_log=$(find logs/ -name "*.log" -mtime -1 | sort -r | head -1)
+if [ -n "$lastest_log" ]; then
+    echo "  파일: $lastest_log"
+    echo "  마지막 업데이트: $(stat -c %y "$lastest_log")"
     echo ""
     echo "📋 최근 로그 (마지막 5줄):"
-    tail -n 5 "$latest_log"
+    tail -n 5 "$lastest_log"
 else
     echo "  최근 로그 파일을 찾을 수 없습니다."
 fi

@@ -12,7 +12,7 @@ from pathlib import Path                             # 경로 처리 라이브�
 # ------------------------- 프로젝트 모듈 Import ------------------------- #
 from src.training.train_highperf import run_highperf_training   # 고성능 학습 실행 함수
 from src.inference.infer_highperf import run_highperf_inference # 고성능 추론 실행 함수
-from src.utils import load_yaml, create_log_path               # 핵심 유틸리티 함수
+from src.utils.core.common import load_yaml, create_log_path               # 핵심 유틸리티 함수
 from src.logging.logger import Logger                 # 로그 기록 클래스
 
 
@@ -24,13 +24,28 @@ def get_model_name(cfg, fold=None):
     fold 인자가 없으면 단일 모델로 간주
     """
     # 다중 모델 앙상블 여부 판단
-    if "models" in cfg and fold is not None and f"fold_{fold}" in cfg["models"]:
-        return cfg["models"][f"fold_{fold}"]["name"]
+    if "models" in cfg and isinstance(cfg["models"], dict):
+        if fold is not None:
+            fold_key = f"fold_{fold}"
+            if fold_key in cfg["models"] and isinstance(cfg["models"][fold_key], dict) and "name" in cfg["models"][fold_key]:
+                return cfg["models"][fold_key]["name"]
+        # 다중 모델이지만 fold가 없는 경우, 첫 번째 모델 반환
+        first_fold = min(int(k.split('_')[1]) for k in cfg["models"].keys() if k.startswith('fold_'))
+        fold_key = f"fold_{first_fold}"
+        if fold_key in cfg["models"] and isinstance(cfg["models"][fold_key], dict) and "name" in cfg["models"][fold_key]:
+            return cfg["models"][fold_key]["name"]
     # 단일 모델
-    elif "model" in cfg and "name" in cfg["model"]:
+    elif "model" in cfg and isinstance(cfg["model"], dict) and "name" in cfg["model"]:
         return cfg["model"]["name"]
-    else:
-        raise KeyError("모델 이름을 찾을 수 없습니다. config 구조를 확인하세요.")
+    
+    # 에러 메시지 개선
+    available_keys = []
+    if "models" in cfg:
+        available_keys.extend([f"models.{k}" for k in cfg["models"].keys()])
+    if "model" in cfg:
+        available_keys.extend([f"model.{k}" for k in cfg["model"].keys()])
+    
+    raise KeyError(f"모델 이름을 찾을 수 없습니다. 사용 가능한 키: {available_keys}")
 
 # ---------------------- 전체 파이프라인 실행 함수 ---------------------- #
 # 전체 파이프라인 함수 정의
@@ -148,7 +163,7 @@ def run_full_pipeline(config_path: str, skip_training: bool = False, output_dir:
         logger.write("="*60)                                        # 구분선 로그
         
         logger.write(f"📊 Final submission file: {final_output}")   # 최종 제출 파일 로그
-        logger.write(f"📈 Model config: {cfg['model']['name']}")    # 모델 설정 로그
+        logger.write(f"📈 Model config: {model_name}")              # 모델 설정 로그  
         logger.write(f"🎯 Target F1 score: ~0.934")                 # 목표 F1 점수 로그
         logger.write(f"💾 Experiment results: {exp_base}")          # 실험 결과 경로 로그
         

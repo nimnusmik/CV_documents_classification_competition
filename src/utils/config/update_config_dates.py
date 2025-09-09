@@ -5,7 +5,7 @@ Config 날짜 자동 업데이트 유틸리티
 사용법:
     python src/utils/config/update_config_dates.py                     # 오늘 날짜로 업데이트
     python src/utils/config/update_config_dates.py --date 20250908     # 특정 날짜로 업데이트
-    python src/utils/config/update_config_dates.py --latest            # 가장 최신 실험 날짜로 업데이트
+    python src/utils/config/update_config_dates.py --lastest            # 가장 최신 실험 날짜로 업데이트
 """
 
 import argparse                                                 # CLI 인자 파싱 라이브러리
@@ -18,7 +18,7 @@ from typing import List, Dict, Optional                         # 타입 힌트 
 
 
 #--------------------------------- 가장 최신 날짜 찾기 ---------------------------------#
-def find_latest_experiment_date(experiments_dir: str = "experiments/train") -> Optional[str]:
+def find_lastest_experiment_date(experiments_dir: str = "experiments/train") -> Optional[str]:
     """
     experiments/train 디렉터리에서 가장 최신 실험 날짜를 찾습니다.
     
@@ -51,9 +51,9 @@ def find_latest_experiment_date(experiments_dir: str = "experiments/train") -> O
         return None                                            # None 반환하여 오류 표시
     
     # 가장 최신 날짜 반환 (문자열 정렬로 가장 큰 값이 최신)
-    latest_date = max(date_dirs)                               # 문자열 비교로 가장 큰 날짜 선택
-    print(f"📅 가장 최신 실험 날짜: {latest_date}")
-    return latest_date                                         # 최신 날짜 반환
+    lastest_date = max(date_dirs)                               # 문자열 비교로 가장 큰 날짜 선택
+    print(f"📅 가장 최신 실험 날짜: {lastest_date}")
+    return lastest_date                                         # 최신 날짜 반환
 
 
 #---------------------------- 모델별 실험 폴더 찾기 ----------------------------#
@@ -184,19 +184,19 @@ def main():
     메인 실행 함수 - 명령행 인자를 처리하여 설정 파일 날짜 업데이트를 수행합니다.
     
     지원하는 실행 모드:
-    1. --latest: 가장 최신 실험 날짜로 자동 업데이트
+    1. --lastest: 가장 최신 실험 날짜로 자동 업데이트
     2. --date YYYYMMDD: 특정 날짜로 업데이트
     3. 인자 없음: 오늘 날짜로 업데이트
     
     명령행 사용 예시:
-    - python update_config_dates.py --latest
+    - python update_config_dates.py --lastest
     - python update_config_dates.py --date 20250907
     - python update_config_dates.py --configs configs/infer.yaml
     """
     # 명령행 인자 파서 설정 - 사용자가 다양한 옵션으로 실행할 수 있도록 지원
     parser = argparse.ArgumentParser(description="추론 설정 파일의 실험 날짜 자동 업데이트")            # 프로그램 설명
     parser.add_argument("--date", type=str, help="업데이트할 날짜 (YYYYMMDD 형식, 예: 20250908)")     # 특정 날짜 지정 옵션
-    parser.add_argument("--latest", action="store_true", help="가장 최신 실험 날짜로 업데이트")        # 최신 날짜 자동 탐지 옵션
+    parser.add_argument("--lastest", action="store_true", help="가장 최신 실험 날짜로 업데이트")        # 최신 날짜 자동 탐지 옵션
     parser.add_argument("--configs", nargs="+", default=["configs/infer.yaml", "configs/infer_highperf.yaml"],  # 업데이트할 설정 파일 목록
                        help="업데이트할 설정 파일들")                                                 # 기본값으로 두 개의 주요 설정 파일 지정
     
@@ -210,9 +210,9 @@ def main():
     target_date = None                                      # 업데이트 대상 날짜 초기화
     
     #-------------------------- 최신 날짜 자동 탐지 모드 --------------------------#
-    # --latest 옵션이 지정된 경우
-    if args.latest:
-        target_date = find_latest_experiment_date()         # experiments/train에서 최신 날짜 탐지
+    # --lastest 옵션이 지정된 경우
+    if args.lastest:
+        target_date = find_lastest_experiment_date()         # experiments/train에서 최신 날짜 탐지
         
         # 유효한 날짜를 찾지 못한 경우
         if not target_date:

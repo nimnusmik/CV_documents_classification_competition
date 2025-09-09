@@ -15,7 +15,7 @@ from optuna.samplers import TPESampler
 @dataclass
 class OptimizationConfig:
     """최적화 설정 클래스"""
-    n_trials: int = 20                          # 시도 횟수
+    n_trials: int = 10                          # 시도 횟수
     timeout: int = 3600                         # 최대 시간 (초)
     study_name: str = "doc-classification"      # 스터디 이름
     direction: str = "maximize"                 # 최적화 방향 (maximize/minimize)
