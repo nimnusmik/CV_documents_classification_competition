@@ -20,16 +20,16 @@ data:
   id_col: ID                                    # ID 컬럼명
   target_col: target                            # 타깃 컬럼명 (레이블)
   num_classes: 17                               # 분류 클래스 수
-  folds: 5                                      # K-Fold 교차검증 폴드 수
-  valid_fold: all                               # 검증 폴드 (전체 폴드 학습)
+  folds: 1                                      # K-Fold 교차검증 폴드 수 (1: 단일 폴드 모드, 2+: K-Fold 교차검증)
+  valid_fold: 0                                 # 검증 폴드 (단일 폴드 모드에서는 무시됨)
   stratify: true                                # 계층적 분할 사용
 
 # ------------------------------- 학습 설정 ------------------------------- #
 train:
   img_size: 384                                 # 입력 이미지 크기 (384x384, 메모리 최적화)
-  batch_size: 48                                # 배치 크기 (메모리 최적화)
+  batch_size: 64                                # 배치 크기 (메모리 최적화)
   use_advanced_augmentation: true               # 고급 증강 기법 사용 여부 (trainsform.py true: build_advanced_train_tfms / false: build_train_tfms)
-  epochs: 10                                    # 학습 에포크 수 (메모리 최적화)
+  epochs: 100                                   # 학습 에포크 수 (메모리 최적화)
   lr: 0.0002                                    # 학습률 (1e-4)
   weight_decay: 0.01                            # L2 정규화 계수
   optimizer: adamw                              # 옵티마이저 (AdamW)
@@ -53,7 +53,7 @@ model:
 # ------------------------------- 출력 설정 ------------------------------- #
 output:
   logs_dir: logs/train                          # 로그 파일 저장 디렉토리
-  exp_dir: experiments/train                    # 실험 결과 저장 디렉토리
+  exp_dir: "experiments/train"                  # 실험 결과(모델/메트릭) 저장 루트
   snapshots: true                               # 설정 스냅샷 저장 여부
 
 # ------------------------------- WandB 설정 ------------------------------- #
@@ -69,4 +69,4 @@ wandb:
 
 # ------------------------------- 추가 학습 설정 ------------------------------- #
 training:
-  batch_size: 48                                # 추가 배치 크기 설정 (메모리 최적화)
+  batch_size: 64                                # 추가 배치 크기 설정 (메모리 최적화)

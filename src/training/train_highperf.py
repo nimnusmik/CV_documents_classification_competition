@@ -314,16 +314,21 @@ def run_highperf_training(cfg_path: str):
         
         # 폴드 컬럼이 없는 경우에만 생성
         if "fold" not in df.columns:
-            # 계층적 K-폴드 객체 생성
-            skf = StratifiedKFold(n_splits=folds, shuffle=True, random_state=cfg["project"]["seed"])
-            
-            # 폴드 컬럼 초기화
-            df["fold"] = -1
-            
-            # 폴드별 분할
-            for f, (_, v_idx) in enumerate(skf.split(df, df[cfg["data"]["target_col"]])):
-                # 검증 인덱스에 폴드 번호 할당
-                df.loc[df.index[v_idx], "fold"] = f
+            if folds == 1:
+                # 단일 폴드: 모든 데이터를 폴드 0으로 할당 (train/val split은 나중에 처리)
+                logger.write("[DATA] Single fold mode: all data assigned to fold 0")
+                df["fold"] = 0
+            else:
+                # 계층적 K-폴드 객체 생성 (폴드 수가 2 이상인 경우만)
+                skf = StratifiedKFold(n_splits=folds, shuffle=True, random_state=cfg["project"]["seed"])
+                
+                # 폴드 컬럼 초기화
+                df["fold"] = -1
+                
+                # 폴드별 분할
+                for f, (_, v_idx) in enumerate(skf.split(df, df[cfg["data"]["target_col"]])):
+                    # 검증 인덱스에 폴드 번호 할당
+                    df.loc[df.index[v_idx], "fold"] = f
         
         #--------------------------- WandB 설정 --------------------------- #
         # 다중 모델 여부에 따른 모델명 결정
@@ -358,8 +363,23 @@ def run_highperf_training(cfg_path: str):
             logger.write(f"{'='*50}")                               # 폴드 구분선
             
             # 학습/검증 데이터 분할
-            trn_df = df[df["fold"] != fold].reset_index(drop=True)  # 학습 데이터프레임
-            val_df = df[df["fold"] == fold].reset_index(drop=True)  # 검증 데이터프레임
+            if folds == 1:
+                # 단일 폴드: 80:20으로 train/validation split
+                from sklearn.model_selection import train_test_split
+                trn_df, val_df = train_test_split(
+                    df, 
+                    test_size=0.2, 
+                    stratify=df[cfg["data"]["target_col"]],
+                    random_state=cfg["project"]["seed"],
+                    shuffle=True
+                )
+                trn_df = trn_df.reset_index(drop=True)
+                val_df = val_df.reset_index(drop=True)
+                logger.write(f"[SINGLE FOLD] Using 80:20 train/val split")
+            else:
+                # K-Fold 교차검증: 기존 방식
+                trn_df = df[df["fold"] != fold].reset_index(drop=True)  # 학습 데이터프레임
+                val_df = df[df["fold"] == fold].reset_index(drop=True)  # 검증 데이터프레임
             
             # 폴드 데이터 크기 로그
             logger.write(f"[FOLD {fold}] train={len(trn_df)} valid={len(val_df)}")
@@ -535,7 +555,7 @@ def run_highperf_training(cfg_path: str):
             fold_results_dict = {
                 'fold_results': fold_results,
                 'average_f1': avg_f1,
-                'total_folds': cfg["train"]["n_folds"]
+                'total_folds': cfg["data"]["folds"]
             }
             
             visualize_training_pipeline(
