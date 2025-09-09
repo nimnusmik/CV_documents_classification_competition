@@ -4,3 +4,9 @@
 2025-09-10 00:32:59 | ============================================================
 2025-09-10 00:32:59 | 🎯 [STAGE 1] HIGH-PERFORMANCE TRAINING
 2025-09-10 00:32:59 | ============================================================
+2025-09-10 05:18:10 | ✅ [STAGE 1] Training completed successfully
+2025-09-10 05:18:10 | ============================================================
+2025-09-10 05:18:10 | 🔍 [STAGE 2] FINDING TRAINING RESULTS
+2025-09-10 05:18:10 | ============================================================
+2025-09-10 05:18:10 | ❌ [PIPELINE] Failed: fold_results.yaml not found in experiments/train/20250910/20250910_0518_multi-model-ensemble-rtx4090. Make sure training completed successfully.
+2025-09-10 05:18:10 | 🏁 [PIPELINE] Full pipeline ended

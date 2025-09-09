@@ -1,0 +1,30 @@
+2025-09-10 06:31:55 | [BOOT] high-performance inference pipeline started
+2025-09-10 06:31:56 | [BOOT] device=cuda
+2025-09-10 06:31:56 | [DATA] loaded test data | shape=(3140, 2)
+2025-09-10 06:31:56 | [HighPerfDataset] size=3140 img_size=384 epoch=0/10 p_hard=0.000 is_train=False
+2025-09-10 06:31:56 | [DATA] test dataset size: 3140
+2025-09-10 06:31:56 | [TTA] TTA enabled: True, type: comprehensive
+2025-09-10 06:32:00 | [MODELS] loaded 5 fold models
+2025-09-10 06:32:00 | [INFERENCE] starting comprehensive TTA ensemble prediction...
+2025-09-10 06:34:57 | [ERROR] Inference failed: Caught RuntimeError in pin memory thread for device 0.
+Original Traceback (most recent call last):
+  File "/home/ieyeppo/.pyenv/versions/cv_py3_11_9/lib/python3.11/site-packages/torch/utils/data/_utils/pin_memory.py", line 41, in do_one_step
+    data = pin_memory(data, device)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ieyeppo/.pyenv/versions/cv_py3_11_9/lib/python3.11/site-packages/torch/utils/data/_utils/pin_memory.py", line 87, in pin_memory
+    return [
+           ^
+  File "/home/ieyeppo/.pyenv/versions/cv_py3_11_9/lib/python3.11/site-packages/torch/utils/data/_utils/pin_memory.py", line 88, in <listcomp>
+    pin_memory(sample, device) for sample in data
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ieyeppo/.pyenv/versions/cv_py3_11_9/lib/python3.11/site-packages/torch/utils/data/_utils/pin_memory.py", line 98, in pin_memory
+    clone[i] = pin_memory(item, device)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ieyeppo/.pyenv/versions/cv_py3_11_9/lib/python3.11/site-packages/torch/utils/data/_utils/pin_memory.py", line 64, in pin_memory
+    return data.pin_memory(device)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: CUDA error: out of memory
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+2025-09-10 06:34:57 | [SHUTDOWN] Inference pipeline ended

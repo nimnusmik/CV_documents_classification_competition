@@ -1,0 +1,10 @@
+2025-09-10 05:46:35 | [BOOT] high-performance inference pipeline started
+2025-09-10 05:46:35 | [BOOT] device=cuda
+2025-09-10 05:46:35 | [DATA] loaded test data | shape=(3140, 2)
+2025-09-10 05:46:35 | [HighPerfDataset] size=3140 img_size=384 epoch=0/10 p_hard=0.000 is_train=False
+2025-09-10 05:46:35 | [DATA] test dataset size: 3140
+2025-09-10 05:46:35 | [TTA] TTA enabled: True, type: essential
+2025-09-10 05:46:40 | [MODELS] loaded 5 fold models
+2025-09-10 05:46:40 | [INFERENCE] starting essential TTA ensemble prediction...
+2025-09-10 05:46:40 | [ERROR] Inference failed: 'name'
+2025-09-10 05:46:40 | [SHUTDOWN] Inference pipeline ended

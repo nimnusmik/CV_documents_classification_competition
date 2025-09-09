@@ -4,3 +4,9 @@
 {"time":"2025-09-10T04:34:32.812215174+09:00","level":"INFO","msg":"writer: started","stream_id":"ik61sva4"}
 {"time":"2025-09-10T04:34:32.812237737+09:00","level":"INFO","msg":"handler: started","stream_id":"ik61sva4"}
 {"time":"2025-09-10T04:34:32.812250919+09:00","level":"INFO","msg":"sender: started","stream_id":"ik61sva4"}
+{"time":"2025-09-10T05:17:36.222939633+09:00","level":"INFO","msg":"handler: operation stats","stats":{"operations":[{"desc":"updating run metadata","runtime_seconds":0.006100882}],"total_operations":1}}
+{"time":"2025-09-10T05:17:37.087132434+09:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-09-10T05:17:37.424732105+09:00","level":"INFO","msg":"stream: closing","id":"ik61sva4"}
+{"time":"2025-09-10T05:17:37.424755098+09:00","level":"INFO","msg":"handler: closed","stream_id":"ik61sva4"}
+{"time":"2025-09-10T05:17:37.424811593+09:00","level":"INFO","msg":"sender: closed","stream_id":"ik61sva4"}
+{"time":"2025-09-10T05:17:37.424838751+09:00","level":"INFO","msg":"stream: closed","id":"ik61sva4"}
