@@ -225,9 +225,21 @@ def create_training_visualizations(fold_results: Dict, model_name: str, output_d
         print(f"📊 Generated {len(list(viz.images_dir.glob('*.png')))} training visualization images")
         
     except Exception as e:
+        import traceback
         print(f"❌ Training visualization failed: {str(e)}")
+        print(f"❌ Error details: {traceback.format_exc()}")
 
 def visualize_training_pipeline(fold_results: Dict, model_name: str, output_dir: str, 
                                history_data: Optional[Dict] = None):
     """학습 파이프라인 시각화 통합 함수"""
-    create_training_visualizations(fold_results, model_name, output_dir, history_data)
+    try:
+        print(f"🎯 Starting training visualization for {model_name}")
+        print(f"📊 fold_results keys: {list(fold_results.keys()) if isinstance(fold_results, dict) else 'not dict'}")
+        print(f"📁 output_dir: {output_dir}")
+        
+        create_training_visualizations(fold_results, model_name, output_dir, history_data)
+        
+    except Exception as e:
+        import traceback
+        print(f"❌ visualize_training_pipeline failed: {str(e)}")
+        print(f"❌ Full traceback: {traceback.format_exc()}")
