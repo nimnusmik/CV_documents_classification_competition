@@ -1,0 +1,23 @@
+📋 실험명: fold-3-0909-1912-20250909_1912_swin_base_patch4_window12_384_in22k_ensemble_tta
+🔗 WandB URL: https://wandb.ai/kimsunmin0227-hufs/document-classification-team/runs/ub6cd13t
+2025-09-09 19:12:33 | [MULTI-MODEL] Fold 3 using model: vit_large_patch16_384
+/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train_highperf.py:425: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  scaler = GradScaler() if cfg["train"].get("mixed_precision", True) else None
+2025-09-09 19:12:33 | [DATA] build highperf loaders | img_size=384 bs=64
+2025-09-09 19:12:33 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+/home/ieyeppo/.pyenv/versions/cv_py3_11_9/lib/python3.11/site-packages/albumentations/augmentations/transforms.py:1692: UserWarning: Using default interpolation INTER_NEAREST, which is sub-optimal.Please specify interpolation mode for downscale and upscale explicitly.For additional information see this PR https://github.com/albumentations-team/albumentations/pull/584
+  warnings.warn(
+2025-09-09 19:12:33 | [HighPerfDataset] size=1256 img_size=384 epoch=0/3 p_hard=0.200 is_train=True
+2025-09-09 19:12:33 | [HighPerfDataset] size=314 img_size=384 epoch=0/3 p_hard=0.000 is_train=False
+2025-09-09 19:12:33 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-09 19:12:33 | [HighPerfDataset] updated epoch=1, p_hard=0.300
+2025-09-09 19:12:33 | [EPOCH 1] >>> TRAIN start | steps=20 mixup=True
+Train Epoch 1:   0%|                                                          | 0/20 [00:00<?, ?it/s]/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train_highperf.py:84: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-09 19:13:07 | [EPOCH 1][TRAIN step 1/20] loss=2.91166 lr=0.000310 bs=64
+Train Epoch 1:   5%|██▌                                               | 1/20 [00:34<10:58, 34.67s/it]
+2025-09-09 19:13:07 | [ERROR] Training failed: CUDA out of memory. Tried to allocate 290.00 MiB. GPU 0 has a total capacity of 23.99 GiB of which 0 bytes is free. Including non-PyTorch memory, this process has 17179869184.00 GiB memory in use. Of the allocated memory 36.80 GiB is allocated by PyTorch, and 6.98 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+2025-09-09 19:13:07 | [SHUTDOWN] Training pipeline ended
+2025-09-09 19:13:07 | ❌ [PIPELINE] Failed: CUDA out of memory. Tried to allocate 290.00 MiB. GPU 0 has a total capacity of 23.99 GiB of which 0 bytes is free. Including non-PyTorch memory, this process has 17179869184.00 GiB memory in use. Of the allocated memory 36.80 GiB is allocated by PyTorch, and 6.98 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+2025-09-09 19:13:07 | 🏁 [PIPELINE] Full pipeline ended
+❌ Optimization failed: CUDA out of memory. Tried to allocate 290.00 MiB. GPU 0 has a total capacity of 23.99 GiB of which 0 bytes is free. Including non-PyTorch memory, this process has 17179869184.00 GiB memory in use. Of the allocated memory 36.80 GiB is allocated by PyTorch, and 6.98 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
