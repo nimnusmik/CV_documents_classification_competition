@@ -14,9 +14,9 @@ from .transforms import (                                   # 이미지 변환 �
     build_train_tfms,                                       # 학습용 변환 파이프라인 생성 (기본)
     build_valid_tfms,                                       # 검증용 변환 파이프라인 생성
     build_advanced_train_tfms,                              # 고급 학습용 변환 파이프라인 (베이스라인 기반)
-    # Team member's transforms (팀원의 고성능 변환들)
-    build_team_normal_tfms,                                 # 팀원 일반 증강
-    build_team_hard_tfms,                                   # 팀원 하드 증강
+    # Team member's transforms (고성능 변환들)
+    build_team_normal_tfms,                                 # 일반 증강
+    build_team_hard_tfms,                                   # 하드 증강
     # TTA transforms (Test-Time Augmentation)
     get_essential_tta_transforms,                           # 핵심 TTA 변환 (5가지)
     get_comprehensive_tta_transforms,                       # 포괄적 TTA 변환 (15가지)
@@ -38,8 +38,8 @@ __all__ = [                                                 # 패키지에서 �
     'build_advanced_train_tfms',                            # 고급 학습용 변환 파이프라인 (베이스라인)
     
     # Team member's transforms
-    'build_team_normal_tfms',                               # 팀원 일반 증강
-    'build_team_hard_tfms',                                 # 팀원 하드 증강
+    'build_team_normal_tfms',                               # 일반 증강
+    'build_team_hard_tfms',                                 # 하드 증강
     
     # TTA transforms  
     'get_essential_tta_transforms',                         # 핵심 TTA 변환 (5가지)

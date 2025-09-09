@@ -149,7 +149,7 @@ def build_valid_tfms(img_size=384):
     ])
 
 
-# ==================== 팀원 코드 기반 개선된 증강 변환 ==================== #
+# ==================== 코드 기반 개선된 증강 변환 ==================== #
 
 # Normal Augmentation (기본 증강)
 def build_team_normal_tfms(img_size=384):
@@ -161,7 +161,7 @@ def build_team_normal_tfms(img_size=384):
     """
     return A.Compose(
         _base_resize_and_pad(img_size) + [
-            # 문서 특화 회전 (팀원 버전)
+            # 문서 특화 회전 (버전)
             _document_rotations(),
             
             # 밝기/대비 조절
@@ -176,10 +176,10 @@ def build_team_normal_tfms(img_size=384):
     )
 
 
-# 팀원의 Hard Augmentation (강한 증강)
+# Hard Augmentation (강한 증강)
 def build_team_hard_tfms(img_size=384):
     """
-    팀원이 사용한 Hard Augmentation
+    사용한 Hard Augmentation
     - 더 강한 회전 (미세 회전 포함)
     - 강력한 블러 효과
     - 높은 밝기/대비 변화
@@ -187,7 +187,7 @@ def build_team_hard_tfms(img_size=384):
     """
     return A.Compose(
         _base_resize_and_pad(img_size) + [
-            # 문서 회전 + 미세 회전 (팀원 버전)
+            # 문서 회전 + 미세 회전 (버전)
             A.OneOf([
                 A.Rotate(limit=90, p=1.0),
                 A.Rotate(limit=180, p=1.0),
@@ -220,7 +220,7 @@ def build_team_hard_tfms(img_size=384):
 
 def get_essential_tta_transforms(img_size=384):
     """
-    팀원이 사용한 Essential TTA 5가지 변환
+    사용한 Essential TTA 5가지 변환
     - 원본
     - 90도 회전
     - 180도 회전

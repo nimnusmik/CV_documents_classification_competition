@@ -115,7 +115,7 @@ def predict_with_tta(model, loader, device, num_tta=5):
 # ---------------------- Essential TTA 예측 함수 ---------------------- #
 @torch.no_grad()    # gradient 계산 비활성화
 def predict_with_essential_tta(model, tta_loader, device):
-    """팀원의 Essential TTA를 사용한 예측"""
+    """Essential TTA를 사용한 예측"""
     model.eval()                                     # 모델을 평가 모드로 설정
     all_predictions = []                             # 모든 예측 결과 저장 리스트
     
@@ -218,7 +218,7 @@ def ensemble_predict(models, test_loader, cfg, device, use_tta=True):
 
 # ---------------------- Essential TTA 앙상블 예측 함수 ---------------------- #
 def ensemble_predict_with_essential_tta(models, tta_loader, cfg, device):
-    """팀원의 Essential TTA를 사용한 앙상블 예측"""
+    """Essential TTA를 사용한 앙상블 예측"""
     print(f"🚀 Essential TTA 앙상블 예측 시작 (모델 수: {len(models)})")
     
     all_ensemble_preds = []  # 모든 앙상블 예측 결과 저장 리스트
@@ -297,44 +297,6 @@ def create_configurable_tta_dataloader(sample_csv, test_dir, img_size=384, tta_t
 def create_essential_tta_dataloader(sample_csv, test_dir, img_size=384, batch_size=32, num_workers=8):
     """Essential TTA 데이터로더 생성 (하위 호환성)"""
     return create_configurable_tta_dataloader(sample_csv, test_dir, img_size, "essential", batch_size, num_workers)
-
-
-# ---------------------- 사용 예제 (주석) ---------------------- #
-"""
-팀원의 Essential TTA를 사용한 추론 예제:
-
-```python
-from src.inference.infer_highperf import (
-    load_fold_models, 
-    create_essential_tta_dataloader,
-    ensemble_predict_with_essential_tta
-)
-from src.data.transforms import get_essential_tta_transforms
-
-# 1. 폴드 모델들 로드
-models = load_fold_models("./experiments/train/lastest-train/fold_results.yaml", device)
-
-# 2. Essential TTA 데이터로더 생성
-tta_loader = create_essential_tta_dataloader(
-    sample_csv="../data/raw/sample_submission.csv",
-    test_dir="../data/raw/test",
-    img_size=384,
-    batch_size=32
-)
-
-# 3. Essential TTA 앙상블 예측
-ensemble_probs = ensemble_predict_with_essential_tta(models, tta_loader, cfg, device)
-
-# 4. 최종 예측 및 저장
-predictions = torch.argmax(ensemble_probs, dim=1).numpy()
-```
-
-주요 개선사항:
-- ✅ 팀원의 5가지 Essential TTA 구현 (원본, 90°, 180°, 270°, 밝기개선)
-- ✅ 기존 단순 반복 TTA 대신 다양한 변형 적용
-- ✅ 앙상블 + Essential TTA 조합으로 성능 향상 기대
-- ✅ 기존 코드 호환성 유지 (predict_with_tta 함수 보존)
-"""
 
 
 # ---------------------- 고성능 추론 파이프라인 실행 함수 ---------------------- #

@@ -10,7 +10,7 @@ import albumentations as A                                  # Albumentations 증
 from albumentations.pytorch import ToTensorV2               # Tensor 변환
 
 from src.logging.logger import Logger                       # 로그 기록용 Logger 클래스
-from src.data.transforms import build_team_normal_tfms, build_team_hard_tfms, build_valid_tfms  # 팀원 변환 함수
+from src.data.transforms import build_team_normal_tfms, build_team_hard_tfms, build_valid_tfms  # 변환 함수
 from typing import Optional, List                           # 타입 힌트 (옵션, 리스트)
 
 # 파일 탐색 시 고려할 확장자 후보 (대소문자 혼용 대비)
@@ -192,9 +192,9 @@ class HighPerfDocClsDataset(Dataset):
             self.transform = build_valid_tfms(self.img_size)
             return
         
-        # 팀원의 Normal/Hard Augmentation을 transforms.py에서 가져와 사용
-        self.normal_aug = build_team_normal_tfms(self.img_size)   # 팀원의 Normal 증강
-        self.hard_aug = build_team_hard_tfms(self.img_size)       # 팀원의 Hard 증강
+        # Normal/Hard Augmentation을 transforms.py에서 가져와 사용
+        self.normal_aug = build_team_normal_tfms(self.img_size)   # Normal 증강
+        self.hard_aug = build_team_hard_tfms(self.img_size)       # Hard 증강
     
     # ---------------------- 에폭 업데이트 함수 ---------------------- #
     # 에폭 업데이트 함수 정의
