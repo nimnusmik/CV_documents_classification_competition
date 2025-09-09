@@ -43,7 +43,7 @@ def main():
             # 폴드 결과 파일이 없는 경우
             if not args.fold_results:
                 print("❌ Error: --fold-results is required for highperf mode")  # 에러 메시지
-                print("💡 Example: --fold-results experiments/train/20250905/v094-swin-highperf/fold_results.yaml")  # 예시 출력
+                print("💡 Example: --fold-results experiments/train/lastest-train/fold_results.yaml")  # 예시 출력
                 sys.exit(1) # 프로그램 종료 (에러 코드 1)
             
             # 고성능 추론 실행

@@ -97,6 +97,7 @@ def run_inference(cfg_path: str, out: str|None=None, ckpt: str|None=None):
         )
 
         # ---------------------- 모델 준비 ---------------------- #
+        print(f"🔧 모델 빌드 준비: {cfg['model']['name']}")  # 모델 빌드 시작 메시지
         # 디바이스 선택
         device = "cuda" if (cfg["project"]["device"]=="cuda" and torch.cuda.is_available()) else "cpu"
         # 모델 빌드 후 eval 모드
@@ -235,7 +236,7 @@ def run_inference(cfg_path: str, out: str|None=None, ckpt: str|None=None):
         if out is None:
             current_date = pd.Timestamp.now().strftime('%Y%m%d')
             current_time = pd.Timestamp.now().strftime('%H%M')
-            model_name = cfg["model"]["name"]
+            model_name = cfg["project"]["run_name"]
             tta_suffix = "_tta" if cfg.get("inference", {}).get("tta", False) else ""
             
             # 증강 타입 결정 (학습 설정과 동일한 로직 사용)

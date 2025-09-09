@@ -142,7 +142,12 @@ def perform_calibration(
         logger.write(f"🎯 모델 {i+1}/{len(models)} 캘리브레이션 중...")
         
         # 모델 생성 및 가중치 로드
-        model_name = get_recommended_model(cfg["model"]["name"])
+        fold_key = f"fold_{i}"
+        if "models" in cfg and fold_key in cfg["models"]:
+            model_name = get_recommended_model(cfg["models"][fold_key]["name"])
+        else:
+            model_name = get_recommended_model(cfg["model"]["name"])  # fallback
+            
         model = build_model(
             model_name,
             cfg["data"]["num_classes"],
