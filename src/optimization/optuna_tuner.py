@@ -117,15 +117,18 @@ class OptunaTrainer:
         """
         # 빠른 검증을 위한 설정 조정
         quick_config = copy.deepcopy(config)
-        quick_config['train']['epochs'] = 3  # 짧은 epoch
-        quick_config['data']['folds'] = 3    # 3-fold만 사용
+        # quick_config['train']['epochs'] = 3  # 짧은 epoch
+        # quick_config['data']['folds'] = 3    # 3-fold만 사용
         
         # CSV 데이터 로드
         import pandas as pd
         train_df = pd.read_csv(config['data']['train_csv'])
         
+        # folds 설정 (optuna_config.yaml에서 지정 가능, 기본값 5)
+        folds = config['data'].get('folds', 5)
+        
         # Stratified K-Fold 설정
-        skf = StratifiedKFold(n_splits=3, shuffle=True, random_state=42)
+        skf = StratifiedKFold(n_splits=folds, shuffle=True, random_state=42)
         fold_scores = []
         
         for fold_idx, (train_idx, val_idx) in enumerate(skf.split(train_df, train_df[config['data']['target_col']])):

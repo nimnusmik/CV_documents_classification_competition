@@ -14,7 +14,6 @@ RECOMMENDED_MODELS = {                                          # 추천 모델 
     "efficientnet_b3": "efficientnet_b3",                       # EfficientNet-B3
     "efficientnet_v2_b3": "tf_efficientnetv2_b3",               # EfficientNet-V2-B3
     "resnet50": "resnet50",                                     # ResNet-50
-    # 새로 추가된 모델들
     "vit_base": "vit_base_patch16_224",                         # Vision Transformer Base
     "vit_large": "vit_large_patch16_384",                       # Vision Transformer Large (384x384)
     "convnext_large": "convnext_large_384_in22ft1k",            # ConvNeXt Large
