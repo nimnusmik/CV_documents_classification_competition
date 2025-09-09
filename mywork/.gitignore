@@ -168,3 +168,6 @@ experiments/train/**/ckpt/*.pth
 
 *.pth
 wandb/
+mywork/data/
+*.csv
+../images/
