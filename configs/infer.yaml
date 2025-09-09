@@ -2,7 +2,7 @@
 project:
   run_name: efficientnet-basic-inference           # 실행(run) 이름 (로그/결과 디렉토리에 사용됨)
   device: "cuda"                                    # 실행 디바이스 ("cuda" 가능 시 GPU, 아니면 CPU)
-  num_workers: 4                                    # DataLoader 병렬 로딩 워커 수
+  num_workers: 8                                    # DataLoader 병렬 로딩 워커 수
   date_format: "%Y%m%d"                             # 날짜 포맷 (예: 20250904)
   time_format: "%H%M"                               # 시간 포맷 (예: 1530)
 

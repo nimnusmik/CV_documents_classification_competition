@@ -4,7 +4,7 @@ project:
   seed: 42                                          # 랜덤 시드 (재현성 확보)
   date_format: "%Y%m%d"                             # 날짜 포맷 (예: 20250904)
   time_format: "%H%M"                               # 시간 포맷 (예: 1530)
-  num_workers: 4                                    # DataLoader 워커 수 (병렬 데이터 로딩)
+  num_workers: 8                                    # DataLoader 워커 수 (병렬 데이터 로딩)
   device: "cuda"                                    # 실행 디바이스 ("cuda" 가능 시 GPU, 아니면 CPU)
   verbose: true                                     # 상세 로그 출력 여부
   log_prefix: "train"                               # 로그 파일 접두사
@@ -29,7 +29,7 @@ train:
   img_size: 384                                     # 입력 이미지 크기 (한 변)
   batch_size: 160                                   # 배치 크기 (빠른 학습용)
   use_advanced_augmentation: false                  # 고급 증강 기법 사용 여부 (transform.py true: build_advanced_train_tfms / false: build_train_tfms)
-  epochs: 1                                         # 학습 epoch 수 (30분 완료용)
+  epochs: 20                                        # 학습 epoch 수 (30분 완료용)
   lr: 0.001                                         # 학습률
   weight_decay: 0.0                                 # weight decay (정규화)
   optimizer: "adam"                                 # 옵티마이저 ("adam" | "adamw")

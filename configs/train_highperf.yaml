@@ -1,10 +1,10 @@
 # ----------------------------- 프로젝트 기본 설정 ----------------------------- #
 project:
-  run_name: swin-sighperf                       # 실행명 (고성능 Swin Transformer)
+  run_name: swin_base_384                       # 실행명 (고성능 Swin Transformer)
   seed: 42                                      # 랜덤 시드 (재현 가능한 실험)
   date_format: '%Y%m%d'                         # 날짜 포맷 (예: 20250906)
   time_format: '%H%M'                           # 시간 포맷 (예: 1430)
-  num_workers: 4                                # 데이터 로더 워커 수
+  num_workers: 8                                # 데이터 로더 워커 수
   device: cuda                                  # 학습 디바이스 (GPU 사용)
   verbose: true                                 # 상세 로그 출력 여부
   log_prefix: train_highperf                    # 로그 파일 접두사
@@ -27,9 +27,9 @@ data:
 # ------------------------------- 학습 설정 ------------------------------- #
 train:
   img_size: 384                                 # 입력 이미지 크기 (384x384)
-  batch_size: 128                               # 배치 크기 (빠른 학습용)
+  batch_size: 64                                # 배치 크기 (빠른 학습용)
   use_advanced_augmentation: true               # 고급 증강 기법 사용 여부 (trainsform.py true: build_advanced_train_tfms / false: build_train_tfms)
-  epochs: 1                                     # 학습 에포크 수 (30분 완료용)
+  epochs: 50                                    # 학습 에포크 수 (30분 완료용)
   lr: 0.0001                                    # 학습률 (1e-4)
   weight_decay: 0.01                            # L2 정규화 계수
   optimizer: adamw                              # 옵티마이저 (AdamW)

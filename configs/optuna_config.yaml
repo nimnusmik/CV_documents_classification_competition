@@ -5,8 +5,8 @@
 optuna:
   # 기본 최적화 설정 (0.94+ 점수 목표)
   enabled: true                           # Optuna 사용 여부
-  n_trials: 5                             # 최적화 시도 횟수 (30분 완료용)
-  timeout: 1800                           # 최대 시간 (30분으로 감소)
+  n_trials: 10                            # 최적화 시도 횟수
+  timeout: 1800                           # 최대 시간
   study_name: "multi-model-ensemble-optuna" # 스터디 이름
   direction: "maximize"                   # 최적화 방향 (F1 점수 최대화)
   
@@ -14,11 +14,11 @@ optuna:
   pruning:
     enabled: true                         # Pruning 사용 여부
     patience: 3                           # 조기 중단 patience
-    n_startup_trials: 15                  # 초기 랜덤 탐색 횟수 (10→15 증가)
+    n_startup_trials: 15                  # 초기 랜덤 탐색 횟수
   
   # 빠른 검증 설정 (Optuna 평가용)
   quick_validation:
-    epochs: 5                             # 빠른 검증용 에포크 (30분 완료용)
+    epochs: 5                             # 빠른 검증용 에포크
     folds: 5                              # 5-fold CV로 빠른 평가
     batch_size_override: 64               # RTX 4090 맞춤 배치 크기
 
