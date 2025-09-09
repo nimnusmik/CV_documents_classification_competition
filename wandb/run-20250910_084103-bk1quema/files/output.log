@@ -198,3 +198,26 @@ Train Epoch 9:   0%|                                                            
 2025-09-10 08:50:26 | [EPOCH 9][TRAIN step 1/20] loss=nan lr=0.004645 bs=64
 Train Epoch 9:  10%|█████▎                                               | 2/20 [00:06<00:58,  3.25s/it]/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train_highperf.py:84: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
   with autocast(enabled=scaler is not None):
+Train Epoch 9: 100%|████████████████████████████████████████████████████| 20/20 [01:01<00:00,  3.07s/it]
+2025-09-10 08:51:23 | [EPOCH 9][TRAIN step 20/20] loss=nan lr=0.004645 bs=40
+2025-09-10 08:51:23 | [EPOCH 9] <<< TRAIN end | loss=nan
+2025-09-10 08:51:23 | [EPOCH 9] >>> VALID start | steps=5
+Valid Epoch 9: 100%|██████████████████████████████████████████████████████| 5/5 [00:04<00:00,  1.14it/s]
+2025-09-10 08:51:28 | [EPOCH 9] <<< VALID end | loss=2.87738 macro_f1=0.00704
+2025-09-10 08:51:28 | [DATA] build highperf loaders | img_size=384 bs=64
+2025-09-10 08:51:28 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+/home/ieyeppo/.pyenv/versions/cv_py3_11_9/lib/python3.11/site-packages/albumentations/augmentations/blur/transforms.py:184: UserWarning: blur_limit and sigma_limit minimum value can not be both equal to 0. blur_limit minimum value changed to 3.
+  warnings.warn(
+/home/ieyeppo/.pyenv/versions/cv_py3_11_9/lib/python3.11/site-packages/albumentations/augmentations/transforms.py:311: FutureWarning: JpegCompression has been deprecated. Please use ImageCompression
+  warnings.warn(
+2025-09-10 08:51:28 | [HighPerfDataset] size=1256 img_size=384 epoch=9/100 p_hard=0.227 is_train=True
+2025-09-10 08:51:28 | [HighPerfDataset] size=314 img_size=384 epoch=9/100 p_hard=0.000 is_train=False
+2025-09-10 08:51:28 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-10 08:51:28 | [HighPerfDataset] updated epoch=10, p_hard=0.230
+2025-09-10 08:51:28 | [EPOCH 10] >>> TRAIN start | steps=20 mixup=True
+Train Epoch 10:   0%|                                                            | 0/20 [00:00<?, ?it/s]/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train_highperf.py:84: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-10 08:51:32 | [EPOCH 10][TRAIN step 1/20] loss=nan lr=0.004625 bs=64
+Train Epoch 10:  10%|█████▏                                              | 2/20 [00:08<01:16,  4.27s/it]/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train_highperf.py:92: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):      # AMP 자동 캐스팅 적용
+Train Epoch 10:  70%|███████████████████████████████████▋               | 14/20 [00:50<00:20,  3.40s/it]
