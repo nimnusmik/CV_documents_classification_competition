@@ -16,7 +16,7 @@ RECOMMENDED_MODELS = {                                          # 추천 모델 
     "resnet50": "resnet50",                                     # ResNet-50
     # 새로 추가된 모델들
     "vit_base": "vit_base_patch16_224",                         # Vision Transformer Base
-    "vit_large": "vit_large_patch16_224",                       # Vision Transformer Large
+    "vit_large": "vit_large_patch16_384",                       # Vision Transformer Large (384x384)
     "convnext_large": "convnext_large_384_in22ft1k",            # ConvNeXt Large
     "deit_base": "deit_base_patch16_224",                       # DeiT Base
     "maxvit_base": "maxvit_base_tf_384",                        # MaxViT Base
@@ -102,3 +102,78 @@ def build_model(
 
     # 필요 시 head 교체/동결 등 추가 확장 가능
     return model                                            # 생성된 모델 반환
+
+
+# ----------------------------- 다중 모델 지원 함수 ----------------------------- #
+def get_model_for_fold(cfg, fold_idx: int):
+    """
+    설정에 따라 단일 모델 또는 폴드별 다중 모델 정보를 반환
+    
+    Args:
+        cfg: 설정 딕셔너리
+        fold_idx: 폴드 인덱스
+        
+    Returns:
+        tuple: (model_name, model_config) 튜플
+    """
+    # 다중 모델 설정이 있는 경우 (models 키 존재)
+    if "models" in cfg:
+        fold_key = f"fold_{fold_idx}"
+        if fold_key in cfg["models"]:
+            # 폴드별 모델 설정 가져오기
+            fold_model = cfg["models"][fold_key]
+            model_name = get_recommended_model(fold_model["name"])
+            
+            # 폴드별 고유 설정이 있으면 사용, 없으면 기본 model 설정 사용
+            model_config = {**cfg.get("model", {}), **fold_model}
+            
+            return model_name, model_config
+    
+    # 단일 모델 설정인 경우 (model 키만 존재)
+    if "model" in cfg:
+        model_name = get_recommended_model(cfg["model"]["name"])
+        return model_name, cfg["model"]
+    
+    # 설정이 없는 경우 오류
+    raise ValueError("설정에 'model' 또는 'models' 섹션이 없습니다.")
+
+
+def build_model_for_fold(cfg, fold_idx: int, num_classes: int):
+    """
+    폴드별 모델을 빌드하는 헬퍼 함수
+    
+    Args:
+        cfg: 설정 딕셔너리  
+        fold_idx: 폴드 인덱스
+        num_classes: 클래스 수
+        
+    Returns:
+        torch.nn.Module: 빌드된 모델
+    """
+    # 폴드별 모델 정보 가져오기
+    model_name, model_config = get_model_for_fold(cfg, fold_idx)
+    
+    # 모델 빌드
+    model = build_model(
+        name=model_name,
+        num_classes=num_classes,
+        pretrained=model_config.get("pretrained", True),
+        drop_rate=model_config.get("drop_rate", 0.0),
+        drop_path_rate=model_config.get("drop_path_rate", 0.0), 
+        pooling=model_config.get("pooling", "avg")
+    )
+    
+    return model
+
+
+def is_multi_model_config(cfg):
+    """
+    설정이 다중 모델 설정인지 확인
+    
+    Args:
+        cfg: 설정 딕셔너리
+        
+    Returns:
+        bool: 다중 모델 설정이면 True, 단일 모델이면 False
+    """
+    return "models" in cfg and isinstance(cfg["models"], dict)
