@@ -1,5 +1,5 @@
 
- 팀원들을 위한 WandB 사용 가이드:
+WandB 사용 가이드:
 
 1. WandB 계정 생성 및 로그인:
    - https://wandb.ai 에서 계정 생성
