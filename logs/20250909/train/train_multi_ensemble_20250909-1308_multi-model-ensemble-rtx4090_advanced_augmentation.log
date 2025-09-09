@@ -1,0 +1,14 @@
+2025-09-09 13:08:13 | [BOOT] high-performance training pipeline started
+2025-09-09 13:08:13 | [BOOT] device=cuda
+2025-09-09 13:08:13 | [DATA] loaded train data | shape=(1570, 2)
+2025-09-09 13:08:13 | [ERROR] Training failed: 'name'
+2025-09-09 13:08:13 | [SHUTDOWN] Training pipeline ended
+2025-09-09 13:08:39 | [BOOT] high-performance training pipeline started
+2025-09-09 13:08:39 | [BOOT] device=cuda
+2025-09-09 13:08:39 | [DATA] loaded train data | shape=(1570, 2)
+2025-09-09 13:08:39 | ==================================================
+2025-09-09 13:08:39 | FOLD 1/5 START
+2025-09-09 13:08:39 | ==================================================
+2025-09-09 13:08:39 | [FOLD 0] train=1256 valid=314
+2025-09-09 13:08:39 | [ERROR] Training failed: 'name'
+2025-09-09 13:08:39 | [SHUTDOWN] Training pipeline ended

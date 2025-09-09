@@ -1,0 +1,11 @@
+2025-09-09 17:41:28 | 🚀 [PIPELINE] Full pipeline started
+2025-09-09 17:41:28 | 📋 Config: configs/train_optimized_20250909_1741.yaml
+2025-09-09 17:41:28 | ⚙️ Skip training: False
+2025-09-09 17:41:28 | ============================================================
+2025-09-09 17:41:28 | 🎯 [STAGE 1] HIGH-PERFORMANCE TRAINING
+2025-09-09 17:41:28 | ============================================================
+2025-09-09 17:55:28 | ❌ [PIPELINE] Failed: CUDA error: out of memory
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+2025-09-09 17:55:28 | 🏁 [PIPELINE] Full pipeline ended

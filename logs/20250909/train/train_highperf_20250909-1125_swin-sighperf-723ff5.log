@@ -1,0 +1,15 @@
+2025-09-09 11:25:29 | [BOOT] high-performance training pipeline started
+2025-09-09 11:25:29 | [BOOT] device=cuda
+2025-09-09 11:25:29 | [DATA] loaded train data | shape=(1570, 2)
+2025-09-09 11:25:29 | ==================================================
+2025-09-09 11:25:29 | FOLD 1/5 START
+2025-09-09 11:25:29 | ==================================================
+2025-09-09 11:25:29 | [FOLD 0] train=1256 valid=314
+2025-09-09 11:25:32 | [DATA] build highperf loaders | img_size=384 bs=96
+2025-09-09 11:25:32 | [HighPerfDataset] size=1256 img_size=384 epoch=0/50 p_hard=0.200 is_train=True
+2025-09-09 11:25:32 | [HighPerfDataset] size=314 img_size=384 epoch=0/50 p_hard=0.000 is_train=False
+2025-09-09 11:25:32 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-09 11:25:32 | [HighPerfDataset] updated epoch=1, p_hard=0.206
+2025-09-09 11:25:32 | [EPOCH 1] >>> TRAIN start | steps=14 mixup=True
+2025-09-09 11:25:51 | [ERROR] Training failed: CUDA out of memory. Tried to allocate 486.00 MiB. GPU 0 has a total capacity of 23.99 GiB of which 0 bytes is free. Including non-PyTorch memory, this process has 17179869184.00 GiB memory in use. Of the allocated memory 43.21 GiB is allocated by PyTorch, and 24.42 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+2025-09-09 11:25:51 | [SHUTDOWN] Training pipeline ended

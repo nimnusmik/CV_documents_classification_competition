@@ -640,8 +640,8 @@
 2025-09-08 04:38:10 | [OOF] macro-F1=0.93455; per-fold=['0.94945', '0.92423', '0.92100', '0.94375', '0.93225']
 2025-09-08 04:38:10 | [OOF] saved arrays -> experiments/train/20250908/efficientnet_b3_20250908_0434/oof
 2025-09-08 04:38:10 | [DONE] all-fold training finished
-2025-09-08 04:38:10 | [COPY] Results copied to latest-train/efficientnet_b3_20250908_0434
-2025-09-08 04:38:10 | 📁 Latest results: experiments/train/latest-train/efficientnet_b3_20250908_0434
+2025-09-08 04:38:10 | [COPY] Results copied to lastest-train/efficientnet_b3_20250908_0434
+2025-09-08 04:38:10 | 📁 Latest results: experiments/train/lastest-train/efficientnet_b3_20250908_0434
 2025-09-08 04:38:10 | [BOOT] training pipeline finished successfully
 2025-09-08 04:38:10 | [EXIT] TRAINING SUCCESS code=0
 2025-09-08 04:38:10 | >> Stopping logger and restoring stdio

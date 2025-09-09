@@ -1,0 +1,16 @@
+2025-09-09 13:20:24,492 INFO    MainThread:737373 [wandb_init.py:setup_run_log_directory():686] Logging user logs to /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/wandb/run-20250909_132024-ukud57hg/logs/debug.log
+2025-09-09 13:20:24,492 INFO    MainThread:737373 [wandb_init.py:setup_run_log_directory():687] Logging internal logs to /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/wandb/run-20250909_132024-ukud57hg/logs/debug-internal.log
+2025-09-09 13:20:24,492 INFO    MainThread:737373 [wandb_init.py:init():813] calling init triggers
+2025-09-09 13:20:24,492 INFO    MainThread:737373 [wandb_init.py:init():818] wandb.init called with sweep_config: {}
+config: {'architecture': 'swin_base_patch4_window12_384_in22k', 'image_size': 384, 'batch_size': 16, 'learning_rate': 0.000226827521311615, 'epochs': 3, 'framework': 'PyTorch', 'dataset': 'Document Classification', 'mixup_alpha': 0.8, 'hard_augmentation': True, 'optimizer': 'adamw', 'scheduler': 'cosine', '_wandb': {}}
+2025-09-09 13:20:24,493 INFO    MainThread:737373 [wandb_init.py:init():854] starting backend
+2025-09-09 13:20:24,493 INFO    MainThread:737373 [wandb_init.py:init():857] sending inform_init request
+2025-09-09 13:20:24,493 INFO    MainThread:737373 [wandb_init.py:init():865] backend started and connected
+2025-09-09 13:20:24,495 INFO    MainThread:737373 [wandb_init.py:init():936] updated telemetry
+2025-09-09 13:20:24,499 INFO    MainThread:737373 [wandb_init.py:init():960] communicating run to backend with 90.0 second timeout
+2025-09-09 13:20:25,083 INFO    MainThread:737373 [wandb_init.py:init():1011] starting run threads in backend
+2025-09-09 13:20:25,134 INFO    MainThread:737373 [wandb_run.py:_console_start():2494] atexit reg
+2025-09-09 13:20:25,134 INFO    MainThread:737373 [wandb_run.py:_redirect():2342] redirect: wrap_raw
+2025-09-09 13:20:25,134 INFO    MainThread:737373 [wandb_run.py:_redirect():2411] Wrapping output streams.
+2025-09-09 13:20:25,134 INFO    MainThread:737373 [wandb_run.py:_redirect():2434] Redirects installed.
+2025-09-09 13:20:25,134 INFO    MainThread:737373 [wandb_init.py:init():1057] run started, returning control to user process

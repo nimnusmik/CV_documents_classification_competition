@@ -1,0 +1,5 @@
+2025-09-09 12:59:57 | [BOOT] high-performance training pipeline started
+2025-09-09 12:59:57 | [BOOT] device=cuda
+2025-09-09 12:59:57 | [DATA] loaded train data | shape=(1570, 2)
+2025-09-09 12:59:57 | [ERROR] Training failed: 'name'
+2025-09-09 12:59:57 | [SHUTDOWN] Training pipeline ended
