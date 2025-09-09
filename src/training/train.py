@@ -21,7 +21,7 @@ from tqdm import tqdm                                # 진행바 시각화
 # ------------------------- 프로젝트 유틸 ------------------------- #
 from src.utils.config import set_seed                               # 랜덤 시드 고정
 from src.logging.logger import Logger                               # 로그 기록 클래스
-from src.utils.common import (                                      # 공통 유틸 함수들
+from src.utils.core.common import (                                      # 공통 유틸 함수들
     load_yaml, ensure_dir, dump_yaml, jsonl_append, short_uid,
     resolve_path, require_file, require_dir, create_log_path
 )
@@ -31,7 +31,7 @@ from src.data.dataset import DocClsDataset                          # 문서 분
 from src.data.transforms import (                                    # 학습/검증 변환 함수들
     build_train_tfms, build_valid_tfms, build_advanced_train_tfms   # 기본/고급 변환 파이프라인
 )
-from src.models.build import build_model                            # 모델 생성기
+from src.models.build import build_model, build_model_for_fold, is_multi_model_config, get_model_for_fold                            # 모델 생성기
 from src.metrics.f1 import macro_f1_from_logits                     # 매크로 F1 스코어 계산 함수
 
 
@@ -51,6 +51,10 @@ def _make_run_dirs(cfg, run_id, logger):
     exp_root = ensure_dir(os.path.join(cfg["output"]["exp_dir"], day, folder_name))
     # 체크포인트 저장 디렉터리 생성
     ckpt_dir = ensure_dir(os.path.join(exp_root, "ckpt"))
+    
+    # lastest-train 폴더에도 동일한 구조로 생성
+    lastest_exp_root = ensure_dir(os.path.join(cfg["output"]["exp_dir"], "lastest-train", folder_name))
+    lastest_ckpt_dir = ensure_dir(os.path.join(lastest_exp_root, "ckpt"))
     # 메트릭 기록 파일 경로
     metrics_path = os.path.join(exp_root, "metrics.jsonl")
     # 설정 스냅샷 저장 경로
@@ -292,25 +296,43 @@ def _build_loaders(cfg, trn_df, val_df, image_dir, logger):
 
 
 # ---------------------- 모델 빌드 ---------------------- #
-def _build_model(cfg, device, logger):
-    # 모델 생성
-    model = build_model(
-        cfg["model"]["name"],                     # 모델 이름
-        cfg["data"]["num_classes"],               # 클래스 개수
-        cfg["model"]["pretrained"],               # 사전학습 여부
-        cfg["model"]["drop_rate"],                # Dropout 비율
-        cfg["model"]["drop_path_rate"],           # DropPath 비율
-        cfg["model"]["pooling"]                   # 풀링 방식
-    ).to(device)                                  # 디바이스에 로드
+def _build_model(cfg, device, logger, fold_idx=None):
+    # 다중 모델 설정 확인 및 모델 생성
+    if is_multi_model_config(cfg) and fold_idx is not None:
+        # 다중 모델: 폴드별 다른 모델 사용
+        model = build_model_for_fold(cfg, fold_idx, cfg["data"]["num_classes"]).to(device)
+        model_name, model_config = get_model_for_fold(cfg, fold_idx)
+        logger.write(f"[MULTI-MODEL] Fold {fold_idx} using model: {model_name}")
+        
+        # 모델 설정 정보
+        pretrained = model_config.get("pretrained", True)
+        pooling = model_config.get("pooling", "avg")
+        
+    else:
+        # 단일 모델: 모든 폴드에 같은 모델 사용
+        model = build_model(
+            cfg["model"]["name"],                     # 모델 이름
+            cfg["data"]["num_classes"],               # 클래스 개수
+            cfg["model"]["pretrained"],               # 사전학습 여부
+            cfg["model"]["drop_rate"],                # Dropout 비율
+            cfg["model"]["drop_path_rate"],           # DropPath 비율
+            cfg["model"]["pooling"]                   # 풀링 방식
+        ).to(device)                                  # 디바이스에 로드
+        
+        model_name = cfg["model"]["name"]
+        pretrained = cfg["model"]["pretrained"]
+        pooling = cfg["model"]["pooling"]
+        if fold_idx is not None:
+            logger.write(f"[SINGLE-MODEL] Fold {fold_idx} using model: {model_name}")
 
     # 파라미터 개수 계산
     total, trainable = _count_params(model)
 
     # 모델 관련 로그 출력
     logger.write(
-        f"[MODEL] name={cfg['model']['name']} "         # 모델 이름
-        f"pretrained={cfg['model']['pretrained']} "     # 사전학습 여부
-        f"pooling={cfg['model']['pooling']} "           # 풀링 방식
+        f"[MODEL] name={model_name} "                   # 모델 이름
+        f"pretrained={pretrained} "                     # 사전학습 여부
+        f"pooling={pooling} "                           # 풀링 방식
         f"params(total/trainable)={total}/{trainable}"  # 파라미터 개수
     )
 
@@ -375,7 +397,7 @@ def run_training(cfg_path: str):
     # ---------------------- 설정 로드 ---------------------- #
     cfg = load_yaml(cfg_path)                                         # YAML 설정 로드
     cfg_dir = os.path.dirname(os.path.abspath(cfg_path))              # cfg 파일이 위치한 절대 경로
-    cfg.setdefault("train", {}).setdefault("log_interval", 50)        # 로그 간격 기본값 설정
+    cfg.setdefault("train", {}).setdefault("log_interval", 5)         # 로그 간격 기본값 설정
 
     # ---------------------- 시드 및 실행 ID ---------------------- #
     set_seed(cfg["project"]["seed"])                                  # 랜덤 시드 고정
@@ -437,7 +459,7 @@ def run_training(cfg_path: str):
             logger.write(f"[FOLD {valid_fold}] train={len(trn)} valid={len(val)}")  # 데이터 크기 로그
 
             train_ld, valid_ld = _build_loaders(cfg, trn, val, image_dir, logger)   # DataLoader 생성
-            model = _build_model(cfg, device, logger)                               # 모델 빌드
+            model = _build_model(cfg, device, logger, valid_fold)                               # 모델 빌드
             criterion = nn.CrossEntropyLoss()                                       # 손실 함수
             scaler = GradScaler(enabled=bool(cfg["train"]["amp"]))                  # AMP 스케일러
             
@@ -512,7 +534,7 @@ def run_training(cfg_path: str):
                 # DataLoader 빌드
                 train_ld, valid_ld = _build_loaders(cfg, trn, val, image_dir, logger)
                 # 모델 빌드
-                model = _build_model(cfg, device, logger)
+                model = _build_model(cfg, device, logger, fold)
                 # 손실 함수
                 criterion = nn.CrossEntropyLoss()
                 # AMP 스케일러

@@ -24,14 +24,14 @@ data:
   stratify: true
 train:
   img_size: 384
-  batch_size: 32
-  initial_batch_size: 96
+  batch_size: 64
+  initial_batch_size: 64
   max_batch_size: 160
   auto_scale_batch_size: binsearch
   use_advanced_augmentation: true
-  epochs: 3
-  lr: 0.00030306834735699596
-  weight_decay: 0.08115696245410889
+  epochs: 5
+  lr: 0.0002102592349752888
+  weight_decay: 0.041484014492797726
   optimizer: adamw
   scheduler: cosine
   warmup_epochs: 1
@@ -44,14 +44,19 @@ train:
   cutmix_alpha: 1.0
   use_cutmix: true
   hard_augmentation: true
-  log_interval: 50
-  dropout: 0.28187025127524834
+  log_interval: 5
+  dropout: 0.29925646389992505
 models:
-  fold_0: swin_base_384
-  fold_1: convnext_base_384
-  fold_2: convnext_large
-  fold_3: vit_large
-  fold_4: swin_base_384
+  fold_0:
+    name: swin_base_384
+  fold_1:
+    name: convnext_base_384
+  fold_2:
+    name: convnext_large
+  fold_3:
+    name: vit_large
+  fold_4:
+    name: swin_base_384
 model:
   pretrained: true
   drop_rate: 0.15

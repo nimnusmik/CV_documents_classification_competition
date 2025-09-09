@@ -29,17 +29,17 @@ data:
 # ------------------------------- 학습 설정 ------------------------------- #
 train:
   img_size: 384                                 # 입력 이미지 크기
-  batch_size: auto                              # 자동 배치 크기 (RTX 4090 최적화)
-  initial_batch_size: 96                        # 초기 배치 크기 (train_highperf.yaml 기준)
-  max_batch_size: 160                           # 최대 배치 크기 (train.yaml 120보다 여유있게)
+  batch_size: 128                               # 큰 배치 크기 (빠른 학습용)
+  initial_batch_size: 64                        # 초기 배치 크기 (train_highperf.yaml 기준)
+  max_batch_size: 92                           # 최대 배치 크기 (빠른 학습용)
   auto_scale_batch_size: binsearch              # 이진 탐색으로 최적 배치 찾기
   use_advanced_augmentation: true               # 고급 증강 기법 사용
-  epochs: 3                                    # 학습 에포크 수
+  epochs: 3                                     # 학습 에포크 수
   lr: 0.0001                                    # 학습률 (train_highperf.yaml 기준)
   weight_decay: 0.01                            # L2 정규화 계수
   optimizer: adamw                              # 옵티마이저
   scheduler: cosine                             # 스케줄러
-  warmup_epochs: 1                              # 웜업 에포크 (안정적 학습 시작)
+  warmup_epochs: 3                              # 웜업 에포크 (안정적 학습 시작)
   min_lr: 0.000001                              # 최소 학습률
   mixed_precision: true                         # 혼합 정밀도 학습 (메모리 절약)
   max_grad_norm: 1.0                            # 그래디언트 클리핑
@@ -49,7 +49,7 @@ train:
   cutmix_alpha: 1.0                             # CutMix 추가
   use_cutmix: true                              # CutMix 사용
   hard_augmentation: true                       # 강한 데이터 증강
-  log_interval: 50                              # 로그 출력 간격
+  log_interval: 5                               # 로그 출력 간격 (더 자주 출력)
 
 # ------------------------------- 다중 모델 설정 ------------------------------- #
 # 폴드별로 다른 모델 사용 - 최고 성능 모델 조합

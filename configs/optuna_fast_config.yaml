@@ -6,8 +6,8 @@ direction: maximize                        # 목표 방향 (최대화)
 metric: macro_f1                          # 최적화할 지표
 
 # Optuna 설정
-n_trials: 5                               # 시도 횟수
-timeout: 1800                             # 30분 타임아웃 설정
+n_trials: 3                               # 시도 횟수 (30분 완룮용)
+timeout: 1200                             # 20분 타임아웃 설정 (30분 완료용)
 n_jobs: 1                                 # 병렬 작업 수 (안정성)
 
 # 하이퍼파라미터 검색 공간
