@@ -172,7 +172,11 @@ def ensemble_predict(models, test_loader, cfg, device, use_tta=True):
         print(f"Processing model {i+1}/{len(models)}...")           # 현재 처리 중인 모델 번호 출력
         
         # 모델 생성 및 가중치 로드
-        model_name = get_recommended_model(cfg["model"]["name"])    # 권장 모델명 추출
+        fold_key = f"fold_{i}"
+        if "models" in cfg and fold_key in cfg["models"]:
+            model_name = get_recommended_model(cfg["models"][fold_key]["name"])
+        else:
+            model_name = get_recommended_model(cfg["model"]["name"])  # fallback
         
         # 모델 빌드
         model = build_model(
@@ -228,7 +232,12 @@ def ensemble_predict_with_essential_tta(models, tta_loader, cfg, device):
         print(f"📊 모델 {i+1}/{len(models)} 처리 중...")
         
         # 모델 생성 및 가중치 로드
-        model_name = get_recommended_model(cfg["model"]["name"])
+        # fold별 모델 이름 가져오기
+        fold_key = f"fold_{i}"
+        if "models" in cfg and fold_key in cfg["models"]:
+            model_name = get_recommended_model(cfg["models"][fold_key]["name"])
+        else:
+            model_name = get_recommended_model(cfg["model"]["name"])  # fallback
         
         # 모델 빌드
         model = build_model(
@@ -391,7 +400,7 @@ def run_highperf_inference(cfg_path: str, fold_results_path: str, output_path: O
         if output_path is None:
             current_date = pd.Timestamp.now().strftime('%Y%m%d')
             current_time = pd.Timestamp.now().strftime('%H%M')
-            model_name = cfg["model"]["name"]
+            model_name = cfg["project"]["run_name"]
             
             # TTA 타입 포함한 파일명 생성
             tta_suffix = f"_{tta_type}_tta" if tta_enabled else "_no_tta"
@@ -418,17 +427,49 @@ def run_highperf_inference(cfg_path: str, fold_results_path: str, output_path: O
         #-------------- 추론 결과 시각화 ---------------------- #
         try:
             # 시각화를 위한 출력 디렉터리 설정
-            viz_output_dir = os.path.dirname(output_path)
-            model_name = cfg["model"]["name"]
+            base_viz_dir = os.path.dirname(output_path)
             
-            # 시각화 생성
-            visualize_inference_pipeline(
-                predictions=ensemble_preds.numpy(),
-                model_name=model_name,
-                output_dir=viz_output_dir,
-                confidence_scores=confidence_scores
-            )
-            logger.write(f"[VIZ] Inference visualizations created in {viz_output_dir}")
+            if "models" in cfg:
+                model_names = [cfg["models"][f"fold_{i}"]["name"] for i in range(len(cfg["models"]))]
+                
+                for i in range(len(cfg["models"])):
+                    # 각 모델별 고유 디렉터리 생성
+                    model_viz_dir = os.path.join(base_viz_dir, f"model_{i+1}_{model_names[i]}")
+                    os.makedirs(model_viz_dir, exist_ok=True)
+                    
+                    # 시각화 생성
+                    visualize_inference_pipeline(
+                        predictions=ensemble_preds.numpy(),
+                        model_name=model_names[i],
+                        output_dir=model_viz_dir,
+                        confidence_scores=confidence_scores
+                    )
+                
+                # 앙상블 결과 시각화
+                ensemble_viz_dir = os.path.join(base_viz_dir, "ensemble")
+                os.makedirs(ensemble_viz_dir, exist_ok=True)
+                visualize_inference_pipeline(
+                    predictions=ensemble_preds.numpy(),
+                    model_name="ensemble",
+                    output_dir=ensemble_viz_dir,
+                    confidence_scores=confidence_scores
+                )
+                
+            else:
+                model_names = [cfg["model"].get("name", "unknown")]
+                
+                # 단일 모델 시각화
+                single_model_viz_dir = os.path.join(base_viz_dir, f"single_{model_names[0]}")
+                os.makedirs(single_model_viz_dir, exist_ok=True)
+            
+                visualize_inference_pipeline(
+                    predictions=ensemble_preds.numpy(),
+                    model_name=model_names[0],
+                    output_dir=single_model_viz_dir,
+                    confidence_scores=confidence_scores
+                )
+                
+            logger.write(f"[VIZ] Inference visualizations created in {base_viz_dir}")
             
         except Exception as viz_error:
             logger.write(f"[WARNING] Visualization failed: {str(viz_error)}")
