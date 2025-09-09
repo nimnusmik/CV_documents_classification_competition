@@ -222,8 +222,15 @@ class OptunaTrainer:
             viz_output_dir = f"experiments/optimization/{date_str}/{timestamp}_{run_name}"
             os.makedirs(viz_output_dir, exist_ok=True)
             
-            # lastest-optimization 폴더에도 동일한 구조 생성
-            lastest_viz_output_dir = f"experiments/optimization/lastest-optimization/{timestamp}_{run_name}"
+            # lastest-optimization 폴더에 직접 저장 (기존 내용 삭제 후)
+            lastest_viz_output_dir = f"experiments/optimization/lastest-optimization"
+            
+            # 기존 lastest-optimization 폴더 삭제 (완전 교체)
+            if os.path.exists(lastest_viz_output_dir):
+                import shutil
+                shutil.rmtree(lastest_viz_output_dir)
+                self.logger.write(f"[CLEANUP] Removed existing lastest-optimization folder")
+            
             os.makedirs(lastest_viz_output_dir, exist_ok=True)
             
             # 최적 파라미터 저장
@@ -231,10 +238,10 @@ class OptunaTrainer:
             lastest_best_params_path = os.path.join(lastest_viz_output_dir, f"best_params_{timestamp}.yaml")
             best_config = update_config_with_best_params(self.base_config, self.study.best_params)
             dump_yaml(best_config, best_params_path)                    # 날짜 폴더에 저장
-            dump_yaml(best_config, lastest_best_params_path)             # lastest 폴더에도 저장
+            dump_yaml(best_config, lastest_best_params_path)             # lastest 폴더에 직접 저장
             
             self.logger.write(f"💾 최적 설정 저장: {best_params_path}")
-            self.logger.write(f"🔗 Latest 폴더에도 저장: {lastest_best_params_path}")
+            self.logger.write(f"🔗 Latest 폴더에 직접 저장: {lastest_best_params_path}")
             
             #-------------- 최적화 결과 시각화 ---------------------- #
             try:
@@ -263,6 +270,7 @@ class OptunaTrainer:
                     output_dir=lastest_viz_output_dir
                 )
                 self.logger.write(f"[VIZ] Optimization visualizations created in {viz_output_dir}")
+                self.logger.write(f"[VIZ] Latest optimization results: {lastest_viz_output_dir}")
                 
             except Exception as viz_error:
                 self.logger.write(f"[WARNING] Visualization failed: {str(viz_error)}")

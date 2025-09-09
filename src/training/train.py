@@ -653,24 +653,19 @@ def run_training(cfg_path: str):
             # 전체 폴드 학습 종료 로그 출력
             logger.write(f"[DONE] all-fold training finished")
             
-            # ---------------------- lastest-train 폴더에 복사 ---------------------- #
-            # lastest-train 폴더 경로 설정
+            # ---------------------- lastest-train 폴더에 직접 저장 ---------------------- #
+            # lastest-train 폴더 경로 설정 (실험 폴더 없이 직접)
             lastest_train_dir = os.path.join("experiments", "train", "lastest-train")
-            experiment_folder_name = cfg["project"]["run_name"]  # 실험 폴더명 추출
-            lastest_train_model_path = os.path.join(lastest_train_dir, experiment_folder_name)
             
-            # lastest-train 디렉터리 생성
-            os.makedirs(lastest_train_dir, exist_ok=True)
-            
-            # 기존 모델 폴더가 있으면 삭제 (덮어쓰기를 위해)
-            if os.path.exists(lastest_train_model_path):
-                shutil.rmtree(lastest_train_model_path)
-                logger.write(f"[CLEANUP] Removed existing lastest-train/{experiment_folder_name}")
+            # 기존 lastest-train 폴더 내용 삭제 (완전 교체)
+            if os.path.exists(lastest_train_dir):
+                shutil.rmtree(lastest_train_dir)
+                logger.write(f"[CLEANUP] Removed existing lastest-train folder")
             
             # 현재 실험 결과를 lastest-train으로 복사
-            shutil.copytree(exp_root, lastest_train_model_path)
-            logger.write(f"[COPY] Results copied to lastest-train/{experiment_folder_name}")
-            logger.write(f"📁 Latest results: {lastest_train_model_path}")
+            shutil.copytree(exp_root, lastest_train_dir)
+            logger.write(f"[COPY] Results copied directly to lastest-train")
+            logger.write(f"📁 Latest results: {lastest_train_dir}")
 
 
         # ---------------------- 잘못된 valid_fold 값 ---------------------- #

@@ -248,6 +248,53 @@ def run_highperf_inference(cfg_path: str, fold_results_path: str, output_path: O
         except Exception as viz_error:
             logger.write(f"[WARNING] Visualization failed: {str(viz_error)}")
         
+        #-------------- lastest-infer 폴더에 결과 저장 ---------------------- #
+        try:
+            import shutil
+            import time
+            
+            # experiments/infer/날짜/실험명/ 구조 생성
+            date_str = time.strftime('%Y%m%d')
+            timestamp = time.strftime('%Y%m%d_%H%M')
+            run_name = cfg.get("project", {}).get("run_name", "inference")
+            
+            # 날짜별 infer 결과 디렉터리
+            infer_output_dir = f"experiments/infer/{date_str}/{timestamp}_{run_name}"
+            os.makedirs(infer_output_dir, exist_ok=True)
+            
+            # lastest-infer 폴더에 직접 저장 (기존 내용 삭제 후)
+            lastest_infer_dir = "experiments/infer/lastest-infer"
+            
+            # 기존 lastest-infer 폴더 삭제 (완전 교체)
+            if os.path.exists(lastest_infer_dir):
+                shutil.rmtree(lastest_infer_dir)
+                logger.write(f"[CLEANUP] Removed existing lastest-infer folder")
+            
+            os.makedirs(lastest_infer_dir, exist_ok=True)
+            
+            # 추론 결과 CSV를 lastest-infer에 복사
+            import copy
+            lastest_output_path = os.path.join(lastest_infer_dir, f"submission_{timestamp}.csv")
+            shutil.copy2(output_path, lastest_output_path)
+            
+            # 설정 파일도 복사
+            import yaml
+            config_copy_path = os.path.join(lastest_infer_dir, "config.yaml")
+            with open(config_copy_path, 'w') as f:
+                yaml.dump(cfg, f, default_flow_style=False, allow_unicode=True)
+            
+            # 시각화 결과도 복사 (있다면)
+            viz_source_dir = os.path.dirname(output_path)
+            if os.path.exists(os.path.join(viz_source_dir, "images")):
+                shutil.copytree(os.path.join(viz_source_dir, "images"), 
+                               os.path.join(lastest_infer_dir, "images"))
+            
+            logger.write(f"[COPY] Results copied directly to lastest-infer")
+            logger.write(f"📁 Latest inference results: {lastest_infer_dir}")
+            
+        except Exception as copy_error:
+            logger.write(f"[WARNING] Failed to copy to lastest-infer: {str(copy_error)}")
+        
         # 출력 파일 경로 반환
         return output_path
         

@@ -225,6 +225,42 @@ def run_inference(cfg_path: str, out: str|None=None, ckpt: str|None=None):
         sub.to_csv(out_path, index=False)   # CSV 저장
         logger.write(f"[OUT] submission saved: {out_path} | shape={sub.shape}") # CSV 저장 로그
 
+        #-------------- lastest-infer 폴더에 결과 저장 ---------------------- #
+        try:
+            import shutil
+            import time
+            
+            # experiments/infer/날짜/실험명/ 구조 생성
+            date_str = time.strftime('%Y%m%d')
+            timestamp = time.strftime('%Y%m%d_%H%M')
+            run_name = cfg.get("project", {}).get("run_name", "inference")
+            
+            # lastest-infer 폴더에 직접 저장 (기존 내용 삭제 후)
+            lastest_infer_dir = "experiments/infer/lastest-infer"
+            
+            # 기존 lastest-infer 폴더 삭제 (완전 교체)
+            if os.path.exists(lastest_infer_dir):
+                shutil.rmtree(lastest_infer_dir)
+                logger.write(f"[CLEANUP] Removed existing lastest-infer folder")
+            
+            os.makedirs(lastest_infer_dir, exist_ok=True)
+            
+            # 추론 결과 CSV를 lastest-infer에 복사
+            lastest_output_path = os.path.join(lastest_infer_dir, f"submission_{timestamp}.csv")
+            shutil.copy2(out_path, lastest_output_path)
+            
+            # 설정 파일도 복사
+            import yaml
+            config_copy_path = os.path.join(lastest_infer_dir, "config.yaml")
+            with open(config_copy_path, 'w') as f:
+                yaml.dump(cfg, f, default_flow_style=False, allow_unicode=True)
+            
+            logger.write(f"[COPY] Results copied directly to lastest-infer")
+            logger.write(f"📁 Latest inference results: {lastest_infer_dir}")
+            
+        except Exception as copy_error:
+            logger.write(f"[WARNING] Failed to copy to lastest-infer: {str(copy_error)}")
+
         # 추론 완료 로그
         logger.write("[INFER] <<< finished successfully")
 
