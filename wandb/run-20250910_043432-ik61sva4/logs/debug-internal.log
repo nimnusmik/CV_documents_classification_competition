@@ -1,0 +1,6 @@
+{"time":"2025-09-10T04:34:32.372161671+09:00","level":"INFO","msg":"stream: starting","core version":"0.21.3"}
+{"time":"2025-09-10T04:34:32.812170544+09:00","level":"INFO","msg":"stream: created new stream","id":"ik61sva4"}
+{"time":"2025-09-10T04:34:32.812198196+09:00","level":"INFO","msg":"stream: started","id":"ik61sva4"}
+{"time":"2025-09-10T04:34:32.812215174+09:00","level":"INFO","msg":"writer: started","stream_id":"ik61sva4"}
+{"time":"2025-09-10T04:34:32.812237737+09:00","level":"INFO","msg":"handler: started","stream_id":"ik61sva4"}
+{"time":"2025-09-10T04:34:32.812250919+09:00","level":"INFO","msg":"sender: started","stream_id":"ik61sva4"}

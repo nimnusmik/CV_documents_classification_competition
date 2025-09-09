@@ -1,0 +1,125 @@
+📋 실험명: fold-4-0910-0434-20250910_0434_convnext_base_384_in22ft1k_ensemble_tta
+🔗 WandB URL: https://wandb.ai/kimsunmin0227-hufs/document-classification-team/runs/ik61sva4
+/home/ieyeppo/.pyenv/versions/cv_py3_11_9/lib/python3.11/site-packages/timm/models/_factory.py:117: UserWarning: Mapping deprecated model name convnext_base_384_in22ft1k to current convnext_base.fb_in22k_ft_in1k_384.
+  model = create_fn(
+2025-09-10 04:34:34 | [MULTI-MODEL] Fold 4 using model: convnext_base_384_in22ft1k
+/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train_highperf.py:425: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  scaler = GradScaler() if cfg["train"].get("mixed_precision", True) else None
+2025-09-10 04:34:34 | [DATA] build highperf loaders | img_size=384 bs=64
+2025-09-10 04:34:34 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+/home/ieyeppo/.pyenv/versions/cv_py3_11_9/lib/python3.11/site-packages/albumentations/augmentations/transforms.py:1692: UserWarning: Using default interpolation INTER_NEAREST, which is sub-optimal.Please specify interpolation mode for downscale and upscale explicitly.For additional information see this PR https://github.com/albumentations-team/albumentations/pull/584
+  warnings.warn(
+2025-09-10 04:34:34 | [HighPerfDataset] size=1256 img_size=384 epoch=0/20 p_hard=0.200 is_train=True
+2025-09-10 04:34:34 | [HighPerfDataset] size=314 img_size=384 epoch=0/20 p_hard=0.000 is_train=False
+2025-09-10 04:34:34 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-10 04:34:34 | [HighPerfDataset] updated epoch=1, p_hard=0.215
+2025-09-10 04:34:34 | [EPOCH 1] >>> TRAIN start | steps=20 mixup=True
+Train Epoch 1:   0%|                | 0/20 [00:00<?, ?it/s]/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train_highperf.py:84: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-10 04:34:42 | [EPOCH 1][TRAIN step 1/20] loss=3.15364 lr=0.000351 bs=64
+Train Epoch 1:   5%|▍       | 1/20 [00:07<02:31,  7.98s/it]/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train_highperf.py:92: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):      # AMP 자동 캐스팅 적용
+Train Epoch 1: 100%|███████| 20/20 [01:33<00:00,  4.69s/it]
+2025-09-10 04:36:08 | [EPOCH 1][TRAIN step 20/20] loss=1.70375 lr=0.000351 bs=40
+2025-09-10 04:36:08 | [EPOCH 1] <<< TRAIN end | loss=2.16451
+2025-09-10 04:36:08 | [EPOCH 1] >>> VALID start | steps=5
+Valid Epoch 1: 100%|█████████| 5/5 [00:17<00:00,  3.43s/it]
+2025-09-10 04:36:25 | [EPOCH 1] <<< VALID end | loss=0.88952 macro_f1=0.63310
+2025-09-10 04:36:26 | [FOLD 4] NEW BEST F1: 0.63310 (epoch 1)
+2025-09-10 04:36:26 | [DATA] build highperf loaders | img_size=384 bs=64
+2025-09-10 04:36:26 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+/home/ieyeppo/.pyenv/versions/cv_py3_11_9/lib/python3.11/site-packages/albumentations/augmentations/transforms.py:1692: UserWarning: Using default interpolation INTER_NEAREST, which is sub-optimal.Please specify interpolation mode for downscale and upscale explicitly.For additional information see this PR https://github.com/albumentations-team/albumentations/pull/584
+  warnings.warn(
+2025-09-10 04:36:26 | [HighPerfDataset] size=1256 img_size=384 epoch=1/20 p_hard=0.215 is_train=True
+2025-09-10 04:36:26 | [HighPerfDataset] size=314 img_size=384 epoch=1/20 p_hard=0.000 is_train=False
+2025-09-10 04:36:26 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-10 04:36:26 | [HighPerfDataset] updated epoch=2, p_hard=0.230
+2025-09-10 04:36:26 | [EPOCH 2] >>> TRAIN start | steps=20 mixup=True
+Train Epoch 2:   0%|                | 0/20 [00:00<?, ?it/s]/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train_highperf.py:84: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-10 04:36:34 | [EPOCH 2][TRAIN step 1/20] loss=1.40606 lr=0.000349 bs=64
+Train Epoch 2:   5%|▍       | 1/20 [00:07<02:28,  7.80s/it]/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train_highperf.py:92: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):      # AMP 자동 캐스팅 적용
+Train Epoch 2: 100%|███████| 20/20 [01:49<00:00,  5.49s/it]
+2025-09-10 04:38:16 | [EPOCH 2][TRAIN step 20/20] loss=0.62945 lr=0.000349 bs=40
+2025-09-10 04:38:16 | [EPOCH 2] <<< TRAIN end | loss=1.33346
+2025-09-10 04:38:16 | [EPOCH 2] >>> VALID start | steps=5
+Valid Epoch 2: 100%|█████████| 5/5 [00:15<00:00,  3.01s/it]
+2025-09-10 04:38:31 | [EPOCH 2] <<< VALID end | loss=0.54071 macro_f1=0.79680
+2025-09-10 04:38:33 | [FOLD 4] NEW BEST F1: 0.79680 (epoch 2)
+2025-09-10 04:38:33 | [DATA] build highperf loaders | img_size=384 bs=64
+2025-09-10 04:38:33 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+/home/ieyeppo/.pyenv/versions/cv_py3_11_9/lib/python3.11/site-packages/albumentations/augmentations/transforms.py:1692: UserWarning: Using default interpolation INTER_NEAREST, which is sub-optimal.Please specify interpolation mode for downscale and upscale explicitly.For additional information see this PR https://github.com/albumentations-team/albumentations/pull/584
+  warnings.warn(
+2025-09-10 04:38:33 | [HighPerfDataset] size=1256 img_size=384 epoch=2/20 p_hard=0.230 is_train=True
+2025-09-10 04:38:33 | [HighPerfDataset] size=314 img_size=384 epoch=2/20 p_hard=0.000 is_train=False
+2025-09-10 04:38:33 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-10 04:38:33 | [HighPerfDataset] updated epoch=3, p_hard=0.245
+2025-09-10 04:38:33 | [EPOCH 3] >>> TRAIN start | steps=20 mixup=True
+Train Epoch 3:   0%|                | 0/20 [00:00<?, ?it/s]/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train_highperf.py:92: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):      # AMP 자동 캐스팅 적용
+2025-09-10 04:38:40 | [EPOCH 3][TRAIN step 1/20] loss=0.63922 lr=0.000343 bs=64
+Train Epoch 3:   5%|▍       | 1/20 [00:07<02:24,  7.62s/it]/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train_highperf.py:84: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+Train Epoch 3: 100%|███████| 20/20 [01:52<00:00,  5.64s/it]
+2025-09-10 04:40:26 | [EPOCH 3][TRAIN step 20/20] loss=0.69063 lr=0.000343 bs=40
+2025-09-10 04:40:26 | [EPOCH 3] <<< TRAIN end | loss=1.10185
+2025-09-10 04:40:26 | [EPOCH 3] >>> VALID start | steps=5
+Valid Epoch 3: 100%|██████████████████████████████████████████████████████| 5/5 [00:15<00:00,  3.11s/it]
+2025-09-10 04:40:41 | [EPOCH 3] <<< VALID end | loss=0.32321 macro_f1=0.84783
+2025-09-10 04:40:43 | [FOLD 4] NEW BEST F1: 0.84783 (epoch 3)
+2025-09-10 04:40:43 | [DATA] build highperf loaders | img_size=384 bs=64
+2025-09-10 04:40:43 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+/home/ieyeppo/.pyenv/versions/cv_py3_11_9/lib/python3.11/site-packages/albumentations/augmentations/transforms.py:1692: UserWarning: Using default interpolation INTER_NEAREST, which is sub-optimal.Please specify interpolation mode for downscale and upscale explicitly.For additional information see this PR https://github.com/albumentations-team/albumentations/pull/584
+  warnings.warn(
+2025-09-10 04:40:43 | [HighPerfDataset] size=1256 img_size=384 epoch=3/20 p_hard=0.245 is_train=True
+2025-09-10 04:40:43 | [HighPerfDataset] size=314 img_size=384 epoch=3/20 p_hard=0.000 is_train=False
+2025-09-10 04:40:43 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-10 04:40:43 | [HighPerfDataset] updated epoch=4, p_hard=0.260
+2025-09-10 04:40:43 | [EPOCH 4] >>> TRAIN start | steps=20 mixup=True
+Train Epoch 4:   0%|                                                             | 0/20 [00:00<?, ?it/s]/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train_highperf.py:92: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):      # AMP 자동 캐스팅 적용
+2025-09-10 04:40:51 | [EPOCH 4][TRAIN step 1/20] loss=0.44454 lr=0.000332 bs=64
+Train Epoch 4:   5%|██▋                                                  | 1/20 [00:07<02:30,  7.91s/it]/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train_highperf.py:84: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+Train Epoch 4: 100%|████████████████████████████████████████████████████| 20/20 [01:59<00:00,  5.97s/it]
+2025-09-10 04:42:42 | [EPOCH 4][TRAIN step 20/20] loss=0.34057 lr=0.000332 bs=40
+2025-09-10 04:42:42 | [EPOCH 4] <<< TRAIN end | loss=0.76458
+2025-09-10 04:42:42 | [EPOCH 4] >>> VALID start | steps=5
+Valid Epoch 4: 100%|██████████████████████████████████████████████████████| 5/5 [00:17<00:00,  3.45s/it]
+2025-09-10 04:43:00 | [EPOCH 4] <<< VALID end | loss=0.27765 macro_f1=0.87048
+2025-09-10 04:43:01 | [FOLD 4] NEW BEST F1: 0.87048 (epoch 4)
+2025-09-10 04:43:01 | [DATA] build highperf loaders | img_size=384 bs=64
+2025-09-10 04:43:01 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+/home/ieyeppo/.pyenv/versions/cv_py3_11_9/lib/python3.11/site-packages/albumentations/augmentations/transforms.py:1692: UserWarning: Using default interpolation INTER_NEAREST, which is sub-optimal.Please specify interpolation mode for downscale and upscale explicitly.For additional information see this PR https://github.com/albumentations-team/albumentations/pull/584
+  warnings.warn(
+2025-09-10 04:43:01 | [HighPerfDataset] size=1256 img_size=384 epoch=4/20 p_hard=0.260 is_train=True
+2025-09-10 04:43:01 | [HighPerfDataset] size=314 img_size=384 epoch=4/20 p_hard=0.000 is_train=False
+2025-09-10 04:43:01 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-10 04:43:01 | [HighPerfDataset] updated epoch=5, p_hard=0.275
+2025-09-10 04:43:01 | [EPOCH 5] >>> TRAIN start | steps=20 mixup=True
+Train Epoch 5:   0%|                                                             | 0/20 [00:00<?, ?it/s]/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train_highperf.py:92: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):      # AMP 자동 캐스팅 적용
+2025-09-10 04:43:09 | [EPOCH 5][TRAIN step 1/20] loss=0.21878 lr=0.000318 bs=64
+Train Epoch 5:  10%|█████▎                                               | 2/20 [00:13<02:00,  6.69s/it]/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train_highperf.py:84: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+Train Epoch 5: 100%|████████████████████████████████████████████████████| 20/20 [01:49<00:00,  5.46s/it]
+2025-09-10 04:44:50 | [EPOCH 5][TRAIN step 20/20] loss=0.31719 lr=0.000318 bs=40
+2025-09-10 04:44:50 | [EPOCH 5] <<< TRAIN end | loss=0.74221
+2025-09-10 04:44:50 | [EPOCH 5] >>> VALID start | steps=5
+Valid Epoch 5: 100%|██████████████████████████████████████████████████████| 5/5 [00:15<00:00,  3.18s/it]
+2025-09-10 04:45:06 | [EPOCH 5] <<< VALID end | loss=0.22845 macro_f1=0.90490
+2025-09-10 04:45:08 | [FOLD 4] NEW BEST F1: 0.90490 (epoch 5)
+2025-09-10 04:45:08 | [DATA] build highperf loaders | img_size=384 bs=64
+2025-09-10 04:45:08 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+/home/ieyeppo/.pyenv/versions/cv_py3_11_9/lib/python3.11/site-packages/albumentations/augmentations/transforms.py:1692: UserWarning: Using default interpolation INTER_NEAREST, which is sub-optimal.Please specify interpolation mode for downscale and upscale explicitly.For additional information see this PR https://github.com/albumentations-team/albumentations/pull/584
+  warnings.warn(
+2025-09-10 04:45:08 | [HighPerfDataset] size=1256 img_size=384 epoch=5/20 p_hard=0.275 is_train=True
+2025-09-10 04:45:08 | [HighPerfDataset] size=314 img_size=384 epoch=5/20 p_hard=0.000 is_train=False
+2025-09-10 04:45:08 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-10 04:45:08 | [HighPerfDataset] updated epoch=6, p_hard=0.290
+2025-09-10 04:45:08 | [EPOCH 6] >>> TRAIN start | steps=20 mixup=True
+Train Epoch 6:   0%|                                                             | 0/20 [00:00<?, ?it/s]/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train_highperf.py:92: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):      # AMP 자동 캐스팅 적용
+2025-09-10 04:45:16 | [EPOCH 6][TRAIN step 1/20] loss=0.26249 lr=0.000300 bs=64
+Train Epoch 6:  10%|█████▎                                               | 2/20 [00:14<02:08,  7.14s/it]
