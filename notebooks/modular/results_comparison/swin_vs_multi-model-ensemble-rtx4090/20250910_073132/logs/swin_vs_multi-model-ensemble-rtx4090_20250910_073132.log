@@ -1,0 +1,5 @@
+2025-09-10 07:31:32,735 - notebook_swin_vs_multi-model-ensemble-rtx4090 - INFO - 노트북 작업 시작: swin_vs_multi-model-ensemble-rtx4090
+2025-09-10 07:31:32,735 - notebook_swin_vs_multi-model-ensemble-rtx4090 - INFO - 로그 디렉토리: notebooks/modular/results_comparison/swin_vs_multi-model-ensemble-rtx4090/20250910_073132
+2025-09-10 07:31:32,735 - notebook_swin_vs_multi-model-ensemble-rtx4090 - INFO - 두 파일 상세 비교 분석 시작
+2025-09-10 07:31:32,735 - notebook_swin_vs_multi-model-ensemble-rtx4090 - INFO - 비교 대상 1: ./submissions/20250907/swin-sighperf_ensemble_20250907_0035.csv
+2025-09-10 07:31:32,735 - notebook_swin_vs_multi-model-ensemble-rtx4090 - INFO - 비교 대상 2: ./submissions/20250910/20250910_0708_multi-model-ensemble-inference_ensemble_essential_tta.csv 

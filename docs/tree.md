@@ -975,7 +975,7 @@
     ├── debug-cli.ieyeppo.log
     ├── debug-internal.log -> run-20250910_033714-t6hjolk2/logs/debug-internal.log
     ├── debug.log -> run-20250910_033714-t6hjolk2/logs/debug.log
-    ├── latest-run -> run-20250910_033714-t6hjolk2
+    ├── lastest-run -> run-20250910_033714-t6hjolk2
     ├── run-20250907_003600-ngwjvpyc
     │   ├── files
     │   │   ├── config.yaml
