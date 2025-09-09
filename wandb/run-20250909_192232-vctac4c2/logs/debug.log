@@ -19,3 +19,5 @@ config: {'architecture': 'swin_base_384', 'image_size': 384, 'batch_size': 64, '
 2025-09-09 19:22:33,526 INFO    MainThread:68158 [wandb_run.py:_redirect():2411] Wrapping output streams.
 2025-09-09 19:22:33,526 INFO    MainThread:68158 [wandb_run.py:_redirect():2434] Redirects installed.
 2025-09-09 19:22:33,528 INFO    MainThread:68158 [wandb_init.py:init():1057] run started, returning control to user process
+2025-09-09 21:27:29,389 INFO    wandb-AsyncioManager-main:68158 [service_client.py:_forward_responses():84] Reached EOF.
+2025-09-09 21:27:29,393 INFO    wandb-AsyncioManager-main:68158 [mailbox.py:close():137] Closing mailbox, abandoning 1 handles.

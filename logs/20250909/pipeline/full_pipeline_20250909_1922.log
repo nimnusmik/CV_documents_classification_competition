@@ -4,3 +4,8 @@
 2025-09-09 19:22:31 | ============================================================
 2025-09-09 19:22:31 | 🎯 [STAGE 1] HIGH-PERFORMANCE TRAINING
 2025-09-09 19:22:31 | ============================================================
+2025-09-09 21:27:29 | ❌ [PIPELINE] Failed: CUDA error: out of memory
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+2025-09-09 21:27:29 | 🏁 [PIPELINE] Full pipeline ended
