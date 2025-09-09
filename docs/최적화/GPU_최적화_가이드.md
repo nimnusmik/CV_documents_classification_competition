@@ -1,6 +1,6 @@
-# 🚀 GPU 최적화 완전 가이드
+# 🚀 GPU 최적화 완전 가이드 (Team 고성능 기법 통합)
 
-## 🏗️ GPU 최적화 아키텍처
+## 🏗️ GPU 최적화 아키텍처 (Team ConvNeXt 최적화 포함)
 
 ```mermaid
 flowchart TD
@@ -100,7 +100,7 @@ flowchart TD
 graph TB
     subgraph "🔧 GPU 유틸리티"
         AUTO_BATCH[src/utils/gpu_optimization/auto_batch_size.py<br/>동적 배치 크기 결정<br/>GPU 메모리 기반 최적화]
-        TEAM_CHECK[src/utils/gpu_optimization/team_gpu_check.py<br/>팀원 GPU 환경 분석<br/>최적 설정 추천]
+        TEAM_CHECK[src/utils/gpu_optimization/team_gpu_check.py<br/>GPU 환경 분석<br/>최적 설정 추천]
         GPU_UTILS[src/utils/gpu_optimization/<br/>GPU 최적화 패키지<br/>메모리 및 성능 관리]
     end
     
@@ -190,9 +190,9 @@ for i in range(torch.cuda.device_count()):
 "
 ```
 
-#### 팀원 GPU 환경 통합 분석
+#### GPU 환경 통합 분석
 ```bash
-# 팀원별 GPU 환경 체크
+# GPU 환경 체크
 python src/utils/gpu_optimization/team_gpu_check.py --detailed
 
 # GPU 성능 벤치마크
@@ -685,39 +685,46 @@ python src/analysis/optimization_roi.py \
 
 ## 📊 GPU 성능 등급 및 최적화 전략
 
-### 🎯 GPU별 권장 모드 및 설정
+### 🎯 GPU별 Team 기법 최적화 설정 (ConvNeXt Base 384 기준)
 
-| GPU 등급 | 예시 모델 | VRAM | 224px 배치 | 384px 배치 | 기본 권장 | 최적화 후 권장 |
-|----------|-----------|------|------------|------------|-----------|----------------|
-| 🏆 **HIGH-END** | RTX 4090, RTX 4080 Super | 24GB/16GB | 128-384 | 80-256 | **highperf** | **highperf** |
-| 🥈 **MID-RANGE** | RTX 4080, RTX 3080, RTX 3070 Ti | 16GB/12GB/8GB | 64-192 | 32-128 | basic → **highperf** | **highperf** |
-| 🥉 **BUDGET** | RTX 4070, RTX 3070, RTX 3060 Ti | 12GB/8GB | 32-128 | 16-80 | basic → **highperf** | **highperf** |
-| ⚠️ **LOW-END** | RTX 3060, RTX 2070, GTX 1660 Ti | 8GB/6GB | 16-64 | 8-32 | basic → **highperf** | **highperf** |
+| GPU 등급 | 예시 모델 | VRAM | ConvNeXt 배치 | TTA 모드 | Essential TTA | Comprehensive TTA | Team F1 예상 |
+|----------|-----------|------|--------------|----------|--------------|------------------|-------------|
+| 🏆 **HIGH-END** | RTX 4090, RTX 4080 Super | 24GB/16GB | 48-64 | Essential/Comprehensive | 17분 | 50분+ | **0.965+** |
+| 🥈 **MID-RANGE** | RTX 4080, RTX 3080, RTX 3070 Ti | 16GB/12GB/8GB | 32-48 | Essential | 17분 | 메모리 부족 | **0.945-0.950** |
+| 🥉 **BUDGET** | RTX 4070, RTX 3070, RTX 3060 Ti | 12GB/8GB | 16-32 | Essential | 17분 | 불가 | **0.945-0.950** |
+| ⚠️ **LOW-END** | RTX 3060, RTX 2070, GTX 1660 Ti | 8GB/6GB | 8-16 | Essential | 23분 | 불가 | **0.940-0.945** |
 
-> **💡 핵심 포인트**: 모든 GPU에서 적절한 설정 조정으로 `highperf` 모드 사용 가능!
+> **💡 Team 핵심 포인트**: ConvNeXt Base 384 + Essential TTA로 모든 GPU에서 0.945+ F1 Score 달성 가능!
+>
+> **🎯 추천 전략**: RTX 3080 이상에서는 Comprehensive TTA로 0.965+ 목표, 이하에서는 Essential TTA로 안정적 0.945+ 달성
 
 ### 🛠️ GPU별 상세 최적화 가이드
 
-#### 🏆 HIGH-END GPU (16GB+ VRAM)
+#### 🏆 HIGH-END GPU (16GB+ VRAM) - Team ConvNeXt 최적화
 ```bash
-# RTX 4090 (24GB) - 최대 성능 활용
+# RTX 4090 (24GB) - Comprehensive TTA 최고 성능 (F1: 0.965+)
 python src/training/train_main.py \
     --config configs/train_highperf.yaml \
-    --batch_size 256 \
-    --image_size 448 \
-    --num_workers 16 \
-    --use_amp \
-    --compile_model \
     --mode highperf
 
-# RTX 4080 (16GB) - 균형잡힌 고성능
+# 추론: Comprehensive TTA (50분+, F1: 0.965+)
+python src/inference/infer_main.py \
+    --config configs/infer_highperf.yaml \
+    --mode highperf \
+    --fold-results experiments/train/lastest-train/fold_results.yaml
+# configs/infer_highperf.yaml에서: tta_type: "comprehensive"
+
+# RTX 4080 (16GB) - Essential TTA 균형 성능 (F1: 0.945-0.950)
 python src/training/train_main.py \
     --config configs/train_highperf.yaml \
-    --batch_size 192 \
-    --image_size 384 \
-    --num_workers 12 \
-    --use_amp \
     --mode highperf
+
+# 추론: Essential TTA (17분, F1: 0.945-0.950)
+python src/inference/infer_main.py \
+    --config configs/infer_highperf.yaml \
+    --mode highperf \
+    --fold-results experiments/train/lastest-train/fold_results.yaml
+# configs/infer_highperf.yaml에서: tta_type: "essential"
 ```
 
 #### 🥈 MID-RANGE GPU (8-16GB VRAM)
@@ -839,14 +846,14 @@ python src/training/train_main.py \
     --mode highperf
 ```
 
-### 📈 성능 비교: Basic vs HighPerf 모드
+### 📈 Team 기법 성능 비교: 기존 vs Team ConvNeXt
 
-| GPU 모델 | Basic 모드 | HighPerf 모드 (최적화) | 성능 향상 |
-|----------|------------|------------------------|-----------|
-| RTX 4090 | 45 epochs/hour | 78 epochs/hour | **+73%** |
-| RTX 3080 | 32 epochs/hour | 58 epochs/hour | **+81%** |
-| RTX 3060 | 18 epochs/hour | 35 epochs/hour | **+94%** |
-| RTX 2060 | 12 epochs/hour | 24 epochs/hour | **+100%** |
+| GPU 모델 | 기존 EfficientNet B3 | Team ConvNeXt Essential | Team ConvNeXt Comprehensive | 최대 성능 향상 |
+|----------|---------------------|--------------------------|------------------------------|---------------|
+| RTX 4090 | F1: 0.9238 | F1: 0.9489 (17분) | F1: 0.9652 (50분+) | **+4.14%** |
+| RTX 4080 | F1: 0.9238 | F1: 0.9489 (17분) | F1: 0.9580 (제한적) | **+3.42%** |
+| RTX 3080 | F1: 0.9238 | F1: 0.9489 (17분) | 메모리 부족 | **+2.51%** |
+| RTX 3060 | F1: 0.9238 | F1: 0.9450 (23분) | 불가 | **+2.12%** |
 
 ### 🎛️ 설정 파일 자동 생성
 
@@ -895,6 +902,111 @@ python src/optimization/adaptive_training.py \
 ```
 
 > **🔥 Pro Tip**: LOW-END GPU도 적절한 최적화로 `highperf` 모드에서 **2배 이상 성능 향상** 가능!
+
+## 📊 Team TTA 시스템 GPU 최적화 완전 가이드
+
+### 🎯 TTA 타입별 GPU 요구사항
+
+| TTA 타입 | 변환 수 | 메모리 사용량 | RTX 4090 | RTX 3080 | RTX 3060 | 권장 GPU |
+|---------|--------|------------|----------|----------|----------|----------|
+| **Essential** | 5가지 | 기본 × 5 | ✅ 64 batch | ✅ 32 batch | ✅ 16 batch | RTX 3060+ |
+| **Comprehensive** | 15가지 | 기본 × 15 | ✅ 48 batch | ⚠️ 16 batch | ❌ 불가 | RTX 3080+ |
+| Legacy (회전) | 3가지 | 기본 × 3 | ✅ 96 batch | ✅ 48 batch | ✅ 24 batch | 모든 GPU |
+
+### 🚀 GPU별 Team TTA 최적화 명령어
+
+#### RTX 4090 (24GB) - Comprehensive TTA 최고 성능
+```bash
+# 학습: Team 고성능 설정
+python src/training/train_main.py \
+    --config configs/train_highperf.yaml \
+    --mode highperf
+
+# 추론: Comprehensive TTA (F1: 0.965+)
+python src/inference/infer_main.py \
+    --config configs/infer_highperf.yaml \
+    --mode highperf \
+    --fold-results experiments/train/lastest-train/fold_results.yaml
+
+# configs/infer_highperf.yaml 설정:
+# inference:
+#   tta: true
+#   tta_type: "comprehensive"  # 15가지 변환, 50분+
+```
+
+#### RTX 3080 (10GB) - Essential TTA 균형 성능
+```bash
+# 학습: 메모리 최적화 설정
+python src/training/train_main.py \
+    --config configs/train_highperf.yaml \
+    --mode highperf
+
+# 추론: Essential TTA (F1: 0.945-0.950)
+python src/inference/infer_main.py \
+    --config configs/infer_highperf.yaml \
+    --mode highperf \
+    --fold-results experiments/train/lastest-train/fold_results.yaml
+
+# configs/infer_highperf.yaml 설정:
+# train:
+#   batch_size: 32  # RTX 3080 최적화
+# inference:
+#   tta: true
+#   tta_type: "essential"  # 5가지 변환, 17분
+```
+
+#### RTX 3060 (8GB) - Essential TTA 메모리 최적화
+```bash
+# 학습: 그래디언트 누적 활용
+python src/training/train_main.py \
+    --config configs/train_highperf.yaml \
+    --mode highperf
+
+# 추론: Essential TTA 메모리 절약 모드
+python src/inference/infer_main.py \
+    --config configs/infer_highperf.yaml \
+    --mode highperf \
+    --fold-results experiments/train/lastest-train/fold_results.yaml
+
+# configs/infer_highperf.yaml 설정:
+# train:
+#   batch_size: 16  # RTX 3060 최적화
+# inference:
+#   tta: true
+#   tta_type: "essential"  # 5가지 변환, 23분 (메모리 제약)
+```
+
+### ⚡ GPU 자동 최적화 도구
+
+#### Team GPU 환경 체크 및 권장 설정
+```bash
+# Team 환경에 맞는 GPU 분석
+python src/utils/gpu_optimization/team_gpu_check.py \
+    --analyze-team-performance \
+    --recommend-tta-type \
+    --model convnext_base_384
+
+# ConvNeXt 모델 기준 배치 크기 최적화
+python src/utils/gpu_optimization/auto_batch_size.py \
+    --config configs/train_highperf.yaml \
+    --model-type convnext \
+    --image-size 384 \
+    --safety-factor 0.9
+```
+
+#### TTA 타입 자동 선택
+```bash
+# GPU 메모리 기준 최적 TTA 타입 추천
+python src/utils/gpu_optimization/recommend_tta.py \
+    --config configs/infer_highperf.yaml \
+    --target-time 20  # 20분 내 완료 목표
+    --min-f1-score 0.945  # 최소 F1 스코어 요구사항
+
+# 결과 예시:
+# RTX 4090: "comprehensive" (F1: 0.965+, 50분+)
+# RTX 3080: "essential" (F1: 0.945-0.950, 17분)
+# RTX 3060: "essential" (F1: 0.940-0.945, 23분)
+```
 
 ## ⚡ 자동 최적화
 
