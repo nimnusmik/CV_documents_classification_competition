@@ -271,7 +271,7 @@ python src/inference/infer_main.py \
 
 #### 🤝 팀 협업용 GPU 최적화
 ```bash
-# 팀원별 GPU 환경 자동 감지 후 학습
+# GPU 환경 자동 감지 후 학습
 python src/utils/gpu_optimization/team_gpu_check.py && \
 python src/training/train_main.py \
   --config configs/train_highperf.yaml \
@@ -463,7 +463,7 @@ python src/training/train_main.py \
 
 ### 1. 🤝 Team Collaboration Engine
 ```bash
-# 팀원 GPU 환경 자동 감지 & 최적화
+# GPU 환경 자동 감지 & 최적화
 python src/utils/gpu_optimization/team_gpu_check.py     # RTX 4090 → GTX 1660 모든 GPU 지원
 python src/utils/gpu_optimization/auto_batch_size.py    # 자동 배치 크기 최적화 (안전 마진 적용)
 ```
@@ -577,7 +577,7 @@ python src/utils/gpu_optimization/team_gpu_check.py
 
 이 프로젝트는 **팀 협업을 위해 설계**되었습니다:
 
-- 🔧 **자동 GPU 감지**: 팀원별 다른 GPU 환경 자동 대응
+- 🔧 **자동 GPU 감지**: 다른 GPU 환경 자동 대응
 - 📊 **통합 모니터링**: WandB를 통한 실험 결과 공유
 - 🔄 **재현성**: 완전한 실험 설정 및 결과 재현
 - 📚 **문서화**: 상세한 가이드 및 트러블슈팅
