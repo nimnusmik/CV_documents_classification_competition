@@ -2,7 +2,7 @@
 project:
   run_name: convnext_base_384_highperf_inference      # 실행(run) 이름 (고성능 앙상블 추론)
   device: "cuda"                                      # 실행 디바이스 ("cuda" 가능 시 GPU, 아니면 CPU)
-  num_workers: 8                                      # DataLoader 병렬 로딩 워커 수 (메모리 최적화)
+  num_workers: 6                                      # DataLoader 병렬 로딩 워커 수 (메모리 최적화)
   date_format: "%Y%m%d"                               # 날짜 포맷 (예: 20250904)
   time_format: "%H%M"                                 # 시간 포맷 (예: 1530)
 
@@ -10,12 +10,12 @@ project:
 ensemble:
   fold_results_path: "./experiments/train/lastest-train/fold_results.yaml"  # 폴드별 결과 파일 경로
   use_tta: true                                       # Test-Time Augmentation 사용 (고성능)
-  num_tta: 20                                         # TTA 횟수
+  num_tta: 100                                         # TTA 횟수
 
 # ------------------------------- 데이터 설정 ------------------------------ #
 data:
-  sample_csv: "../data/raw/sample_submission.csv"     # 제출용 샘플 CSV 경로
-  image_dir_test: "../data/raw/test"                  # 추론 대상 테스트 이미지 디렉토리
+  sample_csv: "./data/raw/sample_submission.csv"     # 제출용 샘플 CSV 경로
+  image_dir_test: "./data/raw/test"                  # 추론 대상 테스트 이미지 디렉토리
   image_ext: ".jpg"                                   # 이미지 확장자 (jpg 기본)
   id_col: "ID"                                        # ID 컬럼명
   target_col: "target"                                # 타깃 컬럼명
@@ -32,20 +32,21 @@ model:
 # ------------------------- 추론 시 필요한 학습 설정 (고성능) ------------------------- #
 train:
   img_size: 384                                       # 학습 때 쓴 값과 동일해야 함 (메모리 최적화)
-  batch_size: 48                                      # 추론용 배치 크기 (메모리 최적화)
+  batch_size: 32                                      # 추론용 배치 크기 (메모리 최적화)
 
 # ------------------------------ 고성능 추론/제출 설정 ---------------------------- #
 inference:
   tta: true                                           # Test-Time Augmentation 사용 여부
   tta_type: "comprehensive"                           # TTA 타입: 'src/data/transforms.py' >> "essential" (5가지) 또는 "comprehensive" (15가지)  
-  tta_rot_degrees: [0, -3, 3]                         # TTA 시 회전 각도 리스트 (레거시 설정)
-  confidence_threshold: 0.9                           # 앙상블 신뢰도 임계값
+  tta_rot_degrees: [0, 90, 180, 270]                  # TTA 회전 각도
+  tta_brightness: [0.8, 0.9, 1.0, 1.1, 1.2]           # TTA 밝기 조정
+  confidence_threshold: 0.94                          # 앙상블 신뢰도 임계값
   # out_csv 제거: 동적으로 날짜_모델명_ensemble_tta 형식으로 생성
 
 # ------------------------------- 출력/저장 설정 ---------------------------- #
 output:
   logs_dir: "logs/infer"                              # 추론 로그 저장 디렉토리
-  exp_dir: "../experiments/train"                     # 실험 결과 저장 루트 디렉토리
+  exp_dir: "./experiments/infer"                      # 실험 결과(모델/메트릭) 저장 루트
   snapshots: true                                     # 실행 시 config 스냅샷 저장 여부
 
 # ------------------------------- WandB 설정 (선택적) ---------------------------- #

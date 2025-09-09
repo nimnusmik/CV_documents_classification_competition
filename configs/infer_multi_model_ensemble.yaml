@@ -2,7 +2,7 @@
 project:
   run_name: multi-model-ensemble-inference           # 실행명 (다중 모델 앙상블 추론)
   device: "cuda"                                      # 실행 디바이스
-  num_workers: 8                                      # DataLoader 병렬 워커 수 (메모리 최적화)
+  num_workers: 4                                      # DataLoader 병렬 워커 수 (메모리 최적화)
   date_format: "%Y%m%d"                               # 날짜 포맷
   time_format: "%H%M"                                 # 시간 포맷
   pin_memory: true                                    # 메모리 고정 (GPU 전송 속도 향상)
@@ -10,15 +10,15 @@ project:
 
 # ------------------------------- 다중 모델 앙상블 설정 ---------------------------- #
 ensemble:
-  fold_results_path: "./experiments/train/lastest-train/multi-model-ensemble/fold_results.yaml"  # 폴드 결과 파일 경로 (동적 감지)
+  fold_results_path: "./experiments/train/lastest-train/fold_results.yaml"  # 폴드 결과 파일 경로 (동적 감지)
   use_tta: true                                       # Test-Time Augmentation 사용
-  num_tta: 20                                         # TTA 횟수 (다중 모델이므로 더 많이)
+  num_tta: 100                                         # TTA 횟수 (다중 모델이므로 더 많이)
   use_multi_model: true                               # 다중 모델 앙상블 활성화
 
 # ------------------------------- 데이터 설정 ------------------------------ #
 data:
   sample_csv: "./data/raw/sample_submission.csv"     # 제출용 샘플 CSV 경로
-  image_dir_test: "./data/raw/test"                   # 테스트 이미지 디렉토리
+  image_dir_test: "./data/raw/test"                  # 추론 대상 테스트 이미지 디렉토리
   image_ext: ".jpg"                                   # 이미지 확장자
   id_col: "ID"                                        # ID 컬럼명
   target_col: "target"                                # 타깃 컬럼명
@@ -47,22 +47,23 @@ model:
 
 # ------------------------- 추론 시 필요한 학습 설정 ------------------------- #
 train:
-  img_size: 320                                       # 학습 시와 동일한 이미지 크기 (메모리 최적화)
-  batch_size: 16                                      # 다중 모델 추론용 배치 크기 (메모리 최적화)
+  img_size: 384                                       # 학습 시와 동일한 이미지 크기 (메모리 최적화)
+  batch_size: 32                                      # 다중 모델 추론용 배치 크기 (메모리 최적화)
 
 # ------------------------------ 고성능 다중 모델 추론 설정 ---------------------------- #
 inference:
   tta: true                                           # Test-Time Augmentation 활성화
-  tta_rot_degrees: [0, -5, 5]                        # TTA 회전 각도
-  tta_brightness: [0.9, 1.0, 1.1]                    # TTA 밝기 조정
-  confidence_threshold: 0.85                         # 앙상블 신뢰도 임계값 (다중 모델이므로 낮춤)
+  tta_type: "comprehensive"                           # TTA 타입: 'src/data/transforms.py' >> "essential" (5가지) 또는 "comprehensive" (15가지)  
+  tta_rot_degrees: [0, 90, 180, 270]                  # TTA 회전 각도
+  tta_brightness: [0.8, 0.9, 1.0, 1.1, 1.2]           # TTA 밝기 조정
+  confidence_threshold: 0.94                          # 앙상블 신뢰도 임계값 (다중 모델이므로 낮춤)
   ensemble_method: "weighted_avg"                     # 앙상블 방법 (가중 평균)
-  fold_weights: [1.0, 1.0, 1.0, 1.0, 1.0]            # 폴드별 가중치 (균등)
+  fold_weights: [0.94648, 0.94714, 0.93250, 0.94541, 0.94691] # 폴드별 가중치 (균등)
 
 # ------------------------------- 출력/저장 설정 ---------------------------- #
 output:
   logs_dir: "logs/infer"                              # 추론 로그 저장 디렉토리
-  exp_dir: "./experiments/infer"                      # 추론 실험 결과 저장 디렉토리
+  exp_dir: "./experiments/infer"                      # 실험 결과(모델/메트릭) 저장 루트
   snapshots: true                                     # 설정 스냅샷 저장
   submission_dir: "./submissions"                     # 제출 파일 저장 디렉토리
 

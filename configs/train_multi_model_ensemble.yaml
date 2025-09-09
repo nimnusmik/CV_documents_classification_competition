@@ -75,7 +75,7 @@ model:
 
 # ------------------------------- 출력/저장 설정 ---------------------------- #
 output:
-  exp_dir: "./experiments/train"                # 실험 결과 디렉터리
+  exp_dir: "experiments/train"                  # 실험 결과(모델/메트릭) 저장 루트
   snapshots: true                               # 설정 스냅샷 저장
   save_predictions: true                        # 예측 결과 저장
 

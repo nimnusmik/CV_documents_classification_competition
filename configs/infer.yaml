@@ -8,12 +8,12 @@ project:
 
 # ------------------------------ 체크포인트 설정 --------------------------- #
 ckpt:
-  path: "./experiments/train/lastest-train/efficientnet_b3/ckpt/best_fold0.pth" # 체크포인트 파일 경로 (학습된 모델 가중치)
+  path: "./experiments/train/lastest-train/ckpt/best_fold0.pth" # 체크포인트 파일 경로 (학습된 모델 가중치)
 
 # ------------------------------- 데이터 설정 ------------------------------ #
 data:
-  sample_csv: "../data/raw/sample_submission.csv"   # 제출용 샘플 CSV 경로
-  image_dir_test: "../data/raw/test"                # 추론 대상 테스트 이미지 디렉토리
+  sample_csv: "./data/raw/sample_submission.csv"   # 제출용 샘플 CSV 경로
+  image_dir_test: "./data/raw/test"                # 추론 대상 테스트 이미지 디렉토리
   image_ext: ".jpg"                                 # 이미지 확장자 (jpg 기본)
   id_col: "ID"                                      # ID 컬럼명
   target_col: "target"                              # 타깃 컬럼명
@@ -41,7 +41,7 @@ inference:
 # ------------------------------- 출력/저장 설정 ---------------------------- #
 output:
   logs_dir: "logs/infer"                            # 추론 로그 저장 디렉토리
-  exp_dir: "../experiments/train"                   # 실험 결과 저장 루트 디렉토리
+  exp_dir: "./experiments/infer"                    # 실험 결과(모델/메트릭) 저장 루트
   snapshots: true                                   # 실행 시 config 스냅샷 저장 여부
 
 # ------------------------------- WandB 설정 (선택적) ---------------------------- #
