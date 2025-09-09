@@ -16,6 +16,22 @@ from src.utils import load_yaml, create_log_path               # 핵심 유틸�
 from src.logging.logger import Logger                 # 로그 기록 클래스
 
 
+def get_model_name(cfg, fold=None):
+    """
+    단일 모델/다중 모델 앙상블 config에서 fold별 모델명을 자동으로 반환
+    - 단일 모델: cfg['model']['name']
+    - 다중 모델: cfg['models'][f'fold_{fold}']['name']
+    fold 인자가 없으면 단일 모델로 간주
+    """
+    # 다중 모델 앙상블 여부 판단
+    if "models" in cfg and fold is not None and f"fold_{fold}" in cfg["models"]:
+        return cfg["models"][f"fold_{fold}"]["name"]
+    # 단일 모델
+    elif "model" in cfg and "name" in cfg["model"]:
+        return cfg["model"]["name"]
+    else:
+        raise KeyError("모델 이름을 찾을 수 없습니다. config 구조를 확인하세요.")
+
 # ---------------------- 전체 파이프라인 실행 함수 ---------------------- #
 # 전체 파이프라인 함수 정의
 def run_full_pipeline(config_path: str, skip_training: bool = False, output_dir: Optional[str] = None):
@@ -30,7 +46,10 @@ def run_full_pipeline(config_path: str, skip_training: bool = False, output_dir:
     
     # 설정 로드
     cfg = load_yaml(config_path)    # YAML 설정 파일 로드
-    
+
+    model_name = get_model_name(cfg, fold=0)  # 모델 이름 확인 (예외 발생 시 조기 종료)
+
+
     # 로거 설정
     timestamp = time.strftime("%Y%m%d_%H%M")                    # 타임스탬프 생성
     log_path = create_log_path("pipeline", f"full_pipeline_{timestamp}.log")  # 날짜별 로그 파일 경로 설정

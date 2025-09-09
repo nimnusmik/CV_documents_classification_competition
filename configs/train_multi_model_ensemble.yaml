@@ -54,11 +54,16 @@ train:
 # ------------------------------- 다중 모델 설정 ------------------------------- #
 # 폴드별로 다른 모델 사용 - 최고 성능 모델 조합
 models:
-  fold_0: "swin_base_384"                       # Fold 0: Swin Transformer (최고 성능)
-  fold_1: "convnext_base_384"                   # Fold 1: ConvNeXt (차세대 CNN 최강)
-  fold_2: "convnext_large"                      # Fold 2: ConvNeXt Large (대형 모델)
-  fold_3: "vit_large"                           # Fold 3: ViT Large (대형 Transformer)
-  fold_4: "swin_base_384"                       # Fold 4: Swin Transformer (검증된 최고 성능)
+  fold_0:
+    name: "swin_base_384"                       # Fold 0: Swin Transformer (최고 성능)
+  fold_1:
+    name: "convnext_base_384"                   # Fold 1: ConvNeXt (차세대 CNN 최강)
+  fold_2:
+    name: "convnext_large"                      # Fold 2: ConvNeXt Large (대형 모델)
+  fold_3:
+    name: "vit_large"                           # Fold 3: ViT Large (대형 Transformer)
+  fold_4:
+    name: "swin_base_384"                       # Fold 4: Swin Transformer (검증된 최고 성능)
 
 # 기본 모델 설정 (모든 폴드에 공통 적용)
 model:
