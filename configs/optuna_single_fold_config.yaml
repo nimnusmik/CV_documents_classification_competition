@@ -5,10 +5,11 @@
 optuna:
   # 단일 폴드 최적화 설정 (빠른 실험)
   enabled: true                           # Optuna 사용 여부
-  n_trials: 100                            # 최적화 시도 횟수 (단일 폴드는 빠르므로 더 많이)
+  n_trials: 20                            # 최적화 시도 횟수 (빠른 테스트용)
   timeout: 3600                           # 최대 시간 (1시간)
   study_name: "single-fold-optuna"        # 스터디 이름
   direction: "maximize"                   # 최적화 방향 (F1 점수 최대화)
+  n_jobs: 1                              # 병렬 실행 개수 (GPU 메모리에 따라 조정)
   
   # 조기 중단 설정 (단일 폴드는 빠르므로 관대하게)
   pruning:
@@ -18,7 +19,7 @@ optuna:
   
   # 단일 폴드 검증 설정
   single_fold_validation:
-    epochs: 10                            # 빠른 검증용 에포크 (더 많이)
+    epochs: 5                             # 빠른 검증용 에포크 (더 빠르게)
     validation_split: 0.2                 # 검증 데이터 비율 (20%)
     batch_size_override: 16               # 단일 폴드 최적 배치 크기
 
