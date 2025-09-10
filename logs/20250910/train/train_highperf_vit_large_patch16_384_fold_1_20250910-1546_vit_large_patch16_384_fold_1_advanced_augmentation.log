@@ -1,0 +1,19 @@
+2025-09-10 15:46:12 | [BOOT] high-performance training pipeline started
+2025-09-10 15:46:12 | [BOOT] device=cuda
+2025-09-10 15:46:12 | [DATA] loaded train data | shape=(1570, 2)
+2025-09-10 15:46:12 | [DATA] Single fold mode: all data assigned to fold 0
+2025-09-10 15:46:12 | ==================================================
+2025-09-10 15:46:12 | FOLD 1/1 START
+2025-09-10 15:46:12 | ==================================================
+2025-09-10 15:46:12 | [SINGLE FOLD] Using 80:20 train/val split
+2025-09-10 15:46:12 | [FOLD 0] train=1256 valid=314
+2025-09-10 15:46:17 | [SINGLE-MODEL] All folds using model: vit_large_patch16_384
+2025-09-10 15:46:17 | [SCHEDULER] Single fold: Warmup(10) + CosineAnnealing
+2025-09-10 15:46:17 | [DATA] build highperf loaders | img_size=384 bs=70
+2025-09-10 15:46:17 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-10 15:46:17 | [HighPerfDataset] size=1256 img_size=384 epoch=0/100 p_hard=0.200 is_train=True
+2025-09-10 15:46:17 | [HighPerfDataset] size=314 img_size=384 epoch=0/100 p_hard=0.000 is_train=False
+2025-09-10 15:46:17 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-10 15:46:17 | [HighPerfDataset] updated epoch=1, p_hard=0.203
+2025-09-10 15:46:17 | [EPOCH 1] >>> TRAIN start | steps=18 mixup=True
+2025-09-10 15:46:58 | [EPOCH 1][TRAIN step 1/18] loss=3.10747 lr=0.000010 bs=70

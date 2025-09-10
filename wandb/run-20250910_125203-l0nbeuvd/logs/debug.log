@@ -1,0 +1,23 @@
+2025-09-10 12:52:03,697 INFO    MainThread:615593 [wandb_setup.py:_flush():81] Current SDK version is 0.21.3
+2025-09-10 12:52:03,697 INFO    MainThread:615593 [wandb_setup.py:_flush():81] Configure stats pid to 615593
+2025-09-10 12:52:03,697 INFO    MainThread:615593 [wandb_setup.py:_flush():81] Loading settings from /home/ieyeppo/.config/wandb/settings
+2025-09-10 12:52:03,697 INFO    MainThread:615593 [wandb_setup.py:_flush():81] Loading settings from /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/wandb/settings
+2025-09-10 12:52:03,697 INFO    MainThread:615593 [wandb_setup.py:_flush():81] Loading settings from environment variables
+2025-09-10 12:52:03,697 INFO    MainThread:615593 [wandb_init.py:setup_run_log_directory():686] Logging user logs to /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/wandb/run-20250910_125203-l0nbeuvd/logs/debug.log
+2025-09-10 12:52:03,697 INFO    MainThread:615593 [wandb_init.py:setup_run_log_directory():687] Logging internal logs to /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/wandb/run-20250910_125203-l0nbeuvd/logs/debug-internal.log
+2025-09-10 12:52:03,697 INFO    MainThread:615593 [wandb_init.py:init():813] calling init triggers
+2025-09-10 12:52:03,697 INFO    MainThread:615593 [wandb_init.py:init():818] wandb.init called with sweep_config: {}
+config: {'architecture': 'convnext_base_384', 'image_size': 384, 'batch_size': 124, 'learning_rate': 0.0001, 'epochs': 150, 'framework': 'PyTorch', 'dataset': 'Document Classification', 'mixup_alpha': 0.8, 'hard_augmentation': True, 'optimizer': 'adamw', 'scheduler': 'cosine', '_wandb': {}}
+2025-09-10 12:52:03,697 INFO    MainThread:615593 [wandb_init.py:init():854] starting backend
+2025-09-10 12:52:03,903 INFO    MainThread:615593 [wandb_init.py:init():857] sending inform_init request
+2025-09-10 12:52:03,907 INFO    MainThread:615593 [wandb_init.py:init():865] backend started and connected
+2025-09-10 12:52:03,908 INFO    MainThread:615593 [wandb_init.py:init():936] updated telemetry
+2025-09-10 12:52:03,911 INFO    MainThread:615593 [wandb_init.py:init():960] communicating run to backend with 90.0 second timeout
+2025-09-10 12:52:04,853 INFO    MainThread:615593 [wandb_init.py:init():1011] starting run threads in backend
+2025-09-10 12:52:04,943 INFO    MainThread:615593 [wandb_run.py:_console_start():2494] atexit reg
+2025-09-10 12:52:04,943 INFO    MainThread:615593 [wandb_run.py:_redirect():2342] redirect: wrap_raw
+2025-09-10 12:52:04,943 INFO    MainThread:615593 [wandb_run.py:_redirect():2411] Wrapping output streams.
+2025-09-10 12:52:04,943 INFO    MainThread:615593 [wandb_run.py:_redirect():2434] Redirects installed.
+2025-09-10 12:52:04,945 INFO    MainThread:615593 [wandb_init.py:init():1057] run started, returning control to user process
+2025-09-10 12:52:17,673 INFO    wandb-AsyncioManager-main:615593 [service_client.py:_forward_responses():84] Reached EOF.
+2025-09-10 12:52:17,673 INFO    wandb-AsyncioManager-main:615593 [mailbox.py:close():137] Closing mailbox, abandoning 1 handles.

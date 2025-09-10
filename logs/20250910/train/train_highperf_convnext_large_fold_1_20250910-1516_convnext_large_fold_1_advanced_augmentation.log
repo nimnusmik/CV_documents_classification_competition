@@ -1,0 +1,92 @@
+2025-09-10 15:16:23 | [BOOT] high-performance training pipeline started
+2025-09-10 15:16:23 | [BOOT] device=cuda
+2025-09-10 15:16:23 | [DATA] loaded train data | shape=(1570, 2)
+2025-09-10 15:16:23 | [DATA] Single fold mode: all data assigned to fold 0
+2025-09-10 15:16:23 | ==================================================
+2025-09-10 15:16:23 | FOLD 1/1 START
+2025-09-10 15:16:23 | ==================================================
+2025-09-10 15:16:23 | [SINGLE FOLD] Using 80:20 train/val split
+2025-09-10 15:16:23 | [FOLD 0] train=1256 valid=314
+2025-09-10 15:16:27 | [SINGLE-MODEL] All folds using model: convnext_large_384_in22ft1k
+2025-09-10 15:16:27 | [SCHEDULER] Single fold: Warmup(10) + CosineAnnealing
+2025-09-10 15:16:27 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-10 15:16:27 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-10 15:16:27 | [HighPerfDataset] size=1256 img_size=384 epoch=0/100 p_hard=0.200 is_train=True
+2025-09-10 15:16:27 | [HighPerfDataset] size=314 img_size=384 epoch=0/100 p_hard=0.000 is_train=False
+2025-09-10 15:16:27 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-10 15:16:27 | [HighPerfDataset] updated epoch=1, p_hard=0.203
+2025-09-10 15:16:27 | [EPOCH 1] >>> TRAIN start | steps=14 mixup=True
+2025-09-10 15:16:36 | [ERROR] Training failed: CUDA out of memory. Tried to allocate 304.00 MiB. GPU 0 has a total capacity of 23.99 GiB of which 0 bytes is free. Including non-PyTorch memory, this process has 17179869184.00 GiB memory in use. Of the allocated memory 42.11 GiB is allocated by PyTorch, and 63.74 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+2025-09-10 15:16:36 | [SHUTDOWN] Training pipeline ended
+2025-09-10 15:16:54 | [BOOT] high-performance training pipeline started
+2025-09-10 15:16:54 | [BOOT] device=cuda
+2025-09-10 15:16:54 | [DATA] loaded train data | shape=(1570, 2)
+2025-09-10 15:16:54 | [DATA] Single fold mode: all data assigned to fold 0
+2025-09-10 15:16:54 | ==================================================
+2025-09-10 15:16:54 | FOLD 1/1 START
+2025-09-10 15:16:54 | ==================================================
+2025-09-10 15:16:54 | [SINGLE FOLD] Using 80:20 train/val split
+2025-09-10 15:16:54 | [FOLD 0] train=1256 valid=314
+2025-09-10 15:16:58 | [SINGLE-MODEL] All folds using model: convnext_large_384_in22ft1k
+2025-09-10 15:16:58 | [SCHEDULER] Single fold: Warmup(10) + CosineAnnealing
+2025-09-10 15:16:58 | [DATA] build highperf loaders | img_size=384 bs=70
+2025-09-10 15:16:58 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-10 15:16:58 | [HighPerfDataset] size=1256 img_size=384 epoch=0/100 p_hard=0.200 is_train=True
+2025-09-10 15:16:58 | [HighPerfDataset] size=314 img_size=384 epoch=0/100 p_hard=0.000 is_train=False
+2025-09-10 15:16:58 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-10 15:16:58 | [HighPerfDataset] updated epoch=1, p_hard=0.203
+2025-09-10 15:16:58 | [EPOCH 1] >>> TRAIN start | steps=18 mixup=True
+2025-09-10 15:17:28 | [EPOCH 1][TRAIN step 1/18] loss=2.86428 lr=0.000010 bs=70
+2025-09-10 15:25:06 | [EPOCH 1][TRAIN step 18/18] loss=2.45311 lr=0.000010 bs=66
+2025-09-10 15:25:07 | [EPOCH 1] <<< TRAIN end | loss=2.75178
+2025-09-10 15:25:07 | [EPOCH 1] >>> VALID start | steps=5
+2025-09-10 15:25:28 | [EPOCH 1] <<< VALID end | loss=2.37321 macro_f1=0.29053
+2025-09-10 15:25:32 | [FOLD 0] NEW BEST F1: 0.29053 (epoch 1)
+2025-09-10 15:25:32 | [DATA] build highperf loaders | img_size=384 bs=70
+2025-09-10 15:25:32 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-10 15:25:32 | [HighPerfDataset] size=1256 img_size=384 epoch=1/100 p_hard=0.203 is_train=True
+2025-09-10 15:25:32 | [HighPerfDataset] size=314 img_size=384 epoch=1/100 p_hard=0.000 is_train=False
+2025-09-10 15:25:32 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-10 15:25:32 | [HighPerfDataset] updated epoch=2, p_hard=0.206
+2025-09-10 15:25:32 | [EPOCH 2] >>> TRAIN start | steps=18 mixup=True
+2025-09-10 15:25:54 | [EPOCH 2][TRAIN step 1/18] loss=2.37345 lr=0.000019 bs=70
+2025-09-10 15:30:36 | [EPOCH 2][TRAIN step 18/18] loss=1.72045 lr=0.000019 bs=66
+2025-09-10 15:30:36 | [EPOCH 2] <<< TRAIN end | loss=2.16885
+2025-09-10 15:30:36 | [EPOCH 2] >>> VALID start | steps=5
+2025-09-10 15:30:50 | [EPOCH 2] <<< VALID end | loss=1.60555 macro_f1=0.57318
+2025-09-10 15:30:55 | [FOLD 0] NEW BEST F1: 0.57318 (epoch 2)
+2025-09-10 15:30:55 | [DATA] build highperf loaders | img_size=384 bs=70
+2025-09-10 15:30:55 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-10 15:30:55 | [HighPerfDataset] size=1256 img_size=384 epoch=2/100 p_hard=0.206 is_train=True
+2025-09-10 15:30:55 | [HighPerfDataset] size=314 img_size=384 epoch=2/100 p_hard=0.000 is_train=False
+2025-09-10 15:30:55 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-10 15:30:55 | [HighPerfDataset] updated epoch=3, p_hard=0.209
+2025-09-10 15:30:55 | [EPOCH 3] >>> TRAIN start | steps=18 mixup=True
+2025-09-10 15:31:14 | [EPOCH 3][TRAIN step 1/18] loss=1.61845 lr=0.000028 bs=70
+2025-09-10 15:35:59 | [EPOCH 3][TRAIN step 18/18] loss=1.18469 lr=0.000028 bs=66
+2025-09-10 15:35:59 | [EPOCH 3] <<< TRAIN end | loss=1.65669
+2025-09-10 15:35:59 | [EPOCH 3] >>> VALID start | steps=5
+2025-09-10 15:36:43 | [EPOCH 3] <<< VALID end | loss=0.89762 macro_f1=0.72168
+2025-09-10 15:36:48 | [FOLD 0] NEW BEST F1: 0.72168 (epoch 3)
+2025-09-10 15:36:48 | [DATA] build highperf loaders | img_size=384 bs=70
+2025-09-10 15:36:48 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-10 15:36:48 | [HighPerfDataset] size=1256 img_size=384 epoch=3/100 p_hard=0.209 is_train=True
+2025-09-10 15:36:48 | [HighPerfDataset] size=314 img_size=384 epoch=3/100 p_hard=0.000 is_train=False
+2025-09-10 15:36:48 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-10 15:36:48 | [HighPerfDataset] updated epoch=4, p_hard=0.212
+2025-09-10 15:36:48 | [EPOCH 4] >>> TRAIN start | steps=18 mixup=True
+2025-09-10 15:37:07 | [EPOCH 4][TRAIN step 1/18] loss=1.96948 lr=0.000037 bs=70
+2025-09-10 15:42:10 | [EPOCH 4][TRAIN step 18/18] loss=1.69155 lr=0.000037 bs=66
+2025-09-10 15:42:10 | [EPOCH 4] <<< TRAIN end | loss=1.56104
+2025-09-10 15:42:10 | [EPOCH 4] >>> VALID start | steps=5
+2025-09-10 15:42:52 | [EPOCH 4] <<< VALID end | loss=0.59362 macro_f1=0.78452
+2025-09-10 15:42:57 | [FOLD 0] NEW BEST F1: 0.78452 (epoch 4)
+2025-09-10 15:42:57 | [DATA] build highperf loaders | img_size=384 bs=70
+2025-09-10 15:42:57 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-10 15:42:57 | [HighPerfDataset] size=1256 img_size=384 epoch=4/100 p_hard=0.212 is_train=True
+2025-09-10 15:42:57 | [HighPerfDataset] size=314 img_size=384 epoch=4/100 p_hard=0.000 is_train=False
+2025-09-10 15:42:57 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-10 15:42:57 | [HighPerfDataset] updated epoch=5, p_hard=0.215
+2025-09-10 15:42:57 | [EPOCH 5] >>> TRAIN start | steps=18 mixup=True
+2025-09-10 15:43:16 | [EPOCH 5][TRAIN step 1/18] loss=1.70989 lr=0.000046 bs=70
+2025-09-10 15:45:45 | [SHUTDOWN] Training pipeline ended
