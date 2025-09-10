@@ -148,10 +148,14 @@ def create_training_visualizations(fold_results: Dict, model_name: str, output_d
         viz.save_plot('05_performance_statistics.png')
         
         # 6. 학습 곡선 (히스토리 데이터가 있는 경우)
-        if history_data and 'train_loss' in history_data:
+        if history_data and 'train_loss' in history_data and len(history_data['train_loss']) > 0:
             plt.figure(figsize=(12, 8))
             
             epochs = history_data.get('epochs', range(1, len(history_data['train_loss']) + 1))
+            
+            # 데이터 길이 검증
+            if len(epochs) != len(history_data['train_loss']):
+                epochs = range(1, len(history_data['train_loss']) + 1)
             
             # 2x2 서브플롯
             plt.subplot(2, 2, 1)

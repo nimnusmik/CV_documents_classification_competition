@@ -54,10 +54,11 @@ def create_search_space(trial: optuna.Trial, config: OptimizationConfig) -> Dict
     params = {}
     
     # 학습률 (로그 스케일)
-    params['lr'] = trial.suggest_loguniform(
+    params['lr'] = trial.suggest_float(
         'lr', 
         config.lr_range[0], 
-        config.lr_range[1]
+        config.lr_range[1],
+        log=True
     )
     
     # 배치 크기 (카테고리)
@@ -67,14 +68,14 @@ def create_search_space(trial: optuna.Trial, config: OptimizationConfig) -> Dict
     )
     
     # Weight decay (균등 분포)
-    params['weight_decay'] = trial.suggest_uniform(
+    params['weight_decay'] = trial.suggest_float(
         'weight_decay',
         config.weight_decay_range[0],
         config.weight_decay_range[1]
     )
     
     # Dropout (균등 분포) 
-    params['dropout'] = trial.suggest_uniform(
+    params['dropout'] = trial.suggest_float(
         'dropout',
         config.dropout_range[0], 
         config.dropout_range[1]
