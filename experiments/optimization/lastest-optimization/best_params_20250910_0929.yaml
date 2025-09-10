@@ -22,13 +22,14 @@ data:
   stratify: true
 train:
   img_size: 384
-  batch_size: 64
+  batch_size: 16
   use_advanced_augmentation: true
-  epochs: 100
-  lr: 0.004719068996116216
-  weight_decay: 0.05453484305678008
+  epochs: 300
+  lr: 8.39141925995571e-05
+  weight_decay: 0.03327947168287774
   optimizer: adamw
   scheduler: cosine
+  warmup_epochs: 5
   mixed_precision: true
   max_grad_norm: 1.0
   label_smoothing: 0.05
@@ -36,7 +37,7 @@ train:
   mixup_alpha: 1.0
   hard_augmentation: true
   log_interval: 5
-  dropout: 0.03952122729675204
+  dropout: 0.07670033993855219
 model:
   name: convnext_base_384
   pretrained: true

@@ -1,0 +1,12 @@
+{"time":"2025-09-10T09:08:03.041583666+09:00","level":"INFO","msg":"stream: starting","core version":"0.21.3"}
+{"time":"2025-09-10T09:08:03.473280824+09:00","level":"INFO","msg":"stream: created new stream","id":"lnaaa2cm"}
+{"time":"2025-09-10T09:08:03.473301226+09:00","level":"INFO","msg":"stream: started","id":"lnaaa2cm"}
+{"time":"2025-09-10T09:08:03.473334357+09:00","level":"INFO","msg":"writer: started","stream_id":"lnaaa2cm"}
+{"time":"2025-09-10T09:08:03.473453915+09:00","level":"INFO","msg":"sender: started","stream_id":"lnaaa2cm"}
+{"time":"2025-09-10T09:08:03.473460092+09:00","level":"INFO","msg":"handler: started","stream_id":"lnaaa2cm"}
+{"time":"2025-09-10T09:23:40.038632079+09:00","level":"INFO","msg":"handler: operation stats","stats":{"operations":[{"desc":"updating run metadata","runtime_seconds":0.000580935}],"total_operations":1}}
+{"time":"2025-09-10T09:23:41.070139367+09:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-09-10T09:23:41.472713836+09:00","level":"INFO","msg":"stream: closing","id":"lnaaa2cm"}
+{"time":"2025-09-10T09:23:41.472741302+09:00","level":"INFO","msg":"handler: closed","stream_id":"lnaaa2cm"}
+{"time":"2025-09-10T09:23:41.472767109+09:00","level":"INFO","msg":"sender: closed","stream_id":"lnaaa2cm"}
+{"time":"2025-09-10T09:23:41.472771204+09:00","level":"INFO","msg":"stream: closed","id":"lnaaa2cm"}
