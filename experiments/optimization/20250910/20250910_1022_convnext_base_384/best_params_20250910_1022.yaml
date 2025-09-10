@@ -17,27 +17,33 @@ data:
   id_col: ID
   target_col: target
   num_classes: 17
-  folds: 1
+  folds: 2
   valid_fold: 0
   stratify: true
 train:
   img_size: 384
-  batch_size: 16
+  batch_size: 64
   use_advanced_augmentation: true
-  epochs: 300
-  lr: 8.39141925995571e-05
-  weight_decay: 0.03327947168287774
+  epochs: 200
+  lr: 0.0001384218465053588
+  weight_decay: 0.035071571265753755
   optimizer: adamw
   scheduler: cosine
-  warmup_epochs: 5
+  warmup_epochs: 10
   mixed_precision: true
-  max_grad_norm: 1.0
-  label_smoothing: 0.05
+  max_grad_norm: 0.5
+  label_smoothing: 0.1
   use_mixup: true
-  mixup_alpha: 1.0
+  mixup_alpha: 0.8
   hard_augmentation: true
-  log_interval: 5
-  dropout: 0.07670033993855219
+  log_interval: 10
+  early_stopping_patience: 20
+  reduce_lr_patience: 10
+  use_ema: true
+  ema_decay: 0.9999
+  temperature_scaling: true
+  dropout_rate: 0.2
+  dropout: 0.2592112033228933
 model:
   name: convnext_base_384
   pretrained: true
@@ -58,4 +64,4 @@ wandb:
   - mixup
   - hard-aug
 training:
-  batch_size: 64
+  batch_size: 90

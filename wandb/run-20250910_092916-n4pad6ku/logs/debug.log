@@ -19,3 +19,8 @@ config: {'architecture': 'convnext_base_384', 'image_size': 384, 'batch_size': 1
 2025-09-10 09:29:17,910 INFO    MainThread:333306 [wandb_run.py:_redirect():2411] Wrapping output streams.
 2025-09-10 09:29:17,910 INFO    MainThread:333306 [wandb_run.py:_redirect():2434] Redirects installed.
 2025-09-10 09:29:17,912 INFO    MainThread:333306 [wandb_init.py:init():1057] run started, returning control to user process
+2025-09-10 10:15:07,418 INFO    MainThread:333306 [wandb_run.py:_finish():2260] finishing run kimsunmin0227-hufs/document-classification-team/n4pad6ku
+2025-09-10 10:15:07,418 INFO    MainThread:333306 [wandb_run.py:_atexit_cleanup():2459] got exitcode: 0
+2025-09-10 10:15:07,418 INFO    MainThread:333306 [wandb_run.py:_restore():2441] restore
+2025-09-10 10:15:07,418 INFO    MainThread:333306 [wandb_run.py:_restore():2447] restore done
+2025-09-10 10:15:09,184 INFO    MainThread:333306 [wandb_run.py:_footer_sync_info():3855] logging synced files
