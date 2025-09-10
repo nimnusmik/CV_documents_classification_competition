@@ -1,0 +1,8 @@
+2025-09-10 16:38:09 | 🚀 [PIPELINE] Full pipeline started
+2025-09-10 16:38:09 | 📋 Config: configs/train_highperf.yaml
+2025-09-10 16:38:09 | ⚙️ Skip training: False
+2025-09-10 16:38:09 | ============================================================
+2025-09-10 16:38:09 | 🎯 [STAGE 1] HIGH-PERFORMANCE TRAINING
+2025-09-10 16:38:09 | ============================================================
+2025-09-10 16:38:21 | ❌ [PIPELINE] Failed: CUDA out of memory. Tried to allocate 628.00 MiB. GPU 0 has a total capacity of 23.99 GiB of which 0 bytes is free. Including non-PyTorch memory, this process has 17179869184.00 GiB memory in use. Of the allocated memory 42.79 GiB is allocated by PyTorch, and 61.54 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+2025-09-10 16:38:21 | 🏁 [PIPELINE] Full pipeline ended

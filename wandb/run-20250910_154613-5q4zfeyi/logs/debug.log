@@ -19,3 +19,5 @@ config: {'architecture': 'vit_large_patch16_384', 'image_size': 384, 'batch_size
 2025-09-10 15:46:14,676 INFO    MainThread:801623 [wandb_run.py:_redirect():2411] Wrapping output streams.
 2025-09-10 15:46:14,676 INFO    MainThread:801623 [wandb_run.py:_redirect():2434] Redirects installed.
 2025-09-10 15:46:14,679 INFO    MainThread:801623 [wandb_init.py:init():1057] run started, returning control to user process
+2025-09-10 15:50:36,586 INFO    wandb-AsyncioManager-main:801623 [service_client.py:_forward_responses():84] Reached EOF.
+2025-09-10 15:50:36,586 INFO    wandb-AsyncioManager-main:801623 [mailbox.py:close():137] Closing mailbox, abandoning 1 handles.

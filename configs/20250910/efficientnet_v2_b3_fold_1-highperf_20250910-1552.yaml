@@ -1,13 +1,13 @@
 # ----------------------------- 프로젝트 기본 설정 ----------------------------- #
 project:
-  run_name: swin_base_384_fold_1            # 실행명 (모델명 기반)
+  run_name: efficientnet_v2_b3            # 실행명 (모델명 기반)
   seed: 777                                      # 랜덤 시드 (재현 가능한 실험)
   date_format: '%Y%m%d'                         # 날짜 포맷 (예: 20250906)
   time_format: '%H%M'                           # 시간 포맷 (예: 1430)
   num_workers: 8                                # 데이터 로더 워커 수 (메모리 최적화)
   device: cuda                                  # 학습 디바이스 (GPU 사용)
   verbose: true                                 # 상세 로그 출력 여부
-  log_prefix: train_highperf_swin_base_384_fold_1  # 로그 파일 접두사
+  log_prefix: train_highperf_efficientnet_v2_b3_fold_1  # 로그 파일 접두사
 
 # ------------------------------- 데이터 설정 ------------------------------- #
 data:
@@ -29,7 +29,7 @@ train:
   img_size: 384                                 # 입력 이미지 크기 (384x384, 메모리 최적화)
   batch_size: 124                               # 배치 크기 (안정성 우선: 32)
   use_advanced_augmentation: true               # 고급 증강 기법 사용 여부 (trainsform.py true: build_advanced_train_tfms / false: build_advanced_train_tfms)
-  epochs: 80                                   # 학습 에포크 수 (과적합 방지를 위해 조정)
+  epochs: 100                                   # 학습 에포크 수 (과적합 방지를 위해 조정)
   lr: 0.0001                                    # 학습률 (더 보수적: 1e-4)
   weight_decay: 0.005                           # L2 정규화 계수 (과적합 방지 강화)
   optimizer: adamw                              # 옵티마이저 (AdamW)
@@ -51,7 +51,7 @@ train:
 
 # ------------------------------- 모델 설정 ------------------------------- #
 model:
-  name: swin_base_384                           # 모델 아키텍처
+  name: efficientnet_v2_b3                           # 모델 아키텍처
   pretrained: true                              # 사전학습 가중치 사용
   drop_rate: 0.1                                # 드롭아웃 비율
   drop_path_rate: 0.1                           # 드롭패스 비율 (Stochastic Depth)
@@ -67,13 +67,13 @@ output:
 wandb:
   project_name: document-classification-team    # WandB 프로젝트명
   entity: null                                  # WandB 엔티티 (팀/사용자)
-  experiment_name: swin_base_384_fold_1-highperf   # 실험명
+  experiment_name: efficientnet_v2_b3_fold_1-highperf   # 실험명
   tags:                                         # 실험 태그
-  - swin_base_384                           # Vit Large Patch 16 384 태그
+  - efficientnet_v2_b3                           # Vit Large Patch 16 384 태그
   - high-performance                            # 고성능 태그
   - mixup                                       # Mixup 태그
   - hard-aug                                    # 강한 증강 태그
 
 # ------------------------------- 추가 학습 설정 ------------------------------- #
 training:
-  batch_size: 80                                # 추가 배치 크기 설정 (메모리 최적화)
+  batch_size: 124                                # 추가 배치 크기 설정 (메모리 최적화)

@@ -20,4 +20,8 @@ Train Epoch 1:   0%|                                                            
 2025-09-10 15:46:58 | [EPOCH 1][TRAIN step 1/18] loss=3.10747 lr=0.000010 bs=70
 Train Epoch 1:  11%|██████▏                                                 | 2/18 [01:20<10:40, 40.04s/it]/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train_highperf.py:91: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
   with autocast(enabled=scaler is not None):      # AMP 자동 캐스팅 적용
-Train Epoch 1:  17%|█████████▎                                              | 3/18 [01:48<08:41, 34.75s/it]
+Train Epoch 1:  39%|█████████████████████▊                                  | 7/18 [04:18<06:46, 36.99s/it]
+2025-09-10 15:50:36 | [SHUTDOWN] Training pipeline ended
+2025-09-10 15:50:36 | 🏁 [PIPELINE] Full pipeline ended
+
+⛔ [EXIT] Pipeline interrupted by user (KeyboardInterrupt)

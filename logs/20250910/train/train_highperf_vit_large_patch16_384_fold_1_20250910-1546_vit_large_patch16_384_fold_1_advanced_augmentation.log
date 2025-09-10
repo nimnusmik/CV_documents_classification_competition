@@ -17,3 +17,4 @@
 2025-09-10 15:46:17 | [HighPerfDataset] updated epoch=1, p_hard=0.203
 2025-09-10 15:46:17 | [EPOCH 1] >>> TRAIN start | steps=18 mixup=True
 2025-09-10 15:46:58 | [EPOCH 1][TRAIN step 1/18] loss=3.10747 lr=0.000010 bs=70
+2025-09-10 15:50:36 | [SHUTDOWN] Training pipeline ended
