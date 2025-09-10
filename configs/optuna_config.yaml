@@ -19,7 +19,7 @@ optuna:
   # 빠른 검증 설정 (Optuna 평가용)
   quick_validation:
     epochs: 5                             # 빠른 검증용 에포크
-    folds: 2                              # 5-fold CV로 빠른 평가
+    folds: 3                              # 3-fold CV로 빠른 평가 (단일 폴드 호환)
     batch_size_override: 32               # RTX 4090 맞춤 배치 크기 (메모리 최적화)
 
 # ------------------------- 탐색할 하이퍼파라미터 범위 ------------------------- #
