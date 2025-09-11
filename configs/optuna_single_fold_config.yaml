@@ -19,9 +19,9 @@ optuna:
   
   # 단일 폴드 검증 설정
   single_fold_validation:
-    epochs: 5                             # 빠른 검증용 에포크 (더 빠르게)
+    epochs: 10                            # 빠른 검증용 에포크 (더 빠르게)
     validation_split: 0.2                 # 검증 데이터 비율 (20%)
-    batch_size_override: 16               # 단일 폴드 최적 배치 크기
+    batch_size_override: 90               # 단일 폴드 최적 배치 크기
 
 # ------------------------- 탐색할 하이퍼파라미터 범위 (단일 폴드 최적화) ------------------------- #
 search_space:
@@ -34,39 +34,39 @@ search_space:
   # 배치 크기 (단일 폴드 최적화)
   batch_size:
     type: "categorical"                   # 카테고리 선택
-    choices: [32, 48, 64, 80]             # 단일 폴드 최적 배치들
+    choices: [16, 32, 48, 64, 80, 90]     # 단일 폴드 최적 배치들
 
   # Weight Decay (L2 정규화)
   weight_decay:
     type: "uniform"                       # 균등 분포
-    low: 0.005                            # 최소값
-    high: 0.05                            # 최대값
+    low: 0.01                             # 최소값
+    high: 0.02                            # 최대값
     
   # Dropout 비율
   dropout:
     type: "uniform"                       # 균등 분포
-    low: 0.05                             # 최소값
-    high: 0.15                            # 최대값
+    low: 0.1                              # 최소값
+    high: 0.25                            # 최대값
     
   # 추가 탐색 파라미터
   advanced_params:
     # 라벨 스무딩
     label_smoothing:
       type: "uniform"
-      low: 0.02                           # 최소값
-      high: 0.1                           # 최대값
+      low: 0.05                           # 최소값
+      high: 0.15                          # 최대값
     
     # 그래디언트 클리핑
     grad_clip_norm:
       type: "uniform" 
-      low: 0.5                            # 최소값
-      high: 1.5                           # 최대값
+      low: 0.3                            # 최소값
+      high: 0.8                           # 최대값
     
     # Mixup 알파
     mixup_alpha:
       type: "uniform"
       low: 0.6                            # 최소값
-      high: 1.4                           # 최대값
+      high: 1.0                           # 최대값
     
     # 웜업 에포크
     warmup_epochs:

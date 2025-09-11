@@ -1,6 +1,6 @@
 # ----------------------------- 고성능 추론 메타 설정 ----------------------------- #
 project:
-  run_name: swin_base_384_highperf_inference      # 실행(run) 이름 (고성능 앙상블 추론)
+  run_name: convnext_base_384_highperf_inference      # 실행(run) 이름 (고성능 앙상블 추론)
   device: "cuda"                                      # 실행 디바이스 ("cuda" 가능 시 GPU, 아니면 CPU)
   num_workers: 6                                      # DataLoader 병렬 로딩 워커 수 (메모리 최적화)
   date_format: "%Y%m%d"                               # 날짜 포맷 (예: 20250904)
@@ -23,7 +23,7 @@ data:
 
 # ------------------------------- 모델 설정  -------------------------------- #
 model:
-  name: "swin_base_384"                  # 모델 아키텍처 이름
+  name: "convnext_base_384"                           # 모델 아키텍처 이름
   pretrained: False                                   # 사전학습 가중치 사용 여부 (False → 학습된 가중치 사용)
   drop_rate: 0.05                                     # dropout 비율 (학습시와 동일)
   drop_path_rate: 0.1                                 # stochastic depth 비율 (학습시와 동일)
@@ -53,9 +53,9 @@ output:
 wandb:
   project_name: document-classification-inference     # WandB 프로젝트명 (고성능 추론용)
   entity: null                                        # WandB 엔티티 (팀/사용자)
-  experiment_name: swin_base_384_higherf_inference# 실험명
+  experiment_name: convnext_base_384_higherf_inference # 실험명
   tags:                                               # 실험 태그
-  - swin_base_384                                 # ConvNeXt Base 384 태그
+  - convnext_base_384                                 # ConvNeXt Base 384 태그
   - ensemble                                          # 앙상블 태그
   - tta                                               # TTA 태그
   - high-performance                                  # 고성능 태그

@@ -1,7 +1,7 @@
 # ----------------------------- 프로젝트 기본 설정 ----------------------------- #
 project:
   run_name: convnext_base_384_fold_1            # 실행명 (모델명 기반)
-  seed: 42                                       # 랜덤 시드 (재현 가능한 실험)
+  seed: 777                                      # 랜덤 시드 (재현 가능한 실험)
   date_format: '%Y%m%d'                         # 날짜 포맷 (예: 20250906)
   time_format: '%H%M'                           # 시간 포맷 (예: 1430)
   num_workers: 8                                # 데이터 로더 워커 수 (메모리 최적화)
@@ -27,28 +27,27 @@ data:
 # ------------------------------- 학습 설정 ------------------------------- #
 train:
   img_size: 384                                 # 입력 이미지 크기 (384x384, 메모리 최적화)
-  batch_size: 90                                # 배치 크기 (안정성 우선: 32)
+  batch_size: 90                               # 배치 크기 (안정성 우선: 32)
   use_advanced_augmentation: true               # 고급 증강 기법 사용 여부 (trainsform.py true: build_advanced_train_tfms / false: build_advanced_train_tfms)
   epochs: 100                                   # 학습 에포크 수 (과적합 방지를 위해 조정)
-  lr: 0.00012802227271884058                    # 학습률 (더 보수적: 1e-4)
-  weight_decay: 0.013163367232645818            # L2 정규화 계수 (과적합 방지 강화)
+  lr: 8.39141925995571e-05                                    # 학습률 (더 보수적: 1e-4)
+  weight_decay: 0.03327947168287774                           # L2 정규화 계수 (과적합 방지 강화)
   optimizer: adamw                              # 옵티마이저 (AdamW)
   scheduler: cosine                             # 스케줄러 (코사인 감쇠)
   warmup_epochs: 10                             # Warmup 에포크 (더 긴 워밍업: 10)
   mixed_precision: true                         # 혼합 정밀도 학습 (메모리 효율성)
-  max_grad_norm: 0.5                            # 그래디언트 클리핑 (더 보수적: 0.5)
-  label_smoothing: 0.1                          # 레이블 스무딩 (과적합 방지 강화: 0.1)
+  max_grad_norm: 1.0                            # 그래디언트 클리핑 (더 보수적: 0.5)
+  label_smoothing: 0.05                         # 레이블 스무딩 (과적합 방지 강화: 0.1)
   use_mixup: true                               # Mixup 데이터 증강 사용
-  mixup_alpha: 0.8                              # Mixup 알파 (더 보수적: 0.8)
+  mixup_alpha: 1.0                              # Mixup 알파 (더 보수적: 0.8)
   hard_augmentation: true                       # 강한 데이터 증강 적용
-  log_interval: 3                               # 로그 출력 간격 (스텝 단위)
+  log_interval: 5                               # 로그 출력 간격 (스텝 단위)
   early_stopping_patience: 20                   # Early Stopping 인내심 (20 에포크)
   reduce_lr_patience: 10                        # 학습률 감소 인내심 (10 에포크)
   use_ema: true                                 # EMA (Exponential Moving Average) 사용
   ema_decay: 0.9999                             # EMA 감쇠율
   temperature_scaling: true                     # Temperature Scaling 사용 (추론 정확도 향상)
-  dropout_rate: 0.2                             # 드롭아웃 비율 (과적합 방지)
-  dropout: 0.10286340155629473                  # 추가 드롭아웃 설정
+  dropout_rate: 0.07670033993855219             # 드롭아웃 비율 (과적합 방지)
 
 # ------------------------------- 모델 설정 ------------------------------- #
 model:
