@@ -41,12 +41,12 @@ project:
   run_name: convnext_base_384_highperf_inference
   time_format: '%H%M'
 train:
-  batch_size: 32
+  batch_size: 64
   img_size: 384
 wandb:
   enabled: false
   entity: null
-  experiment_name: convnext_base_384_higherf_inference# 실험명
+  experiment_name: convnext_base_384_higherf_inference
   project_name: document-classification-inference
   tags:
   - convnext_base_384

@@ -1,19 +1,12 @@
-2025-09-11 08:37:23 | 🚀 [PIPELINE] Full pipeline started
-2025-09-11 08:37:23 | 📋 Config: configs/train_highperf.yaml
-2025-09-11 08:37:23 | ⚙️ Skip training: False
-2025-09-11 08:37:23 | ============================================================
-2025-09-11 08:37:23 | 🎯 [STAGE 1] HIGH-PERFORMANCE TRAINING
-2025-09-11 08:37:23 | ============================================================
-2025-09-11 14:12:15 | ✅ [STAGE 1] Training completed successfully
-2025-09-11 14:12:15 | ============================================================
-2025-09-11 14:12:15 | 🔍 [STAGE 2] FINDING TRAINING RESULTS
-2025-09-11 14:12:15 | ============================================================
-2025-09-11 14:12:15 | ✅ Found results: 20250911_0837_convnext_base_384_fold_1
-2025-09-11 14:12:15 | 📁 Found fold results: experiments/train/20250911/20250911_0837_convnext_base_384_fold_1/fold_results.yaml
-2025-09-11 14:12:15 | ============================================================
-2025-09-11 14:12:15 | 🔮 [STAGE 3] HIGH-PERFORMANCE INFERENCE
-2025-09-11 14:12:15 | ============================================================
-2025-09-11 14:12:39 | ❌ [PIPELINE] Failed: Caught RuntimeError in pin memory thread for device 0.
+2025-09-11 14:12:15 | [BOOT] high-performance inference pipeline started
+2025-09-11 14:12:15 | [BOOT] device=cuda
+2025-09-11 14:12:15 | [DATA] loaded test data | shape=(3140, 2)
+2025-09-11 14:12:15 | [HighPerfDataset] size=3140 img_size=384 epoch=0/10 p_hard=0.000 is_train=False
+2025-09-11 14:12:15 | [DATA] test dataset size: 3140
+2025-09-11 14:12:15 | [TTA] TTA enabled: True, type: essential
+2025-09-11 14:12:16 | [MODELS] loaded 1 fold models
+2025-09-11 14:12:16 | [INFERENCE] starting essential TTA ensemble prediction...
+2025-09-11 14:12:39 | [ERROR] Inference failed: Caught RuntimeError in pin memory thread for device 0.
 Original Traceback (most recent call last):
   File "/home/ieyeppo/.pyenv/versions/cv_py3_11_9/lib/python3.11/site-packages/torch/utils/data/_utils/pin_memory.py", line 41, in do_one_step
     data = pin_memory(data, device)
@@ -34,4 +27,4 @@ RuntimeError: CUDA error: out of memory
 CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
 For debugging consider passing CUDA_LAUNCH_BLOCKING=1
 Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
-2025-09-11 14:12:39 | 🏁 [PIPELINE] Full pipeline ended
+2025-09-11 14:12:39 | [SHUTDOWN] Inference pipeline ended
