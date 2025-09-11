@@ -97,39 +97,40 @@ def run_full_pipeline(config_path: str, skip_training: bool = False, output_dir:
         logger.write("🔍 [STAGE 2] FINDING TRAINING RESULTS")       # 2단계 시작 로그
         logger.write("="*60)                                        # 구분선 로그
         
-        # fold_results.yaml 파일 찾기
+        # fold_results.yaml 파일 찾기 (시간 타이밍 문제 해결)
         day = time.strftime(cfg["project"]["date_format"])                              # 날짜 포맷 생성
-        folder_name = f"{day}_{time.strftime(cfg['project']['time_format'])}_{cfg['project']['run_name']}"  # 폴더명 생성
-        exp_base = Path(cfg["output"]["exp_dir"]) / day / folder_name                   # 실험 기본 경로
+        exp_day_dir = Path(cfg["output"]["exp_dir"]) / day                             # 날짜별 실험 디렉터리
 
         fold_results_path = None    # 폴드 결과 파일 경로 초기화
         
-        # 실험 기본 경로가 존재하는 경우
-        if exp_base.exists():
-            # 먼저 직접 경로에서 찾기
-            direct_candidate = exp_base / "fold_results.yaml"
+        # 날짜별 실험 디렉터리가 존재하는 경우
+        if exp_day_dir.exists():
+            # 가장 최근 생성된 실험 폴더를 찾기 (수정 시간 기준 역순)
+            matching_dirs = []
+            run_name = cfg['project']['run_name']
             
-            # 직접 경로에 파일이 있는 경우
-            if direct_candidate.exists():
-                fold_results_path = str(direct_candidate)        # 경로 설정
-            # 직접 경로에 파일이 없는 경우
-            else:
-                # 하위 디렉터리 순회 (역순) 하위 폴더에서 찾기
-                for exp_dir in sorted(exp_base.iterdir(), reverse=True):
-                    # 디렉터리인 경우
-                    if exp_dir.is_dir():
-                        candidate = exp_dir / "fold_results.yaml"   # 후보 파일 경로
-                        
-                        # 파일이 존재하는 경우
-                        if candidate.exists():
-                            fold_results_path = str(candidate)      # 경로 설정
-                            break                                   # 반복문 종료
+            for exp_dir in exp_day_dir.iterdir():
+                if exp_dir.is_dir() and run_name in exp_dir.name:
+                    matching_dirs.append(exp_dir)
+            
+            # 수정 시간 기준으로 정렬 (가장 최근이 먼저)
+            matching_dirs.sort(key=lambda x: x.stat().st_mtime, reverse=True)
+            
+            # 각 후보 디렉터리에서 fold_results.yaml 찾기
+            for exp_dir in matching_dirs:
+                candidate = exp_dir / "fold_results.yaml"
+                if candidate.exists():
+                    fold_results_path = str(candidate)
+                    logger.write(f"✅ Found results: {exp_dir.name}")
+                    break
         
         # 폴드 결과 파일을 찾지 못한 경우
-        if not fold_results_path:                    
+        if not fold_results_path:
+            available_dirs = [d.name for d in exp_day_dir.iterdir() if d.is_dir()] if exp_day_dir.exists() else []
             raise FileNotFoundError(                                # 파일 없음 예외 발생
-                f"fold_results.yaml not found in {exp_base}. "      # 경로 정보
-                "Make sure training completed successfully."        # 안내 메시지
+                f"fold_results.yaml not found for run_name '{run_name}' in {exp_day_dir}.\n"
+                f"Available directories: {available_dirs}\n"        
+                "Make sure training completed successfully and fold_results.yaml was created."
             )
         
         logger.write(f"📁 Found fold results: {fold_results_path}") # 폴드 결과 파일 발견 로그
