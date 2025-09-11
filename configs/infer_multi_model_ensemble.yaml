@@ -2,11 +2,11 @@
 project:
   run_name: multi-model-ensemble-inference           # 실행명 (다중 모델 앙상블 추론)
   device: "cuda"                                      # 실행 디바이스
-  num_workers: 8                                      # DataLoader 병렬 워커 수 (메모리 최적화)
+  num_workers: 8                                      # DataLoader 병렬 워커 수 (메모리 최적화: 8 → 4)
   date_format: "%Y%m%d"                               # 날짜 포맷
   time_format: "%H%M"                                 # 시간 포맷
-  pin_memory: true                                    # 메모리 고정 (GPU 전송 속도 향상)
-  persistent_workers: true                            # 워커 재사용
+  pin_memory: false                                   # 메모리 고정 비활성화 (메모리 절약)
+  persistent_workers: false                           # 워커 재사용 비활성화 (메모리 절약)
 
 # ------------------------------- 다중 모델 앙상블 설정 ---------------------------- #
 ensemble:
@@ -78,12 +78,12 @@ model:
 # ------------------------- 추론 시 필요한 학습 설정 ------------------------- #
 train:
   img_size: 384                                       # 학습 시와 동일한 이미지 크기 (메모리 최적화)
-  batch_size: 90                                      # 다중 모델 추론용 배치 크기 (메모리 최적화)
+  batch_size: 48                                      # 다중 모델 추론용 배치 크기 (메모리 최적화: 64 → 16)
 
 # ------------------------------ 고성능 다중 모델 추론 설정 ---------------------------- #
 inference:
   tta: true                                           # Test-Time Augmentation 활성화
-  tta_type: "comprehensive"                           # TTA 타입: 'src/data/transforms.py' >> "essential" (5가지) 또는 "comprehensive" (15가지)  
+  tta_type: "comprehensive"                               # TTA 타입: 메모리 최적화를 위해 comprehensive → essential로 변경  
   tta_rot_degrees: [0, 90, 180, 270]                  # TTA 회전 각도
   tta_brightness: [0.8, 0.9, 1.0, 1.1, 1.2]           # TTA 밝기 조정
   confidence_threshold: 0.97                          # 앙상블 신뢰도 임계값 (다중 모델이므로 낮춤)

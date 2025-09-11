@@ -7,7 +7,7 @@
 project:
   run_name: convnext_base_384_fold1_inference        # 실행명
   device: "cuda"                                     # 실행 디바이스
-  num_workers: 6                                     # DataLoader 워커 수 (메모리 최적화)
+  num_workers: 4                                     # DataLoader 워커 수 (메모리 최적화: 8 → 4)
   date_format: "%Y%m%d"                              # 날짜 포맷
   time_format: "%H%M"                                # 시간 포맷
 
@@ -31,8 +31,8 @@ model:
 # ------------------------- 추론 설정 (학습 설정 기반) ------------------------- #
 train:
   img_size: 384                                      # 학습시와 동일 (384)
-  batch_size: 48                                     # 추론용 배치 크기 (메모리 최적화)
-                                                     # 메모리 상황에 따라 48 또는 64로 조정 가능
+  batch_size: 32                                     # 추론용 배치 크기 (메모리 최적화: 64 → 32)
+                                                     # 메모리 상황에 따라 16, 24, 32로 조정 가능
 
 # ------------------------------ 추론 전용 설정 ---------------------------- #
 inference:

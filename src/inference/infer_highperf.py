@@ -33,6 +33,32 @@ from src.utils.visualizations import visualize_inference_pipeline, create_organi
 
 
 
+# ---------------------- TTA Collate 함수 ---------------------- #
+def tta_collate_fn(batch):
+    """TTA 배치 처리를 위한 안전한 collate 함수"""
+    if not batch:
+        return [], []
+    
+    # 첫 번째 샘플에서 TTA 변형 수 확인
+    num_tta_transforms = len(batch[0][0])
+    
+    # TTA 변형들을 그룹화
+    tta_groups = []
+    for i in range(num_tta_transforms):
+        try:
+            tta_group = torch.stack([item[0][i] for item in batch])
+            tta_groups.append(tta_group)
+        except Exception as e:
+            print(f"Error in TTA collate at transform {i}: {e}")
+            # 에러 발생 시 기본값으로 처리
+            break
+    
+    # 이미지 ID들
+    image_ids = [item[1] for item in batch]
+    
+    return tta_groups, image_ids
+
+
 # ---------------------- Essential TTA 데이터셋 ---------------------- #
 class ConfigurableTTADataset(Dataset):
     """설정 가능한 TTA를 위한 데이터셋"""
@@ -113,7 +139,7 @@ def predict_with_tta(model, loader, device, num_tta=5):
 # ---------------------- Essential TTA 예측 함수 ---------------------- #
 @torch.no_grad()    # gradient 계산 비활성화
 def predict_with_essential_tta(model, tta_loader, device):
-    """Essential TTA를 사용한 예측"""
+    """Essential TTA를 사용한 예측 (메모리 최적화)"""
     model.eval()                                     # 모델을 평가 모드로 설정
     all_predictions = []                             # 모든 예측 결과 저장 리스트
     
@@ -123,12 +149,20 @@ def predict_with_essential_tta(model, tta_loader, device):
         
         # 각 TTA 변형별 예측
         for images in images_list:                   # 5가지 TTA 변형 순회
-            images = images.to(device)               # 이미지를 GPU로 이동
+            images = images.to(device, non_blocking=True)  # 이미지를 GPU로 이동 (비동기)
             logits = model(images)                   # 모델 순전파  
             probs = F.softmax(logits, dim=1)         # 로짓을 확률로 변환
             batch_probs += probs / len(images_list)  # 평균을 위해 누적
             
+            # 즉시 메모리 해제
+            del images, logits, probs
+            
         all_predictions.append(batch_probs.cpu())    # CPU로 이동하여 저장
+        del batch_probs  # 배치 확률 해제
+        
+        # 배치별 메모리 정리
+        if (batch_idx + 1) % 5 == 0:  # 5배치마다 메모리 정리
+            torch.cuda.empty_cache()
     
     # 모든 배치 결합
     final_predictions = torch.cat(all_predictions, dim=0)
@@ -308,9 +342,15 @@ def ensemble_predict_with_essential_tta(models, tta_loader, cfg, device, logger=
         else:
             print(f"✅ 모델 {i+1} 완료 (예측 형태: {model_preds.shape})")
         
-        # 메모리 정리
+        # 강제 메모리 정리
         del model
-        torch.cuda.empty_cache()
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
+            torch.cuda.synchronize()  # GPU 연산 완료 대기
+        
+        # 추가 메모리 정리 (Python 가비지 컬렉션)
+        import gc
+        gc.collect()
     
     # 앙상블 평균 계산
     if logger:
@@ -328,7 +368,7 @@ def ensemble_predict_with_essential_tta(models, tta_loader, cfg, device, logger=
 
 # ---------------------- 설정 가능한 TTA 헬퍼 함수 ---------------------- #
 def create_configurable_tta_dataloader(sample_csv, test_dir, img_size=384, tta_type="essential", batch_size=32, num_workers=8):
-    """설정 가능한 TTA 데이터로더 생성 헬퍼 함수"""
+    """설정 가능한 TTA 데이터로더 생성 헬퍼 함수 (메모리 최적화)"""
     
     # TTA 데이터셋 생성
     tta_dataset = ConfigurableTTADataset(sample_csv, test_dir, img_size, tta_type)
@@ -336,25 +376,35 @@ def create_configurable_tta_dataloader(sample_csv, test_dir, img_size=384, tta_t
     # TTA 변형 수 계산
     num_tta_transforms = len(tta_dataset.transforms)
     
-    # 데이터로더 생성
+    # TTA 타입에 따른 배치 사이즈 자동 조정 (메모리 최적화)
+    if tta_type == "comprehensive" and batch_size > 24:
+        batch_size = min(16, batch_size)  # Comprehensive TTA시 최대 16
+        print(f"⚠️  Comprehensive TTA 감지: 배치 사이즈를 {batch_size}로 자동 조정")
+    elif tta_type == "essential" and batch_size > 48:
+        batch_size = min(32, batch_size)  # Essential TTA시 최대 32
+        print(f"⚠️  Essential TTA: 배치 사이즈를 {batch_size}로 자동 조정")
+    
+    # 워커 수도 메모리 상황에 따라 조정
+    if num_workers > 4:
+        num_workers = 4
+        print(f"⚠️  메모리 최적화: 워커 수를 {num_workers}로 조정")
+    
+    # 데이터로더 생성 (안전한 collate 함수 사용)
     tta_loader = DataLoader(
         tta_dataset,
         batch_size=batch_size,
         shuffle=False,
         num_workers=num_workers,
-        pin_memory=True,
-        collate_fn=lambda x: (
-            [torch.stack([item[0][i] for item in x]) for i in range(num_tta_transforms)],  # TTA 변형들
-            [item[1] for item in x]  # 이미지 ID들
-        )
+        pin_memory=False,  # 메모리 최적화: pin_memory 비활성화
+        collate_fn=tta_collate_fn,  # 안전한 정적 함수 사용
+        persistent_workers=False  # 워커 재사용 비활성화 (메모리 절약)
     )
     
     tta_type_name = "Essential (5가지)" if tta_type == "essential" else "Comprehensive (15가지)"
-    # logger 전달 필요 - 임시로 print 유지
     print(f"🔧 {tta_type_name} TTA 데이터로더 생성 완료")
-    print(f"   - 데이터셋 크기: {len(tta_dataset)}")
-    print(f"   - 배치 크기: {batch_size}")  
-    print(f"   - TTA 변형 수: {num_tta_transforms}가지")
+    print(f"\n데이터셋 크기: {len(tta_dataset)}")
+    print(f"배치 크기: {batch_size}")  
+    print(f"TTA 변형 수: {num_tta_transforms}가지")
     
     return tta_loader
 
