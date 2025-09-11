@@ -1,0 +1,721 @@
+2025-09-11 08:37:23 | [BOOT] high-performance training pipeline started
+2025-09-11 08:37:23 | [BOOT] device=cuda
+2025-09-11 08:37:23 | [DATA] loaded train data | shape=(1570, 2)
+2025-09-11 08:37:23 | [DATA] Single fold mode: all data assigned to fold 0
+2025-09-11 08:37:23 | ==================================================
+2025-09-11 08:37:23 | FOLD 1/1 START
+2025-09-11 08:37:23 | ==================================================
+2025-09-11 08:37:23 | [SINGLE FOLD] Using 80:20 train/val split
+2025-09-11 08:37:23 | [FOLD 0] train=1256 valid=314
+2025-09-11 08:37:26 | [SINGLE-MODEL] All folds using model: convnext_base_384_in22ft1k
+2025-09-11 08:37:26 | [SCHEDULER] Single fold: Warmup(10) + CosineAnnealing
+2025-09-11 08:37:26 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 08:37:26 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 08:37:26 | [HighPerfDataset] size=1256 img_size=384 epoch=0/100 p_hard=0.200 is_train=True
+2025-09-11 08:37:26 | [HighPerfDataset] size=314 img_size=384 epoch=0/100 p_hard=0.000 is_train=False
+2025-09-11 08:37:26 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 08:37:26 | [HighPerfDataset] updated epoch=1, p_hard=0.203
+2025-09-11 08:37:26 | [EPOCH 1] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 08:37:44 | [EPOCH 1][TRAIN step 1/14] loss=3.04142 lr=0.000008 bs=90
+2025-09-11 08:40:49 | [EPOCH 1][TRAIN step 14/14] loss=2.72897 lr=0.000008 bs=86
+2025-09-11 08:40:49 | [EPOCH 1] <<< TRAIN end | loss=2.84977
+2025-09-11 08:40:49 | [EPOCH 1] >>> VALID start | steps=4
+2025-09-11 08:40:56 | [EPOCH 1] <<< VALID end | loss=2.55990 macro_f1=0.12218
+2025-09-11 08:40:58 | [FOLD 0] NEW BEST F1: 0.12218 (epoch 1)
+2025-09-11 08:40:58 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 08:40:58 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 08:40:58 | [HighPerfDataset] size=1256 img_size=384 epoch=1/100 p_hard=0.203 is_train=True
+2025-09-11 08:40:58 | [HighPerfDataset] size=314 img_size=384 epoch=1/100 p_hard=0.000 is_train=False
+2025-09-11 08:40:58 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 08:40:58 | [HighPerfDataset] updated epoch=2, p_hard=0.206
+2025-09-11 08:40:58 | [EPOCH 2] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 08:41:12 | [EPOCH 2][TRAIN step 1/14] loss=2.68665 lr=0.000016 bs=90
+2025-09-11 08:44:07 | [EPOCH 2][TRAIN step 14/14] loss=2.39369 lr=0.000016 bs=86
+2025-09-11 08:44:07 | [EPOCH 2] <<< TRAIN end | loss=2.51838
+2025-09-11 08:44:07 | [EPOCH 2] >>> VALID start | steps=4
+2025-09-11 08:44:15 | [EPOCH 2] <<< VALID end | loss=2.07522 macro_f1=0.34695
+2025-09-11 08:44:17 | [FOLD 0] NEW BEST F1: 0.34695 (epoch 2)
+2025-09-11 08:44:17 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 08:44:17 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 08:44:17 | [HighPerfDataset] size=1256 img_size=384 epoch=2/100 p_hard=0.206 is_train=True
+2025-09-11 08:44:17 | [HighPerfDataset] size=314 img_size=384 epoch=2/100 p_hard=0.000 is_train=False
+2025-09-11 08:44:17 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 08:44:17 | [HighPerfDataset] updated epoch=3, p_hard=0.209
+2025-09-11 08:44:17 | [EPOCH 3] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 08:44:32 | [EPOCH 3][TRAIN step 1/14] loss=2.27280 lr=0.000023 bs=90
+2025-09-11 08:47:41 | [EPOCH 3][TRAIN step 14/14] loss=1.63251 lr=0.000023 bs=86
+2025-09-11 08:47:41 | [EPOCH 3] <<< TRAIN end | loss=2.12527
+2025-09-11 08:47:41 | [EPOCH 3] >>> VALID start | steps=4
+2025-09-11 08:47:49 | [EPOCH 3] <<< VALID end | loss=1.50872 macro_f1=0.62673
+2025-09-11 08:47:51 | [FOLD 0] NEW BEST F1: 0.62673 (epoch 3)
+2025-09-11 08:47:51 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 08:47:51 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 08:47:51 | [HighPerfDataset] size=1256 img_size=384 epoch=3/100 p_hard=0.209 is_train=True
+2025-09-11 08:47:51 | [HighPerfDataset] size=314 img_size=384 epoch=3/100 p_hard=0.000 is_train=False
+2025-09-11 08:47:51 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 08:47:51 | [HighPerfDataset] updated epoch=4, p_hard=0.212
+2025-09-11 08:47:51 | [EPOCH 4] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 08:48:07 | [EPOCH 4][TRAIN step 1/14] loss=1.89471 lr=0.000031 bs=90
+2025-09-11 08:51:06 | [EPOCH 4][TRAIN step 14/14] loss=1.27204 lr=0.000031 bs=86
+2025-09-11 08:51:06 | [EPOCH 4] <<< TRAIN end | loss=1.82644
+2025-09-11 08:51:06 | [EPOCH 4] >>> VALID start | steps=4
+2025-09-11 08:51:14 | [EPOCH 4] <<< VALID end | loss=1.03299 macro_f1=0.71730
+2025-09-11 08:51:16 | [FOLD 0] NEW BEST F1: 0.71730 (epoch 4)
+2025-09-11 08:51:16 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 08:51:16 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 08:51:16 | [HighPerfDataset] size=1256 img_size=384 epoch=4/100 p_hard=0.212 is_train=True
+2025-09-11 08:51:16 | [HighPerfDataset] size=314 img_size=384 epoch=4/100 p_hard=0.000 is_train=False
+2025-09-11 08:51:16 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 08:51:16 | [HighPerfDataset] updated epoch=5, p_hard=0.215
+2025-09-11 08:51:16 | [EPOCH 5] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 08:51:30 | [EPOCH 5][TRAIN step 1/14] loss=1.90690 lr=0.000039 bs=90
+2025-09-11 08:54:32 | [EPOCH 5][TRAIN step 14/14] loss=1.91775 lr=0.000039 bs=86
+2025-09-11 08:54:32 | [EPOCH 5] <<< TRAIN end | loss=1.50619
+2025-09-11 08:54:32 | [EPOCH 5] >>> VALID start | steps=4
+2025-09-11 08:54:40 | [EPOCH 5] <<< VALID end | loss=0.73687 macro_f1=0.76282
+2025-09-11 08:54:41 | [FOLD 0] NEW BEST F1: 0.76282 (epoch 5)
+2025-09-11 08:54:41 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 08:54:41 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 08:54:41 | [HighPerfDataset] size=1256 img_size=384 epoch=5/100 p_hard=0.215 is_train=True
+2025-09-11 08:54:41 | [HighPerfDataset] size=314 img_size=384 epoch=5/100 p_hard=0.000 is_train=False
+2025-09-11 08:54:41 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 08:54:41 | [HighPerfDataset] updated epoch=6, p_hard=0.218
+2025-09-11 08:54:41 | [EPOCH 6] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 08:55:00 | [EPOCH 6][TRAIN step 1/14] loss=1.55806 lr=0.000046 bs=90
+2025-09-11 08:57:54 | [EPOCH 6][TRAIN step 14/14] loss=0.64069 lr=0.000046 bs=86
+2025-09-11 08:57:54 | [EPOCH 6] <<< TRAIN end | loss=1.19655
+2025-09-11 08:57:54 | [EPOCH 6] >>> VALID start | steps=4
+2025-09-11 08:58:01 | [EPOCH 6] <<< VALID end | loss=0.51538 macro_f1=0.81624
+2025-09-11 08:58:03 | [FOLD 0] NEW BEST F1: 0.81624 (epoch 6)
+2025-09-11 08:58:03 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 08:58:03 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 08:58:03 | [HighPerfDataset] size=1256 img_size=384 epoch=6/100 p_hard=0.218 is_train=True
+2025-09-11 08:58:03 | [HighPerfDataset] size=314 img_size=384 epoch=6/100 p_hard=0.000 is_train=False
+2025-09-11 08:58:03 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 08:58:03 | [HighPerfDataset] updated epoch=7, p_hard=0.221
+2025-09-11 08:58:03 | [EPOCH 7] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 08:58:19 | [EPOCH 7][TRAIN step 1/14] loss=1.94192 lr=0.000054 bs=90
+2025-09-11 09:01:24 | [EPOCH 7][TRAIN step 14/14] loss=0.92336 lr=0.000054 bs=86
+2025-09-11 09:01:24 | [EPOCH 7] <<< TRAIN end | loss=1.01944
+2025-09-11 09:01:24 | [EPOCH 7] >>> VALID start | steps=4
+2025-09-11 09:01:32 | [EPOCH 7] <<< VALID end | loss=0.43080 macro_f1=0.82480
+2025-09-11 09:01:33 | [FOLD 0] NEW BEST F1: 0.82480 (epoch 7)
+2025-09-11 09:01:33 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 09:01:33 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 09:01:33 | [HighPerfDataset] size=1256 img_size=384 epoch=7/100 p_hard=0.221 is_train=True
+2025-09-11 09:01:33 | [HighPerfDataset] size=314 img_size=384 epoch=7/100 p_hard=0.000 is_train=False
+2025-09-11 09:01:33 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 09:01:33 | [HighPerfDataset] updated epoch=8, p_hard=0.224
+2025-09-11 09:01:33 | [EPOCH 8] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 09:01:52 | [EPOCH 8][TRAIN step 1/14] loss=0.53529 lr=0.000061 bs=90
+2025-09-11 09:04:55 | [EPOCH 8][TRAIN step 14/14] loss=0.42412 lr=0.000061 bs=86
+2025-09-11 09:04:55 | [EPOCH 8] <<< TRAIN end | loss=0.86884
+2025-09-11 09:04:55 | [EPOCH 8] >>> VALID start | steps=4
+2025-09-11 09:05:04 | [EPOCH 8] <<< VALID end | loss=0.33775 macro_f1=0.86133
+2025-09-11 09:05:05 | [FOLD 0] NEW BEST F1: 0.86133 (epoch 8)
+2025-09-11 09:05:05 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 09:05:05 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 09:05:05 | [HighPerfDataset] size=1256 img_size=384 epoch=8/100 p_hard=0.224 is_train=True
+2025-09-11 09:05:05 | [HighPerfDataset] size=314 img_size=384 epoch=8/100 p_hard=0.000 is_train=False
+2025-09-11 09:05:05 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 09:05:05 | [HighPerfDataset] updated epoch=9, p_hard=0.227
+2025-09-11 09:05:05 | [EPOCH 9] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 09:05:20 | [EPOCH 9][TRAIN step 1/14] loss=0.57545 lr=0.000069 bs=90
+2025-09-11 09:08:19 | [EPOCH 9][TRAIN step 14/14] loss=0.54389 lr=0.000069 bs=86
+2025-09-11 09:08:19 | [EPOCH 9] <<< TRAIN end | loss=0.72910
+2025-09-11 09:08:19 | [EPOCH 9] >>> VALID start | steps=4
+2025-09-11 09:08:27 | [EPOCH 9] <<< VALID end | loss=0.35019 macro_f1=0.81600
+2025-09-11 09:08:27 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 09:08:27 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 09:08:27 | [HighPerfDataset] size=1256 img_size=384 epoch=9/100 p_hard=0.227 is_train=True
+2025-09-11 09:08:27 | [HighPerfDataset] size=314 img_size=384 epoch=9/100 p_hard=0.000 is_train=False
+2025-09-11 09:08:27 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 09:08:27 | [HighPerfDataset] updated epoch=10, p_hard=0.230
+2025-09-11 09:08:27 | [EPOCH 10] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 09:08:41 | [EPOCH 10][TRAIN step 1/14] loss=0.42167 lr=0.000076 bs=90
+2025-09-11 09:12:15 | [EPOCH 10][TRAIN step 14/14] loss=0.28991 lr=0.000076 bs=86
+2025-09-11 09:12:15 | [EPOCH 10] <<< TRAIN end | loss=1.06769
+2025-09-11 09:12:15 | [EPOCH 10] >>> VALID start | steps=4
+2025-09-11 09:12:24 | [EPOCH 10] <<< VALID end | loss=0.30640 macro_f1=0.87107
+2025-09-11 09:12:26 | [FOLD 0] NEW BEST F1: 0.87107 (epoch 10)
+2025-09-11 09:12:26 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 09:12:26 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 09:12:26 | [HighPerfDataset] size=1256 img_size=384 epoch=10/100 p_hard=0.230 is_train=True
+2025-09-11 09:12:26 | [HighPerfDataset] size=314 img_size=384 epoch=10/100 p_hard=0.000 is_train=False
+2025-09-11 09:12:26 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 09:12:26 | [HighPerfDataset] updated epoch=11, p_hard=0.233
+2025-09-11 09:12:26 | [EPOCH 11] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 09:12:41 | [EPOCH 11][TRAIN step 1/14] loss=0.40856 lr=0.000084 bs=90
+2025-09-11 09:16:13 | [EPOCH 11][TRAIN step 14/14] loss=0.39657 lr=0.000084 bs=86
+2025-09-11 09:16:13 | [EPOCH 11] <<< TRAIN end | loss=0.75706
+2025-09-11 09:16:13 | [EPOCH 11] >>> VALID start | steps=4
+2025-09-11 09:16:22 | [EPOCH 11] <<< VALID end | loss=0.29116 macro_f1=0.87096
+2025-09-11 09:16:22 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 09:16:22 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 09:16:22 | [HighPerfDataset] size=1256 img_size=384 epoch=11/100 p_hard=0.233 is_train=True
+2025-09-11 09:16:22 | [HighPerfDataset] size=314 img_size=384 epoch=11/100 p_hard=0.000 is_train=False
+2025-09-11 09:16:22 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 09:16:22 | [HighPerfDataset] updated epoch=12, p_hard=0.236
+2025-09-11 09:16:22 | [EPOCH 12] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 09:16:38 | [EPOCH 12][TRAIN step 1/14] loss=1.41449 lr=0.000084 bs=90
+2025-09-11 09:19:33 | [EPOCH 12][TRAIN step 14/14] loss=0.76957 lr=0.000084 bs=86
+2025-09-11 09:19:33 | [EPOCH 12] <<< TRAIN end | loss=1.00662
+2025-09-11 09:19:33 | [EPOCH 12] >>> VALID start | steps=4
+2025-09-11 09:19:40 | [EPOCH 12] <<< VALID end | loss=0.26450 macro_f1=0.87874
+2025-09-11 09:19:42 | [FOLD 0] NEW BEST F1: 0.87874 (epoch 12)
+2025-09-11 09:19:42 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 09:19:42 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 09:19:42 | [HighPerfDataset] size=1256 img_size=384 epoch=12/100 p_hard=0.236 is_train=True
+2025-09-11 09:19:42 | [HighPerfDataset] size=314 img_size=384 epoch=12/100 p_hard=0.000 is_train=False
+2025-09-11 09:19:42 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 09:19:42 | [HighPerfDataset] updated epoch=13, p_hard=0.239
+2025-09-11 09:19:42 | [EPOCH 13] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 09:19:56 | [EPOCH 13][TRAIN step 1/14] loss=0.22884 lr=0.000084 bs=90
+2025-09-11 09:22:47 | [EPOCH 13][TRAIN step 14/14] loss=0.44459 lr=0.000084 bs=86
+2025-09-11 09:22:47 | [EPOCH 13] <<< TRAIN end | loss=0.46823
+2025-09-11 09:22:47 | [EPOCH 13] >>> VALID start | steps=4
+2025-09-11 09:22:55 | [EPOCH 13] <<< VALID end | loss=0.24106 macro_f1=0.89716
+2025-09-11 09:22:57 | [FOLD 0] NEW BEST F1: 0.89716 (epoch 13)
+2025-09-11 09:22:57 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 09:22:57 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 09:22:57 | [HighPerfDataset] size=1256 img_size=384 epoch=13/100 p_hard=0.239 is_train=True
+2025-09-11 09:22:57 | [HighPerfDataset] size=314 img_size=384 epoch=13/100 p_hard=0.000 is_train=False
+2025-09-11 09:22:57 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 09:22:57 | [HighPerfDataset] updated epoch=14, p_hard=0.242
+2025-09-11 09:22:57 | [EPOCH 14] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 09:23:11 | [EPOCH 14][TRAIN step 1/14] loss=1.16930 lr=0.000084 bs=90
+2025-09-11 09:25:59 | [EPOCH 14][TRAIN step 14/14] loss=1.37536 lr=0.000084 bs=86
+2025-09-11 09:25:59 | [EPOCH 14] <<< TRAIN end | loss=0.70662
+2025-09-11 09:25:59 | [EPOCH 14] >>> VALID start | steps=4
+2025-09-11 09:26:06 | [EPOCH 14] <<< VALID end | loss=0.24101 macro_f1=0.90211
+2025-09-11 09:26:08 | [FOLD 0] NEW BEST F1: 0.90211 (epoch 14)
+2025-09-11 09:26:08 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 09:26:08 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 09:26:08 | [HighPerfDataset] size=1256 img_size=384 epoch=14/100 p_hard=0.242 is_train=True
+2025-09-11 09:26:08 | [HighPerfDataset] size=314 img_size=384 epoch=14/100 p_hard=0.000 is_train=False
+2025-09-11 09:26:08 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 09:26:08 | [HighPerfDataset] updated epoch=15, p_hard=0.245
+2025-09-11 09:26:08 | [EPOCH 15] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 09:26:22 | [EPOCH 15][TRAIN step 1/14] loss=0.89271 lr=0.000084 bs=90
+2025-09-11 09:29:07 | [EPOCH 15][TRAIN step 14/14] loss=0.35543 lr=0.000084 bs=86
+2025-09-11 09:29:07 | [EPOCH 15] <<< TRAIN end | loss=0.68780
+2025-09-11 09:29:07 | [EPOCH 15] >>> VALID start | steps=4
+2025-09-11 09:29:14 | [EPOCH 15] <<< VALID end | loss=0.21878 macro_f1=0.90290
+2025-09-11 09:29:16 | [FOLD 0] NEW BEST F1: 0.90290 (epoch 15)
+2025-09-11 09:29:16 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 09:29:16 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 09:29:16 | [HighPerfDataset] size=1256 img_size=384 epoch=15/100 p_hard=0.245 is_train=True
+2025-09-11 09:29:16 | [HighPerfDataset] size=314 img_size=384 epoch=15/100 p_hard=0.000 is_train=False
+2025-09-11 09:29:16 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 09:29:16 | [HighPerfDataset] updated epoch=16, p_hard=0.248
+2025-09-11 09:29:16 | [EPOCH 16] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 09:29:30 | [EPOCH 16][TRAIN step 1/14] loss=1.25395 lr=0.000083 bs=90
+2025-09-11 09:32:15 | [EPOCH 16][TRAIN step 14/14] loss=0.19976 lr=0.000083 bs=86
+2025-09-11 09:32:16 | [EPOCH 16] <<< TRAIN end | loss=0.66641
+2025-09-11 09:32:16 | [EPOCH 16] >>> VALID start | steps=4
+2025-09-11 09:32:23 | [EPOCH 16] <<< VALID end | loss=0.19422 macro_f1=0.92864
+2025-09-11 09:32:24 | [FOLD 0] NEW BEST F1: 0.92864 (epoch 16)
+2025-09-11 09:32:24 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 09:32:24 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 09:32:24 | [HighPerfDataset] size=1256 img_size=384 epoch=16/100 p_hard=0.248 is_train=True
+2025-09-11 09:32:24 | [HighPerfDataset] size=314 img_size=384 epoch=16/100 p_hard=0.000 is_train=False
+2025-09-11 09:32:24 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 09:32:24 | [HighPerfDataset] updated epoch=17, p_hard=0.251
+2025-09-11 09:32:24 | [EPOCH 17] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 09:32:38 | [EPOCH 17][TRAIN step 1/14] loss=0.19243 lr=0.000083 bs=90
+2025-09-11 09:35:35 | [EPOCH 17][TRAIN step 14/14] loss=0.18313 lr=0.000083 bs=86
+2025-09-11 09:35:35 | [EPOCH 17] <<< TRAIN end | loss=0.59674
+2025-09-11 09:35:35 | [EPOCH 17] >>> VALID start | steps=4
+2025-09-11 09:35:43 | [EPOCH 17] <<< VALID end | loss=0.19442 macro_f1=0.90927
+2025-09-11 09:35:43 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 09:35:43 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 09:35:43 | [HighPerfDataset] size=1256 img_size=384 epoch=17/100 p_hard=0.251 is_train=True
+2025-09-11 09:35:43 | [HighPerfDataset] size=314 img_size=384 epoch=17/100 p_hard=0.000 is_train=False
+2025-09-11 09:35:43 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 09:35:43 | [HighPerfDataset] updated epoch=18, p_hard=0.254
+2025-09-11 09:35:43 | [EPOCH 18] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 09:35:57 | [EPOCH 18][TRAIN step 1/14] loss=1.33304 lr=0.000083 bs=90
+2025-09-11 09:38:43 | [EPOCH 18][TRAIN step 14/14] loss=0.83265 lr=0.000083 bs=86
+2025-09-11 09:38:43 | [EPOCH 18] <<< TRAIN end | loss=0.84070
+2025-09-11 09:38:43 | [EPOCH 18] >>> VALID start | steps=4
+2025-09-11 09:38:50 | [EPOCH 18] <<< VALID end | loss=0.20012 macro_f1=0.91591
+2025-09-11 09:38:50 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 09:38:50 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 09:38:50 | [HighPerfDataset] size=1256 img_size=384 epoch=18/100 p_hard=0.254 is_train=True
+2025-09-11 09:38:50 | [HighPerfDataset] size=314 img_size=384 epoch=18/100 p_hard=0.000 is_train=False
+2025-09-11 09:38:50 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 09:38:50 | [HighPerfDataset] updated epoch=19, p_hard=0.257
+2025-09-11 09:38:50 | [EPOCH 19] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 09:39:04 | [EPOCH 19][TRAIN step 1/14] loss=0.88852 lr=0.000082 bs=90
+2025-09-11 09:42:12 | [EPOCH 19][TRAIN step 14/14] loss=0.84634 lr=0.000082 bs=86
+2025-09-11 09:42:12 | [EPOCH 19] <<< TRAIN end | loss=0.77292
+2025-09-11 09:42:12 | [EPOCH 19] >>> VALID start | steps=4
+2025-09-11 09:42:19 | [EPOCH 19] <<< VALID end | loss=0.17567 macro_f1=0.93106
+2025-09-11 09:42:21 | [FOLD 0] NEW BEST F1: 0.93106 (epoch 19)
+2025-09-11 09:42:21 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 09:42:21 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 09:42:21 | [HighPerfDataset] size=1256 img_size=384 epoch=19/100 p_hard=0.257 is_train=True
+2025-09-11 09:42:21 | [HighPerfDataset] size=314 img_size=384 epoch=19/100 p_hard=0.000 is_train=False
+2025-09-11 09:42:21 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 09:42:21 | [HighPerfDataset] updated epoch=20, p_hard=0.260
+2025-09-11 09:42:21 | [EPOCH 20] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 09:42:35 | [EPOCH 20][TRAIN step 1/14] loss=0.19044 lr=0.000082 bs=90
+2025-09-11 09:45:35 | [EPOCH 20][TRAIN step 14/14] loss=0.19415 lr=0.000082 bs=86
+2025-09-11 09:45:35 | [EPOCH 20] <<< TRAIN end | loss=0.57075
+2025-09-11 09:45:35 | [EPOCH 20] >>> VALID start | steps=4
+2025-09-11 09:45:44 | [EPOCH 20] <<< VALID end | loss=0.18036 macro_f1=0.94174
+2025-09-11 09:45:45 | [FOLD 0] NEW BEST F1: 0.94174 (epoch 20)
+2025-09-11 09:45:45 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 09:45:45 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 09:45:45 | [HighPerfDataset] size=1256 img_size=384 epoch=20/100 p_hard=0.260 is_train=True
+2025-09-11 09:45:45 | [HighPerfDataset] size=314 img_size=384 epoch=20/100 p_hard=0.000 is_train=False
+2025-09-11 09:45:45 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 09:45:45 | [HighPerfDataset] updated epoch=21, p_hard=0.263
+2025-09-11 09:45:45 | [EPOCH 21] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 09:46:00 | [EPOCH 21][TRAIN step 1/14] loss=0.13742 lr=0.000081 bs=90
+2025-09-11 09:49:00 | [EPOCH 21][TRAIN step 14/14] loss=1.06226 lr=0.000081 bs=86
+2025-09-11 09:49:00 | [EPOCH 21] <<< TRAIN end | loss=0.56705
+2025-09-11 09:49:00 | [EPOCH 21] >>> VALID start | steps=4
+2025-09-11 09:49:07 | [EPOCH 21] <<< VALID end | loss=0.17226 macro_f1=0.93768
+2025-09-11 09:49:07 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 09:49:07 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 09:49:07 | [HighPerfDataset] size=1256 img_size=384 epoch=21/100 p_hard=0.263 is_train=True
+2025-09-11 09:49:07 | [HighPerfDataset] size=314 img_size=384 epoch=21/100 p_hard=0.000 is_train=False
+2025-09-11 09:49:07 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 09:49:07 | [HighPerfDataset] updated epoch=22, p_hard=0.266
+2025-09-11 09:49:07 | [EPOCH 22] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 09:49:21 | [EPOCH 22][TRAIN step 1/14] loss=0.14680 lr=0.000081 bs=90
+2025-09-11 09:52:22 | [EPOCH 22][TRAIN step 14/14] loss=1.12982 lr=0.000081 bs=86
+2025-09-11 09:52:22 | [EPOCH 22] <<< TRAIN end | loss=0.60858
+2025-09-11 09:52:22 | [EPOCH 22] >>> VALID start | steps=4
+2025-09-11 09:52:29 | [EPOCH 22] <<< VALID end | loss=0.18450 macro_f1=0.92324
+2025-09-11 09:52:29 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 09:52:29 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 09:52:29 | [HighPerfDataset] size=1256 img_size=384 epoch=22/100 p_hard=0.266 is_train=True
+2025-09-11 09:52:29 | [HighPerfDataset] size=314 img_size=384 epoch=22/100 p_hard=0.000 is_train=False
+2025-09-11 09:52:29 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 09:52:29 | [HighPerfDataset] updated epoch=23, p_hard=0.269
+2025-09-11 09:52:29 | [EPOCH 23] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 09:52:43 | [EPOCH 23][TRAIN step 1/14] loss=0.63256 lr=0.000080 bs=90
+2025-09-11 09:55:31 | [EPOCH 23][TRAIN step 14/14] loss=0.09788 lr=0.000080 bs=86
+2025-09-11 09:55:31 | [EPOCH 23] <<< TRAIN end | loss=0.40802
+2025-09-11 09:55:31 | [EPOCH 23] >>> VALID start | steps=4
+2025-09-11 09:55:38 | [EPOCH 23] <<< VALID end | loss=0.19098 macro_f1=0.93744
+2025-09-11 09:55:38 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 09:55:38 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 09:55:38 | [HighPerfDataset] size=1256 img_size=384 epoch=23/100 p_hard=0.269 is_train=True
+2025-09-11 09:55:38 | [HighPerfDataset] size=314 img_size=384 epoch=23/100 p_hard=0.000 is_train=False
+2025-09-11 09:55:38 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 09:55:38 | [HighPerfDataset] updated epoch=24, p_hard=0.272
+2025-09-11 09:55:38 | [EPOCH 24] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 09:55:52 | [EPOCH 24][TRAIN step 1/14] loss=0.63082 lr=0.000080 bs=90
+2025-09-11 09:58:40 | [EPOCH 24][TRAIN step 14/14] loss=0.21390 lr=0.000080 bs=86
+2025-09-11 09:58:40 | [EPOCH 24] <<< TRAIN end | loss=0.55291
+2025-09-11 09:58:40 | [EPOCH 24] >>> VALID start | steps=4
+2025-09-11 09:58:47 | [EPOCH 24] <<< VALID end | loss=0.22254 macro_f1=0.91716
+2025-09-11 09:58:47 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 09:58:47 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 09:58:47 | [HighPerfDataset] size=1256 img_size=384 epoch=24/100 p_hard=0.272 is_train=True
+2025-09-11 09:58:47 | [HighPerfDataset] size=314 img_size=384 epoch=24/100 p_hard=0.000 is_train=False
+2025-09-11 09:58:47 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 09:58:47 | [HighPerfDataset] updated epoch=25, p_hard=0.275
+2025-09-11 09:58:47 | [EPOCH 25] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 09:59:01 | [EPOCH 25][TRAIN step 1/14] loss=1.27327 lr=0.000079 bs=90
+2025-09-11 10:02:15 | [EPOCH 25][TRAIN step 14/14] loss=0.16267 lr=0.000079 bs=86
+2025-09-11 10:02:15 | [EPOCH 25] <<< TRAIN end | loss=0.56527
+2025-09-11 10:02:15 | [EPOCH 25] >>> VALID start | steps=4
+2025-09-11 10:02:27 | [EPOCH 25] <<< VALID end | loss=0.18666 macro_f1=0.91602
+2025-09-11 10:02:27 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 10:02:27 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 10:02:27 | [HighPerfDataset] size=1256 img_size=384 epoch=25/100 p_hard=0.275 is_train=True
+2025-09-11 10:02:27 | [HighPerfDataset] size=314 img_size=384 epoch=25/100 p_hard=0.000 is_train=False
+2025-09-11 10:02:27 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 10:02:27 | [HighPerfDataset] updated epoch=26, p_hard=0.278
+2025-09-11 10:02:27 | [EPOCH 26] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 10:02:43 | [EPOCH 26][TRAIN step 1/14] loss=0.07810 lr=0.000078 bs=90
+2025-09-11 10:06:56 | [EPOCH 26][TRAIN step 14/14] loss=0.17812 lr=0.000078 bs=86
+2025-09-11 10:06:56 | [EPOCH 26] <<< TRAIN end | loss=0.47164
+2025-09-11 10:06:56 | [EPOCH 26] >>> VALID start | steps=4
+2025-09-11 10:07:05 | [EPOCH 26] <<< VALID end | loss=0.16128 macro_f1=0.93248
+2025-09-11 10:07:05 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 10:07:05 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 10:07:05 | [HighPerfDataset] size=1256 img_size=384 epoch=26/100 p_hard=0.278 is_train=True
+2025-09-11 10:07:05 | [HighPerfDataset] size=314 img_size=384 epoch=26/100 p_hard=0.000 is_train=False
+2025-09-11 10:07:05 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 10:07:05 | [HighPerfDataset] updated epoch=27, p_hard=0.281
+2025-09-11 10:07:05 | [EPOCH 27] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 10:07:20 | [EPOCH 27][TRAIN step 1/14] loss=1.02526 lr=0.000078 bs=90
+2025-09-11 10:10:21 | [EPOCH 27][TRAIN step 14/14] loss=0.26599 lr=0.000078 bs=86
+2025-09-11 10:10:21 | [EPOCH 27] <<< TRAIN end | loss=0.38977
+2025-09-11 10:10:21 | [EPOCH 27] >>> VALID start | steps=4
+2025-09-11 10:10:29 | [EPOCH 27] <<< VALID end | loss=0.15442 macro_f1=0.93481
+2025-09-11 10:10:29 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 10:10:29 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 10:10:29 | [HighPerfDataset] size=1256 img_size=384 epoch=27/100 p_hard=0.281 is_train=True
+2025-09-11 10:10:29 | [HighPerfDataset] size=314 img_size=384 epoch=27/100 p_hard=0.000 is_train=False
+2025-09-11 10:10:29 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 10:10:29 | [HighPerfDataset] updated epoch=28, p_hard=0.284
+2025-09-11 10:10:29 | [EPOCH 28] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 10:10:46 | [EPOCH 28][TRAIN step 1/14] loss=1.14856 lr=0.000077 bs=90
+2025-09-11 10:13:56 | [EPOCH 28][TRAIN step 14/14] loss=0.17582 lr=0.000077 bs=86
+2025-09-11 10:13:56 | [EPOCH 28] <<< TRAIN end | loss=0.53120
+2025-09-11 10:13:56 | [EPOCH 28] >>> VALID start | steps=4
+2025-09-11 10:14:05 | [EPOCH 28] <<< VALID end | loss=0.19665 macro_f1=0.93652
+2025-09-11 10:14:05 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 10:14:05 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 10:14:05 | [HighPerfDataset] size=1256 img_size=384 epoch=28/100 p_hard=0.284 is_train=True
+2025-09-11 10:14:05 | [HighPerfDataset] size=314 img_size=384 epoch=28/100 p_hard=0.000 is_train=False
+2025-09-11 10:14:05 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 10:14:05 | [HighPerfDataset] updated epoch=29, p_hard=0.287
+2025-09-11 10:14:05 | [EPOCH 29] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 10:14:20 | [EPOCH 29][TRAIN step 1/14] loss=0.10125 lr=0.000076 bs=90
+2025-09-11 10:17:25 | [EPOCH 29][TRAIN step 14/14] loss=1.13608 lr=0.000076 bs=86
+2025-09-11 10:17:25 | [EPOCH 29] <<< TRAIN end | loss=0.57777
+2025-09-11 10:17:25 | [EPOCH 29] >>> VALID start | steps=4
+2025-09-11 10:17:32 | [EPOCH 29] <<< VALID end | loss=0.20031 macro_f1=0.92664
+2025-09-11 10:17:32 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 10:17:32 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 10:17:32 | [HighPerfDataset] size=1256 img_size=384 epoch=29/100 p_hard=0.287 is_train=True
+2025-09-11 10:17:32 | [HighPerfDataset] size=314 img_size=384 epoch=29/100 p_hard=0.000 is_train=False
+2025-09-11 10:17:32 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 10:17:32 | [HighPerfDataset] updated epoch=30, p_hard=0.290
+2025-09-11 10:17:32 | [EPOCH 30] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 10:17:46 | [EPOCH 30][TRAIN step 1/14] loss=0.06128 lr=0.000075 bs=90
+2025-09-11 10:20:43 | [EPOCH 30][TRAIN step 14/14] loss=0.07457 lr=0.000075 bs=86
+2025-09-11 10:20:43 | [EPOCH 30] <<< TRAIN end | loss=0.42227
+2025-09-11 10:20:43 | [EPOCH 30] >>> VALID start | steps=4
+2025-09-11 10:20:52 | [EPOCH 30] <<< VALID end | loss=0.17212 macro_f1=0.93241
+2025-09-11 10:20:52 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 10:20:52 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 10:20:52 | [HighPerfDataset] size=1256 img_size=384 epoch=30/100 p_hard=0.290 is_train=True
+2025-09-11 10:20:52 | [HighPerfDataset] size=314 img_size=384 epoch=30/100 p_hard=0.000 is_train=False
+2025-09-11 10:20:52 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 10:20:52 | [HighPerfDataset] updated epoch=31, p_hard=0.293
+2025-09-11 10:20:52 | [EPOCH 31] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 10:21:06 | [EPOCH 31][TRAIN step 1/14] loss=0.22727 lr=0.000074 bs=90
+2025-09-11 10:24:04 | [EPOCH 31][TRAIN step 14/14] loss=1.07311 lr=0.000074 bs=86
+2025-09-11 10:24:04 | [EPOCH 31] <<< TRAIN end | loss=0.66961
+2025-09-11 10:24:04 | [EPOCH 31] >>> VALID start | steps=4
+2025-09-11 10:24:11 | [EPOCH 31] <<< VALID end | loss=0.18167 macro_f1=0.92659
+2025-09-11 10:24:11 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 10:24:11 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 10:24:11 | [HighPerfDataset] size=1256 img_size=384 epoch=31/100 p_hard=0.293 is_train=True
+2025-09-11 10:24:11 | [HighPerfDataset] size=314 img_size=384 epoch=31/100 p_hard=0.000 is_train=False
+2025-09-11 10:24:11 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 10:24:11 | [HighPerfDataset] updated epoch=32, p_hard=0.296
+2025-09-11 10:24:11 | [EPOCH 32] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 10:24:25 | [EPOCH 32][TRAIN step 1/14] loss=0.10621 lr=0.000073 bs=90
+2025-09-11 10:27:20 | [EPOCH 32][TRAIN step 14/14] loss=0.13700 lr=0.000073 bs=86
+2025-09-11 10:27:20 | [EPOCH 32] <<< TRAIN end | loss=0.33865
+2025-09-11 10:27:20 | [EPOCH 32] >>> VALID start | steps=4
+2025-09-11 10:27:29 | [EPOCH 32] <<< VALID end | loss=0.21441 macro_f1=0.91802
+2025-09-11 10:27:29 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 10:27:29 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 10:27:29 | [HighPerfDataset] size=1256 img_size=384 epoch=32/100 p_hard=0.296 is_train=True
+2025-09-11 10:27:29 | [HighPerfDataset] size=314 img_size=384 epoch=32/100 p_hard=0.000 is_train=False
+2025-09-11 10:27:29 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 10:27:29 | [HighPerfDataset] updated epoch=33, p_hard=0.299
+2025-09-11 10:27:29 | [EPOCH 33] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 10:27:43 | [EPOCH 33][TRAIN step 1/14] loss=0.49620 lr=0.000072 bs=90
+2025-09-11 10:30:28 | [EPOCH 33][TRAIN step 14/14] loss=0.77423 lr=0.000072 bs=86
+2025-09-11 10:30:28 | [EPOCH 33] <<< TRAIN end | loss=0.48711
+2025-09-11 10:30:28 | [EPOCH 33] >>> VALID start | steps=4
+2025-09-11 10:30:36 | [EPOCH 33] <<< VALID end | loss=0.20516 macro_f1=0.92808
+2025-09-11 10:30:36 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 10:30:36 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 10:30:36 | [HighPerfDataset] size=1256 img_size=384 epoch=33/100 p_hard=0.299 is_train=True
+2025-09-11 10:30:36 | [HighPerfDataset] size=314 img_size=384 epoch=33/100 p_hard=0.000 is_train=False
+2025-09-11 10:30:36 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 10:30:36 | [HighPerfDataset] updated epoch=34, p_hard=0.302
+2025-09-11 10:30:36 | [EPOCH 34] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 10:30:50 | [EPOCH 34][TRAIN step 1/14] loss=1.07523 lr=0.000071 bs=90
+2025-09-11 10:33:36 | [EPOCH 34][TRAIN step 14/14] loss=0.05911 lr=0.000071 bs=86
+2025-09-11 10:33:36 | [EPOCH 34] <<< TRAIN end | loss=0.67765
+2025-09-11 10:33:36 | [EPOCH 34] >>> VALID start | steps=4
+2025-09-11 10:33:43 | [EPOCH 34] <<< VALID end | loss=0.19412 macro_f1=0.92694
+2025-09-11 10:33:43 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 10:33:43 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 10:33:43 | [HighPerfDataset] size=1256 img_size=384 epoch=34/100 p_hard=0.302 is_train=True
+2025-09-11 10:33:43 | [HighPerfDataset] size=314 img_size=384 epoch=34/100 p_hard=0.000 is_train=False
+2025-09-11 10:33:43 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 10:33:43 | [HighPerfDataset] updated epoch=35, p_hard=0.305
+2025-09-11 10:33:43 | [EPOCH 35] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 10:33:57 | [EPOCH 35][TRAIN step 1/14] loss=0.16372 lr=0.000070 bs=90
+2025-09-11 10:36:53 | [EPOCH 35][TRAIN step 14/14] loss=0.06585 lr=0.000070 bs=86
+2025-09-11 10:36:53 | [EPOCH 35] <<< TRAIN end | loss=0.40466
+2025-09-11 10:36:53 | [EPOCH 35] >>> VALID start | steps=4
+2025-09-11 10:37:01 | [EPOCH 35] <<< VALID end | loss=0.20165 macro_f1=0.92095
+2025-09-11 10:37:01 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 10:37:01 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 10:37:01 | [HighPerfDataset] size=1256 img_size=384 epoch=35/100 p_hard=0.305 is_train=True
+2025-09-11 10:37:01 | [HighPerfDataset] size=314 img_size=384 epoch=35/100 p_hard=0.000 is_train=False
+2025-09-11 10:37:01 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 10:37:01 | [HighPerfDataset] updated epoch=36, p_hard=0.308
+2025-09-11 10:37:01 | [EPOCH 36] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 10:37:16 | [EPOCH 36][TRAIN step 1/14] loss=0.07437 lr=0.000069 bs=90
+2025-09-11 10:40:14 | [EPOCH 36][TRAIN step 14/14] loss=1.14225 lr=0.000069 bs=86
+2025-09-11 10:40:14 | [EPOCH 36] <<< TRAIN end | loss=0.46558
+2025-09-11 10:40:14 | [EPOCH 36] >>> VALID start | steps=4
+2025-09-11 10:40:20 | [EPOCH 36] <<< VALID end | loss=0.19440 macro_f1=0.93365
+2025-09-11 10:40:20 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 10:40:20 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 10:40:20 | [HighPerfDataset] size=1256 img_size=384 epoch=36/100 p_hard=0.308 is_train=True
+2025-09-11 10:40:20 | [HighPerfDataset] size=314 img_size=384 epoch=36/100 p_hard=0.000 is_train=False
+2025-09-11 10:40:20 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 10:40:20 | [HighPerfDataset] updated epoch=37, p_hard=0.311
+2025-09-11 10:40:20 | [EPOCH 37] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 10:40:34 | [EPOCH 37][TRAIN step 1/14] loss=0.19913 lr=0.000068 bs=90
+2025-09-11 10:43:31 | [EPOCH 37][TRAIN step 14/14] loss=0.25138 lr=0.000068 bs=86
+2025-09-11 10:43:31 | [EPOCH 37] <<< TRAIN end | loss=0.38944
+2025-09-11 10:43:31 | [EPOCH 37] >>> VALID start | steps=4
+2025-09-11 10:43:38 | [EPOCH 37] <<< VALID end | loss=0.17249 macro_f1=0.93290
+2025-09-11 10:43:38 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 10:43:38 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 10:43:38 | [HighPerfDataset] size=1256 img_size=384 epoch=37/100 p_hard=0.311 is_train=True
+2025-09-11 10:43:38 | [HighPerfDataset] size=314 img_size=384 epoch=37/100 p_hard=0.000 is_train=False
+2025-09-11 10:43:38 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 10:43:38 | [HighPerfDataset] updated epoch=38, p_hard=0.314
+2025-09-11 10:43:38 | [EPOCH 38] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 10:43:52 | [EPOCH 38][TRAIN step 1/14] loss=0.04280 lr=0.000067 bs=90
+2025-09-11 10:46:49 | [EPOCH 38][TRAIN step 14/14] loss=0.08498 lr=0.000067 bs=86
+2025-09-11 10:46:49 | [EPOCH 38] <<< TRAIN end | loss=0.38381
+2025-09-11 10:46:49 | [EPOCH 38] >>> VALID start | steps=4
+2025-09-11 10:46:58 | [EPOCH 38] <<< VALID end | loss=0.19787 macro_f1=0.92424
+2025-09-11 10:46:58 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 10:46:58 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 10:46:58 | [HighPerfDataset] size=1256 img_size=384 epoch=38/100 p_hard=0.314 is_train=True
+2025-09-11 10:46:58 | [HighPerfDataset] size=314 img_size=384 epoch=38/100 p_hard=0.000 is_train=False
+2025-09-11 10:46:58 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 10:46:58 | [HighPerfDataset] updated epoch=39, p_hard=0.317
+2025-09-11 10:46:58 | [EPOCH 39] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 10:47:12 | [EPOCH 39][TRAIN step 1/14] loss=0.10202 lr=0.000066 bs=90
+2025-09-11 10:50:10 | [EPOCH 39][TRAIN step 14/14] loss=0.08248 lr=0.000066 bs=86
+2025-09-11 10:50:10 | [EPOCH 39] <<< TRAIN end | loss=0.66367
+2025-09-11 10:50:10 | [EPOCH 39] >>> VALID start | steps=4
+2025-09-11 10:50:18 | [EPOCH 39] <<< VALID end | loss=0.17203 macro_f1=0.93288
+2025-09-11 10:50:18 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 10:50:18 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 10:50:18 | [HighPerfDataset] size=1256 img_size=384 epoch=39/100 p_hard=0.317 is_train=True
+2025-09-11 10:50:18 | [HighPerfDataset] size=314 img_size=384 epoch=39/100 p_hard=0.000 is_train=False
+2025-09-11 10:50:18 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 10:50:18 | [HighPerfDataset] updated epoch=40, p_hard=0.320
+2025-09-11 10:50:18 | [EPOCH 40] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 10:50:33 | [EPOCH 40][TRAIN step 1/14] loss=0.98217 lr=0.000064 bs=90
+2025-09-11 10:53:18 | [EPOCH 40][TRAIN step 14/14] loss=0.50196 lr=0.000064 bs=86
+2025-09-11 10:53:18 | [EPOCH 40] <<< TRAIN end | loss=0.50419
+2025-09-11 10:53:18 | [EPOCH 40] >>> VALID start | steps=4
+2025-09-11 10:53:26 | [EPOCH 40] <<< VALID end | loss=0.18829 macro_f1=0.93059
+2025-09-11 10:53:26 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 10:53:26 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 10:53:26 | [HighPerfDataset] size=1256 img_size=384 epoch=40/100 p_hard=0.320 is_train=True
+2025-09-11 10:53:26 | [HighPerfDataset] size=314 img_size=384 epoch=40/100 p_hard=0.000 is_train=False
+2025-09-11 10:53:26 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 10:53:26 | [HighPerfDataset] updated epoch=41, p_hard=0.323
+2025-09-11 10:53:26 | [EPOCH 41] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 10:53:40 | [EPOCH 41][TRAIN step 1/14] loss=0.06560 lr=0.000063 bs=90
+2025-09-11 10:56:37 | [EPOCH 41][TRAIN step 14/14] loss=0.05607 lr=0.000063 bs=86
+2025-09-11 10:56:38 | [EPOCH 41] <<< TRAIN end | loss=0.47552
+2025-09-11 10:56:38 | [EPOCH 41] >>> VALID start | steps=4
+2025-09-11 10:56:46 | [EPOCH 41] <<< VALID end | loss=0.21631 macro_f1=0.94133
+2025-09-11 10:56:46 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 10:56:46 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 10:56:46 | [HighPerfDataset] size=1256 img_size=384 epoch=41/100 p_hard=0.323 is_train=True
+2025-09-11 10:56:46 | [HighPerfDataset] size=314 img_size=384 epoch=41/100 p_hard=0.000 is_train=False
+2025-09-11 10:56:46 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 10:56:46 | [HighPerfDataset] updated epoch=42, p_hard=0.326
+2025-09-11 10:56:46 | [EPOCH 42] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 10:57:00 | [EPOCH 42][TRAIN step 1/14] loss=1.17262 lr=0.000062 bs=90
+2025-09-11 10:59:46 | [EPOCH 42][TRAIN step 14/14] loss=0.10730 lr=0.000062 bs=86
+2025-09-11 10:59:46 | [EPOCH 42] <<< TRAIN end | loss=0.45189
+2025-09-11 10:59:46 | [EPOCH 42] >>> VALID start | steps=4
+2025-09-11 10:59:53 | [EPOCH 42] <<< VALID end | loss=0.19266 macro_f1=0.93572
+2025-09-11 10:59:53 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 10:59:53 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 10:59:53 | [HighPerfDataset] size=1256 img_size=384 epoch=42/100 p_hard=0.326 is_train=True
+2025-09-11 10:59:53 | [HighPerfDataset] size=314 img_size=384 epoch=42/100 p_hard=0.000 is_train=False
+2025-09-11 10:59:53 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 10:59:53 | [HighPerfDataset] updated epoch=43, p_hard=0.329
+2025-09-11 10:59:53 | [EPOCH 43] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 11:00:07 | [EPOCH 43][TRAIN step 1/14] loss=0.11719 lr=0.000061 bs=90
+2025-09-11 11:03:07 | [EPOCH 43][TRAIN step 14/14] loss=0.08123 lr=0.000061 bs=86
+2025-09-11 11:03:07 | [EPOCH 43] <<< TRAIN end | loss=0.34621
+2025-09-11 11:03:07 | [EPOCH 43] >>> VALID start | steps=4
+2025-09-11 11:03:16 | [EPOCH 43] <<< VALID end | loss=0.18699 macro_f1=0.93936
+2025-09-11 11:03:16 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 11:03:16 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 11:03:16 | [HighPerfDataset] size=1256 img_size=384 epoch=43/100 p_hard=0.329 is_train=True
+2025-09-11 11:03:16 | [HighPerfDataset] size=314 img_size=384 epoch=43/100 p_hard=0.000 is_train=False
+2025-09-11 11:03:16 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 11:03:16 | [HighPerfDataset] updated epoch=44, p_hard=0.332
+2025-09-11 11:03:16 | [EPOCH 44] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 11:03:34 | [EPOCH 44][TRAIN step 1/14] loss=1.17628 lr=0.000059 bs=90
+2025-09-11 11:06:44 | [EPOCH 44][TRAIN step 14/14] loss=0.06888 lr=0.000059 bs=86
+2025-09-11 11:06:44 | [EPOCH 44] <<< TRAIN end | loss=0.43872
+2025-09-11 11:06:44 | [EPOCH 44] >>> VALID start | steps=4
+2025-09-11 11:06:53 | [EPOCH 44] <<< VALID end | loss=0.17759 macro_f1=0.93448
+2025-09-11 11:06:53 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 11:06:53 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 11:06:53 | [HighPerfDataset] size=1256 img_size=384 epoch=44/100 p_hard=0.332 is_train=True
+2025-09-11 11:06:53 | [HighPerfDataset] size=314 img_size=384 epoch=44/100 p_hard=0.000 is_train=False
+2025-09-11 11:06:53 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 11:06:53 | [HighPerfDataset] updated epoch=45, p_hard=0.335
+2025-09-11 11:06:53 | [EPOCH 45] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 11:07:10 | [EPOCH 45][TRAIN step 1/14] loss=1.02983 lr=0.000058 bs=90
+2025-09-11 11:10:14 | [EPOCH 45][TRAIN step 14/14] loss=1.01444 lr=0.000058 bs=86
+2025-09-11 11:10:14 | [EPOCH 45] <<< TRAIN end | loss=0.70593
+2025-09-11 11:10:14 | [EPOCH 45] >>> VALID start | steps=4
+2025-09-11 11:10:22 | [EPOCH 45] <<< VALID end | loss=0.16137 macro_f1=0.95246
+2025-09-11 11:10:24 | [FOLD 0] NEW BEST F1: 0.95246 (epoch 45)
+2025-09-11 11:10:24 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 11:10:24 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 11:10:24 | [HighPerfDataset] size=1256 img_size=384 epoch=45/100 p_hard=0.335 is_train=True
+2025-09-11 11:10:24 | [HighPerfDataset] size=314 img_size=384 epoch=45/100 p_hard=0.000 is_train=False
+2025-09-11 11:10:24 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 11:10:24 | [HighPerfDataset] updated epoch=46, p_hard=0.338
+2025-09-11 11:10:24 | [EPOCH 46] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 11:10:38 | [EPOCH 46][TRAIN step 1/14] loss=0.69630 lr=0.000057 bs=90
+2025-09-11 11:13:39 | [EPOCH 46][TRAIN step 14/14] loss=1.40827 lr=0.000057 bs=86
+2025-09-11 11:13:39 | [EPOCH 46] <<< TRAIN end | loss=0.32573
+2025-09-11 11:13:39 | [EPOCH 46] >>> VALID start | steps=4
+2025-09-11 11:13:46 | [EPOCH 46] <<< VALID end | loss=0.17914 macro_f1=0.94512
+2025-09-11 11:13:46 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 11:13:46 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 11:13:46 | [HighPerfDataset] size=1256 img_size=384 epoch=46/100 p_hard=0.338 is_train=True
+2025-09-11 11:13:46 | [HighPerfDataset] size=314 img_size=384 epoch=46/100 p_hard=0.000 is_train=False
+2025-09-11 11:13:46 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 11:13:46 | [HighPerfDataset] updated epoch=47, p_hard=0.341
+2025-09-11 11:13:46 | [EPOCH 47] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 11:14:00 | [EPOCH 47][TRAIN step 1/14] loss=0.06272 lr=0.000055 bs=90
+2025-09-11 11:17:08 | [EPOCH 47][TRAIN step 14/14] loss=1.25334 lr=0.000055 bs=86
+2025-09-11 11:17:08 | [EPOCH 47] <<< TRAIN end | loss=0.34257
+2025-09-11 11:17:08 | [EPOCH 47] >>> VALID start | steps=4
+2025-09-11 11:17:16 | [EPOCH 47] <<< VALID end | loss=0.18972 macro_f1=0.92647
+2025-09-11 11:17:16 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 11:17:16 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 11:17:16 | [HighPerfDataset] size=1256 img_size=384 epoch=47/100 p_hard=0.341 is_train=True
+2025-09-11 11:17:16 | [HighPerfDataset] size=314 img_size=384 epoch=47/100 p_hard=0.000 is_train=False
+2025-09-11 11:17:16 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 11:17:16 | [HighPerfDataset] updated epoch=48, p_hard=0.344
+2025-09-11 11:17:16 | [EPOCH 48] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 11:17:31 | [EPOCH 48][TRAIN step 1/14] loss=0.07597 lr=0.000054 bs=90
+2025-09-11 11:20:41 | [EPOCH 48][TRAIN step 14/14] loss=0.06306 lr=0.000054 bs=86
+2025-09-11 11:20:41 | [EPOCH 48] <<< TRAIN end | loss=0.43613
+2025-09-11 11:20:41 | [EPOCH 48] >>> VALID start | steps=4
+2025-09-11 11:20:50 | [EPOCH 48] <<< VALID end | loss=0.16092 macro_f1=0.94100
+2025-09-11 11:20:50 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 11:20:50 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 11:20:50 | [HighPerfDataset] size=1256 img_size=384 epoch=48/100 p_hard=0.344 is_train=True
+2025-09-11 11:20:50 | [HighPerfDataset] size=314 img_size=384 epoch=48/100 p_hard=0.000 is_train=False
+2025-09-11 11:20:50 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 11:20:50 | [HighPerfDataset] updated epoch=49, p_hard=0.347
+2025-09-11 11:20:50 | [EPOCH 49] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 11:21:05 | [EPOCH 49][TRAIN step 1/14] loss=0.11137 lr=0.000052 bs=90
+2025-09-11 11:24:32 | [EPOCH 49][TRAIN step 14/14] loss=0.06146 lr=0.000052 bs=86
+2025-09-11 11:24:32 | [EPOCH 49] <<< TRAIN end | loss=0.34522
+2025-09-11 11:24:32 | [EPOCH 49] >>> VALID start | steps=4
+2025-09-11 11:24:41 | [EPOCH 49] <<< VALID end | loss=0.17965 macro_f1=0.93523
+2025-09-11 11:24:41 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 11:24:41 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 11:24:41 | [HighPerfDataset] size=1256 img_size=384 epoch=49/100 p_hard=0.347 is_train=True
+2025-09-11 11:24:41 | [HighPerfDataset] size=314 img_size=384 epoch=49/100 p_hard=0.000 is_train=False
+2025-09-11 11:24:41 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 11:24:41 | [HighPerfDataset] updated epoch=50, p_hard=0.350
+2025-09-11 11:24:41 | [EPOCH 50] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 11:24:56 | [EPOCH 50][TRAIN step 1/14] loss=0.71986 lr=0.000051 bs=90
+2025-09-11 11:28:11 | [EPOCH 50][TRAIN step 14/14] loss=0.85506 lr=0.000051 bs=86
+2025-09-11 11:28:12 | [EPOCH 50] <<< TRAIN end | loss=0.53759
+2025-09-11 11:28:12 | [EPOCH 50] >>> VALID start | steps=4
+2025-09-11 11:28:19 | [EPOCH 50] <<< VALID end | loss=0.15329 macro_f1=0.94027
+2025-09-11 11:28:19 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 11:28:19 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 11:28:19 | [HighPerfDataset] size=1256 img_size=384 epoch=50/100 p_hard=0.350 is_train=True
+2025-09-11 11:28:19 | [HighPerfDataset] size=314 img_size=384 epoch=50/100 p_hard=0.000 is_train=False
+2025-09-11 11:28:19 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 11:28:19 | [HighPerfDataset] updated epoch=51, p_hard=0.353
+2025-09-11 11:28:19 | [EPOCH 51] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 11:28:37 | [EPOCH 51][TRAIN step 1/14] loss=0.93320 lr=0.000050 bs=90
+2025-09-11 11:31:47 | [EPOCH 51][TRAIN step 14/14] loss=0.03911 lr=0.000050 bs=86
+2025-09-11 11:31:47 | [EPOCH 51] <<< TRAIN end | loss=0.45774
+2025-09-11 11:31:47 | [EPOCH 51] >>> VALID start | steps=4
+2025-09-11 11:31:54 | [EPOCH 51] <<< VALID end | loss=0.15449 macro_f1=0.95416
+2025-09-11 11:31:56 | [FOLD 0] NEW BEST F1: 0.95416 (epoch 51)
+2025-09-11 11:31:56 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 11:31:56 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 11:31:56 | [HighPerfDataset] size=1256 img_size=384 epoch=51/100 p_hard=0.353 is_train=True
+2025-09-11 11:31:56 | [HighPerfDataset] size=314 img_size=384 epoch=51/100 p_hard=0.000 is_train=False
+2025-09-11 11:31:56 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 11:31:56 | [HighPerfDataset] updated epoch=52, p_hard=0.356
+2025-09-11 11:31:56 | [EPOCH 52] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 11:32:11 | [EPOCH 52][TRAIN step 1/14] loss=1.18204 lr=0.000048 bs=90
+2025-09-11 11:35:05 | [EPOCH 52][TRAIN step 14/14] loss=0.52508 lr=0.000048 bs=86
+2025-09-11 11:35:05 | [EPOCH 52] <<< TRAIN end | loss=0.50402
+2025-09-11 11:35:05 | [EPOCH 52] >>> VALID start | steps=4
+2025-09-11 11:35:13 | [EPOCH 52] <<< VALID end | loss=0.17780 macro_f1=0.94001
+2025-09-11 11:35:13 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 11:35:13 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 11:35:13 | [HighPerfDataset] size=1256 img_size=384 epoch=52/100 p_hard=0.356 is_train=True
+2025-09-11 11:35:13 | [HighPerfDataset] size=314 img_size=384 epoch=52/100 p_hard=0.000 is_train=False
+2025-09-11 11:35:13 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 11:35:13 | [HighPerfDataset] updated epoch=53, p_hard=0.359
+2025-09-11 11:35:13 | [EPOCH 53] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 11:35:29 | [EPOCH 53][TRAIN step 1/14] loss=1.05934 lr=0.000047 bs=90
+2025-09-11 11:38:29 | [EPOCH 53][TRAIN step 14/14] loss=0.07782 lr=0.000047 bs=86
+2025-09-11 11:38:29 | [EPOCH 53] <<< TRAIN end | loss=0.41832
+2025-09-11 11:38:29 | [EPOCH 53] >>> VALID start | steps=4
+2025-09-11 11:38:37 | [EPOCH 53] <<< VALID end | loss=0.16279 macro_f1=0.94589
+2025-09-11 11:38:37 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 11:38:37 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 11:38:37 | [HighPerfDataset] size=1256 img_size=384 epoch=53/100 p_hard=0.359 is_train=True
+2025-09-11 11:38:37 | [HighPerfDataset] size=314 img_size=384 epoch=53/100 p_hard=0.000 is_train=False
+2025-09-11 11:38:37 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 11:38:37 | [HighPerfDataset] updated epoch=54, p_hard=0.362
+2025-09-11 11:38:37 | [EPOCH 54] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 11:38:51 | [EPOCH 54][TRAIN step 1/14] loss=1.04805 lr=0.000045 bs=90
+2025-09-11 11:42:31 | [EPOCH 54][TRAIN step 14/14] loss=0.01917 lr=0.000045 bs=86
+2025-09-11 11:42:31 | [EPOCH 54] <<< TRAIN end | loss=0.42169
+2025-09-11 11:42:31 | [EPOCH 54] >>> VALID start | steps=4
+2025-09-11 11:42:41 | [EPOCH 54] <<< VALID end | loss=0.15813 macro_f1=0.94906
+2025-09-11 11:42:41 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 11:42:41 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 11:42:41 | [HighPerfDataset] size=1256 img_size=384 epoch=54/100 p_hard=0.362 is_train=True
+2025-09-11 11:42:41 | [HighPerfDataset] size=314 img_size=384 epoch=54/100 p_hard=0.000 is_train=False
+2025-09-11 11:42:41 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 11:42:41 | [HighPerfDataset] updated epoch=55, p_hard=0.365
+2025-09-11 11:42:41 | [EPOCH 55] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 11:43:00 | [EPOCH 55][TRAIN step 1/14] loss=1.05670 lr=0.000044 bs=90
+2025-09-11 11:46:10 | [EPOCH 55][TRAIN step 14/14] loss=0.08935 lr=0.000044 bs=86
+2025-09-11 11:46:10 | [EPOCH 55] <<< TRAIN end | loss=0.53883
+2025-09-11 11:46:10 | [EPOCH 55] >>> VALID start | steps=4
+2025-09-11 11:46:18 | [EPOCH 55] <<< VALID end | loss=0.16737 macro_f1=0.95260
+2025-09-11 11:46:18 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 11:46:18 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 11:46:18 | [HighPerfDataset] size=1256 img_size=384 epoch=55/100 p_hard=0.365 is_train=True
+2025-09-11 11:46:18 | [HighPerfDataset] size=314 img_size=384 epoch=55/100 p_hard=0.000 is_train=False
+2025-09-11 11:46:18 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 11:46:18 | [HighPerfDataset] updated epoch=56, p_hard=0.368
+2025-09-11 11:46:18 | [EPOCH 56] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 11:46:33 | [EPOCH 56][TRAIN step 1/14] loss=0.06465 lr=0.000042 bs=90
+2025-09-11 11:49:28 | [EPOCH 56][TRAIN step 14/14] loss=0.93163 lr=0.000042 bs=86
+2025-09-11 11:49:28 | [EPOCH 56] <<< TRAIN end | loss=0.39085
+2025-09-11 11:49:28 | [EPOCH 56] >>> VALID start | steps=4
+2025-09-11 11:49:35 | [EPOCH 56] <<< VALID end | loss=0.17659 macro_f1=0.95210
+2025-09-11 11:49:35 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 11:49:35 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 11:49:35 | [HighPerfDataset] size=1256 img_size=384 epoch=56/100 p_hard=0.368 is_train=True
+2025-09-11 11:49:35 | [HighPerfDataset] size=314 img_size=384 epoch=56/100 p_hard=0.000 is_train=False
+2025-09-11 11:49:35 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 11:49:35 | [HighPerfDataset] updated epoch=57, p_hard=0.371
+2025-09-11 11:49:35 | [EPOCH 57] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 11:49:50 | [EPOCH 57][TRAIN step 1/14] loss=0.82165 lr=0.000041 bs=90
+2025-09-11 11:52:55 | [EPOCH 57][TRAIN step 14/14] loss=0.79479 lr=0.000041 bs=86
+2025-09-11 11:52:55 | [EPOCH 57] <<< TRAIN end | loss=0.26388
+2025-09-11 11:52:55 | [EPOCH 57] >>> VALID start | steps=4
+2025-09-11 11:53:04 | [EPOCH 57] <<< VALID end | loss=0.21329 macro_f1=0.91244
+2025-09-11 11:53:04 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 11:53:04 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 11:53:04 | [HighPerfDataset] size=1256 img_size=384 epoch=57/100 p_hard=0.371 is_train=True
+2025-09-11 11:53:04 | [HighPerfDataset] size=314 img_size=384 epoch=57/100 p_hard=0.000 is_train=False
+2025-09-11 11:53:04 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 11:53:04 | [HighPerfDataset] updated epoch=58, p_hard=0.374
+2025-09-11 11:53:04 | [EPOCH 58] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 11:53:21 | [EPOCH 58][TRAIN step 1/14] loss=0.93896 lr=0.000040 bs=90
