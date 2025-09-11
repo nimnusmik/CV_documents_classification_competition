@@ -1,5 +1,5 @@
 fold_results:
 - fold: 0
   best_f1: 0.9524231237937821
-  model_path: experiments/train/20250910/20250910_1552_vit_large_patch16_384_fold_1/ckpt/best_model_fold_1.pth
+  model_path: experiments/train/20250910/20250910_1552_efficientnet_v2_b3_fold_1/ckpt/best_model_fold_1.pth
 average_f1: 0.9524231237937821
