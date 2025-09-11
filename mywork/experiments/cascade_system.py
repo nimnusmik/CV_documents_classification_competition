@@ -66,10 +66,11 @@ def free_cuda():
 
 
 # In[13]:
-os.chdir("/root/computervisioncompetition-cv-1/mywork/experiments")
-print("Current working dir:", os.getcwd())
+# 1) 변수로 경로 저장
+base_dir = "/root/computervisioncompetition-cv-1/mywork/experiments"
 
-
+# 2) 작업 디렉토리 변경 (여기서부터 모든 상대 경로 기준)
+os.chdir(base_dir)
 # In[14]:
 
 
@@ -454,7 +455,7 @@ print(f"   - Mean CV F1: {mean_f1:.4f} ± {std_f1:.4f}")
 print(f"   - Models saved in: {save_dir}/")
 
 
-# In[18]:
+# In[ ]:
 
 
 # ========================================
@@ -470,7 +471,7 @@ class CascadeClassifier:
     """
     
     def __init__(self, main_models, subset_models, vulnerable_classes=[3,4,7,14], 
-                 confidence_threshold=0.7):
+                 confidence_threshold=0.4):
         """
         Args:
             main_models: 분류기 A의 앙상블 모델들 (17개 클래스)
