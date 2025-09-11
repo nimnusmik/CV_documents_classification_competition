@@ -1,0 +1,165 @@
+📋 실험명: fold-0-0911-1615-20250911_1615_convnext_base_384_ensemble_tta
+🔗 WandB URL: https://wandb.ai/kimsunmin0227-hufs/document-classification-team/runs/gee63c8d
+/home/ieyeppo/.pyenv/versions/cv_py3_11_9/lib/python3.11/site-packages/timm/models/_factory.py:117: UserWarning: Mapping deprecated model name convnext_base_384_in22ft1k to current convnext_base.fb_in22k_ft_in1k_384.
+  model = create_fn(
+2025-09-11 16:15:51 | [SINGLE-MODEL] All folds using model: convnext_base_384_in22ft1k
+2025-09-11 16:15:51 | [SCHEDULER] Single fold: Warmup(10) + CosineAnnealing
+/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train_highperf.py:473: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  scaler = GradScaler() if cfg["train"].get("mixed_precision", True) else None
+2025-09-11 16:15:51 | [DATA] build highperf loaders | img_size=384 bs=32
+2025-09-11 16:15:51 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+/home/ieyeppo/.pyenv/versions/cv_py3_11_9/lib/python3.11/site-packages/albumentations/augmentations/blur/transforms.py:184: UserWarning: blur_limit and sigma_limit minimum value can not be both equal to 0. blur_limit minimum value changed to 3.
+  warnings.warn(
+/home/ieyeppo/.pyenv/versions/cv_py3_11_9/lib/python3.11/site-packages/albumentations/augmentations/transforms.py:311: FutureWarning: JpegCompression has been deprecated. Please use ImageCompression
+  warnings.warn(
+2025-09-11 16:15:51 | [HighPerfDataset] size=1256 img_size=384 epoch=0/50 p_hard=0.200 is_train=True
+2025-09-11 16:15:51 | [HighPerfDataset] size=314 img_size=384 epoch=0/50 p_hard=0.000 is_train=False
+2025-09-11 16:15:51 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 16:15:51 | [HighPerfDataset] updated epoch=1, p_hard=0.206
+2025-09-11 16:15:51 | [EPOCH 1] >>> TRAIN start | steps=40 mixup=True
+Train Epoch 1:   0%|                                                                 | 0/40 [00:00<?, ?it/s]/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train_highperf.py:91: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):      # AMP 자동 캐스팅 적용
+2025-09-11 16:15:53 | [EPOCH 1][TRAIN step 1/40] loss=2.78250 lr=0.000458 bs=32
+Train Epoch 1:   2%|█▍                                                       | 1/40 [00:01<01:11,  1.84s/it]/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train_highperf.py:83: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+Train Epoch 1:  70%|███████████████████████████████████████▏                | 28/40 [00:06<00:02,  5.66it/s]Exception ignored in: <function Variable.__del__ at 0x793ed2530f40>
+Traceback (most recent call last):
+  File "/home/ieyeppo/.pyenv/versions/3.11.9/lib/python3.11/tkinter/__init__.py", line 410, in __del__
+    if self._tk.getboolean(self._tk.call("info", "exists", self._name)):
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: main thread is not in main loop
+Train Epoch 1:  85%|███████████████████████████████████████████████▌        | 34/40 [00:07<00:01,  5.66it/s]Exception ignored in: <function Variable.__del__ at 0x793ed2530f40>
+Traceback (most recent call last):
+  File "/home/ieyeppo/.pyenv/versions/3.11.9/lib/python3.11/tkinter/__init__.py", line 410, in __del__
+    if self._tk.getboolean(self._tk.call("info", "exists", self._name)):
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: main thread is not in main loop
+Train Epoch 1: 100%|████████████████████████████████████████████████████████| 40/40 [00:08<00:00,  4.61it/s]
+2025-09-11 16:15:59 | [EPOCH 1][TRAIN step 40/40] loss=1.16805 lr=0.000458 bs=8
+2025-09-11 16:15:59 | [EPOCH 1] <<< TRAIN end | loss=1.91156
+2025-09-11 16:15:59 | [EPOCH 1] >>> VALID start | steps=10
+Valid Epoch 1:   0%|                                                                 | 0/10 [00:00<?, ?it/s]Exception ignored in: <function Variable.__del__ at 0x793ed2530f40>
+Traceback (most recent call last):
+  File "/home/ieyeppo/.pyenv/versions/3.11.9/lib/python3.11/tkinter/__init__.py", line 410, in __del__
+    if self._tk.getboolean(self._tk.call("info", "exists", self._name)):
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: main thread is not in main loop
+Valid Epoch 1:  70%|███████████████████████████████████████▉                 | 7/10 [00:01<00:00,  8.00it/s]Exception ignored in: <function Variable.__del__ at 0x793ed2530f40>
+Traceback (most recent call last):
+  File "/home/ieyeppo/.pyenv/versions/3.11.9/lib/python3.11/tkinter/__init__.py", line 410, in __del__
+    if self._tk.getboolean(self._tk.call("info", "exists", self._name)):
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: main thread is not in main loop
+Valid Epoch 1: 100%|████████████████████████████████████████████████████████| 10/10 [00:01<00:00,  6.94it/s]
+2025-09-11 16:16:01 | [EPOCH 1] <<< VALID end | loss=0.82203 macro_f1=0.64990
+2025-09-11 16:16:02 | [FOLD 0] NEW BEST F1: 0.64990 (epoch 1)
+2025-09-11 16:16:02 | [DATA] build highperf loaders | img_size=384 bs=32
+2025-09-11 16:16:02 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+/home/ieyeppo/.pyenv/versions/cv_py3_11_9/lib/python3.11/site-packages/albumentations/augmentations/blur/transforms.py:184: UserWarning: blur_limit and sigma_limit minimum value can not be both equal to 0. blur_limit minimum value changed to 3.
+  warnings.warn(
+/home/ieyeppo/.pyenv/versions/cv_py3_11_9/lib/python3.11/site-packages/albumentations/augmentations/transforms.py:311: FutureWarning: JpegCompression has been deprecated. Please use ImageCompression
+  warnings.warn(
+2025-09-11 16:16:02 | [HighPerfDataset] size=1256 img_size=384 epoch=1/50 p_hard=0.206 is_train=True
+2025-09-11 16:16:02 | [HighPerfDataset] size=314 img_size=384 epoch=1/50 p_hard=0.000 is_train=False
+2025-09-11 16:16:02 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 16:16:02 | [HighPerfDataset] updated epoch=2, p_hard=0.212
+2025-09-11 16:16:02 | [EPOCH 2] >>> TRAIN start | steps=40 mixup=True
+Train Epoch 2:   0%|                                                                 | 0/40 [00:00<?, ?it/s]/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train_highperf.py:83: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+2025-09-11 16:16:03 | [EPOCH 2][TRAIN step 1/40] loss=1.51960 lr=0.000870 bs=32
+Train Epoch 2:   5%|██▊                                                      | 2/40 [00:01<00:17,  2.22it/s]/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train_highperf.py:91: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):      # AMP 자동 캐스팅 적용
+Exception ignored in: <function Image.__del__ at 0x793ed25c7ce0>
+Traceback (most recent call last):
+  File "/home/ieyeppo/.pyenv/versions/3.11.9/lib/python3.11/tkinter/__init__.py", line 4105, in __del__
+    self.tk.call('image', 'delete', self.name)
+RuntimeError: main thread is not in main loop
+Train Epoch 2: 100%|████████████████████████████████████████████████████████| 40/40 [00:07<00:00,  5.20it/s]
+2025-09-11 16:16:10 | [EPOCH 2][TRAIN step 40/40] loss=0.73013 lr=0.000870 bs=8
+2025-09-11 16:16:10 | [EPOCH 2] <<< TRAIN end | loss=1.35794
+2025-09-11 16:16:10 | [EPOCH 2] >>> VALID start | steps=10
+Valid Epoch 2: 100%|████████████████████████████████████████████████████████| 10/10 [00:01<00:00,  7.13it/s]
+2025-09-11 16:16:12 | [EPOCH 2] <<< VALID end | loss=0.47239 macro_f1=0.80303
+2025-09-11 16:16:13 | [FOLD 0] NEW BEST F1: 0.80303 (epoch 2)
+2025-09-11 16:16:13 | [DATA] build highperf loaders | img_size=384 bs=32
+2025-09-11 16:16:13 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+/home/ieyeppo/.pyenv/versions/cv_py3_11_9/lib/python3.11/site-packages/albumentations/augmentations/blur/transforms.py:184: UserWarning: blur_limit and sigma_limit minimum value can not be both equal to 0. blur_limit minimum value changed to 3.
+  warnings.warn(
+/home/ieyeppo/.pyenv/versions/cv_py3_11_9/lib/python3.11/site-packages/albumentations/augmentations/transforms.py:311: FutureWarning: JpegCompression has been deprecated. Please use ImageCompression
+  warnings.warn(
+2025-09-11 16:16:13 | [HighPerfDataset] size=1256 img_size=384 epoch=2/50 p_hard=0.212 is_train=True
+2025-09-11 16:16:13 | [HighPerfDataset] size=314 img_size=384 epoch=2/50 p_hard=0.000 is_train=False
+2025-09-11 16:16:13 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 16:16:13 | [HighPerfDataset] updated epoch=3, p_hard=0.218
+2025-09-11 16:16:13 | [EPOCH 3] >>> TRAIN start | steps=40 mixup=True
+Train Epoch 3:   0%|                                                                 | 0/40 [00:00<?, ?it/s]/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train_highperf.py:91: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):      # AMP 자동 캐스팅 적용
+2025-09-11 16:16:14 | [EPOCH 3][TRAIN step 1/40] loss=1.06864 lr=0.001282 bs=32
+Train Epoch 3:   2%|█▍                                                       | 1/40 [00:00<00:36,  1.08it/s]/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train_highperf.py:83: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+Train Epoch 3:  52%|█████████████████████████████▍                          | 21/40 [00:04<00:03,  5.63it/s]Exception ignored in: <function Variable.__del__ at 0x793ed2530f40>
+Traceback (most recent call last):
+  File "/home/ieyeppo/.pyenv/versions/3.11.9/lib/python3.11/tkinter/__init__.py", line 410, in __del__
+    if self._tk.getboolean(self._tk.call("info", "exists", self._name)):
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: main thread is not in main loop
+Train Epoch 3:  65%|████████████████████████████████████▍                   | 26/40 [00:05<00:02,  5.60it/s]Exception ignored in: <function Variable.__del__ at 0x793ed2530f40>
+Traceback (most recent call last):
+  File "/home/ieyeppo/.pyenv/versions/3.11.9/lib/python3.11/tkinter/__init__.py", line 410, in __del__
+    if self._tk.getboolean(self._tk.call("info", "exists", self._name)):
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: main thread is not in main loop
+Train Epoch 3:  80%|████████████████████████████████████████████▊           | 32/40 [00:06<00:01,  5.61it/s]Exception ignored in: <function Variable.__del__ at 0x793ed2530f40>
+Traceback (most recent call last):
+  File "/home/ieyeppo/.pyenv/versions/3.11.9/lib/python3.11/tkinter/__init__.py", line 410, in __del__
+    if self._tk.getboolean(self._tk.call("info", "exists", self._name)):
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: main thread is not in main loop
+Train Epoch 3:  95%|█████████████████████████████████████████████████████▏  | 38/40 [00:07<00:00,  5.61it/s]Exception ignored in: <function Variable.__del__ at 0x793ed2530f40>
+Traceback (most recent call last):
+  File "/home/ieyeppo/.pyenv/versions/3.11.9/lib/python3.11/tkinter/__init__.py", line 410, in __del__
+    if self._tk.getboolean(self._tk.call("info", "exists", self._name)):
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: main thread is not in main loop
+Train Epoch 3: 100%|████████████████████████████████████████████████████████| 40/40 [00:07<00:00,  5.15it/s]
+2025-09-11 16:16:21 | [EPOCH 3][TRAIN step 40/40] loss=0.77410 lr=0.001282 bs=8
+2025-09-11 16:16:21 | [EPOCH 3] <<< TRAIN end | loss=1.34143
+2025-09-11 16:16:21 | [EPOCH 3] >>> VALID start | steps=10
+Valid Epoch 3: 100%|████████████████████████████████████████████████████████| 10/10 [00:01<00:00,  6.89it/s]
+2025-09-11 16:16:22 | [EPOCH 3] <<< VALID end | loss=0.55486 macro_f1=0.77605
+2025-09-11 16:16:22 | [DATA] build highperf loaders | img_size=384 bs=32
+2025-09-11 16:16:22 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+/home/ieyeppo/.pyenv/versions/cv_py3_11_9/lib/python3.11/site-packages/albumentations/augmentations/blur/transforms.py:184: UserWarning: blur_limit and sigma_limit minimum value can not be both equal to 0. blur_limit minimum value changed to 3.
+  warnings.warn(
+/home/ieyeppo/.pyenv/versions/cv_py3_11_9/lib/python3.11/site-packages/albumentations/augmentations/transforms.py:311: FutureWarning: JpegCompression has been deprecated. Please use ImageCompression
+  warnings.warn(
+2025-09-11 16:16:23 | [HighPerfDataset] size=1256 img_size=384 epoch=3/50 p_hard=0.218 is_train=True
+2025-09-11 16:16:23 | [HighPerfDataset] size=314 img_size=384 epoch=3/50 p_hard=0.000 is_train=False
+2025-09-11 16:16:23 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 16:16:23 | [HighPerfDataset] updated epoch=4, p_hard=0.224
+2025-09-11 16:16:23 | [EPOCH 4] >>> TRAIN start | steps=40 mixup=True
+Train Epoch 4:   0%|                                                                 | 0/40 [00:00<?, ?it/s]/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train_highperf.py:91: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):      # AMP 자동 캐스팅 적용
+2025-09-11 16:16:23 | [EPOCH 4][TRAIN step 1/40] loss=0.53849 lr=0.001694 bs=32
+Train Epoch 4:   2%|█▍                                                       | 1/40 [00:00<00:27,  1.43it/s]/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train_highperf.py:83: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+Train Epoch 4:  10%|█████▋                                                   | 4/40 [00:01<00:08,  4.03it/s]Exception ignored in: <function Image.__del__ at 0x793ed25c7ce0>
+Traceback (most recent call last):
+  File "/home/ieyeppo/.pyenv/versions/3.11.9/lib/python3.11/tkinter/__init__.py", line 4105, in __del__
+    self.tk.call('image', 'delete', self.name)
+RuntimeError: main thread is not in main loop
+Train Epoch 4:  25%|██████████████                                          | 10/40 [00:02<00:05,  5.40it/s]Exception ignored in: <function Image.__del__ at 0x793ed25c7ce0>
+Traceback (most recent call last):
+  File "/home/ieyeppo/.pyenv/versions/3.11.9/lib/python3.11/tkinter/__init__.py", line 4105, in __del__
+    self.tk.call('image', 'delete', self.name)
+RuntimeError: main thread is not in main loop
+Train Epoch 4:  38%|█████████████████████                                   | 15/40 [00:03<00:04,  5.57it/s]Exception ignored in: <function Image.__del__ at 0x793ed25c7ce0>
+Traceback (most recent call last):
+  File "/home/ieyeppo/.pyenv/versions/3.11.9/lib/python3.11/tkinter/__init__.py", line 4105, in __del__
+    self.tk.call('image', 'delete', self.name)
+RuntimeError: main thread is not in main loop
+Train Epoch 4:  95%|█████████████████████████████████████████████████████▏  | 38/40 [00:07<00:00,  5.15it/s]
+2025-09-11 16:16:30 | [SHUTDOWN] Training pipeline ended
+2025-09-11 16:16:30 | 🏁 [PIPELINE] Full pipeline ended
+
+⛔ [EXIT] Pipeline interrupted by user (KeyboardInterrupt)

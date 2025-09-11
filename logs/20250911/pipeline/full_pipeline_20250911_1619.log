@@ -1,0 +1,24 @@
+2025-09-11 16:19:40 | 🚀 [PIPELINE] Full pipeline started
+2025-09-11 16:19:40 | 📋 Config: configs/train_optimized_20250911_1619.yaml
+2025-09-11 16:19:40 | ⚙️ Skip training: False
+2025-09-11 16:19:40 | ============================================================
+2025-09-11 16:19:40 | 🎯 [STAGE 1] HIGH-PERFORMANCE TRAINING
+2025-09-11 16:19:40 | ============================================================
+2025-09-11 16:27:43 | ✅ [STAGE 1] Training completed successfully
+2025-09-11 16:27:43 | ============================================================
+2025-09-11 16:27:43 | 🔍 [STAGE 2] FINDING TRAINING RESULTS
+2025-09-11 16:27:43 | ============================================================
+2025-09-11 16:27:43 | ✅ Found results: 20250911_1619_convnext_base_384_fold_1
+2025-09-11 16:27:43 | 📁 Found fold results: experiments/train/20250911/20250911_1619_convnext_base_384_fold_1/fold_results.yaml
+2025-09-11 16:27:43 | ============================================================
+2025-09-11 16:27:43 | 🔮 [STAGE 3] HIGH-PERFORMANCE INFERENCE
+2025-09-11 16:27:43 | ============================================================
+2025-09-11 16:28:43 | ✅ [STAGE 3] Inference completed successfully
+2025-09-11 16:28:43 | ============================================================
+2025-09-11 16:28:43 | 🎉 [PIPELINE] COMPLETION SUMMARY
+2025-09-11 16:28:43 | ============================================================
+2025-09-11 16:28:43 | 📊 Final submission file: submissions/20250911/convnext_base_384_fold_1_ensemble_20250911_1619_advanced_augmentation.csv
+2025-09-11 16:28:43 | 📈 Model config: convnext_base_384
+2025-09-11 16:28:43 | 🎯 Target F1 score: ~0.934
+2025-09-11 16:28:43 | ❌ [PIPELINE] Failed: name 'exp_base' is not defined
+2025-09-11 16:28:43 | 🏁 [PIPELINE] Full pipeline ended

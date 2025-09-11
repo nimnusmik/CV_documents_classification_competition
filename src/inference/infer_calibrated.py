@@ -18,6 +18,7 @@ from src.utils import load_yaml, create_log_path
 from src.logging.logger import Logger
 from src.models.build import build_model
 from src.data.dataset import HighPerfDocClsDataset
+from src.data.transforms import get_tta_transforms_by_type
 from src.inference.infer_highperf import load_fold_models, get_recommended_model
 from src.calibration import TemperatureScaling, CalibrationTrainer
 from torch.utils.data import DataLoader
@@ -80,7 +81,7 @@ def run_calibrated_inference(
         logger.write("📊 테스트 데이터 준비...")
         logger.write("="*50)
         
-        test_loader = create_test_loader(cfg, logger)
+        test_loader = create_test_loader(cfg, logger, use_tta)
         
         # 4. 캘리브레이션된 앙상블 예측 수행
         logger.write("\n" + "="*50)
@@ -141,7 +142,12 @@ def perform_calibration(
         logger.write(f"🎯 모델 {i+1}/{len(models)} 캘리브레이션 중...")
         
         # 모델 생성 및 가중치 로드
-        model_name = get_recommended_model(cfg["model"]["name"])
+        fold_key = f"fold_{i}"
+        if "models" in cfg and fold_key in cfg["models"]:
+            model_name = get_recommended_model(cfg["models"][fold_key]["name"])
+        else:
+            model_name = get_recommended_model(cfg["model"]["name"])  # fallback
+            
         model = build_model(
             model_name,
             cfg["data"]["num_classes"],
@@ -206,13 +212,14 @@ def create_validation_loader(cfg: dict, logger: Logger) -> DataLoader:
     return valid_loader
 
 
-def create_test_loader(cfg: dict, logger: Logger) -> DataLoader:
+def create_test_loader(cfg: dict, logger: Logger, use_tta: bool = True) -> DataLoader:
     """
-    테스트 데이터 로더 생성
+    테스트 데이터 로더 생성 (Configurable TTA 지원)
     
     Args:
         cfg: 설정 딕셔너리
         logger: 로거
+        use_tta: TTA 사용 여부
         
     Returns:
         테스트 데이터 로더
@@ -228,17 +235,31 @@ def create_test_loader(cfg: dict, logger: Logger) -> DataLoader:
     
     logger.write(f"📊 테스트 데이터: {len(test_df)}개 이미지")
     
-    # 테스트 데이터셋 생성
-    test_ds = HighPerfDocClsDataset(
-        test_df,
-        cfg["data"]["image_dir_test"],
-        img_size=cfg["train"]["img_size"],
-        epoch=1,
-        total_epochs=1,
-        is_train=False,
-        id_col=cfg["data"]["id_col"],
-        target_col=None  # 테스트에는 타겟 없음
-    )
+    if use_tta and "inference" in cfg and "tta_type" in cfg["inference"]:
+        # Configurable TTA 데이터셋 사용
+        from src.inference.infer_highperf import ConfigurableTTADataset
+        test_ds = ConfigurableTTADataset(
+            None,  # csv_path 대신 DataFrame 사용
+            cfg["data"]["image_dir_test"],
+            img_size=cfg["train"]["img_size"],
+            tta_type=cfg["inference"].get("tta_type", "essential"),
+            test_df=test_df,  # DataFrame 직접 전달
+            id_col=cfg["data"]["id_col"]
+        )
+        logger.write(f"🔄 Configurable TTA 사용: {cfg['inference']['tta_type']}")
+    else:
+        # 기늨 HighPerfDocClsDataset 사용
+        test_ds = HighPerfDocClsDataset(
+            test_df,
+            cfg["data"]["image_dir_test"],
+            img_size=cfg["train"]["img_size"],
+            epoch=1,
+            total_epochs=1,
+            is_train=False,
+            id_col=cfg["data"]["id_col"],
+            target_col=None  # 테스트에는 타겟 없음
+        )
+        logger.write("📊 기본 데이터셋 사용")
     
     # 데이터 로더 생성
     test_loader = DataLoader(

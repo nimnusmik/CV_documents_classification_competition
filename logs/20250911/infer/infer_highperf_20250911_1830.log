@@ -1,0 +1,32 @@
+2025-09-11 18:30:43 | [BOOT] high-performance inference pipeline started
+2025-09-11 18:30:43 | [BOOT] device=cuda
+2025-09-11 18:30:43 | [DATA] loaded test data | shape=(3140, 2)
+2025-09-11 18:30:43 | [HighPerfDataset] size=3140 img_size=384 epoch=0/10 p_hard=0.000 is_train=False
+2025-09-11 18:30:43 | [DATA] test dataset size: 3140
+2025-09-11 18:30:43 | [TTA] TTA enabled: True, type: comprehensive
+2025-09-11 18:30:44 | [MODELS] loaded 1 fold models
+2025-09-11 18:30:44 | [INFERENCE] starting comprehensive TTA ensemble prediction...
+2025-09-11 18:33:33 | [SUCCESS] Inference completed | output: submissions/20250911/20250911_1833_multi-model-ensemble-inference_ensemble_comprehensive_tta.csv
+2025-09-11 18:33:33 | [RESULT] Prediction distribution:
+2025-09-11 18:33:33 | Class 0: 200 samples (6.4%)
+2025-09-11 18:33:33 | Class 1: 91 samples (2.9%)
+2025-09-11 18:33:33 | Class 2: 200 samples (6.4%)
+2025-09-11 18:33:33 | Class 3: 210 samples (6.7%)
+2025-09-11 18:33:33 | Class 4: 201 samples (6.4%)
+2025-09-11 18:33:33 | Class 5: 201 samples (6.4%)
+2025-09-11 18:33:33 | Class 6: 207 samples (6.6%)
+2025-09-11 18:33:33 | Class 7: 197 samples (6.3%)
+2025-09-11 18:33:33 | Class 8: 200 samples (6.4%)
+2025-09-11 18:33:33 | Class 9: 200 samples (6.4%)
+2025-09-11 18:33:33 | Class 10: 213 samples (6.8%)
+2025-09-11 18:33:33 | Class 11: 198 samples (6.3%)
+2025-09-11 18:33:33 | Class 12: 195 samples (6.2%)
+2025-09-11 18:33:33 | Class 13: 164 samples (5.2%)
+2025-09-11 18:33:33 | Class 14: 63 samples (2.0%)
+2025-09-11 18:33:33 | Class 15: 200 samples (6.4%)
+2025-09-11 18:33:33 | Class 16: 200 samples (6.4%)
+2025-09-11 18:33:46 | [VIZ] Inference visualizations created in submissions/20250911
+2025-09-11 18:33:46 | [CLEANUP] Removed existing lastest-infer folder
+2025-09-11 18:33:46 | [COPY] Results copied directly to lastest-infer
+2025-09-11 18:33:46 | 📁 Latest inference results: experiments/infer/lastest-infer
+2025-09-11 18:33:46 | [SHUTDOWN] Inference pipeline ended

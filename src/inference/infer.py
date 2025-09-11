@@ -9,7 +9,7 @@ import PIL.Image as Image                                # 이미지 처리
 from src.logging.logger import Logger                      # 로그 기록 유틸
 from src.utils import load_yaml, ensure_dir, resolve_path, require_file, require_dir  # 핵심 유틸
 from src.data.dataset import DocClsDataset               # 데이터셋 클래스
-from src.data.transforms import build_valid_tfms         # 검증용 변환 파이프라인
+from src.data.transforms import build_valid_tfms, get_tta_transforms_by_type         # 검증용 변환 파이프라인, TTA 변환
 from src.models.build import build_model                 # 모델 빌드 함수
 
 # ---------------------- 로거 생성 함수 ---------------------- #
@@ -97,6 +97,7 @@ def run_inference(cfg_path: str, out: str|None=None, ckpt: str|None=None):
         )
 
         # ---------------------- 모델 준비 ---------------------- #
+        print(f"🔧 모델 빌드 준비: {cfg['model']['name']}")  # 모델 빌드 시작 메시지
         # 디바이스 선택
         device = "cuda" if (cfg["project"]["device"]=="cuda" and torch.cuda.is_available()) else "cpu"
         # 모델 빌드 후 eval 모드
@@ -159,10 +160,18 @@ def run_inference(cfg_path: str, out: str|None=None, ckpt: str|None=None):
         logger.write(f"[CKPT] loaded: {ckpt_path}")                 # 로드 로그
 
         # ---------------------- TTA 설정 ---------------------- #
-        # TTA 회전 각도 목록
-        degs = cfg["inference"]["tta_rot_degrees"] if cfg["inference"]["tta"] else [0]
-        # TTA 설정 로그
-        logger.write(f"[TTA] enabled={cfg['inference']['tta']} degs={degs}")
+        # Configurable TTA 사용 여부 체크
+        use_configurable_tta = cfg["inference"].get("tta_type") is not None
+        
+        if use_configurable_tta:
+            # 새로운 configurable TTA 시스템 사용
+            tta_type = cfg["inference"].get("tta_type", "essential")
+            tta_transforms = get_tta_transforms_by_type(tta_type, cfg["train"]["img_size"])
+            logger.write(f"[TTA] configurable mode: {tta_type} ({len(tta_transforms)} transforms)")
+        else:
+            # 기존 회전 기반 TTA 사용 (하위 호환성)
+            degs = cfg["inference"]["tta_rot_degrees"] if cfg["inference"]["tta"] else [0]
+            logger.write(f"[TTA] legacy rotation mode: degs={degs}")
 
         # ---------------------- 추론 루프 ---------------------- #
         logits_all = []                     # 전체 결과 저장 리스트
@@ -173,20 +182,45 @@ def run_inference(cfg_path: str, out: str|None=None, ckpt: str|None=None):
             imgs = imgs.to(device)  # 이미지를 디바이스로 이동
             probs_accum = None      # 누적 확률 초기화
             
-            # 각 TTA 각도 반복
-            for d in degs:
-                x = imgs if d==0 else _rotate_tensor(imgs, d)   # 회전 적용
-                logits = model(x)                               # 모델 추론
-                probs  = torch.softmax(logits, dim=1)           # 확률 변환
-                # 확률 누적
-                probs_accum = probs if probs_accum is None else probs_accum + probs
-                
-            # probs_accum이 None이 아님을 보장
-            if probs_accum is not None:
-                probs = (probs_accum / len(degs)).cpu().numpy()     # 평균 확률 계산
+            if use_configurable_tta:
+                # Configurable TTA 사용
+                for transform_func in tta_transforms:
+                    # 각 TTA 변환 적용
+                    x_list = []
+                    for i in range(imgs.size(0)):
+                        img_pil = TF.to_pil_image(imgs[i].cpu())
+                        transformed = transform_func(image=np.array(img_pil))["image"]
+                        if isinstance(transformed, np.ndarray):
+                            transformed = TF.to_tensor(transformed)
+                        x_list.append(transformed.to(device))
+                    
+                    x = torch.stack(x_list, 0)
+                    logits = model(x)                               # 모델 추론
+                    probs  = torch.softmax(logits, dim=1)           # 확률 변환
+                    # 확률 누적
+                    probs_accum = probs if probs_accum is None else probs_accum + probs
+                    
+                # 평균 계산
+                if probs_accum is not None:
+                    probs = (probs_accum / len(tta_transforms)).cpu().numpy()
+                else:
+                    probs = torch.zeros((imgs.size(0), cfg["data"]["num_classes"])).cpu().numpy()
             else:
-                # 백업: probs_accum이 None인 경우 (에러 방지)
-                probs = torch.zeros((imgs.size(0), 17)).cpu().numpy()
+                # 기존 회전 기반 TTA 사용
+                for d in degs:
+                    x = imgs if d==0 else _rotate_tensor(imgs, d)   # 회전 적용
+                    logits = model(x)                               # 모델 추론
+                    probs  = torch.softmax(logits, dim=1)           # 확률 변환
+                    # 확률 누적
+                    probs_accum = probs if probs_accum is None else probs_accum + probs
+                    
+                # 평균 계산
+                if probs_accum is not None:
+                    probs = (probs_accum / len(degs)).cpu().numpy()     # 평균 확률 계산
+                else:
+                    # 백업: probs_accum이 None인 경우 (에러 방지)
+                    probs = torch.zeros((imgs.size(0), cfg["data"]["num_classes"])).cpu().numpy()
+                    
             logits_all.append(probs)                            # 결과 저장
             
             # 주기적으로 로그
@@ -202,7 +236,7 @@ def run_inference(cfg_path: str, out: str|None=None, ckpt: str|None=None):
         if out is None:
             current_date = pd.Timestamp.now().strftime('%Y%m%d')
             current_time = pd.Timestamp.now().strftime('%H%M')
-            model_name = cfg["model"]["name"]
+            model_name = cfg["project"]["run_name"]
             tta_suffix = "_tta" if cfg.get("inference", {}).get("tta", False) else ""
             
             # 증강 타입 결정 (학습 설정과 동일한 로직 사용)

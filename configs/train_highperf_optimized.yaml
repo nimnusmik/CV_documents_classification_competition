@@ -1,0 +1,79 @@
+# ----------------------------- 최적화된 고성능 설정 ----------------------------- #
+project:
+  run_name: convnext_base_384            # 실행명 (모델명 기반)
+  seed: 123                               # 랜덤 시드
+  date_format: '%Y%m%d'                 # 날짜 포맷
+  time_format: '%H%M'                   # 시간 포맷
+  num_workers: 8                        # 데이터 로더 워커 수
+  device: cuda                          # 학습 디바이스
+  verbose: true                         # 상세 로그 출력
+  log_prefix: train_highperf_convnext_base_384  # 로그 파일 접두사
+
+# ------------------------------- 데이터 설정 ------------------------------- #
+data:
+  root: ./data                          # 데이터 루트 디렉토리
+  train_csv: ./data/raw/train.csv       # 학습 데이터 CSV 파일
+  sample_csv: ./data/raw/sample_submission.csv  # 제출 샘플 CSV
+  image_dir_train: ./data/raw/train     # 학습 이미지 디렉터리
+  image_dir_test: ./data/raw/test       # 테스트 이미지 디렉터리
+  image_ext: .jpg                       # 이미지 파일 확장자
+  id_col: ID                            # ID 컬럼명
+  target_col: target                    # 타깃 컬럼명
+  num_classes: 17                       # 분류 클래스 수
+  folds: 1                              # 단일 폴드 모드
+  valid_fold: 0                         # 검증 폴드
+  stratify: true                        # 계층적 분할 사용
+
+# ------------------------------- 학습 설정 ------------------------------- #
+train:
+  img_size: 384                         # 입력 이미지 크기
+  batch_size: 90                        # ✅ 최적 배치 크기 (속도 + 성능)
+  use_advanced_augmentation: true       # 고급 증강 기법 사용
+  epochs: 50                            # ✅ 적절한 에포크 수 (25→50으로 안전마진)
+  lr: 0.00023758202780102265            # ✅ 최고 성능 학습률 사용
+  weight_decay: 0.02807323641844528     # ✅ 최고 성능 정규화 값
+  optimizer: adamw                      # 옵티마이저
+  scheduler: cosine                     # 스케줄러
+  warmup_epochs: 5                      # ✅ 줄인 워밍업 (10→5)
+  mixed_precision: true                 # 혼합 정밀도 학습
+  max_grad_norm: 1.0                    # 그래디언트 클리핑
+  label_smoothing: 0.05                 # 레이블 스무딩
+  use_mixup: true                       # Mixup 데이터 증강
+  mixup_alpha: 1.0                      # Mixup 알파
+  hard_augmentation: true               # 강한 데이터 증강
+  log_interval: 5                       # 로그 출력 간격
+  early_stopping_patience: 15           # ✅ Early Stopping (20→15로 단축)
+  reduce_lr_patience: 8                 # ✅ LR 감소 인내심 (10→8로 단축)
+  use_ema: true                         # ✅ EMA 사용
+  ema_decay: 0.9999                     # EMA 감쇠율
+  temperature_scaling: true             # ✅ Temperature Scaling
+  dropout: 0.0006680854507543216        # ✅ 최고 성능 드롭아웃 값 사용
+
+# ------------------------------- 모델 설정 ------------------------------- #
+model:
+  name: convnext_base_384               # 모델 아키텍처
+  pretrained: true                      # 사전학습 가중치 사용
+  drop_rate: 0.1                        # 드롭아웃 비율
+  drop_path_rate: 0.1                   # 드롭패스 비율
+  pooling: avg                          # 전역 풀링 방식
+
+# ------------------------------- 출력 설정 ------------------------------- #
+output:
+  logs_dir: logs/train                  # 로그 파일 저장 디렉토리
+  exp_dir: "experiments/train"          # 실험 결과 저장 루트
+  snapshots: true                       # 설정 스냅샷 저장
+
+# ------------------------------- WandB 설정 ------------------------------- #
+wandb:
+  project_name: document-classification-team    # WandB 프로젝트명
+  entity: null                                  # WandB 엔티티
+  experiment_name: convnext_base_384-optimized  # 실험명
+  tags:                                         # 실험 태그
+  - convnext_base_384
+  - optimized
+  - single-fold
+  - high-performance
+
+# ------------------------------- 추가 학습 설정 ------------------------------- #
+training:
+  batch_size: 90                        # ✅ 보조 배치 크기 (메모리 조정용)

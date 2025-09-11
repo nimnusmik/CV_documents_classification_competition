@@ -1,0 +1,67 @@
+project:
+  run_name: convnext_base_384_fold_1
+  seed: 42
+  date_format: '%Y%m%d'
+  time_format: '%H%M'
+  num_workers: 8
+  device: cuda
+  verbose: true
+  log_prefix: train_highperf_convnext_base_384_fold_1
+data:
+  root: ./data
+  train_csv: ./data/raw/train.csv
+  sample_csv: ./data/raw/sample_submission.csv
+  image_dir_train: ./data/raw/train
+  image_dir_test: ./data/raw/test
+  image_ext: .jpg
+  id_col: ID
+  target_col: target
+  num_classes: 17
+  folds: 1
+  valid_fold: 0
+  stratify: true
+train:
+  img_size: 384
+  batch_size: 32
+  use_advanced_augmentation: true
+  epochs: 50
+  lr: 0.00010638044325331043
+  weight_decay: 0.04943978786648299
+  optimizer: adamw
+  scheduler: cosine
+  warmup_epochs: 10
+  mixed_precision: true
+  max_grad_norm: 0.5
+  label_smoothing: 0.1
+  use_mixup: true
+  mixup_alpha: 0.8
+  hard_augmentation: true
+  log_interval: 3
+  early_stopping_patience: 20
+  reduce_lr_patience: 10
+  use_ema: true
+  ema_decay: 0.9999
+  temperature_scaling: true
+  dropout_rate: 0.2
+  dropout: 0.16977528086968235
+model:
+  name: convnext_base_384
+  pretrained: true
+  drop_rate: 0.1
+  drop_path_rate: 0.1
+  pooling: avg
+output:
+  logs_dir: logs/train
+  exp_dir: experiments/train
+  snapshots: true
+wandb:
+  project_name: document-classification-team
+  entity: null
+  experiment_name: convnext_base_384_fold_1-highperf
+  tags:
+  - convnext_base_384
+  - high-performance
+  - mixup
+  - hard-aug
+training:
+  batch_size: 90

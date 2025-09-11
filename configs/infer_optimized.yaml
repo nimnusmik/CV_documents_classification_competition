@@ -1,0 +1,58 @@
+# ========================= ConvNeXt Base 384 단일 폴드 추론 설정 ========================= #
+# 학습 설정: configs/20250910/train_optimized_20250910_0929.yaml 기반
+# 모델: best_model_fold_1.pth (F1: 0.9791783380018674)
+# 생성일: 2025-09-10
+
+# ----------------------------- 프로젝트 기본 설정 ----------------------------- #
+project:
+  run_name: convnext_base_384_fold1_inference        # 실행명
+  device: "cuda"                                     # 실행 디바이스
+  num_workers: 4                                     # DataLoader 워커 수 (메모리 최적화: 8 → 4)
+  date_format: "%Y%m%d"                              # 날짜 포맷
+  time_format: "%H%M"                                # 시간 포맷
+
+# ------------------------------- 데이터 설정 ------------------------------ #
+data:
+  sample_csv: "./data/raw/sample_submission.csv"     # 제출용 샘플 CSV
+  image_dir_test: "./data/raw/test"                  # 테스트 이미지 디렉토리
+  image_ext: ".jpg"                                  # 이미지 확장자
+  id_col: "ID"                                       # ID 컬럼명
+  target_col: "target"                               # 타깃 컬럼명
+  num_classes: 17                                    # 분류 클래스 수
+
+# ------------------------------- 모델 설정 (학습시와 동일) ------------------------------ #
+model:
+  name: "convnext_base_384"                          # 학습시 사용한 모델명 (정확히 일치)
+  pretrained: false                                  # 학습된 가중치 사용
+  drop_rate: 0.1                                     # 학습시와 동일 (0.1)
+  drop_path_rate: 0.1                                # 학습시와 동일 (0.1)
+  pooling: "avg"                                     # 학습시와 동일
+
+# ------------------------- 추론 설정 (학습 설정 기반) ------------------------- #
+train:
+  img_size: 384                                      # 학습시와 동일 (384)
+  batch_size: 32                                     # 추론용 배치 크기 (메모리 최적화: 64 → 32)
+                                                     # 메모리 상황에 따라 16, 24, 32로 조정 가능
+
+# ------------------------------ 추론 전용 설정 ---------------------------- #
+inference:
+  tta: false                                         # TTA 비활성화 (단순 추론)
+  tta_type: "essential"                              # TTA 사용시 타입
+  confidence_threshold: 0.5                         # 신뢰도 임계값
+
+# ------------------------------- 출력/저장 설정 ---------------------------- #
+output:
+  logs_dir: "logs/infer"                             # 추론 로그 저장 디렉토리
+  exp_dir: "./experiments/infer"                     # 실험 결과 저장 디렉토리
+  snapshots: true                                    # 설정 스냅샷 저장
+
+# ------------------------------- WandB 설정 (비활성화) ---------------------------- #
+wandb:
+  project_name: document-classification-inference    # WandB 프로젝트명
+  entity: null                                       # WandB 엔티티
+  experiment_name: convnext_base_384_fold1_inference # 실험명
+  tags:
+  - convnext_base_384
+  - single-fold
+  - f1-0.979
+  enabled: false                                     # WandB 비활성화

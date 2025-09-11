@@ -1,0 +1,100 @@
+_wandb:
+    value:
+        cli_version: 0.21.3
+        e:
+            i56cndl0ob8ckfce5x6zz3yfop6c15uj:
+                args:
+                    - --config
+                    - configs/train_highperf.yaml
+                    - --mode
+                    - full-pipeline
+                    - --use-calibration
+                    - --optimize
+                    - --optuna-config
+                    - configs/optuna_config.yaml
+                    - --auto-continue
+                codePath: src/training/train_main.py
+                codePathLocal: src/training/train_main.py
+                cpu_count: 8
+                cpu_count_logical: 16
+                cudaVersion: "12.6"
+                disk:
+                    /:
+                        total: "1081101176832"
+                        used: "175617085440"
+                email: ieyeppo.job@gmail.com
+                executable: /home/ieyeppo/.pyenv/versions/cv_py3_11_9/bin/python
+                git:
+                    commit: 322d7bec39a7135fdee704ce5d46a2d56fc2ebf3
+                    remote: git@github.com:iejob/computer-vision-competition-1SEN.git
+                gpu: NVIDIA GeForce RTX 4090
+                gpu_count: 1
+                gpu_nvidia:
+                    - architecture: Ada
+                      memoryTotal: "25757220864"
+                      name: NVIDIA GeForce RTX 4090
+                      uuid: GPU-b2b9e31d-4ca9-4907-d713-96771c28a1dd
+                host: PotG
+                memory:
+                    total: "42058571776"
+                os: Linux-6.6.87.1-microsoft-standard-WSL2-x86_64-with-glibc2.39
+                program: /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train_main.py
+                python: CPython 3.11.9
+                root: /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN
+                startedAt: "2025-09-11T07:15:49.072798Z"
+                writerId: i56cndl0ob8ckfce5x6zz3yfop6c15uj
+        m: []
+        python_version: 3.11.9
+        t:
+            "1":
+                - 1
+                - 5
+                - 35
+                - 41
+                - 49
+                - 53
+                - 63
+                - 80
+                - 105
+            "2":
+                - 1
+                - 5
+                - 35
+                - 41
+                - 49
+                - 53
+                - 63
+                - 80
+                - 105
+            "3":
+                - 13
+                - 15
+                - 16
+            "4": 3.11.9
+            "5": 0.21.3
+            "10":
+                - 20
+            "12": 0.21.3
+            "13": linux-x86_64
+architecture:
+    value: convnext_base_384
+batch_size:
+    value: 32
+dataset:
+    value: Document Classification
+epochs:
+    value: 50
+framework:
+    value: PyTorch
+hard_augmentation:
+    value: true
+image_size:
+    value: 384
+learning_rate:
+    value: 0.004577864072976175
+mixup_alpha:
+    value: 0.8
+optimizer:
+    value: adamw
+scheduler:
+    value: cosine

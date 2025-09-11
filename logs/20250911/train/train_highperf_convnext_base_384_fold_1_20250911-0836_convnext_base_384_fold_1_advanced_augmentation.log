@@ -1,0 +1,20 @@
+2025-09-11 08:36:47 | [BOOT] high-performance training pipeline started
+2025-09-11 08:36:47 | [BOOT] device=cuda
+2025-09-11 08:36:47 | [DATA] loaded train data | shape=(1570, 2)
+2025-09-11 08:36:47 | [DATA] Single fold mode: all data assigned to fold 0
+2025-09-11 08:36:47 | ==================================================
+2025-09-11 08:36:47 | FOLD 1/1 START
+2025-09-11 08:36:47 | ==================================================
+2025-09-11 08:36:47 | [SINGLE FOLD] Using 80:20 train/val split
+2025-09-11 08:36:47 | [FOLD 0] train=1256 valid=314
+2025-09-11 08:36:51 | [SINGLE-MODEL] All folds using model: convnext_base_384_in22ft1k
+2025-09-11 08:36:51 | [SCHEDULER] Single fold: Warmup(10) + CosineAnnealing
+2025-09-11 08:36:51 | [DATA] build highperf loaders | img_size=384 bs=120
+2025-09-11 08:36:51 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 08:36:51 | [HighPerfDataset] size=1256 img_size=384 epoch=0/100 p_hard=0.200 is_train=True
+2025-09-11 08:36:51 | [HighPerfDataset] size=314 img_size=384 epoch=0/100 p_hard=0.000 is_train=False
+2025-09-11 08:36:51 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 08:36:51 | [HighPerfDataset] updated epoch=1, p_hard=0.203
+2025-09-11 08:36:51 | [EPOCH 1] >>> TRAIN start | steps=11 mixup=True
+2025-09-11 08:37:00 | [ERROR] Training failed: CUDA out of memory. Tried to allocate 136.00 MiB. GPU 0 has a total capacity of 23.99 GiB of which 0 bytes is free. Including non-PyTorch memory, this process has 17179869184.00 GiB memory in use. Of the allocated memory 43.18 GiB is allocated by PyTorch, and 11.81 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+2025-09-11 08:37:00 | [SHUTDOWN] Training pipeline ended

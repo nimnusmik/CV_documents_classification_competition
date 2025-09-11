@@ -1,0 +1,33 @@
+📋 실험명: fold-0-0911-1630-20250911_1630_convnext_base_384_ensemble_tta
+🔗 WandB URL: https://wandb.ai/kimsunmin0227-hufs/document-classification-team/runs/avpcni1w
+/home/ieyeppo/.pyenv/versions/cv_py3_11_9/lib/python3.11/site-packages/timm/models/_factory.py:117: UserWarning: Mapping deprecated model name convnext_base_384_in22ft1k to current convnext_base.fb_in22k_ft_in1k_384.
+  model = create_fn(
+2025-09-11 16:30:25 | [SINGLE-MODEL] All folds using model: convnext_base_384_in22ft1k
+2025-09-11 16:30:25 | [SCHEDULER] Single fold: Warmup(10) + CosineAnnealing
+/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train_highperf.py:473: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  scaler = GradScaler() if cfg["train"].get("mixed_precision", True) else None
+2025-09-11 16:30:25 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 16:30:25 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+/home/ieyeppo/.pyenv/versions/cv_py3_11_9/lib/python3.11/site-packages/albumentations/augmentations/blur/transforms.py:184: UserWarning: blur_limit and sigma_limit minimum value can not be both equal to 0. blur_limit minimum value changed to 3.
+  warnings.warn(
+/home/ieyeppo/.pyenv/versions/cv_py3_11_9/lib/python3.11/site-packages/albumentations/augmentations/transforms.py:311: FutureWarning: JpegCompression has been deprecated. Please use ImageCompression
+  warnings.warn(
+2025-09-11 16:30:25 | [HighPerfDataset] size=1256 img_size=384 epoch=0/50 p_hard=0.200 is_train=True
+2025-09-11 16:30:25 | [HighPerfDataset] size=314 img_size=384 epoch=0/50 p_hard=0.000 is_train=False
+2025-09-11 16:30:25 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 16:30:25 | [HighPerfDataset] updated epoch=1, p_hard=0.206
+2025-09-11 16:30:25 | [EPOCH 1] >>> TRAIN start | steps=14 mixup=True
+Train Epoch 1:   0%|                                                         | 0/14 [00:00<?, ?it/s]/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train_highperf.py:91: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):      # AMP 자동 캐스팅 적용
+2025-09-11 16:30:46 | [EPOCH 1][TRAIN step 1/14] loss=2.90878 lr=0.000013 bs=90
+Train Epoch 1:   7%|███▌                                             | 1/14 [00:20<04:28, 20.62s/it]/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/training/train_highperf.py:83: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=scaler is not None):
+Train Epoch 1: 100%|████████████████████████████████████████████████| 14/14 [03:22<00:00, 14.49s/it]
+2025-09-11 16:33:48 | [EPOCH 1][TRAIN step 14/14] loss=2.70604 lr=0.000013 bs=86
+2025-09-11 16:33:48 | [EPOCH 1] <<< TRAIN end | loss=2.83056
+2025-09-11 16:33:48 | [EPOCH 1] >>> VALID start | steps=4
+Valid Epoch 1: 100%|████████████████████████████████████████████████████████████████████████████████| 4/4 [00:09<00:00,  2.34s/it]
+2025-09-11 16:33:57 | [EPOCH 1] <<< VALID end | loss=2.47564 macro_f1=0.14199
+2025-09-11 16:33:58 | [ERROR] Training failed: Parent directory experiments/train/lastest-train/20250911_1630_convnext_base_384_fold_1/ckpt does not exist.
+2025-09-11 16:33:58 | [SHUTDOWN] Training pipeline ended
+[EXIT][ERROR] training failed: RuntimeError: Parent directory experiments/train/lastest-train/20250911_1630_convnext_base_384_fold_1/ckpt does not exist.

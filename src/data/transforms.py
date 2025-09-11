@@ -2,6 +2,30 @@
 import albumentations as A                      # albumentations 라이브러리 불러오기 (데이터 증강)
 from albumentations.pytorch import ToTensorV2   # Albumentations → PyTorch 텐서 변환기
 
+# ==================== 공통 변환 유틸리티 ==================== #
+
+def _base_resize_and_pad(img_size=384):
+    """기본 리사이즈 + 패딩 (모든 변환에서 공통 사용)"""
+    return [
+        A.LongestMaxSize(max_size=img_size),
+        A.PadIfNeeded(min_height=img_size, min_width=img_size, border_mode=0, value=0)
+    ]
+
+def _imagenet_normalize():
+    """ImageNet 정규화 + 텐서 변환 (모든 변환에서 공통 사용)"""
+    return [
+        A.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+        ToTensorV2()
+    ]
+
+def _document_rotations():
+    """문서 특화 회전 (90도 단위)"""
+    return A.OneOf([
+        A.Rotate(limit=90, p=1.0),
+        A.Rotate(limit=180, p=1.0), 
+        A.Rotate(limit=270, p=1.0),
+    ], p=0.6)
+
 
 # 기본 학습용 데이터 변환 파이프라인 (기존 버전 - 가벼운 증강)
 def build_train_tfms(img_size=384):
@@ -123,3 +147,209 @@ def build_valid_tfms(img_size=384):
         # PyTorch 텐서 변환
         ToTensorV2()
     ])
+
+
+# ==================== 코드 기반 개선된 증강 변환 ==================== #
+
+# Normal Augmentation (기본 증강)
+def build_team_normal_tfms(img_size=384):
+    """
+    사용한 Normal Augmentation
+    - 문서 회전 중심 (90, 180, 270도)
+    - 적절한 밝기/대비 조절
+    - 노이즈 추가로 견고성 향상
+    """
+    return A.Compose(
+        _base_resize_and_pad(img_size) + [
+            # 문서 특화 회전 (버전)
+            _document_rotations(),
+            
+            # 밝기/대비 조절
+            A.RandomBrightnessContrast(brightness_limit=0.3, contrast_limit=0.3, p=0.8),
+            
+            # 가우시안 노이즈
+            A.GaussNoise(var_limit=(30.0, 100.0), p=0.7),
+            
+            # 좌우 반전
+            A.HorizontalFlip(p=0.5),
+        ] + _imagenet_normalize()
+    )
+
+
+# Hard Augmentation (강한 증강)
+def build_team_hard_tfms(img_size=384):
+    """
+    사용한 Hard Augmentation
+    - 더 강한 회전 (미세 회전 포함)
+    - 강력한 블러 효과
+    - 높은 밝기/대비 변화
+    - JPEG 압축 시뮬레이션
+    """
+    return A.Compose(
+        _base_resize_and_pad(img_size) + [
+            # 문서 회전 + 미세 회전 (버전)
+            A.OneOf([
+                A.Rotate(limit=90, p=1.0),
+                A.Rotate(limit=180, p=1.0),
+                A.Rotate(limit=270, p=1.0),
+                A.Rotate(limit=15, p=1.0),  # 미세 회전 추가
+            ], p=0.8),
+            
+            # 강한 블러 효과
+            A.OneOf([
+                A.MotionBlur(blur_limit=15, p=1.0),
+                A.GaussianBlur(blur_limit=15, p=1.0),
+            ], p=0.95),
+            
+            # 강한 밝기/대비 변화
+            A.RandomBrightnessContrast(brightness_limit=0.5, contrast_limit=0.5, p=0.9),
+            
+            # 강한 노이즈
+            A.GaussNoise(var_limit=(50.0, 150.0), p=0.8),
+            
+            # JPEG 압축 시뮬레이션
+            A.JpegCompression(quality_lower=70, quality_upper=100, p=0.5),
+            
+            # 좌우 반전
+            A.HorizontalFlip(p=0.5),
+        ] + _imagenet_normalize()
+    )
+
+
+# ==================== Essential TTA 변환 ==================== #
+
+def get_essential_tta_transforms(img_size=384):
+    """
+    사용한 Essential TTA 5가지 변환
+    - 원본
+    - 90도 회전
+    - 180도 회전
+    - 270도 회전  
+    - 밝기 개선
+    """
+    # 공통 base + normalize 조합을 활용
+    base_and_norm = lambda augment=[]: A.Compose(_base_resize_and_pad(img_size) + augment + _imagenet_normalize())
+    
+    return [
+        # 1. 원본
+        base_and_norm([]),
+        
+        # 2. 90도 회전
+        base_and_norm([A.Rotate(limit=90, p=1.0)]),
+        
+        # 3. 180도 회전
+        base_and_norm([A.Rotate(limit=180, p=1.0)]),
+        
+        # 4. 270도 회전
+        base_and_norm([A.Rotate(limit=-90, p=1.0)]),
+        
+        # 5. 밝기 개선
+        base_and_norm([A.RandomBrightnessContrast(brightness_limit=0.3, contrast_limit=0.3, p=1.0)]),
+    ]
+
+
+def get_comprehensive_tta_transforms(img_size=384):
+    """
+    포괄적인 TTA 변환들 (중복 없는 전체 TTA)
+    Essential TTA + 추가 효과적인 변환들
+    
+    총 15가지 TTA 변형:
+    - 기본: 원본
+    - 회전: 90°, 180°, 270°, 미세회전(15°)
+    - 반전: 좌우, 상하, 대각선
+    - 색상: 밝기개선, 감마보정, CLAHE
+    - 블러: 가우시안, 모션
+    - 노이즈: 가우시안노이즈, 압축
+    - 기하: 미세변형
+    """
+    base_and_norm = lambda augment=[]: A.Compose(_base_resize_and_pad(img_size) + augment + _imagenet_normalize())
+    
+    return [
+        # === 기본 === 
+        # 1. 원본
+        base_and_norm([]),
+        
+        # === 회전 계열 ===
+        # 2. 90도 회전
+        base_and_norm([A.Rotate(limit=90, p=1.0)]),
+        # 3. 180도 회전  
+        base_and_norm([A.Rotate(limit=180, p=1.0)]),
+        # 4. 270도 회전
+        base_and_norm([A.Rotate(limit=-90, p=1.0)]),
+        # 5. 미세 회전 (15도)
+        base_and_norm([A.Rotate(limit=15, p=1.0)]),
+        
+        # === 반전 계열 ===
+        # 6. 좌우 반전
+        base_and_norm([A.HorizontalFlip(p=1.0)]),
+        # 7. 상하 반전 (문서에서 드물지만 포함)
+        base_and_norm([A.VerticalFlip(p=1.0)]),
+        # 8. 대각선 반전 (Transpose)
+        base_and_norm([A.Transpose(p=1.0)]),
+        
+        # === 색상/조명 계열 ===
+        # 9. 밝기/대비 개선
+        base_and_norm([A.RandomBrightnessContrast(brightness_limit=0.3, contrast_limit=0.3, p=1.0)]),
+        # 10. 감마 보정
+        base_and_norm([A.RandomGamma(gamma_limit=(80, 120), p=1.0)]),
+        # 11. CLAHE (대비 제한 적응적 히스토그램 평활화)
+        base_and_norm([A.CLAHE(clip_limit=2.0, tile_grid_size=(8, 8), p=1.0)]),
+        
+        # === 블러 계열 ===
+        # 12. 가우시안 블러 (가벼운)
+        base_and_norm([A.GaussianBlur(blur_limit=(3, 7), p=1.0)]),
+        # 13. 모션 블러
+        base_and_norm([A.MotionBlur(blur_limit=(3, 7), p=1.0)]),
+        
+        # === 노이즈 계열 ===
+        # 14. 가우시안 노이즈 (가벼운)
+        base_and_norm([A.GaussNoise(var_limit=(10.0, 50.0), p=1.0)]),
+        # 15. JPEG 압축 (문서 스캔 시뮬레이션)
+        base_and_norm([A.JpegCompression(quality_lower=85, quality_upper=100, p=1.0)]),
+    ]
+
+
+def get_tta_transforms_by_type(tta_type="essential", img_size=384):
+    """
+    TTA 타입에 따른 변환 함수 선택
+    
+    Args:
+        tta_type: "essential" (5가지) 또는 "comprehensive" (15가지)
+        img_size: 이미지 크기
+    
+    Returns:
+        선택된 TTA 변환 리스트
+    """
+    if tta_type == "essential":
+        return get_essential_tta_transforms(img_size)
+    elif tta_type == "comprehensive":
+        return get_comprehensive_tta_transforms(img_size)
+    else:
+        raise ValueError(f"지원하지 않는 TTA 타입: {tta_type}. 'essential' 또는 'comprehensive' 중 선택하세요.")
+
+
+# ==================== 선택적 변환 빌더 ==================== #
+
+def build_transforms_by_type(transform_type: str, img_size: int = 384):
+    """
+    변환 타입에 따른 변환 파이프라인 반환
+    
+    Args:
+        transform_type: 'basic', 'advanced', 'team_normal', 'team_hard', 'valid' 
+        img_size: 이미지 크기
+    
+    Returns:
+        Albumentations Compose 객체
+    """
+    transform_map = {
+        'basic': build_train_tfms,
+        'advanced': build_advanced_train_tfms,
+        'team_normal': build_team_normal_tfms,
+        'team_hard': build_team_hard_tfms,
+        'valid': build_valid_tfms
+    }
+    
+    if transform_type not in transform_map:
+        raise ValueError(f"지원하지 않는 변환 타입: {transform_type}")
+    
+    return transform_map[transform_type](img_size)

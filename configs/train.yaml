@@ -29,7 +29,7 @@ train:
   img_size: 384                                     # 입력 이미지 크기 (메모리 최적화)
   batch_size: 48                                    # 배치 크기 (메모리 최적화)
   use_advanced_augmentation: false                  # 고급 증강 기법 사용 여부 (transform.py true: build_advanced_train_tfms / false: build_train_tfms)
-  epochs: 15                                        # 학습 epoch 수 (메모리 최적화)
+  epochs: 10                                        # 학습 epoch 수 (메모리 최적화)
   lr: 0.001                                         # 학습률
   weight_decay: 0.0                                 # weight decay (정규화)
   optimizer: "adam"                                 # 옵티마이저 ("adam" | "adamw")

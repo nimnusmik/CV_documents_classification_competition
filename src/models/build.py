@@ -96,8 +96,11 @@ def build_model(
     if pooling_norm is not None:                            # pooling 설정이 있는 경우
         create_kwargs["global_pool"] = pooling_norm         # timm 표준 인자 추가
 
+    # 모델 이름 매핑 적용
+    timm_model_name = RECOMMENDED_MODELS.get(name, name)   # 추천 모델 매핑이 있으면 사용, 없으면 원래 이름 사용
+    
     # timm 모델 생성 및 반환
-    model = timm.create_model(name, **create_kwargs)        # timm을 통한 모델 생성
+    model = timm.create_model(timm_model_name, **create_kwargs)        # timm을 통한 모델 생성
 
     # 필요 시 head 교체/동결 등 추가 확장 가능
     return model                                            # 생성된 모델 반환

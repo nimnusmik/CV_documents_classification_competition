@@ -1,0 +1,15 @@
+{"time":"2025-09-11T08:37:24.555084128+09:00","level":"INFO","msg":"stream: starting","core version":"0.21.3"}
+{"time":"2025-09-11T08:37:24.993961287+09:00","level":"INFO","msg":"stream: created new stream","id":"n2c7b6rv"}
+{"time":"2025-09-11T08:37:24.993996698+09:00","level":"INFO","msg":"stream: started","id":"n2c7b6rv"}
+{"time":"2025-09-11T08:37:24.994032291+09:00","level":"INFO","msg":"writer: started","stream_id":"n2c7b6rv"}
+{"time":"2025-09-11T08:37:24.994064301+09:00","level":"INFO","msg":"handler: started","stream_id":"n2c7b6rv"}
+{"time":"2025-09-11T08:37:24.994044887+09:00","level":"INFO","msg":"sender: started","stream_id":"n2c7b6rv"}
+{"time":"2025-09-11T08:53:56.068303638+09:00","level":"INFO","msg":"api: retrying HTTP error","status":502,"url":"https://api.wandb.ai/files/kimsunmin0227-hufs/document-classification-team/n2c7b6rv/file_stream","body":"\n<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html;charset=utf-8\">\n<title>502 Server Error</title>\n</head>\n<body text=#000000 bgcolor=#ffffff>\n<h1>Error: Server Error</h1>\n<h2>The server encountered a temporary error and could not complete your request.<p>Please try again in 30 seconds.</h2>\n<h2></h2>\n</body></html>\n"}
+{"time":"2025-09-11T11:08:10.600001537+09:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": net/http: request canceled (Client.Timeout exceeded while awaiting headers)"}
+{"time":"2025-09-11T11:08:42.632681644+09:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": net/http: request canceled (Client.Timeout exceeded while awaiting headers)"}
+{"time":"2025-09-11T14:12:12.180207375+09:00","level":"INFO","msg":"handler: operation stats","stats":{"operations":[{"desc":"updating run metadata","runtime_seconds":0.000434351}],"total_operations":1}}
+{"time":"2025-09-11T14:12:13.184378368+09:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-09-11T14:12:13.579465409+09:00","level":"INFO","msg":"stream: closing","id":"n2c7b6rv"}
+{"time":"2025-09-11T14:12:13.579483063+09:00","level":"INFO","msg":"handler: closed","stream_id":"n2c7b6rv"}
+{"time":"2025-09-11T14:12:13.579541516+09:00","level":"INFO","msg":"sender: closed","stream_id":"n2c7b6rv"}
+{"time":"2025-09-11T14:12:13.579550231+09:00","level":"INFO","msg":"stream: closed","id":"n2c7b6rv"}

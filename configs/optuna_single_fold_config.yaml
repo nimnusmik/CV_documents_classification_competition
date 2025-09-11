@@ -1,0 +1,97 @@
+# 단일 폴드 전용 Optuna 하이퍼파라미터 최적화 설정
+# configs/optuna_single_fold_config.yaml
+
+# ------------------------- Optuna 최적화 설정 (단일 폴드용) ------------------------- #
+optuna:
+  # 단일 폴드 최적화 설정 (빠른 실험)
+  enabled: true                           # Optuna 사용 여부
+  n_trials: 20                            # 최적화 시도 횟수 (빠른 테스트용)
+  timeout: 3600                           # 최대 시간 (1시간)
+  study_name: "single-fold-optuna"        # 스터디 이름
+  direction: "maximize"                   # 최적화 방향 (F1 점수 최대화)
+  n_jobs: 1                              # 병렬 실행 개수 (GPU 메모리에 따라 조정)
+  
+  # 조기 중단 설정 (단일 폴드는 빠르므로 관대하게)
+  pruning:
+    enabled: false                        # 단일 폴드는 빠르므로 pruning 비활성화
+    patience: 3                           # 조기 중단 patience
+    n_startup_trials: 10                  # 초기 랜덤 탐색 횟수
+  
+  # 단일 폴드 검증 설정
+  single_fold_validation:
+    epochs: 10                            # 빠른 검증용 에포크 (더 빠르게)
+    validation_split: 0.2                 # 검증 데이터 비율 (20%)
+    batch_size_override: 90               # 단일 폴드 최적 배치 크기
+
+# ------------------------- 탐색할 하이퍼파라미터 범위 (단일 폴드 최적화) ------------------------- #
+search_space:
+  # 학습률 (더 세밀한 탐색)
+  learning_rate:
+    type: "loguniform"                    # 로그 균등 분포
+    low: 1.0e-5                           # 최소값: 0.00001
+    high: 2.0e-3                          # 최대값: 0.002
+    
+  # 배치 크기 (단일 폴드 최적화)
+  batch_size:
+    type: "categorical"                   # 카테고리 선택
+    choices: [16, 32, 48, 64, 80, 90]     # 단일 폴드 최적 배치들
+
+  # Weight Decay (L2 정규화)
+  weight_decay:
+    type: "uniform"                       # 균등 분포
+    low: 0.01                             # 최소값
+    high: 0.02                            # 최대값
+    
+  # Dropout 비율
+  dropout:
+    type: "uniform"                       # 균등 분포
+    low: 0.1                              # 최소값
+    high: 0.25                            # 최대값
+    
+  # 추가 탐색 파라미터
+  advanced_params:
+    # 라벨 스무딩
+    label_smoothing:
+      type: "uniform"
+      low: 0.05                           # 최소값
+      high: 0.15                          # 최대값
+    
+    # 그래디언트 클리핑
+    grad_clip_norm:
+      type: "uniform" 
+      low: 0.3                            # 최소값
+      high: 0.8                           # 최대값
+    
+    # Mixup 알파
+    mixup_alpha:
+      type: "uniform"
+      low: 0.6                            # 최소값
+      high: 1.0                           # 최대값
+    
+    # 웜업 에포크
+    warmup_epochs:
+      type: "categorical"
+      choices: [5, 10, 15]                # 단일 폴드 웜업 선택지
+
+# ------------------------- 결과 저장 설정 ------------------------- #
+output:
+  # 최적화 결과 저장 경로
+  results_dir: "experiments/optimization/single_fold" # 단일 폴드 결과 저장
+  save_study: true                        # Optuna study 객체 저장 여부
+  save_trials_csv: true                   # 모든 trial 결과를 CSV로 저장
+  
+  # 최적 설정 파일 생성
+  optimized_config:
+    save: true                            # 최적화된 설정 파일 저장 여부
+    template: "configs/train_highperf.yaml"  # 단일 폴드 템플릿
+    output_name: "train_optimized_single_fold_{timestamp}.yaml"  # 출력 파일명 패턴
+
+# ------------------------- WandB 통합 (선택적) ------------------------- #
+wandb_integration:
+  enabled: false                          # WandB 로깅 사용 여부
+  project_name: "doc-classification-single-fold-optuna"  # WandB 프로젝트명
+  entity: null                            # WandB 엔티티
+  tags:                                   # 실험 태그
+    - "optuna"
+    - "single-fold"
+    - "hyperparameter-optimization"

@@ -1,0 +1,12 @@
+2025-09-10 09:08:02 | 🚀 [PIPELINE] Full pipeline started
+2025-09-10 09:08:02 | 📋 Config: configs/train_optimized_20250910_0908.yaml
+2025-09-10 09:08:02 | ⚙️ Skip training: False
+2025-09-10 09:08:02 | ============================================================
+2025-09-10 09:08:02 | 🎯 [STAGE 1] HIGH-PERFORMANCE TRAINING
+2025-09-10 09:08:02 | ============================================================
+2025-09-10 09:23:43 | ✅ [STAGE 1] Training completed successfully
+2025-09-10 09:23:43 | ============================================================
+2025-09-10 09:23:43 | 🔍 [STAGE 2] FINDING TRAINING RESULTS
+2025-09-10 09:23:43 | ============================================================
+2025-09-10 09:23:43 | ❌ [PIPELINE] Failed: fold_results.yaml not found in experiments/train/20250910/20250910_0923_convnext_base_384. Make sure training completed successfully.
+2025-09-10 09:23:43 | 🏁 [PIPELINE] Full pipeline ended

@@ -1,0 +1,55 @@
+data:
+  id_col: ID
+  image_dir_test: ./data/raw/test
+  image_ext: .jpg
+  num_classes: 17
+  sample_csv: ./data/raw/sample_submission.csv
+  target_col: target
+ensemble:
+  fold_results_path: ./experiments/train/lastest-train/fold_results.yaml
+  num_tta: 100
+  use_tta: true
+inference:
+  confidence_threshold: 0.94
+  tta: true
+  tta_brightness:
+  - 0.8
+  - 0.9
+  - 1.0
+  - 1.1
+  - 1.2
+  tta_rot_degrees:
+  - 0
+  - 90
+  - 180
+  - 270
+  tta_type: comprehensive
+model:
+  drop_path_rate: 0.1
+  drop_rate: 0.05
+  name: convnext_base_384
+  pooling: avg
+  pretrained: false
+output:
+  exp_dir: ./experiments/infer
+  logs_dir: logs/infer
+  snapshots: true
+project:
+  date_format: '%Y%m%d'
+  device: cuda
+  num_workers: 6
+  run_name: convnext_base_384_highperf_inference
+  time_format: '%H%M'
+train:
+  batch_size: 32
+  img_size: 384
+wandb:
+  enabled: false
+  entity: null
+  experiment_name: convnext_base_384_higherf_inference# 실험명
+  project_name: document-classification-inference
+  tags:
+  - convnext_base_384
+  - ensemble
+  - tta
+  - high-performance

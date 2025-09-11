@@ -1,0 +1,37 @@
+2025-09-11 08:37:23 | 🚀 [PIPELINE] Full pipeline started
+2025-09-11 08:37:23 | 📋 Config: configs/train_highperf.yaml
+2025-09-11 08:37:23 | ⚙️ Skip training: False
+2025-09-11 08:37:23 | ============================================================
+2025-09-11 08:37:23 | 🎯 [STAGE 1] HIGH-PERFORMANCE TRAINING
+2025-09-11 08:37:23 | ============================================================
+2025-09-11 14:12:15 | ✅ [STAGE 1] Training completed successfully
+2025-09-11 14:12:15 | ============================================================
+2025-09-11 14:12:15 | 🔍 [STAGE 2] FINDING TRAINING RESULTS
+2025-09-11 14:12:15 | ============================================================
+2025-09-11 14:12:15 | ✅ Found results: 20250911_0837_convnext_base_384_fold_1
+2025-09-11 14:12:15 | 📁 Found fold results: experiments/train/20250911/20250911_0837_convnext_base_384_fold_1/fold_results.yaml
+2025-09-11 14:12:15 | ============================================================
+2025-09-11 14:12:15 | 🔮 [STAGE 3] HIGH-PERFORMANCE INFERENCE
+2025-09-11 14:12:15 | ============================================================
+2025-09-11 14:12:39 | ❌ [PIPELINE] Failed: Caught RuntimeError in pin memory thread for device 0.
+Original Traceback (most recent call last):
+  File "/home/ieyeppo/.pyenv/versions/cv_py3_11_9/lib/python3.11/site-packages/torch/utils/data/_utils/pin_memory.py", line 41, in do_one_step
+    data = pin_memory(data, device)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ieyeppo/.pyenv/versions/cv_py3_11_9/lib/python3.11/site-packages/torch/utils/data/_utils/pin_memory.py", line 87, in pin_memory
+    return [
+           ^
+  File "/home/ieyeppo/.pyenv/versions/cv_py3_11_9/lib/python3.11/site-packages/torch/utils/data/_utils/pin_memory.py", line 88, in <listcomp>
+    pin_memory(sample, device) for sample in data
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ieyeppo/.pyenv/versions/cv_py3_11_9/lib/python3.11/site-packages/torch/utils/data/_utils/pin_memory.py", line 98, in pin_memory
+    clone[i] = pin_memory(item, device)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ieyeppo/.pyenv/versions/cv_py3_11_9/lib/python3.11/site-packages/torch/utils/data/_utils/pin_memory.py", line 64, in pin_memory
+    return data.pin_memory(device)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: CUDA error: out of memory
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+2025-09-11 14:12:39 | 🏁 [PIPELINE] Full pipeline ended

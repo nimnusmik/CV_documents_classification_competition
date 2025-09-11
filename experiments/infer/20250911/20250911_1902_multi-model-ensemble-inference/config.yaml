@@ -1,0 +1,76 @@
+data:
+  id_col: ID
+  image_dir_test: ./data/raw/test
+  image_ext: .jpg
+  num_classes: 17
+  sample_csv: ./data/raw/sample_submission.csv
+  target_col: target
+ensemble:
+  fold_results_paths:
+  - experiments/train/20250910/20250910_1213_convnext_base_384_fold_1/fold_results.yaml
+  - experiments/train/20250910/20250910_0929_convnext_base_384/fold_results.yaml
+  model_paths:
+  - experiments/train/20250910/20250910_1213_convnext_base_384_fold_1/ckpt/best_model_fold_1.pth
+  - experiments/train/20250910/20250910_0929_convnext_base_384/ckpt/best_model_fold_1.pth
+  num_tta: 100
+  use_multi_model: true
+  use_tta: true
+inference:
+  confidence_threshold: 0.94
+  ensemble_method: weighted_avg
+  fold_weights:
+  - 0.94648
+  - 0.94714
+  - 0.9325
+  - 0.94541
+  - 0.94691
+  tta: true
+  tta_brightness:
+  - 0.8
+  - 0.9
+  - 1.0
+  - 1.1
+  - 1.2
+  tta_rot_degrees:
+  - 0
+  - 90
+  - 180
+  - 270
+  tta_type: comprehensive
+model:
+  drop_path_rate: 0.15
+  drop_rate: 0.15
+  pooling: avg
+  pretrained: false
+models:
+  fold_0:
+    name: convnext_base_384
+  fold_1:
+    name: convnext_base_384
+output:
+  exp_dir: ./experiments/infer
+  logs_dir: logs/infer
+  snapshots: true
+  submission_dir: ./submissions
+project:
+  date_format: '%Y%m%d'
+  device: cuda
+  num_workers: 4
+  persistent_workers: true
+  pin_memory: true
+  run_name: multi-model-ensemble-inference
+  time_format: '%H%M'
+train:
+  batch_size: 32
+  img_size: 384
+wandb:
+  enabled: false
+  entity: null
+  experiment_name: multi-model-ensemble-inference
+  project_name: document-classification-multi-infer
+  tags:
+  - multi-model
+  - ensemble
+  - diverse-architectures
+  - tta
+  - high-performance

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3                              # Python3 실행 환경 지정
 # -*- coding: utf-8 -*-                             # UTF-8 인코딩 지정
 """
-팀원 GPU 호환성 빠른 체크 도구
+GPU 호환성 빠른 체크 도구
 Quick GPU compatibility check for team members
 """
 

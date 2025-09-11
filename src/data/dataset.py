@@ -10,6 +10,7 @@ import albumentations as A                                  # Albumentations 증
 from albumentations.pytorch import ToTensorV2               # Tensor 변환
 
 from src.logging.logger import Logger                       # 로그 기록용 Logger 클래스
+from src.data.transforms import build_team_normal_tfms, build_team_hard_tfms, build_valid_tfms  # 변환 함수
 from typing import Optional, List                           # 타입 힌트 (옵션, 리스트)
 
 # 파일 탐색 시 고려할 확장자 후보 (대소문자 혼용 대비)
@@ -187,132 +188,13 @@ class HighPerfDocClsDataset(Dataset):
     def _setup_transforms(self):
         # 검증/테스트 모드인 경우
         if not self.is_train:
-            # 검증/테스트용 변환
-            self.transform = A.Compose([                                                                    # 검증용 변환 파이프라인 구성
-                A.LongestMaxSize(max_size=self.img_size),                                                   # 최대 크기 유지하며 리사이즈
-                A.PadIfNeeded(min_height=self.img_size, min_width=self.img_size, border_mode=0, value=0),   # 필요시 패딩 추가
-                A.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),                         # ImageNet 정규화
-                ToTensorV2(),                                                                               # PyTorch 텐서로 변환
-            ])
-            
-            # 검증/테스트용 변환 설정 종료
+            # transforms.py의 검증용 변환 사용
+            self.transform = build_valid_tfms(self.img_size)
             return
         
-        # Normal augmentation 파이프라인 (베이스라인 기반 중급 증강)
-        self.normal_aug = A.Compose([                                                       # 일반 증강 파이프라인 구성
-            A.LongestMaxSize(max_size=self.img_size),                                       # 최대 크기 유지하며 리사이즈
-            A.PadIfNeeded(min_height=self.img_size, min_width=self.img_size, border_mode=0, value=0),  # 필요시 패딩 추가
-            
-            # 문서 특화 회전 (확률 낮춤)
-            A.OneOf([                                                                       # 회전 증강 중 하나 선택
-                A.Rotate(limit=90, p=1.0),                                                  # 90도 회전
-                A.Rotate(limit=180, p=1.0),                                                 # 180도 회전
-                A.Rotate(limit=270, p=1.0),                                                 # 270도 회전
-                A.Rotate(limit=15, p=1.0),                                                  # 미세 회전
-            ], p=0.5),                                                                      # 50% 확률로 회전 적용
-            
-            # 기본 기하학적 변환
-            A.ShiftScaleRotate(shift_limit=0.05, scale_limit=0.1, rotate_limit=3, p=0.5),   # 기본 변환
-            
-            # 색상 및 조명 조절
-            A.OneOf([
-                A.RandomBrightnessContrast(brightness_limit=0.3, contrast_limit=0.3, p=1.0),
-                A.CLAHE(clip_limit=2.0, tile_grid_size=(8, 8), p=1.0),
-            ], p=0.7),
-            
-            # 가벼운 블러/노이즈
-            A.OneOf([
-                A.GaussianBlur(blur_limit=(3, 7), p=1.0),
-                A.GaussNoise(var_limit=(10.0, 50.0), p=1.0),
-            ], p=0.5),
-            
-            # 기본 공간 변환
-            A.HorizontalFlip(p=0.5),                                                        # 좌우 반전
-            
-            A.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),             # ImageNet 정규화
-            ToTensorV2(),                                                                   # PyTorch 텐서로 변환
-        ])
-        
-        # Hard augmentation 파이프라인 (베이스라인 기반 고급 증강)
-        self.hard_aug = A.Compose([                                                         # Hard augmentation 파이프라인 구성
-            # 비율 보존 리사이징 (핵심 개선)
-            A.LongestMaxSize(max_size=self.img_size),
-            A.PadIfNeeded(min_height=self.img_size, min_width=self.img_size, border_mode=0, value=0),
-            
-            # 문서 특화 회전 + 미세 회전 추가
-            A.OneOf([
-                A.Rotate(limit=90, p=1.0),
-                A.Rotate(limit=180, p=1.0),
-                A.Rotate(limit=270, p=1.0),
-                A.Rotate(limit=15, p=1.0),  # 미세 회전 추가
-            ], p=0.8),
-            
-            # 기하학적 변환 강화
-            A.OneOf([
-                A.ShiftScaleRotate(shift_limit=0.1, scale_limit=0.2, rotate_limit=5, p=1.0),
-                A.ElasticTransform(alpha=50, sigma=5, p=1.0),
-                A.GridDistortion(num_steps=5, distort_limit=0.2, p=1.0),
-                A.OpticalDistortion(distort_limit=0.2, shift_limit=0.1, p=1.0),
-            ], p=0.6),
-            
-            # 색상 및 조명 변환 강화
-            A.OneOf([
-                A.ColorJitter(brightness=0.4, contrast=0.4, saturation=0.3, hue=0.1, p=1.0),
-                A.RandomBrightnessContrast(brightness_limit=0.4, contrast_limit=0.4, p=1.0),
-                A.CLAHE(clip_limit=4.0, tile_grid_size=(8, 8), p=1.0),
-                A.RandomGamma(gamma_limit=(70, 130), p=1.0),
-            ], p=0.9),
-            
-            # 블러 및 노이즈 강화
-            A.OneOf([
-                A.MotionBlur(blur_limit=(5, 15), p=1.0),
-                A.GaussianBlur(blur_limit=(3, 15), p=1.0),
-                A.MedianBlur(blur_limit=7, p=1.0),
-                A.Blur(blur_limit=7, p=1.0),
-            ], p=0.8),
-            
-            # 다양한 노이즈 추가
-            A.OneOf([
-                A.GaussNoise(var_limit=(10.0, 150.0), p=1.0),
-                A.ISONoise(color_shift=(0.01, 0.08), intensity=(0.1, 0.8), p=1.0),
-                A.MultiplicativeNoise(multiplier=(0.9, 1.1), p=1.0),
-            ], p=0.8),
-            
-            # 문서 품질 시뮬레이션 (스캔/복사 효과)
-            A.OneOf([
-                A.Downscale(scale_min=0.7, scale_max=0.9, p=1.0),
-                A.ImageCompression(quality_lower=60, quality_upper=95, p=1.0),
-                A.Posterize(num_bits=6, p=1.0),
-            ], p=0.5),
-            
-            # 픽셀 레벨 변환
-            A.OneOf([
-                A.ChannelShuffle(p=1.0),
-                A.InvertImg(p=1.0),
-                A.Solarize(threshold=128, p=1.0),
-                A.Equalize(p=1.0),
-            ], p=0.3),
-            
-            # 공간 변환
-            A.OneOf([
-                A.HorizontalFlip(p=1.0),
-                A.VerticalFlip(p=1.0),  # 문서에서도 유용할 수 있음
-                A.Transpose(p=1.0),
-            ], p=0.6),
-            
-            # 조각 제거 (Cutout 계열)
-            A.OneOf([
-                A.CoarseDropout(max_holes=8, max_height=32, max_width=32, 
-                               min_holes=1, min_height=8, min_width=8, 
-                               fill_value=0, p=1.0),
-                A.GridDropout(ratio=0.3, unit_size_min=8, unit_size_max=32, 
-                             holes_number_x=5, holes_number_y=5, p=1.0),
-            ], p=0.4),
-            
-            # 최종 정규화
-            A.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
-            ToTensorV2(),
-        ])
+        # Normal/Hard Augmentation을 transforms.py에서 가져와 사용
+        self.normal_aug = build_team_normal_tfms(self.img_size)   # Normal 증강
+        self.hard_aug = build_team_hard_tfms(self.img_size)       # Hard 증강
     
     # ---------------------- 에폭 업데이트 함수 ---------------------- #
     # 에폭 업데이트 함수 정의

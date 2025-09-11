@@ -1,0 +1,8 @@
+2025-09-10 08:01:04 | 🚀 [PIPELINE] Full pipeline started
+2025-09-10 08:01:04 | 📋 Config: configs/train_optimized_20250910_0801.yaml
+2025-09-10 08:01:04 | ⚙️ Skip training: False
+2025-09-10 08:01:04 | ============================================================
+2025-09-10 08:01:04 | 🎯 [STAGE 1] HIGH-PERFORMANCE TRAINING
+2025-09-10 08:01:04 | ============================================================
+2025-09-10 08:01:04 | ❌ [PIPELINE] Failed: k-fold cross-validation requires at least one train/test split by setting n_splits=2 or more, got n_splits=1.
+2025-09-10 08:01:04 | 🏁 [PIPELINE] Full pipeline ended

@@ -1,0 +1,5 @@
+fold_results:
+- fold: 0
+  best_f1: 0.9367127385126394
+  model_path: experiments/train/20250910/20250910_1839_swin_base_384_fold_1/ckpt/best_model_fold_1.pth
+average_f1: 0.9367127385126394
