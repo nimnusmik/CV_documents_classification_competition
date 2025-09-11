@@ -165,3 +165,4 @@ nosetests.xml # Test results
 *.code-workspace
 # Large model files (>100MB)
 experiments/train/**/ckpt/*.pth
+*.pth
