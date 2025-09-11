@@ -41,10 +41,10 @@ flowchart TD
     Phase2 --> Phase3
     Phase3 --> Phase4
     
-    style A fill:#e1f5fe
-    style D fill:#f3e5f5
-    style G fill:#e8f5e8
-    style J fill:#fff3e0
+    style A fill:#e1f5fe, color:#000000
+    style D fill:#f3e5f5, color:#000000
+    style G fill:#e8f5e8, color:#000000
+    style J fill:#fff3e0, color:#000000
 ```
 
 ## 🔄 GPU 최적화 흐름도
@@ -88,10 +88,10 @@ flowchart TD
     Phase2 --> Phase3
     Phase3 --> Phase4
     
-    style A1 fill:#e1f5fe
-    style B1 fill:#f3e5f5
-    style C1 fill:#e8f5e8
-    style D1 fill:#fff3e0
+    style A1 fill:#e1f5fe, color:#000000
+    style B1 fill:#f3e5f5, color:#000000
+    style C1 fill:#e8f5e8, color:#000000
+    style D1 fill:#fff3e0, color:#000000
 ```
 
 ## 📁 GPU 최적화 파일 간 의존 관계
@@ -156,10 +156,10 @@ graph TB
     GPU_MONITOR --> PROFILER
     PROFILER --> METRICS
     
-    style AUTO_BATCH fill:#e1f5fe
-    style TRAIN_MAIN fill:#f3e5f5
-    style INFER_MAIN fill:#e8f5e8
-    style GPU_MONITOR fill:#fff3e0
+    style AUTO_BATCH fill:#e1f5fe, color:#000000
+    style TRAIN_MAIN fill:#f3e5f5, color:#000000
+    style INFER_MAIN fill:#e8f5e8, color:#000000
+    style GPU_MONITOR fill:#fff3e0, color:#000000
 ```
 
 ## 🛠️ GPU 최적화 도구 및 유틸리티

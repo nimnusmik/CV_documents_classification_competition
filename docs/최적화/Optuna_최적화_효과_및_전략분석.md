@@ -39,9 +39,9 @@ graph TB
     H --> L
     I --> N
     
-    style C fill:#e8f5e8
-    style K fill:#ffcdd2
-    style M fill:#f3e5f5
+    style C fill:#e8f5e8, color:#000000
+    style K fill:#ffcdd2, color:#000000
+    style M fill:#f3e5f5, color:#000000
 ```
 
 ### 📊 **캐싱 시스템 성능 개선**
@@ -412,11 +412,11 @@ graph TD
     H --> K[ROI: 300-500%]
     I --> L[ROI: 400-600%]
     
-    style G fill:#c8e6c9
-    style H fill:#a5d6a7  
-    style I fill:#81c784
-    style C fill:#ffcdd2
-    style F fill:#ffcdd2
+    style G fill:#c8e6c9, color:#000000
+    style H fill:#a5d6a7, color:#000000  
+    style I fill:#81c784, color:#000000
+    style C fill:#ffcdd2, color:#000000
+    style F fill:#ffcdd2, color:#000000
 ```
 
 ---
