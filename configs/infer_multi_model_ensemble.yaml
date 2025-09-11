@@ -10,7 +10,28 @@ project:
 
 # ------------------------------- 다중 모델 앙상블 설정 ---------------------------- #
 ensemble:
-  fold_results_path: "./experiments/train/lastest-train/fold_results.yaml"  # 폴드 결과 파일 경로 (동적 감지)
+  fold_results_paths:
+    - experiments/train/20250910/20250910_1213_convnext_base_384_fold_1/fold_results.yaml    # 0.9836 (최고점수)
+    - experiments/train/20250910/20250910_0929_convnext_base_384/fold_results.yaml           # 0.9791 
+    - experiments/train/20250911/20250911_1724_convnext_base_384_fold_1/fold_results.yaml    # 0.9761
+    - experiments/train/20250911/20250911_1645_convnext_base_384_fold_1/fold_results.yaml    # 0.9705
+    - experiments/train/20250910/20250910_0908_convnext_base_384/fold_results.yaml           # 0.9690
+    - experiments/train/20250911/20250911_1619_convnext_base_384_fold_1/fold_results.yaml    # 0.9556
+    - experiments/train/20250910/20250910_1839_swin_base_384_fold_1/fold_results.yaml        # 0.9524 swin
+    - experiments/train/20250910/20250910_1354_convnext_base_384_fold_1/fold_results.yaml    # 0.9502
+    - experiments/train/20250910/20250910_1552_efficientnet_v2_b3_fold_1/fold_results.yaml   # 0.9407 efficientnet
+  
+  model_paths:
+    - experiments/train/20250910/20250910_1213_convnext_base_384_fold_1/ckpt/best_model_fold_1.pth
+    - experiments/train/20250910/20250910_0929_convnext_base_384/ckpt/best_model_fold_1.pth
+    - experiments/train/20250911/20250911_1724_convnext_base_384_fold_1/ckpt/best_model_fold_1.pth
+    - experiments/train/20250911/20250911_1645_convnext_base_384_fold_1/ckpt/best_model_fold_1.pth
+    - experiments/train/20250910/20250910_0908_convnext_base_384/ckpt/best_model_fold_1.pth
+    - experiments/train/20250911/20250911_1619_convnext_base_384_fold_1/ckpt/best_model_fold_1.pth
+    - experiments/train/20250910/20250910_1839_swin_base_384_fold_1/ckpt/best_model_fold_1.pth
+    - experiments/train/20250910/20250910_1354_convnext_base_384_fold_1/ckpt/best_model_fold_1.pth
+    - experiments/train/20250910/20250910_1552_efficientnet_v2_b3_fold_1/ckpt/best_model_fold_1.pth
+
   use_tta: true                                       # Test-Time Augmentation 사용
   num_tta: 100                                         # TTA 횟수 (다중 모델이므로 더 많이)
   use_multi_model: true                               # 다중 모델 앙상블 활성화
@@ -28,15 +49,24 @@ data:
 # 학습 시와 동일한 모델 구성 - 각 폴드별로 다른 모델 사용 가능
 models:
   fold_0:
-    name: "convnext_base_384_in22ft1k"
-  fold_1:
-    name: "swin_base_384"
-  fold_2:
-    name: "swin_base_384"
-  fold_3:
-    name: "convnext_base_384_in22ft1k"
-  fold_4:
-    name: "convnext_base_384_in22ft1k"
+    name: "convnext_base_384"
+  # fold_1:
+  #   name: "convnext_base_384"
+  # fold_2:
+  #   name: "convnext_base_384"
+  # fold_3:
+  #   name: "convnext_base_384"
+  # fold_4:
+  #   name: "convnext_base_384"
+  # fold_5:
+  #   name: "convnext_base_384"
+  # fold_6:
+  #   name: "swin_base_384"
+  # fold_7:
+  #   name: "convnext_base_384"
+  # fold_8:
+  #   name: "efficientnet_v2_b3"
+
 
 # 기본 모델 설정 (모든 폴드에 공통 적용)
 model:
