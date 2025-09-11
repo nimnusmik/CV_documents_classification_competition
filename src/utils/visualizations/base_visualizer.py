@@ -6,6 +6,10 @@
 import os
 import numpy as np
 import pandas as pd
+
+# matplotlib 백엔드를 Agg로 설정 (tkinter 오류 방지)
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import matplotlib.font_manager as fm
 import seaborn as sns

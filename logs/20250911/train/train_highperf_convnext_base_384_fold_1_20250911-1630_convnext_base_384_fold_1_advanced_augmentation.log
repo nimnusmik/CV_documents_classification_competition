@@ -1,0 +1,25 @@
+2025-09-11 16:30:22 | [BOOT] high-performance training pipeline started
+2025-09-11 16:30:22 | [BOOT] device=cuda
+2025-09-11 16:30:22 | [DATA] loaded train data | shape=(1570, 2)
+2025-09-11 16:30:22 | [DATA] Single fold mode: all data assigned to fold 0
+2025-09-11 16:30:22 | ==================================================
+2025-09-11 16:30:22 | FOLD 1/1 START
+2025-09-11 16:30:22 | ==================================================
+2025-09-11 16:30:22 | [SINGLE FOLD] Using 80:20 train/val split
+2025-09-11 16:30:22 | [FOLD 0] train=1256 valid=314
+2025-09-11 16:30:25 | [SINGLE-MODEL] All folds using model: convnext_base_384_in22ft1k
+2025-09-11 16:30:25 | [SCHEDULER] Single fold: Warmup(10) + CosineAnnealing
+2025-09-11 16:30:25 | [DATA] build highperf loaders | img_size=384 bs=90
+2025-09-11 16:30:25 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-11 16:30:25 | [HighPerfDataset] size=1256 img_size=384 epoch=0/50 p_hard=0.200 is_train=True
+2025-09-11 16:30:25 | [HighPerfDataset] size=314 img_size=384 epoch=0/50 p_hard=0.000 is_train=False
+2025-09-11 16:30:25 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-11 16:30:25 | [HighPerfDataset] updated epoch=1, p_hard=0.206
+2025-09-11 16:30:25 | [EPOCH 1] >>> TRAIN start | steps=14 mixup=True
+2025-09-11 16:30:46 | [EPOCH 1][TRAIN step 1/14] loss=2.90878 lr=0.000013 bs=90
+2025-09-11 16:33:48 | [EPOCH 1][TRAIN step 14/14] loss=2.70604 lr=0.000013 bs=86
+2025-09-11 16:33:48 | [EPOCH 1] <<< TRAIN end | loss=2.83056
+2025-09-11 16:33:48 | [EPOCH 1] >>> VALID start | steps=4
+2025-09-11 16:33:57 | [EPOCH 1] <<< VALID end | loss=2.47564 macro_f1=0.14199
+2025-09-11 16:33:58 | [ERROR] Training failed: Parent directory experiments/train/lastest-train/20250911_1630_convnext_base_384_fold_1/ckpt does not exist.
+2025-09-11 16:33:58 | [SHUTDOWN] Training pipeline ended

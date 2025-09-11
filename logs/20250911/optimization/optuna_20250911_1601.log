@@ -1,0 +1,16 @@
+2025-09-11 16:01:58 | 📂 캐싱용 데이터 로드 중...
+2025-09-11 16:01:58 | 🎮 CUDA 디바이스: NVIDIA GeForce RTX 4090
+2025-09-11 16:01:58 | 📊 데이터 로드 완료: 1570개 샘플
+2025-09-11 16:01:58 | ✂️ 데이터 분할 완료: train=1256, val=314
+2025-09-11 16:01:58 | 🔍 Optuna 하이퍼파라미터 튜닝 초기화 완료
+2025-09-11 16:01:58 | 📋 Base config: configs/train_highperf.yaml
+2025-09-11 16:01:58 | 🎯 Target trials: 1
+2025-09-11 16:01:58 | 💾 데이터셋 캐싱 완료 - trial 속도 향상
+2025-09-11 16:01:59 | ⚡ 캐시된 데이터 사용 - 빠른 학습 시작
+2025-09-11 16:02:01 | ❌ 캐시 학습 실패: name 'mixup_criterion' is not defined
+2025-09-11 16:02:01 | 📊 오류 상세: Traceback (most recent call last):
+  File "/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/optimization/optuna_tuner.py", line 312, in _train_single_fold_cached
+    loss = mixup_criterion(criterion, outputs, y_a, y_b, lam)
+           ^^^^^^^^^^^^^^^
+NameError: name 'mixup_criterion' is not defined
+2025-09-11 16:02:01 | 🔄 시뮬레이션 fallback 사용

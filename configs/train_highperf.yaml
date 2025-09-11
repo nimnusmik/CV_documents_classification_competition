@@ -27,7 +27,7 @@ data:
 # ------------------------------- 학습 설정 ------------------------------- #
 train:
   img_size: 384                                 # 입력 이미지 크기 (384x384, 메모리 최적화)
-  batch_size: 90                                # 배치 크기 (안정성 우선: 32)
+  batch_size: 32                                # 배치 크기 (안정성 우선: 32)
   use_advanced_augmentation: true               # 고급 증강 기법 사용 여부 (trainsform.py true: build_advanced_train_tfms / false: build_advanced_train_tfms)
   epochs: 100                                   # 학습 에포크 수 (과적합 방지를 위해 조정)
   lr: 0.00012802227271884058                    # 학습률 (더 보수적: 1e-4)
@@ -77,4 +77,4 @@ wandb:
 
 # ------------------------------- 추가 학습 설정 ------------------------------- #
 training:
-  batch_size: 90                                # 추가 배치 크기 설정 (메모리 최적화)
+  batch_size: 32                                # 추가 배치 크기 설정 (메모리 최적화)

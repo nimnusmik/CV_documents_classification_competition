@@ -1,55 +1,67 @@
 data:
+  folds: 1
   id_col: ID
   image_dir_test: ./data/raw/test
+  image_dir_train: ./data/raw/train
   image_ext: .jpg
   num_classes: 17
+  root: ./data
   sample_csv: ./data/raw/sample_submission.csv
+  stratify: true
   target_col: target
-ensemble:
-  fold_results_path: ./experiments/train/lastest-train/fold_results.yaml
-  num_tta: 100
-  use_tta: true
-inference:
-  confidence_threshold: 0.94
-  tta: true
-  tta_brightness:
-  - 0.8
-  - 0.9
-  - 1.0
-  - 1.1
-  - 1.2
-  tta_rot_degrees:
-  - 0
-  - 90
-  - 180
-  - 270
-  tta_type: comprehensive
+  train_csv: ./data/raw/train.csv
+  valid_fold: 0
 model:
   drop_path_rate: 0.1
-  drop_rate: 0.05
+  drop_rate: 0.1
   name: convnext_base_384
   pooling: avg
-  pretrained: false
+  pretrained: true
 output:
-  exp_dir: ./experiments/infer
-  logs_dir: logs/infer
+  exp_dir: experiments/train
+  logs_dir: logs/train
   snapshots: true
 project:
   date_format: '%Y%m%d'
   device: cuda
-  num_workers: 6
-  run_name: convnext_base_384_highperf_inference
+  log_prefix: train_highperf_convnext_base_384_fold_1
+  num_workers: 8
+  run_name: convnext_base_384_fold_1
+  seed: 42
   time_format: '%H%M'
+  verbose: true
 train:
-  batch_size: 64
+  batch_size: 32
+  dropout: 0.2019155551286334
+  dropout_rate: 0.2
+  early_stopping_patience: 20
+  ema_decay: 0.9999
+  epochs: 50
+  hard_augmentation: true
   img_size: 384
+  label_smoothing: 0.1
+  log_interval: 3
+  lr: 0.00012448790915476745
+  max_grad_norm: 0.5
+  mixed_precision: true
+  mixup_alpha: 0.8
+  optimizer: adamw
+  reduce_lr_patience: 10
+  scheduler: cosine
+  temperature_scaling: true
+  use_advanced_augmentation: true
+  use_ema: true
+  use_mixup: true
+  warmup_epochs: 10
+  weight_decay: 0.04221648528789575
+training:
+  batch_size: 90
 wandb:
-  enabled: false
   entity: null
-  experiment_name: convnext_base_384_higherf_inference
-  project_name: document-classification-inference
+  experiment_name: convnext_base_384_fold_1-highperf
+  project_name: document-classification-team
   tags:
   - convnext_base_384
-  - ensemble
-  - tta
   - high-performance
+  - mixup
+  - hard-aug

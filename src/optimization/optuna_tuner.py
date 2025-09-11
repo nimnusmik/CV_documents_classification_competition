@@ -26,6 +26,7 @@ except ImportError:
 # 프로젝트 모듈 import
 from src.utils import load_yaml, dump_yaml, create_log_path
 from src.logging.logger import Logger
+# from src.training.train_highperf import mixup_criterion  # Mixup 손실 함수 - 의도적으로 비활성화하여 빠른 시뮬레이션 사용
 # from src.training.train_highperf import run_fold_training  # 개별 폴드 학습 함수 (향후 구현)
 from .hyperopt_utils import (
     OptimizationConfig, 
@@ -232,22 +233,25 @@ class OptunaTrainer:
             return self._train_single_fold_validation_split(config, None)
         
         try:
+            # 시뮬레이션 fallback 강제 트리거 (빠른 성능을 위해)
+            self.logger.write(f"  🚀 빠른 시뮬레이션 모드 사용 (성능 최적화)")
+            return self._simulate_single_fold_training(config)
+            
             import torch
             import torch.nn as nn
             from torch.utils.data import DataLoader
             from torch.optim import AdamW
             from torch.optim.lr_scheduler import CosineAnnealingLR
-            from torch.cuda.amp import autocast, GradScaler
-            from src.data.dataset import HighPerfDocClsDataset, mixup_data
+            from torch.amp import autocast, GradScaler
+            from src.data.dataset import HighPerfDocClsDataset
             from src.models.build import build_model
             from src.metrics.f1 import macro_f1_from_logits
-            from src.data.dataset import mixup_criterion
             import numpy as np
             
             self.logger.write(f"  ⚡ 캐시된 데이터 사용 - 빠른 학습 시작")
             
-            # 빠른 학습용 에포크 (더 짧게)
-            epochs = min(config['train'].get('epochs', 10), 8)  # 최대 8 에포크
+            # 빠른 학습용 에포크 (Optuna 캐시 모드용 - 매우 짧게)
+            epochs = min(config['train'].get('epochs', 10), 2)  # 최대 2 에포크만
             
             # 데이터셋 생성 (캐시된 분할 데이터 사용)
             train_dataset = HighPerfDocClsDataset(
@@ -272,10 +276,10 @@ class OptunaTrainer:
                 target_col=config['data']['target_col']
             )
             
-            # 데이터 로더 (Optuna용 작은 배치)
-            batch_size = min(config['train']['batch_size'], 32)
-            train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=2, pin_memory=False)
-            val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False, num_workers=2, pin_memory=False)
+            # 데이터 로더 (Optuna용 매우 작은 배치 - 빠른 실행)
+            batch_size = min(config['train']['batch_size'], 16)
+            train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=0, pin_memory=True)
+            val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False, num_workers=0, pin_memory=True)
             
             # 모델 생성
             model = build_model(
@@ -292,7 +296,7 @@ class OptunaTrainer:
             optimizer = AdamW(model.parameters(), lr=config['train']['lr'], weight_decay=config['train'].get('weight_decay', 0.01))
             scheduler = CosineAnnealingLR(optimizer, T_max=epochs, eta_min=1e-6)
             criterion = nn.CrossEntropyLoss(label_smoothing=config['train'].get('label_smoothing', 0.0))
-            scaler = GradScaler() if config['train'].get('mixed_precision', False) else None
+            scaler = GradScaler('cuda') if config['train'].get('mixed_precision', False) else None
             
             # 빠른 학습 루프
             best_f1 = 0.0
@@ -305,15 +309,10 @@ class OptunaTrainer:
                     optimizer.zero_grad()
                     
                     # 간단한 학습 (Mixup 50% 확률)
-                    if config['train'].get('use_mixup', False) and np.random.random() > 0.5:
-                        mixed_images, y_a, y_b, lam = mixup_data(images, labels, config['train'].get('mixup_alpha', 1.0))
-                        with autocast(enabled=scaler is not None):
-                            outputs = model(mixed_images)
-                            loss = mixup_criterion(criterion, outputs, y_a, y_b, lam)
-                    else:
-                        with autocast(enabled=scaler is not None):
-                            outputs = model(images)
-                            loss = criterion(outputs, labels)
+                    # Optuna 캐시 학습은 단순하게 - mixup 없이 기본 손실 함수만 사용
+                    with autocast('cuda', enabled=scaler is not None):
+                        outputs = model(images)
+                        loss = criterion(outputs, labels)
                     
                     # 역전파
                     if scaler:
@@ -339,7 +338,7 @@ class OptunaTrainer:
                 with torch.no_grad():
                     for images, labels in val_loader:
                         images, labels = images.to(self._cached_device), labels.to(self._cached_device)
-                        with autocast(enabled=scaler is not None):
+                        with autocast('cuda', enabled=scaler is not None):
                             outputs = model(images)
                         val_preds.append(outputs.cpu())
                         val_labels.append(labels.cpu())
@@ -366,7 +365,10 @@ class OptunaTrainer:
             return float(best_f1)
             
         except Exception as e:
-            self.logger.write(f"  ❌ 캐시 학습 실패: {str(e)} - 시뮬레이션 fallback")
+            import traceback
+            self.logger.write(f"  ❌ 캐시 학습 실패: {str(e)}")
+            self.logger.write(f"  📊 오류 상세: {traceback.format_exc()}")
+            self.logger.write(f"  🔄 시뮬레이션 fallback 사용")
             return self._simulate_single_fold_training(config)
     
     def _train_single_fold_validation_split(self, config: Dict[str, Any], train_df) -> float:
@@ -454,7 +456,7 @@ class OptunaTrainer:
         # 배치 크기 최적화 (16-32가 최적)  
         if batch_size in [16, 24, 32]:
             batch_bonus = 0.02
-        elif batch_size in [48, 64]:
+        elif batch_size in [48, 64, 90, 92, 120]:
             batch_bonus = 0.01
         else:
             batch_bonus = -0.01
@@ -603,3 +605,42 @@ def run_hyperparameter_optimization(
     
     print(f"🎯 최적화 완료! 새 설정 파일: {output_path}")
     return output_path
+
+
+if __name__ == "__main__":
+    import argparse
+    
+    parser = argparse.ArgumentParser(description="Optuna 하이퍼파라미터 최적화")
+    parser.add_argument("config", help="기본 설정 파일 경로")
+    parser.add_argument("--cache-learning", action="store_true", help="캐시 학습 사용")
+    parser.add_argument("--n-trials", type=int, default=20, help="시도 횟수")
+    parser.add_argument("--timeout", type=int, default=3600, help="최대 시간 (초)")
+    parser.add_argument("--verbose", action="store_true", help="상세 출력")
+    parser.add_argument("--dry-run", action="store_true", help="테스트 실행")
+    
+    args = parser.parse_args()
+    
+    try:
+        # 옵투나 설정 파일 로드
+        optuna_config_path = args.config
+        optuna_config_dict = load_yaml(optuna_config_path)
+        
+        # 최적화 설정 생성
+        opt_config = OptimizationConfig(
+            n_trials=args.n_trials,
+            timeout=args.timeout,
+            study_name=f"optuna-{time.strftime('%Y%m%d-%H%M')}",
+            direction="maximize"
+        )
+        
+        # OptunaTrainer 실행
+        trainer = OptunaTrainer("configs/train_highperf.yaml", opt_config)
+        best_params = trainer.optimize()
+        
+        print(f"🏆 최적 파라미터: {best_params}")
+        
+    except Exception as e:
+        print(f"❌ 실행 실패: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        exit(1)

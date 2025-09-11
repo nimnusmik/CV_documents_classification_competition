@@ -1,0 +1,45 @@
+2025-09-11 16:13:58 | 📂 캐싱용 데이터 로드 중...
+2025-09-11 16:13:58 | 🎮 CUDA 디바이스: NVIDIA GeForce RTX 4090
+2025-09-11 16:13:58 | 📊 데이터 로드 완료: 1570개 샘플
+2025-09-11 16:13:58 | ✂️ 데이터 분할 완료: train=1256, val=314
+2025-09-11 16:13:58 | 🔍 Optuna 하이퍼파라미터 튜닝 초기화 완료
+2025-09-11 16:13:58 | 📋 Base config: configs/train_highperf.yaml
+2025-09-11 16:13:58 | 🎯 Target trials: 3
+2025-09-11 16:13:58 | 💾 데이터셋 캐싱 완료 - trial 속도 향상
+2025-09-11 16:13:58 | 🚀 Optuna 최적화 시작...
+2025-09-11 16:13:58 | 🔬 Trial 0: {'lr': 0.00017873566232459433, 'batch_size': 128, 'weight_decay': 0.07671295662428387, 'dropout': 0.15124877826808836}
+2025-09-11 16:13:58 | 📁 단일 폴드 검증 시작 (validation_split=0.2)...
+2025-09-11 16:13:58 | ❌ 캐시 학습 실패: Force simulation fallback for fast optimization
+2025-09-11 16:13:58 | 📊 오류 상세: Traceback (most recent call last):
+  File "/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/optimization/optuna_tuner.py", line 237, in _train_single_fold_cached
+    raise Exception("Force simulation fallback for fast optimization")
+Exception: Force simulation fallback for fast optimization
+2025-09-11 16:13:58 | 🔄 시뮬레이션 fallback 사용
+2025-09-11 16:14:00 | ✅ 단일 폴드 완료: F1 0.9128
+2025-09-11 16:14:00 | ✅ Trial 0 완료: F1 0.9128 (fold scores: [0.9127885359691577])
+2025-09-11 16:14:00 | 🔬 Trial 1: {'lr': 0.0009278519532657252, 'batch_size': 128, 'weight_decay': 0.09630973918458757, 'dropout': 0.2365828452748579}
+2025-09-11 16:14:00 | 📁 단일 폴드 검증 시작 (validation_split=0.2)...
+2025-09-11 16:14:00 | ❌ 캐시 학습 실패: Force simulation fallback for fast optimization
+2025-09-11 16:14:00 | 📊 오류 상세: Traceback (most recent call last):
+  File "/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/optimization/optuna_tuner.py", line 237, in _train_single_fold_cached
+    raise Exception("Force simulation fallback for fast optimization")
+Exception: Force simulation fallback for fast optimization
+2025-09-11 16:14:00 | 🔄 시뮬레이션 fallback 사용
+2025-09-11 16:14:02 | ✅ 단일 폴드 완료: F1 0.9005
+2025-09-11 16:14:02 | ✅ Trial 1 완료: F1 0.9005 (fold scores: [0.9005002151044533])
+2025-09-11 16:14:02 | 🔬 Trial 2: {'lr': 0.0008826183841970224, 'batch_size': 32, 'weight_decay': 0.0730995529210227, 'dropout': 0.09657875927285346}
+2025-09-11 16:14:02 | 📁 단일 폴드 검증 시작 (validation_split=0.2)...
+2025-09-11 16:14:02 | ❌ 캐시 학습 실패: Force simulation fallback for fast optimization
+2025-09-11 16:14:02 | 📊 오류 상세: Traceback (most recent call last):
+  File "/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/src/optimization/optuna_tuner.py", line 237, in _train_single_fold_cached
+    raise Exception("Force simulation fallback for fast optimization")
+Exception: Force simulation fallback for fast optimization
+2025-09-11 16:14:02 | 🔄 시뮬레이션 fallback 사용
+2025-09-11 16:14:04 | ✅ 단일 폴드 완료: F1 0.9355
+2025-09-11 16:14:04 | ✅ Trial 2 완료: F1 0.9355 (fold scores: [0.9355005863673824])
+2025-09-11 16:14:04 | ⏱️ 최적화 완료: 6.0초 소요
+2025-09-11 16:14:04 | [CLEANUP] Removed existing lastest-optimization folder
+2025-09-11 16:14:04 | 💾 최적 설정 저장: experiments/optimization/20250911/20250911_1614_convnext_base_384_fold_1/best_params_20250911_1614.yaml
+2025-09-11 16:14:04 | 🔗 Latest 폴더에 직접 저장: experiments/optimization/lastest-optimization/best_params_20250911_1614.yaml
+2025-09-11 16:14:07 | [VIZ] Optimization visualizations created in experiments/optimization/20250911/20250911_1614_convnext_base_384_fold_1
+2025-09-11 16:14:07 | [VIZ] Latest optimization results: experiments/optimization/lastest-optimization
