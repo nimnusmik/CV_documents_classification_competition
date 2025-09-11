@@ -616,8 +616,24 @@ def run_highperf_training(cfg_path: str):
             shutil.rmtree(lastest_train_dir)
             logger.write(f"[CLEANUP] Removed existing lastest-train folder")
         
-        # 현재 실험 결과를 lastest-train으로 복사
-        shutil.copytree(exp_root, lastest_train_dir)
+        # lastest-train 폴더 생성
+        os.makedirs(lastest_train_dir, exist_ok=True)
+        
+        # 개별 폴더/파일 복사 (ckpt, images, fold_results.yaml)
+        source_items_to_copy = ['ckpt', 'images', 'fold_results.yaml']
+        for item in source_items_to_copy:
+            source_path = os.path.join(exp_root, item)
+            dest_path = os.path.join(lastest_train_dir, item)
+            
+            if os.path.exists(source_path):
+                if os.path.isdir(source_path):
+                    shutil.copytree(source_path, dest_path)
+                else:
+                    shutil.copy2(source_path, dest_path)
+                logger.write(f"[COPY] Copied {item} to lastest-train")
+            else:
+                logger.write(f"[WARN] {item} not found in {exp_root}")
+        
         logger.write(f"[COPY] Results copied directly to lastest-train")
         logger.write(f"📁 Latest results: {lastest_train_dir}")
         
