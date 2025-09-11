@@ -1,0 +1,118 @@
+2025-09-11 22:27:28 | [BOOT] high-performance inference pipeline started
+2025-09-11 22:27:28 | [BOOT] device=cuda
+2025-09-11 22:27:28 | [DATA] loaded test data | shape=(3140, 2)
+2025-09-11 22:27:28 | [DATA] test image directory: /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/data/raw/test
+2025-09-11 22:27:28 | [DATA] image size: 384x384
+2025-09-11 22:27:28 | [DATA] batch size: 32
+2025-09-11 22:27:28 | [HighPerfDataset] size=3140 img_size=384 epoch=0/10 p_hard=0.000 is_train=False
+2025-09-11 22:27:28 | [DATA] test dataset size: 3140
+2025-09-11 22:27:28 | [DATA] test dataloader created | workers=8
+2025-09-11 22:27:28 | ==================================================
+2025-09-11 22:27:28 | [TTA] TTA enabled: True, type: comprehensive
+2025-09-11 22:27:34 | [MODELS] loaded 9 fold models
+2025-09-11 22:27:34 | [INFERENCE] starting comprehensive TTA ensemble prediction...
+2025-09-11 22:27:34 | 🚀 [ENSEMBLE] Starting Essential TTA ensemble prediction with 9 models
+2025-09-11 22:27:34 | [MODEL 1/9] Processing Essential TTA prediction...
+2025-09-11 22:27:34 | [MODEL 1] Architecture: convnext_base_384_in22ft1k
+2025-09-11 22:27:34 | [MODEL 1] Drop rate: 0.15, Drop path: 0.15
+2025-09-11 22:27:34 | [MODEL 1] Building model and loading checkpoint...
+2025-09-11 22:27:35 | [MODEL 1] Model loaded successfully, starting Essential TTA prediction...
+2025-09-11 22:30:27 | [MODEL 1] ✓ Essential TTA prediction completed | shape=torch.Size([3140, 17])
+2025-09-11 22:30:27 | [MODEL 2/9] Processing Essential TTA prediction...
+2025-09-11 22:30:27 | [MODEL 2] Architecture: swin_base_patch4_window12_384_in22k
+2025-09-11 22:30:27 | [MODEL 2] Drop rate: 0.15, Drop path: 0.15
+2025-09-11 22:30:27 | [MODEL 2] Building model and loading checkpoint...
+2025-09-11 22:30:27 | [MODEL 2] Model loaded successfully, starting Essential TTA prediction...
+2025-09-11 22:34:44 | [MODEL 2] ✓ Essential TTA prediction completed | shape=torch.Size([3140, 17])
+2025-09-11 22:34:44 | [MODEL 3/9] Processing Essential TTA prediction...
+2025-09-11 22:34:44 | [MODEL 3] Architecture: tf_efficientnetv2_b3
+2025-09-11 22:34:44 | [MODEL 3] Drop rate: 0.15, Drop path: 0.15
+2025-09-11 22:34:44 | [MODEL 3] Building model and loading checkpoint...
+2025-09-11 22:34:45 | [MODEL 3] Model loaded successfully, starting Essential TTA prediction...
+2025-09-11 22:35:30 | [MODEL 3] ✓ Essential TTA prediction completed | shape=torch.Size([3140, 17])
+2025-09-11 22:35:30 | [MODEL 4/9] Processing Essential TTA prediction...
+2025-09-11 22:35:30 | [MODEL 4] Architecture: convnext_base_384_in22ft1k
+2025-09-11 22:35:30 | [MODEL 4] Drop rate: 0.15, Drop path: 0.15
+2025-09-11 22:35:30 | [MODEL 4] Building model and loading checkpoint...
+2025-09-11 22:35:31 | [MODEL 4] Model loaded successfully, starting Essential TTA prediction...
+2025-09-11 22:38:20 | [MODEL 4] ✓ Essential TTA prediction completed | shape=torch.Size([3140, 17])
+2025-09-11 22:38:20 | [MODEL 5/9] Processing Essential TTA prediction...
+2025-09-11 22:38:20 | [MODEL 5] Architecture: convnext_base_384_in22ft1k
+2025-09-11 22:38:20 | [MODEL 5] Drop rate: 0.15, Drop path: 0.15
+2025-09-11 22:38:20 | [MODEL 5] Building model and loading checkpoint...
+2025-09-11 22:38:21 | [MODEL 5] Model loaded successfully, starting Essential TTA prediction...
+2025-09-11 22:41:09 | [MODEL 5] ✓ Essential TTA prediction completed | shape=torch.Size([3140, 17])
+2025-09-11 22:41:09 | [MODEL 6/9] Processing Essential TTA prediction...
+2025-09-11 22:41:09 | [MODEL 6] Architecture: convnext_base_384_in22ft1k
+2025-09-11 22:41:09 | [MODEL 6] Drop rate: 0.15, Drop path: 0.15
+2025-09-11 22:41:09 | [MODEL 6] Building model and loading checkpoint...
+2025-09-11 22:41:10 | [MODEL 6] Model loaded successfully, starting Essential TTA prediction...
+2025-09-11 22:43:57 | [MODEL 6] ✓ Essential TTA prediction completed | shape=torch.Size([3140, 17])
+2025-09-11 22:43:57 | [MODEL 7/9] Processing Essential TTA prediction...
+2025-09-11 22:43:57 | [MODEL 7] Architecture: convnext_base_384_in22ft1k
+2025-09-11 22:43:57 | [MODEL 7] Drop rate: 0.15, Drop path: 0.15
+2025-09-11 22:43:57 | [MODEL 7] Building model and loading checkpoint...
+2025-09-11 22:43:58 | [MODEL 7] Model loaded successfully, starting Essential TTA prediction...
+2025-09-11 22:46:47 | [MODEL 7] ✓ Essential TTA prediction completed | shape=torch.Size([3140, 17])
+2025-09-11 22:46:47 | [MODEL 8/9] Processing Essential TTA prediction...
+2025-09-11 22:46:47 | [MODEL 8] Architecture: convnext_base_384_in22ft1k
+2025-09-11 22:46:47 | [MODEL 8] Drop rate: 0.15, Drop path: 0.15
+2025-09-11 22:46:47 | [MODEL 8] Building model and loading checkpoint...
+2025-09-11 22:46:48 | [MODEL 8] Model loaded successfully, starting Essential TTA prediction...
+2025-09-11 22:49:35 | [MODEL 8] ✓ Essential TTA prediction completed | shape=torch.Size([3140, 17])
+2025-09-11 22:49:35 | [MODEL 9/9] Processing Essential TTA prediction...
+2025-09-11 22:49:35 | [MODEL 9] Architecture: convnext_base_384_in22ft1k
+2025-09-11 22:49:35 | [MODEL 9] Drop rate: 0.15, Drop path: 0.15
+2025-09-11 22:49:35 | [MODEL 9] Building model and loading checkpoint...
+2025-09-11 22:49:36 | [MODEL 9] Model loaded successfully, starting Essential TTA prediction...
+2025-09-11 22:52:24 | [MODEL 9] ✓ Essential TTA prediction completed | shape=torch.Size([3140, 17])
+2025-09-11 22:52:24 | [ENSEMBLE] Computing ensemble average...
+2025-09-11 22:52:24 | [ENSEMBLE] ✓ Essential TTA ensemble prediction completed | final_shape=torch.Size([3140, 17])
+2025-09-11 22:52:24 | [SUCCESS] Files saved to:
+2025-09-11 22:52:24 | - Main: experiments/infer/20250911/20250911_2252_multi-model-ensemble-inference/20250911_2252_multi-model-ensemble-inference_ensemble_comprehensive_tta.csv
+2025-09-11 22:52:24 | - Lastest: experiments/infer/lastest-infer/20250911_2252_multi-model-ensemble-inference_ensemble_comprehensive_tta.csv
+2025-09-11 22:52:24 | - Submission: submissions/20250911/20250911_2252_multi-model-ensemble-inference_ensemble_comprehensive_tta.csv
+2025-09-11 22:52:24 | [RESULT] Prediction distribution:
+2025-09-11 22:52:24 | Class 0: 200 samples (6.4%)
+2025-09-11 22:52:24 | Class 1: 91 samples (2.9%)
+2025-09-11 22:52:24 | Class 2: 200 samples (6.4%)
+2025-09-11 22:52:24 | Class 3: 187 samples (6.0%)
+2025-09-11 22:52:24 | Class 4: 202 samples (6.4%)
+2025-09-11 22:52:24 | Class 5: 200 samples (6.4%)
+2025-09-11 22:52:24 | Class 6: 204 samples (6.5%)
+2025-09-11 22:52:24 | Class 7: 214 samples (6.8%)
+2025-09-11 22:52:24 | Class 8: 200 samples (6.4%)
+2025-09-11 22:52:24 | Class 9: 200 samples (6.4%)
+2025-09-11 22:52:24 | Class 10: 210 samples (6.7%)
+2025-09-11 22:52:24 | Class 11: 193 samples (6.1%)
+2025-09-11 22:52:24 | Class 12: 199 samples (6.3%)
+2025-09-11 22:52:24 | Class 13: 155 samples (4.9%)
+2025-09-11 22:52:24 | Class 14: 85 samples (2.7%)
+2025-09-11 22:52:24 | Class 15: 200 samples (6.4%)
+2025-09-11 22:52:24 | Class 16: 200 samples (6.4%)
+2025-09-11 22:52:24 | ==================================================
+2025-09-11 22:52:24 | [VISUALIZATION] Starting individual model visualizations...
+2025-09-11 22:52:24 | [VISUALIZATION] Creating visualizations for model_1_convnext_base_384 at experiments/infer/20250911/20250911_2252_multi-model-ensemble-inference/model_1_convnext_base_384
+2025-09-11 22:52:25 | [VISUALIZATION] ✓ Model 1 visualization completed
+2025-09-11 22:52:25 | [VISUALIZATION] Creating visualizations for model_2_swin_base_384 at experiments/infer/20250911/20250911_2252_multi-model-ensemble-inference/model_2_swin_base_384
+2025-09-11 22:52:27 | [VISUALIZATION] ✓ Model 2 visualization completed
+2025-09-11 22:52:27 | [VISUALIZATION] Creating visualizations for model_3_efficientnet_v2_b3 at experiments/infer/20250911/20250911_2252_multi-model-ensemble-inference/model_3_efficientnet_v2_b3
+2025-09-11 22:52:29 | [VISUALIZATION] ✓ Model 3 visualization completed
+2025-09-11 22:52:29 | [VISUALIZATION] Creating visualizations for model_4_convnext_base_384 at experiments/infer/20250911/20250911_2252_multi-model-ensemble-inference/model_4_convnext_base_384
+2025-09-11 22:52:31 | [VISUALIZATION] ✓ Model 4 visualization completed
+2025-09-11 22:52:31 | [VISUALIZATION] Creating visualizations for model_5_convnext_base_384 at experiments/infer/20250911/20250911_2252_multi-model-ensemble-inference/model_5_convnext_base_384
+2025-09-11 22:52:32 | [VISUALIZATION] ✓ Model 5 visualization completed
+2025-09-11 22:52:32 | [VISUALIZATION] Creating visualizations for model_6_convnext_base_384 at experiments/infer/20250911/20250911_2252_multi-model-ensemble-inference/model_6_convnext_base_384
+2025-09-11 22:52:34 | [VISUALIZATION] ✓ Model 6 visualization completed
+2025-09-11 22:52:34 | [VISUALIZATION] Creating visualizations for model_7_convnext_base_384 at experiments/infer/20250911/20250911_2252_multi-model-ensemble-inference/model_7_convnext_base_384
+2025-09-11 22:52:36 | [VISUALIZATION] ✓ Model 7 visualization completed
+2025-09-11 22:52:36 | [VISUALIZATION] Creating visualizations for model_8_convnext_base_384 at experiments/infer/20250911/20250911_2252_multi-model-ensemble-inference/model_8_convnext_base_384
+2025-09-11 22:52:37 | [VISUALIZATION] ✓ Model 8 visualization completed
+2025-09-11 22:52:37 | [VISUALIZATION] Creating visualizations for model_9_convnext_base_384 at experiments/infer/20250911/20250911_2252_multi-model-ensemble-inference/model_9_convnext_base_384
+2025-09-11 22:52:39 | [VISUALIZATION] ✓ Model 9 visualization completed
+2025-09-11 22:52:39 | [VISUALIZATION] Creating ensemble visualizations...
+2025-09-11 22:52:39 | [VISUALIZATION] Ensemble visualization directory: experiments/infer/20250911/20250911_2252_multi-model-ensemble-inference/ensemble
+2025-09-11 22:52:41 | [VISUALIZATION] ✓ Ensemble visualization completed
+2025-09-11 22:52:41 | [VIZ] Inference visualizations created in experiments/infer/20250911/20250911_2252_multi-model-ensemble-inference
+2025-09-11 22:52:41 | [SUCCESS] All results copied to lastest-infer folder
+2025-09-11 22:52:41 | [SHUTDOWN] Inference pipeline ended
