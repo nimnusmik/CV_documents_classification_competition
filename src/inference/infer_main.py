@@ -5,6 +5,7 @@
 # argparse: CLI 인자 파싱
 # sys: 프로그램 종료 제어
 import argparse, sys                                                # 명령행 인자 처리 및 시스템 제어
+import yaml                                                         # YAML 파일 읽기
 from src.inference.infer import run_inference                       # 기본 추론 실행 함수
 from src.inference.infer_highperf import run_highperf_inference     # 고성능 추론
 
@@ -42,9 +43,34 @@ def main():
             
             # 폴드 결과 파일이 없는 경우
             if not args.fold_results:
-                print("❌ Error: --fold-results is required for highperf mode")  # 에러 메시지
-                print("💡 Example: --fold-results experiments/train/lastest-train/fold_results.yaml")  # 예시 출력
-                sys.exit(1) # 프로그램 종료 (에러 코드 1)
+                # 설정 파일에서 fold_results_paths 읽기 시도
+                try:
+                    # 설정 파일 읽기
+                    with open(args.config, 'r', encoding='utf-8') as f:
+                        config = yaml.safe_load(f)
+                    
+                    # fold_results_paths 또는 fold_results_path 키 확인
+                    if 'ensemble' in config and 'fold_results_paths' in config['ensemble']:
+                        # 여러 경로 처리
+                        fold_results_paths = config['ensemble']['fold_results_paths']
+
+                        # fold_results_paths 설정값이 존재할 경우
+                        if fold_results_paths:
+                            # 여러 경로를 쉼표로 구분된 문자열로 변환
+                            args.fold_results = ','.join(fold_results_paths)
+                            print(f"📋 Using fold_results_paths from config: {len(fold_results_paths)} models")
+                    # 단일 경로 처리
+                    elif 'ensemble' in config and 'fold_results_path' in config['ensemble']:
+                        args.fold_results = config['ensemble']['fold_results_path']
+                        print(f"📋 Using fold_results_path from config")
+                except Exception as e:
+                    print(f"⚠️ Warning: Could not read config file: {e}")
+                
+                # 여전히 fold_results가 없는 경우 에러 처리
+                if not args.fold_results:
+                    print("❌ Error: --fold-results is required for highperf mode")  # 에러 메시지
+                    print("💡 Example: --fold-results experiments/train/lastest-train/fold_results.yaml")  # 예시 출력
+                    sys.exit(1) # 프로그램 종료 (에러 코드 1)
             
             # 고성능 추론 실행
             output_path = run_highperf_inference(args.config, args.fold_results, args.out)  # 고성능 추론 함수 호출
