@@ -1,4 +1,9 @@
 # 🏆 Computer Vision Competition
+[![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/release/python-3119/)
+[![F1 Score](https://img.shields.io/badge/F1_Score-0.9750+-brightgreen.svg)](https://github.com/your-repo/issues)
+[![Framework](https://img.shields.io/badge/Framework-PyTorch-orange.svg)](https://pytorch.org/)
+[![Optimization](https://img.shields.io/badge/Optimization-Optuna-purple.svg)](https://optuna.org/)
+[![Pipeline](https://img.shields.io/badge/Pipeline-Full_Automation-green.svg)](#)
 
 ## Team
 
