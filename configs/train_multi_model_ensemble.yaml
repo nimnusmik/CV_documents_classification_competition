@@ -1,0 +1,91 @@
+# ----------------------------- 다중 모델 앙상블 설정 ----------------------------- #
+project:
+  run_name: multi-model-ensemble-rtx4090        # 실행명 (RTX 4090 최적화)
+  seed: 42                                      # 랜덤 시드
+  date_format: '%Y%m%d'                         # 날짜 포맷
+  time_format: '%H%M'                           # 시간 포맷
+  num_workers: 8                                # 데이터 로더 워커 수 (메모리 최적화)
+  device: cuda                                  # 학습 디바이스
+  verbose: true                                 # 상세 로그 출력
+  log_prefix: train_multi_ensemble              # 로그 파일 접두사
+  pin_memory: true                              # 메모리 고정 (GPU 전송 속도 향상)
+  persistent_workers: true                      # 워커 재사용 (속도 향상)
+
+# ------------------------------- 데이터 설정 ------------------------------- #
+data:
+  root: ./data                                  # 데이터 루트 디렉토리
+  train_csv: ./data/raw/train.csv               # 학습 데이터 CSV
+  sample_csv: ./data/raw/sample_submission.csv  # 제출 샘플 CSV
+  image_dir_train: ./data/raw/train             # 학습 이미지 디렉토리
+  image_dir_test: ./data/raw/test               # 테스트 이미지 디렉토리
+  image_ext: .jpg                               # 이미지 파일 확장자
+  id_col: ID                                    # ID 컬럼명
+  target_col: target                            # 타깃 컬럼명
+  num_classes: 17                               # 분류 클래스 수
+  folds: 5                                      # K-Fold 폴드 수
+  valid_fold: all                               # 검증 폴드 (전체 폴드 학습)
+  stratify: true                                # 계층적 분할 사용
+
+# ------------------------------- 학습 설정 ------------------------------- #
+train:
+  img_size: 384                                 # 입력 이미지 크기 (메모리 최적화)
+  batch_size: 48                                # 배치 크기 (메모리 최적화)
+  initial_batch_size: 384                       # 초기 배치 크기 (메모리 최적화)
+  max_batch_size: 64                            # 최대 배치 크기 (메모리 최적화)
+  auto_scale_batch_size: binsearch              # 이진 탐색으로 최적 배치 찾기
+  use_advanced_augmentation: true               # 고급 증강 기법 사용
+  epochs: 10                                    # 학습 에포크 수 (메모리 최적화)
+  lr: 0.0002                                    # 학습률 (train_highperf.yaml 기준)
+  weight_decay: 0.01                            # L2 정규화 계수
+  optimizer: adamw                              # 옵티마이저
+  scheduler: cosine                             # 스케줄러
+  warmup_epochs: 5                              # 웜업 에포크 (안정적 학습 시작)
+  min_lr: 0.000001                              # 최소 학습률
+  mixed_precision: true                         # 혼합 정밀도 학습 (메모리 절약)
+  max_grad_norm: 1.0                            # 그래디언트 클리핑
+  label_smoothing: 0.05                         # 레이블 스무딩
+  use_mixup: true                               # Mixup 사용
+  mixup_alpha: 0.8                              # Mixup 알파 (조금 낮춤)
+  cutmix_alpha: 1.0                             # CutMix 추가
+  use_cutmix: true                              # CutMix 사용
+  hard_augmentation: true                       # 강한 데이터 증강
+  log_interval: 5                               # 로그 출력 간격 (더 자주 출력)
+  ema: true                                     # EMA (지수 이동 평균) 사용
+
+# ------------------------------- 다중 모델 설정 ------------------------------- #
+# 폴드별로 다른 모델 사용 가능 - 최고 성능 모델 조합
+models:
+  fold_0:
+    name: "convnext_base_384_in22ft1k"
+  fold_1:
+    name: "swin_base_384"
+  fold_2:
+    name: "swin_base_384"
+  fold_3:
+    name: "convnext_base_384_in22ft1k"
+  fold_4:
+    name: "convnext_base_384_in22ft1k"
+
+# 기본 모델 설정 (모든 폴드에 공통 적용)
+model:
+  pretrained: true                              # 사전학습 가중치 사용
+  drop_rate: 0.15                               # 드롭아웃 비율 (과적합 방지 강화)
+  drop_path_rate: 0.15                          # 드롭패스 비율 (정규화 강화)
+  pooling: "avg"                                # 전역 풀링 방식
+
+# ------------------------------- 출력/저장 설정 ---------------------------- #
+output:
+  exp_dir: "experiments/train"                  # 실험 결과(모델/메트릭) 저장 루트
+  snapshots: true                               # 설정 스냅샷 저장
+  save_predictions: true                        # 예측 결과 저장
+
+# ------------------------------- WandB 설정 ------------------------------- #
+wandb:
+  project_name: document-classification-multi   # WandB 프로젝트명
+  entity: null                                  # WandB 엔티티
+  experiment_name: multi-model-ensemble         # 실험명
+  tags:                                         # 실험 태그
+    - multi-model
+    - ensemble
+    - diverse-architectures
+  enabled: true                                 # WandB 활성화

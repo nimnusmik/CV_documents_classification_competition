@@ -1,0 +1,26 @@
+2025-09-08 04:20:16 | [BOOT] high-performance inference pipeline started
+2025-09-08 04:20:16 | [BOOT] device=cuda
+2025-09-08 04:20:16 | [DATA] loaded test data | shape=(3140, 2)
+2025-09-08 04:20:16 | [HighPerfDataset] size=3140 img_size=384 epoch=0/10 p_hard=0.000 is_train=False
+2025-09-08 04:20:16 | [DATA] test dataset size: 3140
+2025-09-08 04:20:16 | [INFERENCE] starting ensemble prediction...
+2025-09-08 04:24:50 | [SUCCESS] Inference completed | output: submissions/20250908/20250908_0424_swin_base_384_ensemble_tta_basic_augmentation.csv
+2025-09-08 04:24:50 | [RESULT] Prediction distribution:
+2025-09-08 04:24:50 | Class 0: 200 samples (6.4%)
+2025-09-08 04:24:50 | Class 1: 92 samples (2.9%)
+2025-09-08 04:24:50 | Class 2: 200 samples (6.4%)
+2025-09-08 04:24:50 | Class 3: 230 samples (7.3%)
+2025-09-08 04:24:50 | Class 4: 245 samples (7.8%)
+2025-09-08 04:24:50 | Class 5: 200 samples (6.4%)
+2025-09-08 04:24:50 | Class 6: 208 samples (6.6%)
+2025-09-08 04:24:50 | Class 7: 147 samples (4.7%)
+2025-09-08 04:24:50 | Class 8: 200 samples (6.4%)
+2025-09-08 04:24:50 | Class 9: 200 samples (6.4%)
+2025-09-08 04:24:50 | Class 10: 208 samples (6.6%)
+2025-09-08 04:24:50 | Class 11: 193 samples (6.1%)
+2025-09-08 04:24:50 | Class 12: 197 samples (6.3%)
+2025-09-08 04:24:50 | Class 13: 150 samples (4.8%)
+2025-09-08 04:24:50 | Class 14: 69 samples (2.2%)
+2025-09-08 04:24:50 | Class 15: 201 samples (6.4%)
+2025-09-08 04:24:50 | Class 16: 200 samples (6.4%)
+2025-09-08 04:24:50 | [SHUTDOWN] Inference pipeline ended

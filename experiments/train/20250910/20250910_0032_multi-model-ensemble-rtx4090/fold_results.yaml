@@ -1,0 +1,17 @@
+fold_results:
+- fold: 0
+  best_f1: 0.9464791355417574
+  model_path: ./experiments/train/20250910/20250910_0032_multi-model-ensemble-rtx4090/ckpt/best_model_fold_1.pth
+- fold: 1
+  best_f1: 0.9471436217166769
+  model_path: ./experiments/train/20250910/20250910_0032_multi-model-ensemble-rtx4090/ckpt/best_model_fold_2.pth
+- fold: 2
+  best_f1: 0.9325035300561643
+  model_path: ./experiments/train/20250910/20250910_0032_multi-model-ensemble-rtx4090/ckpt/best_model_fold_3.pth
+- fold: 3
+  best_f1: 0.9454136523396486
+  model_path: ./experiments/train/20250910/20250910_0032_multi-model-ensemble-rtx4090/ckpt/best_model_fold_4.pth
+- fold: 4
+  best_f1: 0.9469058835218053
+  model_path: ./experiments/train/20250910/20250910_0032_multi-model-ensemble-rtx4090/ckpt/best_model_fold_5.pth
+average_f1: 0.9436891646352106

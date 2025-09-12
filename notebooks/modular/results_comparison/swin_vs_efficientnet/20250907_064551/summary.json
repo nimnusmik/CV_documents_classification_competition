@@ -1,0 +1,16 @@
+{
+  "file_name": "swin_vs_efficientnet",
+  "folder_name": "results_comparison",
+  "start_time": "2025-09-07T06:45:51.033502",
+  "end_time": "2025-09-07T06:45:53.333331",
+  "duration_seconds": 2.299829,
+  "total_sections": 1,
+  "results": {
+    "comparison": {
+      "status": "completed",
+      "timestamp": "2025-09-07T06:45:53.332739",
+      "section": "comparison"
+    }
+  },
+  "log_directory": "notebooks/modular/results_comparison/swin_vs_efficientnet/20250907_064551"
+}

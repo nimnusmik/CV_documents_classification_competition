@@ -1,0 +1,33 @@
+2025-09-11 21:36:40 | [BOOT] high-performance inference pipeline started
+2025-09-11 21:36:41 | [BOOT] device=cuda
+2025-09-11 21:36:41 | [DATA] loaded test data | shape=(3140, 2)
+2025-09-11 21:36:41 | [HighPerfDataset] size=3140 img_size=384 epoch=0/10 p_hard=0.000 is_train=False
+2025-09-11 21:36:41 | [DATA] test dataset size: 3140
+2025-09-11 21:36:41 | [TTA] TTA enabled: True, type: comprehensive
+2025-09-11 21:36:41 | [MODELS] loaded 2 fold models
+2025-09-11 21:36:41 | [INFERENCE] starting comprehensive TTA ensemble prediction...
+2025-09-11 21:43:47 | [SUCCESS] Files saved to:
+2025-09-11 21:43:47 | - Main: experiments/infer/20250911/20250911_2143_multi-model-ensemble-inference/20250911_2143_multi-model-ensemble-inference_ensemble_comprehensive_tta.csv
+2025-09-11 21:43:47 | - Lastest: experiments/infer/lastest-infer/20250911_2143_multi-model-ensemble-inference_ensemble_comprehensive_tta.csv
+2025-09-11 21:43:47 | - Submission: submissions/20250911/20250911_2143_multi-model-ensemble-inference_ensemble_comprehensive_tta.csv
+2025-09-11 21:43:47 | [RESULT] Prediction distribution:
+2025-09-11 21:43:47 | Class 0: 200 samples (6.4%)
+2025-09-11 21:43:47 | Class 1: 91 samples (2.9%)
+2025-09-11 21:43:47 | Class 2: 200 samples (6.4%)
+2025-09-11 21:43:47 | Class 3: 154 samples (4.9%)
+2025-09-11 21:43:47 | Class 4: 199 samples (6.3%)
+2025-09-11 21:43:47 | Class 5: 200 samples (6.4%)
+2025-09-11 21:43:47 | Class 6: 210 samples (6.7%)
+2025-09-11 21:43:47 | Class 7: 243 samples (7.7%)
+2025-09-11 21:43:47 | Class 8: 200 samples (6.4%)
+2025-09-11 21:43:47 | Class 9: 200 samples (6.4%)
+2025-09-11 21:43:47 | Class 10: 215 samples (6.8%)
+2025-09-11 21:43:47 | Class 11: 190 samples (6.1%)
+2025-09-11 21:43:47 | Class 12: 199 samples (6.3%)
+2025-09-11 21:43:47 | Class 13: 157 samples (5.0%)
+2025-09-11 21:43:47 | Class 14: 80 samples (2.5%)
+2025-09-11 21:43:47 | Class 15: 202 samples (6.4%)
+2025-09-11 21:43:47 | Class 16: 200 samples (6.4%)
+2025-09-11 21:43:52 | [VIZ] Inference visualizations created in experiments/infer/20250911/20250911_2143_multi-model-ensemble-inference
+2025-09-11 21:43:52 | [SUCCESS] All results copied to lastest-infer folder
+2025-09-11 21:43:52 | [SHUTDOWN] Inference pipeline ended

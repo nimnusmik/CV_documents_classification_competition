@@ -1,0 +1,11 @@
+{
+  "metrics": {
+    "total": 3140,
+    "same": 2991,
+    "different": 149,
+    "match_rate": 95.25
+  },
+  "file_name": "swin_vs_multi-model-ensemble-rtx4090",
+  "section": "basic_metrics",
+  "timestamp": "2025-09-10T07:35:28.624192"
+}

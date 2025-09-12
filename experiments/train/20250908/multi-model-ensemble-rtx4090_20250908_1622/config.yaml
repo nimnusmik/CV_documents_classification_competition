@@ -1,0 +1,80 @@
+project:
+  run_name: multi-model-ensemble-rtx4090
+  seed: 42
+  date_format: '%Y%m%d'
+  time_format: '%H%M'
+  num_workers: 8
+  device: cuda
+  verbose: true
+  log_prefix: train_multi_ensemble
+  pin_memory: true
+  persistent_workers: true
+data:
+  root: ./data
+  train_csv: ./data/raw/train.csv
+  sample_csv: ./data/raw/sample_submission.csv
+  image_dir_train: ./data/raw/train
+  image_dir_test: ./data/raw/test
+  image_ext: .jpg
+  id_col: ID
+  target_col: target
+  num_classes: 17
+  folds: 5
+  valid_fold: all
+  stratify: true
+train:
+  img_size: 384
+  batch_size: 64
+  initial_batch_size: 96
+  max_batch_size: 160
+  auto_scale_batch_size: binsearch
+  use_advanced_augmentation: true
+  epochs: 3
+  lr: 0.00023801226999808358
+  weight_decay: 0.02724078801980071
+  optimizer: adamw
+  scheduler: cosine
+  warmup_epochs: 1
+  min_lr: 1.0e-06
+  mixed_precision: true
+  amp: true
+  max_grad_norm: 1.0
+  grad_clip_norm: 1.0
+  label_smoothing: 0.1
+  use_mixup: true
+  mixup_alpha: 0.8
+  cutmix_alpha: 1.0
+  use_cutmix: true
+  hard_augmentation: true
+  log_interval: 50
+  dropout: 0.2606234567692772
+models:
+  fold_0:
+    name: swin_base_384
+  fold_1:
+    name: convnext_base_384
+  fold_2:
+    name: convnext_large
+  fold_3:
+    name: vit_large
+  fold_4:
+    name: swin_base_384
+model:
+  name: efficientnet_b3
+  pretrained: true
+  drop_rate: 0.15
+  drop_path_rate: 0.15
+  pooling: avg
+output:
+  exp_dir: ./experiments/train
+  snapshots: true
+  save_predictions: true
+wandb:
+  project_name: document-classification-multi
+  entity: null
+  experiment_name: multi-model-ensemble
+  tags:
+  - multi-model
+  - ensemble
+  - diverse-architectures
+  enabled: true

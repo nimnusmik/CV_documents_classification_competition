@@ -1,0 +1,6 @@
+{"time":"2025-09-09T16:24:08.828720246+09:00","level":"INFO","msg":"stream: starting","core version":"0.21.3"}
+{"time":"2025-09-09T16:24:09.289757303+09:00","level":"INFO","msg":"stream: created new stream","id":"ftleg8tn"}
+{"time":"2025-09-09T16:24:09.28978788+09:00","level":"INFO","msg":"stream: started","id":"ftleg8tn"}
+{"time":"2025-09-09T16:24:09.289810742+09:00","level":"INFO","msg":"writer: started","stream_id":"ftleg8tn"}
+{"time":"2025-09-09T16:24:09.28982596+09:00","level":"INFO","msg":"sender: started","stream_id":"ftleg8tn"}
+{"time":"2025-09-09T16:24:09.289919819+09:00","level":"INFO","msg":"handler: started","stream_id":"ftleg8tn"}

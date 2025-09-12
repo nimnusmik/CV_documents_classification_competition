@@ -1,0 +1,26 @@
+2025-09-07 17:34:42,380 INFO    MainThread:1558502 [wandb_setup.py:_flush():81] Current SDK version is 0.21.3
+2025-09-07 17:34:42,380 INFO    MainThread:1558502 [wandb_setup.py:_flush():81] Configure stats pid to 1558502
+2025-09-07 17:34:42,380 INFO    MainThread:1558502 [wandb_setup.py:_flush():81] Loading settings from /home/ieyeppo/.config/wandb/settings
+2025-09-07 17:34:42,380 INFO    MainThread:1558502 [wandb_setup.py:_flush():81] Loading settings from /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/wandb/settings
+2025-09-07 17:34:42,380 INFO    MainThread:1558502 [wandb_setup.py:_flush():81] Loading settings from environment variables
+2025-09-07 17:34:42,380 INFO    MainThread:1558502 [wandb_init.py:setup_run_log_directory():686] Logging user logs to /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/wandb/run-20250907_173442-3tyajt78/logs/debug.log
+2025-09-07 17:34:42,380 INFO    MainThread:1558502 [wandb_init.py:setup_run_log_directory():687] Logging internal logs to /home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/wandb/run-20250907_173442-3tyajt78/logs/debug-internal.log
+2025-09-07 17:34:42,380 INFO    MainThread:1558502 [wandb_init.py:init():813] calling init triggers
+2025-09-07 17:34:42,380 INFO    MainThread:1558502 [wandb_init.py:init():818] wandb.init called with sweep_config: {}
+config: {'architecture': 'swin_base_384', 'image_size': 384, 'batch_size': 16, 'learning_rate': 0.00012989084867808158, 'epochs': 15, 'framework': 'PyTorch', 'dataset': 'Document Classification', 'mixup_alpha': 1.0, 'hard_augmentation': True, 'optimizer': 'adamw', 'scheduler': 'cosine', '_wandb': {}}
+2025-09-07 17:34:42,380 INFO    MainThread:1558502 [wandb_init.py:init():854] starting backend
+2025-09-07 17:34:42,584 INFO    MainThread:1558502 [wandb_init.py:init():857] sending inform_init request
+2025-09-07 17:34:42,587 INFO    MainThread:1558502 [wandb_init.py:init():865] backend started and connected
+2025-09-07 17:34:42,589 INFO    MainThread:1558502 [wandb_init.py:init():936] updated telemetry
+2025-09-07 17:34:42,596 INFO    MainThread:1558502 [wandb_init.py:init():960] communicating run to backend with 90.0 second timeout
+2025-09-07 17:34:43,376 INFO    MainThread:1558502 [wandb_init.py:init():1011] starting run threads in backend
+2025-09-07 17:34:43,432 INFO    MainThread:1558502 [wandb_run.py:_console_start():2494] atexit reg
+2025-09-07 17:34:43,432 INFO    MainThread:1558502 [wandb_run.py:_redirect():2342] redirect: wrap_raw
+2025-09-07 17:34:43,432 INFO    MainThread:1558502 [wandb_run.py:_redirect():2411] Wrapping output streams.
+2025-09-07 17:34:43,432 INFO    MainThread:1558502 [wandb_run.py:_redirect():2434] Redirects installed.
+2025-09-07 17:34:43,434 INFO    MainThread:1558502 [wandb_init.py:init():1057] run started, returning control to user process
+2025-09-07 17:38:23,383 INFO    MainThread:1558502 [wandb_run.py:_finish():2260] finishing run kimsunmin0227-hufs/document-classification-team/3tyajt78
+2025-09-07 17:38:23,384 INFO    MainThread:1558502 [wandb_run.py:_atexit_cleanup():2459] got exitcode: 0
+2025-09-07 17:38:23,384 INFO    MainThread:1558502 [wandb_run.py:_restore():2441] restore
+2025-09-07 17:38:23,384 INFO    MainThread:1558502 [wandb_run.py:_restore():2447] restore done
+2025-09-07 17:38:24,536 INFO    MainThread:1558502 [wandb_run.py:_footer_sync_info():3855] logging synced files

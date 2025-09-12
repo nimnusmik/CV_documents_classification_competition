@@ -1,0 +1,20 @@
+2025-09-10 18:39:02 | 🚀 [PIPELINE] Full pipeline started
+2025-09-10 18:39:02 | 📋 Config: configs/train_highperf.yaml
+2025-09-10 18:39:02 | ⚙️ Skip training: False
+2025-09-10 18:39:02 | ============================================================
+2025-09-10 18:39:02 | 🎯 [STAGE 1] HIGH-PERFORMANCE TRAINING
+2025-09-10 18:39:02 | ============================================================
+2025-09-10 18:39:15 | ❌ [PIPELINE] Failed: CUDA out of memory. Tried to allocate 456.00 MiB. GPU 0 has a total capacity of 23.99 GiB of which 0 bytes is free. Including non-PyTorch memory, this process has 17179869184.00 GiB memory in use. Of the allocated memory 42.12 GiB is allocated by PyTorch, and 57.44 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+2025-09-10 18:39:15 | 🏁 [PIPELINE] Full pipeline ended
+2025-09-10 18:39:46 | 🚀 [PIPELINE] Full pipeline started
+2025-09-10 18:39:46 | 📋 Config: configs/train_highperf.yaml
+2025-09-10 18:39:46 | ⚙️ Skip training: False
+2025-09-10 18:39:46 | ============================================================
+2025-09-10 18:39:46 | 🎯 [STAGE 1] HIGH-PERFORMANCE TRAINING
+2025-09-10 18:39:46 | ============================================================
+2025-09-11 01:54:35 | ✅ [STAGE 1] Training completed successfully
+2025-09-11 01:54:35 | ============================================================
+2025-09-11 01:54:35 | 🔍 [STAGE 2] FINDING TRAINING RESULTS
+2025-09-11 01:54:35 | ============================================================
+2025-09-11 01:54:35 | ❌ [PIPELINE] Failed: fold_results.yaml not found in experiments/train/20250911/20250911_0154_swin_base_384_fold_1. Make sure training completed successfully.
+2025-09-11 01:54:35 | 🏁 [PIPELINE] Full pipeline ended

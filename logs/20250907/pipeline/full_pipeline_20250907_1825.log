@@ -1,0 +1,12 @@
+2025-09-07 18:25:28 | 🚀 [PIPELINE] Full pipeline started
+2025-09-07 18:25:28 | 📋 Config: configs/train_optimized_20250907_1825.yaml
+2025-09-07 18:25:28 | ⚙️ Skip training: False
+2025-09-07 18:25:28 | ============================================================
+2025-09-07 18:25:28 | 🎯 [STAGE 1] HIGH-PERFORMANCE TRAINING
+2025-09-07 18:25:28 | ============================================================
+2025-09-08 01:51:32 | ✅ [STAGE 1] Training completed successfully
+2025-09-08 01:51:32 | ============================================================
+2025-09-08 01:51:32 | 🔍 [STAGE 2] FINDING TRAINING RESULTS
+2025-09-08 01:51:32 | ============================================================
+2025-09-08 01:51:32 | ❌ [PIPELINE] Failed: fold_results.yaml not found in experiments/train/20250908/swin-sighperf. Make sure training completed successfully.
+2025-09-08 01:51:32 | 🏁 [PIPELINE] Full pipeline ended

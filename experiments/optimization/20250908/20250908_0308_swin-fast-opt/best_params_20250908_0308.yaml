@@ -1,0 +1,58 @@
+project:
+  run_name: swin-fast-opt
+  seed: 42
+  date_format: '%Y%m%d'
+  time_format: '%H%M'
+  num_workers: 4
+  device: cuda
+  verbose: true
+  log_prefix: train_fast_opt
+data:
+  root: ./data
+  train_csv: ./data/raw/train.csv
+  sample_csv: ./data/raw/sample_submission.csv
+  image_dir_train: ./data/raw/train
+  image_dir_test: ./data/raw/test
+  image_ext: .jpg
+  id_col: ID
+  target_col: target
+  num_classes: 17
+  folds: 3
+  valid_fold: all
+train:
+  img_size: 224
+  batch_size: 64
+  use_advanced_augmentation: true
+  epochs: 5
+  lr: 0.00034866561826416145
+  weight_decay: 0.0496546077590169
+  optimizer: adamw
+  scheduler: cosine
+  mixed_precision: true
+  max_grad_norm: 1.0
+  label_smoothing: 0.1
+  use_mixup: true
+  mixup_alpha: 0.8
+  hard_augmentation: false
+  log_interval: 20
+  dropout: 0.17142169434809312
+model:
+  name: swin_base_224
+  pretrained: true
+  drop_rate: 0.1
+  drop_path_rate: 0.1
+  pooling: avg
+output:
+  exp_dir: experiments/train
+  logs_dir: logs/train
+  save_best_only: true
+  save_weights_only: true
+  monitor: macro_f1
+  mode: max
+validation:
+  val_size: 0.2
+  stratify: true
+  shuffle: true
+inference:
+  tta: true
+  tta_transforms: 3

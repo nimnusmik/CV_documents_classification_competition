@@ -1,0 +1,17 @@
+{
+  "os": "Linux-6.6.87.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "python": "CPython 3.11.9",
+  "startedAt": "2025-09-06T23:33:21.962366Z",
+  "program": "/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN/notebooks/modular/unit_tests/05_wandb_integration.ipynb",
+  "codePath": "notebooks/modular/unit_tests/05_wandb_integration.ipynb",
+  "codePathLocal": "notebooks/modular/unit_tests/05_wandb_integration.ipynb",
+  "git": {
+    "remote": "git@github.com:iejob/computer-vision-competition-1SEN.git",
+    "commit": "8215e5851d52dad0e91fa1e645475b9fc5a00548"
+  },
+  "email": "ieyeppo.job@gmail.com",
+  "root": "/home/ieyeppo/AI_Lab/computer-vision-competition-1SEN",
+  "host": "PotG",
+  "executable": "/home/ieyeppo/.pyenv/versions/cv_py3_11_9/bin/python",
+  "writerId": "w93c7w7xo6twam4urxis1itafbsbwyc1"
+}

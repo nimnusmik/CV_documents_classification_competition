@@ -1,0 +1,50 @@
+2025-09-10 12:13:30 | 🔍 Optuna 하이퍼파라미터 튜닝 초기화 완료
+2025-09-10 12:13:30 | 📋 Base config: configs/train_highperf.yaml
+2025-09-10 12:13:30 | 🎯 Target trials: 20
+2025-09-10 12:13:30 | 🚀 Optuna 최적화 시작...
+2025-09-10 12:13:30 | 🔬 Trial 0: {'lr': 0.00012802227271884058, 'batch_size': 16, 'weight_decay': 0.013163367232645818, 'dropout': 0.10286340155629473}
+2025-09-10 12:13:30 | ❌ Trial 0 실패: k-fold cross-validation requires at least one train/test split by setting n_splits=2 or more, got n_splits=1.
+2025-09-10 12:13:30 | 🔬 Trial 1: {'lr': 0.005873959859646997, 'batch_size': 64, 'weight_decay': 0.09539014366462524, 'dropout': 0.1658794362618052}
+2025-09-10 12:13:30 | ❌ Trial 1 실패: k-fold cross-validation requires at least one train/test split by setting n_splits=2 or more, got n_splits=1.
+2025-09-10 12:13:30 | 🔬 Trial 2: {'lr': 5.2301327181124444e-05, 'batch_size': 64, 'weight_decay': 0.09593735832158318, 'dropout': 0.15301702326002528}
+2025-09-10 12:13:30 | ❌ Trial 2 실패: k-fold cross-validation requires at least one train/test split by setting n_splits=2 or more, got n_splits=1.
+2025-09-10 12:13:30 | 🔬 Trial 3: {'lr': 0.0003128236145600341, 'batch_size': 16, 'weight_decay': 0.021167477124090006, 'dropout': 0.12168544487233712}
+2025-09-10 12:13:30 | ❌ Trial 3 실패: k-fold cross-validation requires at least one train/test split by setting n_splits=2 or more, got n_splits=1.
+2025-09-10 12:13:30 | 🔬 Trial 4: {'lr': 0.0021352019708874084, 'batch_size': 32, 'weight_decay': 0.012398503469490053, 'dropout': 0.0887621328821547}
+2025-09-10 12:13:30 | ❌ Trial 4 실패: k-fold cross-validation requires at least one train/test split by setting n_splits=2 or more, got n_splits=1.
+2025-09-10 12:13:30 | 🔬 Trial 5: {'lr': 6.442458356780379e-05, 'batch_size': 64, 'weight_decay': 0.06181691944434518, 'dropout': 0.237918250518628}
+2025-09-10 12:13:30 | ❌ Trial 5 실패: k-fold cross-validation requires at least one train/test split by setting n_splits=2 or more, got n_splits=1.
+2025-09-10 12:13:30 | 🔬 Trial 6: {'lr': 0.004905785064878091, 'batch_size': 16, 'weight_decay': 0.08220115118204074, 'dropout': 0.18073636624280107}
+2025-09-10 12:13:30 | ❌ Trial 6 실패: k-fold cross-validation requires at least one train/test split by setting n_splits=2 or more, got n_splits=1.
+2025-09-10 12:13:30 | 🔬 Trial 7: {'lr': 0.0007704759333418097, 'batch_size': 64, 'weight_decay': 0.03498477021102264, 'dropout': 0.08849388750976314}
+2025-09-10 12:13:30 | ❌ Trial 7 실패: k-fold cross-validation requires at least one train/test split by setting n_splits=2 or more, got n_splits=1.
+2025-09-10 12:13:30 | 🔬 Trial 8: {'lr': 0.0005219820306203826, 'batch_size': 16, 'weight_decay': 0.014290735649698405, 'dropout': 0.2856188726539386}
+2025-09-10 12:13:30 | ❌ Trial 8 실패: k-fold cross-validation requires at least one train/test split by setting n_splits=2 or more, got n_splits=1.
+2025-09-10 12:13:30 | 🔬 Trial 9: {'lr': 1.8269781781799224e-05, 'batch_size': 32, 'weight_decay': 0.0868288455726915, 'dropout': 0.2009336114670667}
+2025-09-10 12:13:30 | ❌ Trial 9 실패: k-fold cross-validation requires at least one train/test split by setting n_splits=2 or more, got n_splits=1.
+2025-09-10 12:13:30 | 🔬 Trial 10: {'lr': 0.00014587734607689074, 'batch_size': 128, 'weight_decay': 0.05180910139679119, 'dropout': 0.003387003345433931}
+2025-09-10 12:13:30 | ❌ Trial 10 실패: k-fold cross-validation requires at least one train/test split by setting n_splits=2 or more, got n_splits=1.
+2025-09-10 12:13:30 | 🔬 Trial 11: {'lr': 0.008222876258586915, 'batch_size': 128, 'weight_decay': 0.06908248203856171, 'dropout': 0.04155195316557356}
+2025-09-10 12:13:30 | ❌ Trial 11 실패: k-fold cross-validation requires at least one train/test split by setting n_splits=2 or more, got n_splits=1.
+2025-09-10 12:13:30 | 🔬 Trial 12: {'lr': 0.0013799532999617203, 'batch_size': 64, 'weight_decay': 0.03596752701348606, 'dropout': 0.11643608166843097}
+2025-09-10 12:13:30 | ❌ Trial 12 실패: k-fold cross-validation requires at least one train/test split by setting n_splits=2 or more, got n_splits=1.
+2025-09-10 12:13:30 | 🔬 Trial 13: {'lr': 0.00019176365699074348, 'batch_size': 16, 'weight_decay': 0.03372579741352648, 'dropout': 0.2150210667120751}
+2025-09-10 12:13:30 | ❌ Trial 13 실패: k-fold cross-validation requires at least one train/test split by setting n_splits=2 or more, got n_splits=1.
+2025-09-10 12:13:30 | 🔬 Trial 14: {'lr': 1.6967571671036188e-05, 'batch_size': 16, 'weight_decay': 0.0035743085342728603, 'dropout': 0.152670214165481}
+2025-09-10 12:13:30 | ❌ Trial 14 실패: k-fold cross-validation requires at least one train/test split by setting n_splits=2 or more, got n_splits=1.
+2025-09-10 12:13:30 | 🔬 Trial 15: {'lr': 0.002728880889521663, 'batch_size': 64, 'weight_decay': 0.06982900860181586, 'dropout': 0.05184886696890316}
+2025-09-10 12:13:30 | ❌ Trial 15 실패: k-fold cross-validation requires at least one train/test split by setting n_splits=2 or more, got n_splits=1.
+2025-09-10 12:13:30 | 🔬 Trial 16: {'lr': 7.620111620831657e-05, 'batch_size': 128, 'weight_decay': 0.04754301427909478, 'dropout': 0.253560973623686}
+2025-09-10 12:13:30 | ❌ Trial 16 실패: k-fold cross-validation requires at least one train/test split by setting n_splits=2 or more, got n_splits=1.
+2025-09-10 12:13:30 | 🔬 Trial 17: {'lr': 0.0008883963876649219, 'batch_size': 32, 'weight_decay': 0.0980267549766143, 'dropout': 0.17622373659677504}
+2025-09-10 12:13:30 | ❌ Trial 17 실패: k-fold cross-validation requires at least one train/test split by setting n_splits=2 or more, got n_splits=1.
+2025-09-10 12:13:30 | 🔬 Trial 18: {'lr': 0.00037228178931770784, 'batch_size': 64, 'weight_decay': 0.024803552599288514, 'dropout': 0.11663505090902476}
+2025-09-10 12:13:30 | ❌ Trial 18 실패: k-fold cross-validation requires at least one train/test split by setting n_splits=2 or more, got n_splits=1.
+2025-09-10 12:13:30 | 🔬 Trial 19: {'lr': 3.584717948375678e-05, 'batch_size': 16, 'weight_decay': 0.0023613987002171766, 'dropout': 0.060373967912107765}
+2025-09-10 12:13:30 | ❌ Trial 19 실패: k-fold cross-validation requires at least one train/test split by setting n_splits=2 or more, got n_splits=1.
+2025-09-10 12:13:30 | ⏱️ 최적화 완료: 0.1초 소요
+2025-09-10 12:13:30 | [CLEANUP] Removed existing lastest-optimization folder
+2025-09-10 12:13:30 | 💾 최적 설정 저장: experiments/optimization/20250910/20250910_1213_convnext_base_384_fold_1/best_params_20250910_1213.yaml
+2025-09-10 12:13:30 | 🔗 Latest 폴더에 직접 저장: experiments/optimization/lastest-optimization/best_params_20250910_1213.yaml
+2025-09-10 12:13:33 | [VIZ] Optimization visualizations created in experiments/optimization/20250910/20250910_1213_convnext_base_384_fold_1
+2025-09-10 12:13:33 | [VIZ] Latest optimization results: experiments/optimization/lastest-optimization

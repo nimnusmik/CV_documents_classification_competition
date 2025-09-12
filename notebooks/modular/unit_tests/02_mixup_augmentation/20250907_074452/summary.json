@@ -1,0 +1,18 @@
+{
+  "file_name": "02_mixup_augmentation",
+  "folder_name": "unit_tests",
+  "start_time": "2025-09-07T07:44:52.128411",
+  "end_time": "2025-09-07T07:44:54.920671",
+  "duration_seconds": 2.79226,
+  "total_sections": 1,
+  "results": {
+    "mixup_test": {
+      "dataset_size": 50,
+      "samples_visualized": 5,
+      "augmentation_type": "mixup",
+      "timestamp": "2025-09-07T07:44:54.920288",
+      "section": "mixup_test"
+    }
+  },
+  "log_directory": "notebooks/modular/unit_tests/02_mixup_augmentation/20250907_074452"
+}

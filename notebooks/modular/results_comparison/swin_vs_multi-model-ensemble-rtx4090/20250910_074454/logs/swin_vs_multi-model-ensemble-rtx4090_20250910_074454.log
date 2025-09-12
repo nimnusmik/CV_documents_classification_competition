@@ -1,0 +1,13 @@
+2025-09-10 07:44:54,856 - notebook_swin_vs_multi-model-ensemble-rtx4090 - INFO - 노트북 작업 시작: swin_vs_multi-model-ensemble-rtx4090
+2025-09-10 07:44:54,856 - notebook_swin_vs_multi-model-ensemble-rtx4090 - INFO - 로그 디렉토리: notebooks/modular/results_comparison/swin_vs_multi-model-ensemble-rtx4090/20250910_074454
+2025-09-10 07:44:54,857 - notebook_swin_vs_multi-model-ensemble-rtx4090 - INFO - 두 파일 상세 비교 분석 시작
+2025-09-10 07:44:54,857 - notebook_swin_vs_multi-model-ensemble-rtx4090 - INFO - 비교 대상 1: ./submissions/20250908/20250908_0521_swin_base_384_ensemble_tta_basic_augmentation.csv
+2025-09-10 07:44:54,857 - notebook_swin_vs_multi-model-ensemble-rtx4090 - INFO - 비교 대상 2: ./submissions/20250910/20250910_0708_multi-model-ensemble-inference_ensemble_essential_tta.csv
+2025-09-10 07:44:55,757 - notebook_swin_vs_multi-model-ensemble-rtx4090 - INFO - SUCCESS: 그림 저장: notebooks/modular/results_comparison/swin_vs_multi-model-ensemble-rtx4090/20250910_074454/images/overall_comparison.png
+2025-09-10 07:44:57,353 - notebook_swin_vs_multi-model-ensemble-rtx4090 - INFO - SUCCESS: 그림 저장: notebooks/modular/results_comparison/swin_vs_multi-model-ensemble-rtx4090/20250910_074454/images/difference_analysis.png
+2025-09-10 07:44:57,367 - notebook_swin_vs_multi-model-ensemble-rtx4090 - INFO - SUCCESS: 데이터프레임 저장: notebooks/modular/results_comparison/swin_vs_multi-model-ensemble-rtx4090/20250910_074454/data/full_comparison.csv (3140 행)
+2025-09-10 07:44:57,369 - notebook_swin_vs_multi-model-ensemble-rtx4090 - INFO - SUCCESS: 데이터프레임 저장: notebooks/modular/results_comparison/swin_vs_multi-model-ensemble-rtx4090/20250910_074454/data/differences.csv (171 행)
+2025-09-10 07:44:57,371 - notebook_swin_vs_multi-model-ensemble-rtx4090 - INFO - SUCCESS: 성능 메트릭 저장: notebooks/modular/results_comparison/swin_vs_multi-model-ensemble-rtx4090/20250910_074454/results/basic_metrics_metrics.json
+2025-09-10 07:44:57,371 - notebook_swin_vs_multi-model-ensemble-rtx4090 - INFO - 결과 저장: comparison
+2025-09-10 07:44:57,372 - notebook_swin_vs_multi-model-ensemble-rtx4090 - INFO - SUCCESS: 작업 완료! 총 소요 시간: 2.52초
+2025-09-10 07:44:57,372 - notebook_swin_vs_multi-model-ensemble-rtx4090 - INFO - SUCCESS: 결과 요약: notebooks/modular/results_comparison/swin_vs_multi-model-ensemble-rtx4090/20250910_074454/summary.json

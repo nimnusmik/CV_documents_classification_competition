@@ -1,0 +1,62 @@
+# ----------------------------- 기본 메타 설정 ----------------------------- #
+project:
+  run_name: convnext_base_384                       # 실험 이름/ID (로그/아티팩트 경로에 사용됨)
+  seed: 42                                          # 랜덤 시드 (재현성 확보)
+  date_format: "%Y%m%d"                             # 날짜 포맷 (예: 20250904)
+  time_format: "%H%M"                               # 시간 포맷 (예: 1530)
+  num_workers: 8                                    # DataLoader 워커 수 (메모리 최적화)
+  device: "cuda"                                    # 실행 디바이스 ("cuda" 가능 시 GPU, 아니면 CPU)
+  verbose: true                                     # 상세 로그 출력 여부
+  log_prefix: "train_convnext_base_384"             # 로그 파일 접두사
+
+# ------------------------------- 데이터 설정 ------------------------------ #
+data:
+  root: "./data"                                    # 데이터 루트 디렉토리 (프로젝트 기준)
+  train_csv: "./data/raw/train.csv"                 # 학습용 CSV 경로
+  sample_csv: "./data/raw/sample_submission.csv"    # 제출용 샘플 CSV 경로
+  image_dir_train: "./data/raw/train"               # 학습 이미지 디렉토리
+  image_dir_test:  "./data/raw/test"                # 테스트/추론 이미지 디렉토리
+  image_ext: ".jpg"                                 # 이미지 확장자 (jpg 기본, 필요시 png 변경)
+  id_col: "ID"                                      # ID 컬럼 이름
+  target_col: "target"                              # 타깃 컬럼 이름
+  num_classes: 17                                   # 분류 클래스 개수
+  folds: 5                                          # 폴드 수 (교차 검증)
+  valid_fold: all                                   # 유효 폴드 (정수=단일 폴드, all=전 폴드 학습)
+  stratify: true                                    # 층화 샘플링 여부 (클래스 분포 유지)
+
+# ------------------------------- 학습 설정 -------------------------------- #
+train:
+  img_size: 384                                     # 입력 이미지 크기 (메모리 최적화)
+  batch_size: 48                                    # 배치 크기 (메모리 최적화)
+  use_advanced_augmentation: false                  # 고급 증강 기법 사용 여부 (transform.py true: build_advanced_train_tfms / false: build_train_tfms)
+  epochs: 10                                        # 학습 epoch 수 (메모리 최적화)
+  lr: 0.001                                         # 학습률
+  weight_decay: 0.0                                 # weight decay (정규화)
+  optimizer: "adam"                                 # 옵티마이저 ("adam" | "adamw")
+  scheduler: "cosine"                               # 학습률 스케줄러 ("cosine" | "none")
+  amp: true                                         # 자동 혼합정밀(AMP) 사용 여부
+  grad_clip_norm: 1.0                               # gradient clipping 최대 norm 값
+  label_smoothing: 0.0                              # 라벨 스무딩 비율 (0=비활성)
+
+# ------------------------------- 모델 설정 -------------------------------- #
+model:
+  name: "convnext_base_384"                         # 모델 아키텍처 이름 (timm 지원 모델)
+  pretrained: true                                  # 사전학습 가중치 사용 여부
+  drop_rate: 0.0                                    # dropout 비율
+  drop_path_rate: 0.0                               # stochastic depth 비율
+  pooling: "avg"                                    # global pooling 방식 ("avg" | "gem" 등)
+
+# ------------------------------- 출력/저장 설정 ---------------------------- #
+output:
+  logs_dir: "logs/train"                            # 로그 저장 디렉토리
+  exp_dir: "experiments/train"                      # 실험 결과(모델/메트릭) 저장 루트
+  snapshots: true                                   # config 스냅샷 저장 여부
+
+# ------------------------------- WandB 설정 ------------------------------- #
+wandb:
+  project_name: document-classification-basic       # WandB 프로젝트명 (기본 학습용)
+  entity: null                                      # WandB 엔티티 (팀/사용자)
+  experiment_name: convnext_base_384                # 실험명
+  tags:                                             # 실험 태그
+  - convnext_base_384                               # EfficientNet 태그
+  - basic                                           # 기본 모드 태그

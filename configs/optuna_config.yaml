@@ -1,0 +1,121 @@
+# Optuna 하이퍼파라미터 최적화 설정
+# configs/optuna_config.yaml
+
+# ------------------------- Optuna 최적화 설정 ------------------------- #
+optuna:
+  # 기본 최적화 설정 (0.94+ 점수 목표)
+  enabled: true                           # Optuna 사용 여부
+  n_trials: 50                             # 최적화 시도 횟수 (메모리 최적화)
+  timeout: 1800                           # 최대 시간
+  study_name: "multi-model-ensemble-optuna" # 스터디 이름
+  direction: "maximize"                   # 최적화 방향 (F1 점수 최대화)
+  
+  # 조기 중단 설정 (성능이 안 좋은 trial 빠르게 중단)
+  pruning:
+    enabled: true                         # Pruning 사용 여부
+    patience: 5                           # 조기 중단 patience
+    n_startup_trials: 15                  # 초기 랜덤 탐색 횟수
+  
+  # 빠른 검증 설정 (Optuna 평가용)
+  quick_validation:
+    epochs: 5                             # 빠른 검증용 에포크
+    folds: 3                              # 3-fold CV로 빠른 평가 (단일 폴드 호환)
+    batch_size_override: 32               # RTX 4090 맞춤 배치 크기 (메모리 최적화)
+
+# ------------------------- 탐색할 하이퍼파라미터 범위 ------------------------- #
+search_space:
+  # 학습률 (로그 스케일 탐색) - 대형 모델에 맞게 조정
+  learning_rate:
+    type: "loguniform"                    # 로그 균등 분포
+    low: 5.0e-6                           # 최소값: 0.000005 (더 낮게)
+    high: 5.0e-3                          # 최대값: 0.005 (더 높게)
+    
+  # 배치 크기 (RTX 4090 최적화)
+  batch_size:
+    type: "categorical"                   # 카테고리 선택
+    choices: [32, 48, 64]             # RTX 4090에 맞는 배치들 (메모리 최적화)
+
+  # 이미지 크기 (대형 모델에 맞게 조정)
+  img_size:
+    type: "categorical"                   # 카테고리 선택
+    choices: [224, 320, 384]              # 이미지 사이즈 (메모리 최적화)
+
+  # 학습률 (로그 스케일 탐색) - 대형 모델에 맞게 조정
+  learning_rate:
+    type: "loguniform"
+    low: 1e-5
+    high: 5e-3
+
+  # Weight Decay (L2 정규화) - 대형 모델용 강화
+  weight_decay:
+    type: "uniform"                       # 균등 분포
+    low: 0.01                            # 최소값 (더 강하게)
+    high: 0.1                            # 최대값 (적절히)
+
+  # Dropout 비율 - 다중 모델용 조정
+  dropout:
+    type: "uniform"                       # 균등 분포
+    low: 0.01                             # 최소값 (너무 낮지 않게)
+    high: 0.1                             # 최대값 (과적합 방지)
+
+  # Drop Path 비율 (Transformer 모델용)
+  drop_path:
+    type: "uniform"                       # 균등 분포
+    low: 0.0                              # 최소값: 0.0
+    high: 0.3                             # 최대값: 0.3 (강한 정규화)
+    
+  # 추가 탐색 파라미터 (다중 모델 최적화)
+  advanced_params:
+    # 라벨 스무딩 - 다중 모델에 중요
+    label_smoothing:
+      type: "uniform"
+      low: 0.05                           # 최소값
+      high: 0.15                          # 최대값 (적절한 범위)
+    
+    # 그래디언트 클리핑 - 대형 모델 안정성
+    grad_clip_norm:
+      type: "uniform" 
+      low: 0.8                            # 최소값: 0.8
+      high: 1.5                           # 최대값: 1.5 (안정적 범위)
+    
+    # Mixup 알파 - 데이터 증강 최적화
+    mixup_alpha:
+      type: "uniform"
+      low: 0.4                            # 최소값: 0.4
+      high: 1.2                           # 최대값: 1.2
+    
+    # 웜업 에포크 - 대형 모델 학습 안정성
+    warmup_epochs:
+      type: "categorical"
+      choices: [0, 1, 2]                  # 웜업 에포크 선택지
+
+# ------------------------- WandB 통합 (선택적) ------------------------- #
+wandb_integration:
+  enabled: false                          # WandB 로깅 사용 여부
+  project_name: "doc-classification-optuna"  # WandB 프로젝트명
+  entity: null                            # WandB 엔티티
+  tags:                                   # 실험 태그
+    - "optuna"
+    - "hyperparameter-optimization"
+    - "auto-tuning"
+
+# ------------------------- 결과 저장 설정 ------------------------- #
+output:
+  # 최적화 결과 저장 경로
+  results_dir: "experiments/optimization" # 결과 저장 디렉터리
+  save_study: true                        # Optuna study 객체 저장 여부
+  save_trials_csv: true                   # 모든 trial 결과를 CSV로 저장
+  
+  # 최적 설정 파일 생성
+  optimized_config:
+    save: true                            # 최적화된 설정 파일 저장 여부
+    template: "configs/train_multi_model_ensemble.yaml"  # 다중 모델 템플릿
+    output_name: "train_multi_model_optimized_{timestamp}.yaml"  # 출력 파일명 패턴
+
+# ------------------------- 성능 튜닝 팁 (0.94+ 목표) ------------------------- #
+# 1. n_trials를 30으로 증가하여 더 정교한 탐색
+# 2. 대형 모델에 맞는 낮은 학습률 범위 (5e-6 ~ 5e-3)
+# 3. RTX 4090에 최적화된 큰 배치 크기 (64~160)
+# 4. Drop Path 추가로 Transformer 모델 정규화 강화
+# 5. Mixup Alpha 최적화로 데이터 증강 효과 극대화
+# 6. 웜업 에포크로 대형 모델 학습 안정성 확보

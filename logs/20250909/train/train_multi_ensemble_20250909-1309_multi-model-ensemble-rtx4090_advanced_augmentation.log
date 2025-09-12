@@ -1,0 +1,16 @@
+2025-09-09 13:09:25 | [BOOT] high-performance training pipeline started
+2025-09-09 13:09:25 | [BOOT] device=cuda
+2025-09-09 13:09:25 | [DATA] loaded train data | shape=(1570, 2)
+2025-09-09 13:09:25 | ==================================================
+2025-09-09 13:09:25 | FOLD 1/5 START
+2025-09-09 13:09:25 | ==================================================
+2025-09-09 13:09:25 | [FOLD 0] train=1256 valid=314
+2025-09-09 13:09:28 | [MULTI-MODEL] Fold 0 using model: swin_base_patch4_window12_384_in22k
+2025-09-09 13:09:28 | [DATA] build highperf loaders | img_size=384 bs=64
+2025-09-09 13:09:28 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-09 13:09:28 | [HighPerfDataset] size=1256 img_size=384 epoch=0/3 p_hard=0.200 is_train=True
+2025-09-09 13:09:28 | [HighPerfDataset] size=314 img_size=384 epoch=0/3 p_hard=0.000 is_train=False
+2025-09-09 13:09:28 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-09 13:09:28 | [HighPerfDataset] updated epoch=1, p_hard=0.300
+2025-09-09 13:09:28 | [EPOCH 1] >>> TRAIN start | steps=20 mixup=True
+2025-09-09 13:09:53 | [EPOCH 1][TRAIN step 1/20] loss=2.97849 lr=0.000154 bs=64

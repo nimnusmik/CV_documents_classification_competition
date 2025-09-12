@@ -1,0 +1,20 @@
+2025-09-10 13:29:40 | [BOOT] high-performance training pipeline started
+2025-09-10 13:29:40 | [BOOT] device=cuda
+2025-09-10 13:29:40 | [DATA] loaded train data | shape=(1570, 2)
+2025-09-10 13:29:40 | [DATA] Single fold mode: all data assigned to fold 0
+2025-09-10 13:29:40 | ==================================================
+2025-09-10 13:29:40 | FOLD 1/1 START
+2025-09-10 13:29:40 | ==================================================
+2025-09-10 13:29:40 | [SINGLE FOLD] Using 80:20 train/val split
+2025-09-10 13:29:40 | [FOLD 0] train=1256 valid=314
+2025-09-10 13:29:43 | [SINGLE-MODEL] All folds using model: convnext_base_384_in22ft1k
+2025-09-10 13:29:43 | [SCHEDULER] Single fold: Warmup(10) + CosineAnnealing
+2025-09-10 13:29:43 | [DATA] build highperf loaders | img_size=384 bs=32
+2025-09-10 13:29:43 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-10 13:29:43 | [HighPerfDataset] size=1256 img_size=384 epoch=0/150 p_hard=0.200 is_train=True
+2025-09-10 13:29:43 | [HighPerfDataset] size=314 img_size=384 epoch=0/150 p_hard=0.000 is_train=False
+2025-09-10 13:29:43 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-10 13:29:43 | [HighPerfDataset] updated epoch=1, p_hard=0.202
+2025-09-10 13:29:43 | [EPOCH 1] >>> TRAIN start | steps=40 mixup=True
+2025-09-10 13:29:45 | [EPOCH 1][TRAIN step 1/40] loss=2.78250 lr=0.000008 bs=32
+2025-09-10 13:29:46 | [SHUTDOWN] Training pipeline ended

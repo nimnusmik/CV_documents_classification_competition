@@ -1,0 +1,5 @@
+2025-09-10 08:10:59 | [BOOT] high-performance training pipeline started
+2025-09-10 08:11:00 | [BOOT] device=cuda
+2025-09-10 08:11:00 | [DATA] loaded train data | shape=(1570, 2)
+2025-09-10 08:11:00 | [ERROR] Training failed: k-fold cross-validation requires at least one train/test split by setting n_splits=2 or more, got n_splits=1.
+2025-09-10 08:11:00 | [SHUTDOWN] Training pipeline ended

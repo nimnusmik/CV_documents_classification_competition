@@ -1,0 +1,15 @@
+{
+  "filename": "differences.csv",
+  "description": "차이점 데이터",
+  "shape": [
+    149,
+    3
+  ],
+  "columns": [
+    "ID",
+    "target_file1",
+    "target_file2"
+  ],
+  "timestamp": "20250910_073526",
+  "file_name": "swin_vs_multi-model-ensemble-rtx4090"
+}

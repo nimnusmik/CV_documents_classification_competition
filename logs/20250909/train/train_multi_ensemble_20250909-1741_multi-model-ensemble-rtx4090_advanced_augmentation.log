@@ -1,0 +1,47 @@
+2025-09-09 17:41:28 | [BOOT] high-performance training pipeline started
+2025-09-09 17:41:28 | [BOOT] device=cuda
+2025-09-09 17:41:28 | [DATA] loaded train data | shape=(1570, 2)
+2025-09-09 17:41:28 | ==================================================
+2025-09-09 17:41:28 | FOLD 1/5 START
+2025-09-09 17:41:28 | ==================================================
+2025-09-09 17:41:28 | [FOLD 0] train=1256 valid=314
+2025-09-09 17:41:31 | [MULTI-MODEL] Fold 0 using model: swin_base_patch4_window12_384_in22k
+2025-09-09 17:41:31 | [DATA] build highperf loaders | img_size=384 bs=64
+2025-09-09 17:41:31 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-09 17:41:32 | [HighPerfDataset] size=1256 img_size=384 epoch=0/3 p_hard=0.200 is_train=True
+2025-09-09 17:41:32 | [HighPerfDataset] size=314 img_size=384 epoch=0/3 p_hard=0.000 is_train=False
+2025-09-09 17:41:32 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-09 17:41:32 | [HighPerfDataset] updated epoch=1, p_hard=0.300
+2025-09-09 17:41:32 | [EPOCH 1] >>> TRAIN start | steps=20 mixup=True
+2025-09-09 17:41:52 | [EPOCH 1][TRAIN step 1/20] loss=2.97849 lr=0.000260 bs=64
+2025-09-09 17:46:50 | [EPOCH 1][TRAIN step 20/20] loss=1.71924 lr=0.000260 bs=40
+2025-09-09 17:46:50 | [EPOCH 1] <<< TRAIN end | loss=2.03146
+2025-09-09 17:46:50 | [EPOCH 1] >>> VALID start | steps=5
+2025-09-09 17:47:30 | [EPOCH 1] <<< VALID end | loss=0.88041 macro_f1=0.63208
+2025-09-09 17:47:32 | [FOLD 0] NEW BEST F1: 0.63208 (epoch 1)
+2025-09-09 17:47:32 | [DATA] build highperf loaders | img_size=384 bs=64
+2025-09-09 17:47:32 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-09 17:47:32 | [HighPerfDataset] size=1256 img_size=384 epoch=1/3 p_hard=0.300 is_train=True
+2025-09-09 17:47:32 | [HighPerfDataset] size=314 img_size=384 epoch=1/3 p_hard=0.000 is_train=False
+2025-09-09 17:47:32 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-09 17:47:32 | [HighPerfDataset] updated epoch=2, p_hard=0.400
+2025-09-09 17:47:32 | [EPOCH 2] >>> TRAIN start | steps=20 mixup=True
+2025-09-09 17:47:48 | [EPOCH 2][TRAIN step 1/20] loss=1.27204 lr=0.000195 bs=64
+2025-09-09 17:52:51 | [EPOCH 2][TRAIN step 20/20] loss=0.57549 lr=0.000195 bs=40
+2025-09-09 17:52:51 | [EPOCH 2] <<< TRAIN end | loss=1.02173
+2025-09-09 17:52:51 | [EPOCH 2] >>> VALID start | steps=5
+2025-09-09 17:53:34 | [EPOCH 2] <<< VALID end | loss=0.36171 macro_f1=0.82417
+2025-09-09 17:53:36 | [FOLD 0] NEW BEST F1: 0.82417 (epoch 2)
+2025-09-09 17:53:36 | [DATA] build highperf loaders | img_size=384 bs=64
+2025-09-09 17:53:36 | [DATA] augmentation: baseline-advanced (normal + hard augmentation)
+2025-09-09 17:53:36 | [HighPerfDataset] size=1256 img_size=384 epoch=2/3 p_hard=0.400 is_train=True
+2025-09-09 17:53:36 | [HighPerfDataset] size=314 img_size=384 epoch=2/3 p_hard=0.000 is_train=False
+2025-09-09 17:53:36 | [DATA] dataset sizes | train=1256 valid=314
+2025-09-09 17:53:36 | [HighPerfDataset] updated epoch=3, p_hard=0.500
+2025-09-09 17:53:36 | [EPOCH 3] >>> TRAIN start | steps=20 mixup=True
+2025-09-09 17:53:53 | [EPOCH 3][TRAIN step 1/20] loss=1.14218 lr=0.000065 bs=64
+2025-09-09 17:55:28 | [ERROR] Training failed: CUDA error: out of memory
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+2025-09-09 17:55:28 | [SHUTDOWN] Training pipeline ended

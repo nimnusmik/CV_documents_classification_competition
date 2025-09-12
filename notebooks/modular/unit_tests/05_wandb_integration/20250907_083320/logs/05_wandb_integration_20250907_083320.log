@@ -1,0 +1,5 @@
+2025-09-07 08:33:20,370 - notebook_05_wandb_integration - INFO - 노트북 작업 시작: 05_wandb_integration
+2025-09-07 08:33:20,370 - notebook_05_wandb_integration - INFO - 로그 디렉토리: notebooks/modular/unit_tests/05_wandb_integration/20250907_083320
+2025-09-07 08:33:24,219 - notebook_05_wandb_integration - INFO - 결과 저장: wandb_integration_test_result
+2025-09-07 08:33:24,220 - notebook_05_wandb_integration - INFO - SUCCESS: 작업 완료! 총 소요 시간: 3.85초
+2025-09-07 08:33:24,220 - notebook_05_wandb_integration - INFO - SUCCESS: 결과 요약: notebooks/modular/unit_tests/05_wandb_integration/20250907_083320/summary.json

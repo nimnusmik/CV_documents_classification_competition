@@ -1,0 +1,11 @@
+{
+  "wandb_status": "success",
+  "test_metrics": {
+    "test_metric": 0.95,
+    "accuracy": 0.87
+  },
+  "project_name": "document-classification-team",
+  "experiment_name": "swin-sighperf",
+  "timestamp": "2025-09-07T08:33:24.219251",
+  "section": "wandb_integration_test_result"
+}

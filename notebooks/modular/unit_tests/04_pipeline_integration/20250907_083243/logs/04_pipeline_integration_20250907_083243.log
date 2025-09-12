@@ -1,0 +1,5 @@
+2025-09-07 08:32:43,920 - notebook_04_pipeline_integration - INFO - 노트북 작업 시작: 04_pipeline_integration
+2025-09-07 08:32:43,920 - notebook_04_pipeline_integration - INFO - 로그 디렉토리: notebooks/modular/unit_tests/04_pipeline_integration/20250907_083243
+2025-09-07 08:32:43,981 - notebook_04_pipeline_integration - INFO - 결과 저장: pipeline_integration_test_result
+2025-09-07 08:32:43,981 - notebook_04_pipeline_integration - INFO - SUCCESS: 작업 완료! 총 소요 시간: 0.06초
+2025-09-07 08:32:43,981 - notebook_04_pipeline_integration - INFO - SUCCESS: 결과 요약: notebooks/modular/unit_tests/04_pipeline_integration/20250907_083243/summary.json

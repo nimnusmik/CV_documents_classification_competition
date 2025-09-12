@@ -1,0 +1,4 @@
+2025-09-10 14:31:12 | [BOOT] high-performance inference pipeline started
+2025-09-10 14:31:13 | [BOOT] device=cuda
+2025-09-10 14:31:13 | [ERROR] Inference failed: 'data'
+2025-09-10 14:31:13 | [SHUTDOWN] Inference pipeline ended

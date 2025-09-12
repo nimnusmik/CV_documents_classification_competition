@@ -1,0 +1,55 @@
+# ----------------------------- 기본 메타 설정 ----------------------------- #
+project:
+  run_name: convnext_base_384_basic_inference           # 실행(run) 이름 (로그/결과 디렉토리에 사용됨)
+  device: "cuda"                                    # 실행 디바이스 ("cuda" 가능 시 GPU, 아니면 CPU)
+  num_workers: 4                                    # DataLoader 병렬 로딩 워커 수 (메모리 최적화: 8 → 4)
+  date_format: "%Y%m%d"                             # 날짜 포맷 (예: 20250904)
+  time_format: "%H%M"                               # 시간 포맷 (예: 1530)
+
+# ------------------------------ 체크포인트 설정 --------------------------- #
+ckpt:
+  path: "./experiments/train/lastest-train/ckpt/best_fold0.pth" # 체크포인트 파일 경로 (학습된 모델 가중치)
+
+# ------------------------------- 데이터 설정 ------------------------------ #
+data:
+  sample_csv: "./data/raw/sample_submission.csv"   # 제출용 샘플 CSV 경로
+  image_dir_test: "./data/raw/test"                # 추론 대상 테스트 이미지 디렉토리
+  image_ext: ".jpg"                                 # 이미지 확장자 (jpg 기본)
+  id_col: "ID"                                      # ID 컬럼명
+  target_col: "target"                              # 타깃 컬럼명
+  num_classes: 17                                   # 분류 클래스 수
+
+# ------------------------------- 모델 설정 -------------------------------- #
+model:
+  name: "efficientnet_b3"                           # 모델 아키텍처 이름 (EfficientNet)
+  pretrained: False                                 # 사전학습 가중치 사용 여부 (False → scratch)
+  drop_rate: 0.0                                    # dropout 비율
+  drop_path_rate: 0.0                               # stochastic depth 비율
+  pooling: "avg"                                    # 전역 풀링 방식 ("avg" 권장)
+
+# ------------------------- 추론 시 필요한 학습 설정 ------------------------- #
+train:
+  img_size: 320                                     # 학습 때 쓴 값과 동일해야 함 (메모리 최적화)
+  batch_size: 32                                    # 추론 시 GPU 메모리 최적화 (64 → 32)
+
+# ------------------------------ 추론/제출 설정 ---------------------------- #
+inference:
+  tta: true                                         # Test-Time Augmentation 사용 여부
+  tta_rot_degrees: [0, -3, 3]                       # TTA 시 회전 각도 리스트
+  # out_csv 제거: 동적으로 날짜_모델명 형식으로 생성
+
+# ------------------------------- 출력/저장 설정 ---------------------------- #
+output:
+  logs_dir: "logs/infer"                            # 추론 로그 저장 디렉토리
+  exp_dir: "./experiments/infer"                    # 실험 결과(모델/메트릭) 저장 루트
+  snapshots: true                                   # 실행 시 config 스냅샷 저장 여부
+
+# ------------------------------- WandB 설정 (선택적) ---------------------------- #
+wandb:
+  project_name: document-classification-inference   # WandB 프로젝트명 (추론용)
+  entity: null                                      # WandB 엔티티 (팀/사용자)
+  experiment_name: convnext_base_384_basic_inference # 실험명
+  tags:                                             # 실험 태그
+  - convnext_base_384                               # 모델 태그
+  - inference                                       # 추론 태그
+  enabled: false                                    # 추론시 WandB 비활성화 (기본값)
