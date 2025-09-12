@@ -8,7 +8,7 @@
 | <img src="https://github.com/user-attachments/assets/489d401e-f5f5-4998-91a0-3b0f37f4490f" width="200" height="200"> | [김병현](https://github.com/Bkankim) | ENFP | 정보보안 | 전처리, 시스템/모델 개발, 성능 고도화 |
 | <img src="https://github.com/user-attachments/assets/55180131-9401-457e-a600-312eda87ded9" width="200" height="200"> | [임예슬](https://github.com/joy007fun/joy007fun) | ENTP | 관광경영&컴퓨터공학, 클라우드 인프라 | EDA/모델링, 성능 고도화 |
 | <img src="https://github.com/user-attachments/assets/10a2c088-72cb-45cd-8772-b683bc2fb550" width="200" height="200"> | [정서우](https://github.com/Seowoo-C) | INFJ | 화학 | EDA/모델링, 성능 고도화 |
-| <img src="https://github.com/user-attachments/assets/5c04a858-46ed-4043-9762-b7eaf7b1149a" width="200" height="200"> | [최현화](https://github.com/AIBootcamp14/computervisioncompetition-cv-1) | ISTP | ML&AI/컴퓨터공학 | EDA/모델링, 성능 고도화, 모듈화 설계/구현, Git 브랜치·병합·충돌 관리 |
+| <img src="https://github.com/user-attachments/assets/5c04a858-46ed-4043-9762-b7eaf7b1149a" width="200" height="200"> | [최현화](https://github.com/AIBootcamp14/computervisioncompetition-cv-1) | ISTP | 컴퓨터공학 | EDA/모델링, 성능 고도화, 모듈화 설계/구현, Git 브랜치·병합·충돌 관리 |
 
 
 ## 🏆 경진대회 결과 (2등)
