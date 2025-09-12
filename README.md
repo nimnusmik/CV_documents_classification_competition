@@ -22,80 +22,8 @@ Computer Vision 경진대회 프레임워크로, 단일 폴드부터 다중 모�
 
 ## 🏗️ 전체 시스템 아키텍처
 
-```mermaid
-flowchart TB
-    subgraph DATA["📊 데이터 계층"]
-        A1["data/raw/train/<br/>📸 원본 학습 이미지<br/>17클래스 분류"]
-        A2["data/raw/test/<br/>📸 테스트 이미지<br/>예측 대상"]
-        A3["data/raw/train.csv<br/>📋 라벨 정보<br/>이미지-클래스 매핑"]
-        A4["src/data/dataset.py<br/>🔧 데이터 로더<br/>전처리 파이프라인"]
-    end
-    
-    subgraph TRAIN["🎓 학습 계층 (다양한 전략)"]
-        B1["📍 단일 폴드 학습<br/>src/training/train.py<br/>빠른 프로토타입"]
-        B2["🔀 K-Fold 교차검증<br/>src/training/train_highperf.py<br/>안정적 고성능"]
-        B3["🎭 다중 모델 앙상블<br/>train_multi_model_ensemble.yaml<br/>최고 성능"]
-        B4["🔍 Optuna 최적화<br/>src/optimization/optuna_optimize.py<br/>자동 튜닝"]
-    end
-    
-    subgraph MODELS["🏗️ 모델 계층"]
-        C1["🏆 ConvNeXt Base 384<br/>convnext_base_384<br/>Team 최고 성능"]
-        C2["🎯 Swin Transformer<br/>swin_base_384<br/>Transformer 기반"]
-        C3["📊 EfficientNet V2<br/>efficientnet_v2_b3<br/>효율성 중심"]
-        C4["🎨 Hard Augmentation<br/>src/data/transforms.py<br/>동적 확률 증강"]
-    end
-    
-    subgraph INFER["🔮 추론 계층 (다양한 전략)"]
-        D1["📍 단일 모델 추론<br/>src/inference/infer.py<br/>빠른 검증"]
-        D2["🔀 K-fold 앙상블<br/>src/inference/infer_highperf.py<br/>5모델 조합"]
-        D3["🎭 다중 모델 앙상블<br/>infer_multi_model_ensemble.yaml<br/>여러 아키텍처"]
-        D4["🎨 TTA 전략<br/>Essential(5가지)/Comprehensive(15가지)<br/>성능 향상"]
-    end
-    
-    subgraph OPTIM["🔍 최적화 계층"]
-        E1["🌡️ Temperature Scaling<br/>src/calibration/calibrate.py<br/>확률 보정"]
-        E2["⚡ GPU 최적화<br/>src/utils/gpu_optimization/<br/>배치 크기 자동 조정"]
-        E3["📊 실시간 모니터링<br/>src/logging/logger.py<br/>WandB 시각화"]
-    end
-    
-    subgraph OUTPUT["📤 출력 계층"]
-        F1["💾 학습 모델<br/>experiments/train/YYYYMMDD/<br/>체크포인트 + fold_results.yaml"]
-        F2["📄 추론 결과<br/>submissions/YYYYMMDD/<br/>CSV 제출 파일"]
-        F3["📝 로그 기록<br/>logs/YYYYMMDD/<br/>학습/추론 성능"]
-    end
-    
-    DATA --> TRAIN
-    TRAIN --> MODELS
-    MODELS --> INFER
-    TRAIN --> OPTIM
-    OPTIM --> INFER
-    INFER --> OUTPUT
-    
-    A1 & A3 --> A4
-    A4 --> B1 & B2 & B3
-    B4 --> B1 & B2 & B3
-    
-    B1 --> C1
-    B2 --> C1 & C2 & C3 & C4
-    B3 --> C1 & C2 & C3
-    
-    C1 & C2 & C3 --> F1
-    F1 --> D1 & D2 & D3
-    D4 --> D2 & D3
-    
-    E1 & E2 & E3 --> D2 & D3
-    
-    D1 & D2 & D3 --> F2
-    TRAIN --> F3
-    INFER --> F3
-    
-    style B2 fill:#e8f5e8, color:#000000
-    style B3 fill:#f3e5f5, color:#000000
-    style C1 fill:#ffcdd2, color:#000000
-    style D2 fill:#e1f5fe, color:#000000
-    style D3 fill:#fce4ec, color:#000000
-    style E1 fill:#fff3e0, color:#000000
-```
+(전체 아키텍처 이미지)
+
 
 ## 📊 성능 비교 및 전략 분석
 
