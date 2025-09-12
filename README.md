@@ -1,5 +1,14 @@
 # 🏆 Computer Vision Competition - Advanced ML Pipeline Framework
 
+## Team
+
+| ![김선민](https://github.com/user-attachments/assets/263154ec-efa6-473a-bd55-3737fb5741bc) | ![김병현](<img width="460" height="460" alt="Image" src="https://github.com/user-attachments/assets/489d401e-f5f5-4998-91a0-3b0f37f4490f" />) | ![임예슬](<img width="512" height="512" alt="Image" src="https://github.com/user-attachments/assets/55180131-9401-457e-a600-312eda87ded9" />) | ![정서우](https://avatars.githubusercontent.com/u/156163982?v=4) | ![최현화](<img src="https://github.com/user-attachments/assets/5c04a858-46ed-4043-9762-b7eaf7b1149a" width="200">) |
+| :--------------------------------------------------------------: | :--------------------------------------------------------------: | :--------------------------------------------------------------: | :--------------------------------------------------------------: | :--------------------------------------------------------------: |
+|            [김선민](https://github.com/nimnusmik)             |            [김병현](https://github.com/Bkankim)             |            [임예슬](https://github.com/joy007fun/joy007fun)             |            [정서우](https://github.com/UpstageAILab)             |            [최현화](https://github.com/AIBootcamp14/computervisioncompetition-cv-1)             |
+|                            팀장, 담당 역할                             |                            담당 역할                             |                            담당 역할                             |                            담당 역할                             |                            담당 역할                             |
+
+
+
 [![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/release/python-3119/)
 [![F1 Score](https://img.shields.io/badge/F1_Score-0.9750+-brightgreen.svg)](https://github.com/your-repo/issues)
 [![Framework](https://img.shields.io/badge/Framework-PyTorch-orange.svg)](https://pytorch.org/)
@@ -22,7 +31,7 @@ Computer Vision 경진대회 프레임워크로, 단일 폴드부터 다중 모�
 
 ## 🏗️ 전체 시스템 아키텍처
 
-(전체 아키텍처 이미지)
+<img width="3840" height="3707" alt="Image" src="https://github.com/user-attachments/assets/9fef3942-03b5-4569-8811-4dea79d8ecd5" />
 
 
 ## 📊 성능 비교 및 전략 분석
@@ -207,11 +216,14 @@ python src/training/train_main.py --config configs/train_multi_model_ensemble.ya
 # Optuna 최적화
 python src/training/train_main.py --config configs/train.yaml --optimize --n-trials 20
 
-# 전체 파이프라인 (추천)
+# 전체 파이프라인 + 최적화 (추천)
 python src/training/train_main.py \
     --config configs/train_highperf.yaml \
     --mode full-pipeline \
-    --use-calibration
+    --use-calibration \
+    --optimize \
+    --optuna-config configs/optuna_config.yaml \
+    --auto-continue
 ```
 
 ### 추론 명령어
@@ -316,12 +328,12 @@ rm -rf experiments/train/2025090*/  # 오래된 실험 정리
 pip install --force-reinstall torch torchvision
 ```
 
-## 🤝 Contributing / 기여하기
+## 🤝 Contributing
 
 1. 팀 Repo -> 개인 Repo 포크
 2. 기능 브랜치를 생성하세요 (`git checkout -b feature/기능명`)
 3. 변경사항을 커밋하세요 (`git commit -m 'feat: 커밋 내용'`)
-4. 브랜치에 푸시하세요 (`git push origin feature/기능명`)
+4. 브랜치에 푸시 (`git push origin feature/기능명`)
 5. 개인 Repo -> 팀 Repo로 Pull Request
 
 
