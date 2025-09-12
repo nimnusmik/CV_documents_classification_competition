@@ -1,4 +1,4 @@
-# 🏆 Computer Vision Competition - Advanced ML Pipeline Framework
+# 🏆 Computer Vision Competition
 
 ## Team
 
