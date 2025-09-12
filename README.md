@@ -26,16 +26,16 @@
 ### Requirements
 **기본 제공 패키지 (requirements.txt)**
 
-albumentations==1.3.1
-ipykernel==6.27.1
-ipython==8.15.0
-ipywidgets==8.1.1
-jupyter==1.0.0
-matplotlib-inline==0.1.6
-numpy==1.26.0
-pandas==2.1.4
-Pillow==9.4.0
-timm==0.9.12
+- albumentations==1.3.1
+- ipykernel==6.27.1
+- ipython==8.15.0
+- ipywidgets==8.1.1
+- jupyter==1.0.0
+- matplotlib-inline==0.1.6
+- numpy==1.26.0
+- pandas==2.1.4
+- Pillow==9.4.0
+- timm==0.9.12
 
 
 **추가 설치 패키지**
