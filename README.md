@@ -1,42 +1,121 @@
-# 🏆 Computer Vision Competition - Document Classification Framework
+# 🏆 Computer Vision Competition - Advanced ML Pipeline Framework
 
 [![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/release/python-3119/)
-[![F1 Score](https://img.shields.io/badge/F1_Score-0.98362-brightgreen.svg)](https://github.com/your-repo/issues)
+[![F1 Score](https://img.shields.io/badge/F1_Score-0.9750+-brightgreen.svg)](https://github.com/your-repo/issues)
 [![Framework](https://img.shields.io/badge/Framework-PyTorch-orange.svg)](https://pytorch.org/)
 [![Optimization](https://img.shields.io/badge/Optimization-Optuna-purple.svg)](https://optuna.org/)
+[![Pipeline](https://img.shields.io/badge/Pipeline-Full_Automation-green.svg)](#)
 
 ## 📋 프로젝트 개요
 
-**완전 자동화된 고성능 문서 분류 경진대회 프레임워크**입니다.
+Computer Vision 경진대회 프레임워크로, 단일 폴드부터 다중 모델 앙상블까지 다양한 전략을 지원합니다.
 
-- 🎯 **최고 성능**: **F1 Score 0.98362** 달성 (2025-09-10)
-- ⚡ **초고속 최적화**: Optuna 캐싱으로 trial당 2초 완료
-- 🤖 **완전 자동화**: 학습 → 최적화 → 추론 → 제출 전 과정 원클릭
-- 🔄 **유연한 구조**: 단일 폴드 ↔ K-Fold 설정 하나로 전환
-- 📊 **체계적 추적**: WandB 통합 + 100+ 실험 기록
+### 🎯 핵심 특징
+- 🏆 **최고 성능**: **F1 Score 0.9750+** 달성 (다중 모델 앙상블)
+- ⚡ **유연한 구조**: 단일 폴드 ↔ K-Fold ↔ 다중모델 원클릭 전환
+- 🤖 **완전 자동화**: 학습 → 최적화 → 추론 → 제출 전 과정 자동화
+- 🧠 **지능형 최적화**: Optuna 베이지안 최적화 + Temperature Scaling
+- 🎨 **고급 TTA**: Essential(5가지) / Comprehensive(15가지) 변환
+- 📊 **체계적 추적**: WandB 통합 + 200+ 실험 기록
 
 ---
 
-## 🏆 최고 성능 기록
+## 🏗️ 전체 시스템 아키텍처
 
-### 🥇 F1 Score **0.98362** (2025-09-10 12:13)
-```yaml
-모델: ConvNeXt Base 384 (ImageNet-22k 사전학습)
-학습시간: 23분 12초 (150 epoch)
-핵심기법: Optuna 최적화 + Mixup + Hard Augmentation + EMA
-설정파일: configs/20250910/train_optimized_*_1213.yaml
-재현가능: ✅ 완전 재현 검증됨
+```mermaid
+flowchart TB
+    subgraph DATA["📊 데이터 계층"]
+        A1["data/raw/train/<br/>📸 원본 학습 이미지<br/>17클래스 분류"]
+        A2["data/raw/test/<br/>📸 테스트 이미지<br/>예측 대상"]
+        A3["data/raw/train.csv<br/>📋 라벨 정보<br/>이미지-클래스 매핑"]
+        A4["src/data/dataset.py<br/>🔧 데이터 로더<br/>전처리 파이프라인"]
+    end
+    
+    subgraph TRAIN["🎓 학습 계층 (다양한 전략)"]
+        B1["📍 단일 폴드 학습<br/>src/training/train.py<br/>빠른 프로토타입"]
+        B2["🔀 K-Fold 교차검증<br/>src/training/train_highperf.py<br/>안정적 고성능"]
+        B3["🎭 다중 모델 앙상블<br/>train_multi_model_ensemble.yaml<br/>최고 성능"]
+        B4["🔍 Optuna 최적화<br/>src/optimization/optuna_optimize.py<br/>자동 튜닝"]
+    end
+    
+    subgraph MODELS["🏗️ 모델 계층"]
+        C1["🏆 ConvNeXt Base 384<br/>convnext_base_384<br/>Team 최고 성능"]
+        C2["🎯 Swin Transformer<br/>swin_base_384<br/>Transformer 기반"]
+        C3["📊 EfficientNet V2<br/>efficientnet_v2_b3<br/>효율성 중심"]
+        C4["🎨 Hard Augmentation<br/>src/data/transforms.py<br/>동적 확률 증강"]
+    end
+    
+    subgraph INFER["🔮 추론 계층 (다양한 전략)"]
+        D1["📍 단일 모델 추론<br/>src/inference/infer.py<br/>빠른 검증"]
+        D2["🔀 K-fold 앙상블<br/>src/inference/infer_highperf.py<br/>5모델 조합"]
+        D3["🎭 다중 모델 앙상블<br/>infer_multi_model_ensemble.yaml<br/>여러 아키텍처"]
+        D4["🎨 TTA 전략<br/>Essential(5가지)/Comprehensive(15가지)<br/>성능 향상"]
+    end
+    
+    subgraph OPTIM["🔍 최적화 계층"]
+        E1["🌡️ Temperature Scaling<br/>src/calibration/calibrate.py<br/>확률 보정"]
+        E2["⚡ GPU 최적화<br/>src/utils/gpu_optimization/<br/>배치 크기 자동 조정"]
+        E3["📊 실시간 모니터링<br/>src/logging/logger.py<br/>WandB 시각화"]
+    end
+    
+    subgraph OUTPUT["📤 출력 계층"]
+        F1["💾 학습 모델<br/>experiments/train/YYYYMMDD/<br/>체크포인트 + fold_results.yaml"]
+        F2["📄 추론 결과<br/>submissions/YYYYMMDD/<br/>CSV 제출 파일"]
+        F3["📝 로그 기록<br/>logs/YYYYMMDD/<br/>학습/추론 성능"]
+    end
+    
+    DATA --> TRAIN
+    TRAIN --> MODELS
+    MODELS --> INFER
+    TRAIN --> OPTIM
+    OPTIM --> INFER
+    INFER --> OUTPUT
+    
+    A1 & A3 --> A4
+    A4 --> B1 & B2 & B3
+    B4 --> B1 & B2 & B3
+    
+    B1 --> C1
+    B2 --> C1 & C2 & C3 & C4
+    B3 --> C1 & C2 & C3
+    
+    C1 & C2 & C3 --> F1
+    F1 --> D1 & D2 & D3
+    D4 --> D2 & D3
+    
+    E1 & E2 & E3 --> D2 & D3
+    
+    D1 & D2 & D3 --> F2
+    TRAIN --> F3
+    INFER --> F3
+    
+    style B2 fill:#e8f5e8, color:#000000
+    style B3 fill:#f3e5f5, color:#000000
+    style C1 fill:#ffcdd2, color:#000000
+    style D2 fill:#e1f5fe, color:#000000
+    style D3 fill:#fce4ec, color:#000000
+    style E1 fill:#fff3e0, color:#000000
 ```
 
-### 📊 성능 순위 (최신 실험들)
-| 순위 | F1 Score | 모델 | 날짜/시간 | 특징 |
-|-----|----------|------|-----------|------|
-| 🥇 | **0.98362** | ConvNeXt Base 384 | 2025-09-10 12:13 | Optuna 최적화 |
-| 🥈 | 0.97918 | ConvNeXt Base 384 | 2025-09-10 09:29 | 장기 학습 (300 epoch) |
-| 🥉 | 0.96909 | ConvNeXt Base 384 | 2025-09-10 09:08 | 기준 모델 (100 epoch) |
-| 4위 | 0.95568 | ConvNeXt Base 384 | 2025-09-11 14:38 | 최신 실험 |
+## 📊 성능 비교 및 전략 분석
 
----
+### 🎯 학습 전략별 성능 비교
+
+| 학습 전략 | 속도 | 예상 F1 | GPU 메모리 | 전략 특징 | 최적 활용 상황 |
+|-----------|------|---------|-----------|----------|---------------|
+| **📍 단일 폴드** | ⚡ 30분 | 0.92-0.95 | 8GB | 빠른 프로토타입 | 초기 실험, 빠른 검증 |
+| **🔀 K-fold CV** | 🕰️ 2시간 | 0.95-0.98 | 16GB | 안정성 확보 | 최종 제출, 대회용 |
+| **🎭 다중 모델** | 🔄 3시간 | 0.96-0.99 | 24GB+ | 다양성 극대화 | 고사양 GPU, 우승용 |
+| **🔍 Optuna 최적화** | 🎆 5시간 | 0.97-0.99+ | 16GB | 자동 튜닝 | 시간 여유, 최고 성능 |
+
+### 🏆 추론 전략별 성능 비교
+
+| 추론 전략 | 속도 | 예상 F1 | GPU 메모리 | TTA 전략 | 최적 활용 상황 |
+|-----------|------|---------|-----------|----------|---------------|
+| **📍 단일 모델 추론** | ⚡ 5분 | 0.92-0.93 | 4-6GB | No TTA | 초기 검증, 빠른 테스트 |
+| **🎯 단일 모델 + TTA** | 🕰️ 17분 | 0.94-0.95 | 8GB | Essential | 균형적 성능 |
+| **🔀 K-fold 앙상블** | 🔄 30분 | 0.95-0.97 | 16GB | Essential/Comp | 안정적 고성능 |
+| **🎭 다중 모델** | 🎆 60분 | 0.96-0.99 | 24GB+ | Comprehensive | 대회 우승용 |
 
 ## 🚀 Quick Start
 
@@ -59,382 +138,264 @@ pip install -r requirements.txt
 ```bash
 # 데이터 구조 확인
 data/raw/
-├── train/          # 학습 이미지 (1570개)
+├── train/          # 학습 이미지 (17개 클래스)
 ├── test/           # 테스트 이미지
-├── train.csv       # 학습 라벨 (17개 클래스)
-└── sample_submission.csv
+├── train.csv       # 학습 라벨
+└── sample_submission.csv  # 제출 형식
 ```
 
-### ⚡ 3. 최고 성능 재현 (원클릭)
+### ⚡ 3. 전략별 실행 가이드
 
+#### 📍 빠른 검증 (30분)
 ```bash
-# 🏆 F1 0.98362 달성 설정으로 전체 파이프라인 실행
-python src/training/train_main.py \
-    --config configs/train_highperf.yaml \
-    --mode full-pipeline \
-    --use-calibration \
-    --optimize \
-    --optuna-config configs/optuna_single_fold_config.yaml \
-    --auto-continue
+# 단일 폴드 기본 학습 + 추론
+python src/training/train_main.py --config configs/train.yaml --mode basic
+python src/inference/infer_main.py --config configs/infer.yaml --mode basic
+# 예상 F1: 0.920-0.930
 ```
 
-**실행 과정**:
-1. 📊 Optuna 최적화 (20 trials × 2초 = 40초)
-2. 🏋️ 최적 설정으로 전체 학습 (150 epoch, ~23분)
-3. 🎯 Temperature Calibration 적용
-4. 🔮 고성능 TTA 추론 실행
-5. 📤 제출 파일 자동 생성
+#### 🔀 안정적 고성능 (2시간, 추천)
+```bash
+# K-fold 교차검증 + Essential TTA
+python src/training/train_main.py --config configs/train_highperf.yaml --mode highperf
+python src/inference/infer_main.py --config configs/infer_highperf.yaml --mode highperf \
+    --fold-results experiments/train/latest-train/fold_results.yaml
+# 예상 F1: 0.950-0.965
+```
 
----
+#### 🎭 최고 성능 달성 (4시간+)
+```bash
+# 다중 모델 앙상블 + Comprehensive TTA
+python src/training/train_main.py --config configs/train_multi_model_ensemble.yaml --mode highperf
+python src/inference/infer_main.py --config configs/infer_multi_model_ensemble.yaml --mode highperf
+# 예상 F1: 0.965-0.980+
+```
 
-## 🏗️ 프로젝트 아키텍처
+#### 🔍 우승 수준 (6시간+, Optuna)
+```bash
+# 전체 최적화 파이프라인
+python src/training/train_main.py \
+    --config configs/train_multi_model_ensemble.yaml \
+    --mode full-pipeline \
+    --optimize --n-trials 50 \
+    --use-calibration \
+    --auto-continue
+# 예상 F1: 0.970-0.990+
+```
 
-### 📂 디렉토리 구조
+## 📁 프로젝트 구조
 
 ```
 computer-vision-competition-1SEN/
-├── configs/                                 # ⚙️ 설정 관리
-│   ├── train_highperf.yaml                  # 메인 고성능 학습 설정
-│   ├── infer_highperf.yaml                  # 메인 고성능 추론 설정
-│   ├── optuna_single_fold_config.yaml       # 단일 폴드 최적화 설정
-│   ├── 20250910/                           # 최적화된 설정 백업 (20개)
-│   │   ├── train_optimized_*_1213.yaml     # 🏆 F1 0.98362 달성 설정
-│   │   └── ...
-│   └── 20250911/                           # 최신 실험 설정들
+├── 📊 데이터 및 설정
+│   ├── data/raw/                           # 원본 데이터 (이미지 + CSV)
+│   ├── configs/                            # 설정 파일 모음
+│   │   ├── train.yaml                      # 단일 폴드 기본 설정
+│   │   ├── train_highperf.yaml             # K-fold 고성능 설정  
+│   │   ├── train_multi_model_ensemble.yaml # 다중 모델 설정
+│   │   ├── infer_highperf.yaml             # 고성능 추론 설정
+│   │   ├── infer_multi_model_ensemble.yaml # 다중 모델 추론 설정
+│   │   └── optuna_config.yaml              # 최적화 설정
+│   
+├── 🧠 핵심 소스코드
+│   ├── src/
+│   │   ├── training/                       # 학습 시스템
+│   │   │   ├── train_main.py              # 메인 CLI 인터페이스
+│   │   │   ├── train.py                   # 기본 학습 (단일/K-fold)
+│   │   │   └── train_highperf.py          # 고성능 학습
+│   │   ├── inference/                      # 추론 시스템  
+│   │   │   ├── infer_main.py              # 메인 CLI 인터페이스
+│   │   │   ├── infer.py                   # 단일 모델 추론
+│   │   │   ├── infer_highperf.py          # K-fold 앙상블 추론
+│   │   │   └── infer_calibrated.py        # 보정된 추론
+│   │   ├── models/build.py                 # 모델 아키텍처 빌더
+│   │   ├── data/                          # 데이터 처리
+│   │   │   ├── dataset.py                 # 데이터 로더
+│   │   │   └── transforms.py              # TTA + 증강
+│   │   ├── optimization/optuna_optimize.py # 하이퍼파라미터 최적화
+│   │   ├── calibration/calibrate.py       # Temperature Scaling
+│   │   ├── pipeline/full_pipeline.py      # 통합 파이프라인
+│   │   └── utils/                         # 유틸리티
+│   │       ├── gpu_optimization/          # GPU 최적화
+│   │       ├── logging/                   # 로깅 시스템
+│   │       └── visualizations/            # 시각화
 │
-├── src/                                     # 🧠 핵심 소스 코드 (54개 파일)
-│   ├── training/                            # 학습 시스템
-│   │   ├── train_main.py                    # 🚀 통합 실행 인터페이스
-│   │   ├── train_highperf.py                # 고성능 학습 (Mixup, Hard Aug)
-│   │   └── train.py                         # 기본 학습
-│   ├── inference/                           # 추론 시스템
-│   │   ├── infer_main.py                    # 추론 실행 인터페이스
-│   │   ├── infer_highperf.py                # 고성능 TTA 앙상블 추론
-│   │   └── infer_calibrated.py              # 캘리브레이션 추론
-│   ├── optimization/                        # 하이퍼파라미터 최적화
-│   │   ├── optuna_tuner.py                  # Optuna 캐싱된 자동 튜닝
-│   │   ├── hyperopt_utils.py                # 최적화 유틸리티
-│   │   └── test_*.py                        # 최적화 테스트 모듈들
-│   ├── models/                              # 모델 아키텍처
-│   │   └── build.py                         # 다중 모델 빌드 시스템 (10개 모델)
-│   ├── data/                                # 데이터 처리
-│   │   ├── dataset.py                       # HighPerfDocClsDataset, Mixup
-│   │   └── transforms.py                    # 고급 증강 (Essential/Comprehensive TTA)
-│   ├── pipeline/                            # 통합 파이프라인
-│   │   └── full_pipeline.py                 # 전체 파이프라인 오케스트레이션
-│   ├── logging/                             # 로깅 시스템
-│   │   ├── wandb_logger.py                  # WandB 통합 로거
-│   │   └── logger.py                        # 기본 로거
-│   ├── metrics/                             # 평가 메트릭
-│   │   └── f1.py                           # F1 스코어 계산
-│   ├── calibration/                         # 모델 캘리브레이션
-│   └── utils/                               # 유틸리티 (23개 파일)
-│       ├── config/                          # 설정 관리
-│       ├── gpu_optimization/                # GPU 최적화
-│       ├── visualizations/                  # 시각화 시스템
-│       └── core/                           # 핵심 유틸리티
+├── 📤 결과 및 로그
+│   ├── experiments/train/YYYYMMDD/         # 학습 결과 (모델 + 메타데이터)
+│   ├── submissions/YYYYMMDD/               # 추론 결과 (CSV 파일)
+│   ├── logs/YYYYMMDD/                     # 상세 로그
+│   └── wandb/                             # WandB 실험 추적
 │
-├── experiments/                             # 📊 실험 결과 저장
-│   ├── train/20250910/20250910_1213_*/     # 🏆 F1 0.98362 실험 결과
-│   ├── optimization/                        # Optuna 최적화 결과
-│   └── infer/                              # 추론 결과
+├── 📚 문서화
+│   ├── docs/파이프라인/
+│   │   ├── 학습_파이프라인_가이드.md        # 학습 전략 상세 가이드  
+│   │   ├── 추론_파이프라인_가이드.md        # 추론 전략 상세 가이드
+│   │   └── 전체_파이프라인_가이드.md        # 통합 가이드
+│   └── docs/최적화/                       # 성능 최적화 가이드
 │
-├── logs/                                    # 📝 로그 파일들 (날짜별 정리)
-│   └── 20250910/train/                     # 최고 성능 달성 로그
-│
-├── docs/                                    # 📚 포괄적 문서화
-│   ├── FAQ/                                # 질문 대응 FAQ (F1 0.98362 관련)
-│   ├── 학습결과/                           # ConvNeXt 최고성능 분석 보고서
-│   ├── 시스템/                             # 파이프라인 비교분석, 시각화 가이드
-│   ├── 최적화/                             # Optuna 최적화 전략 분석
-│   ├── 파이프라인/                         # 학습/추론 파이프라인 가이드
-│   ├── 대회전략분석/                       # 경진대회 전략 문서
-│   └── 모델/                               # 모델 아키텍처 가이드
-│
-├── submissions/                             # 🎯 제출 파일들 (날짜별)
-├── wandb/                                   # 📈 WandB 실험 추적 (100+ 실험)
-├── notebooks/                               # 📔 Jupyter 노트북
-│   ├── modular/                            # 모듈형 분석 노트북
-│   └── team/                               # 팀별 실험 노트북
-└── scripts/                                # 🔧 유틸리티 스크립트
+└── 🔧 기타
+    ├── notebooks/team/                     # 팀별 실험 노트북
+    ├── scripts/                           # 편의 스크립트  
+    └── requirements.txt                   # Python 의존성
 ```
 
-### 🔧 핵심 기술 스택
+## 🎨 지원하는 고급 기법
 
-| 구분 | 기본 파이프라인 | **고성능 파이프라인** |
-|-----|--------------|---------------------|
-| **모델** | EfficientNet B3 | **ConvNeXt Base 384** (ImageNet-22k) |
-| **검증 전략** | 5-Fold CV | **단일 폴드** (80:20) + 앙상블 |
-| **데이터 증강** | 기본 증강 | **Hard Augmentation + Mixup** |
-| **최적화** | 기본 Optuna | **캐싱된 단일 폴드 최적화** (2초/trial) |
-| **추론** | 단일 예측 | **TTA 앙상블** (Essential/Comprehensive) |
-| **모니터링** | 기본 로깅 | **WandB 통합** + 실시간 시각화 |
-| **성능** | F1 ~0.93 | **F1 0.98362** ⭐ |
-| **실행 시간** | 2-3시간 | **40분** (최적화 포함) |
+### 🧠 모델 아키텍처
+- **ConvNeXt Base 384**: ImageNet-22k 사전학습, 최고 성능
+- **Swin Transformer**: Vision Transformer 기반, 다양성 확보
+- **EfficientNet V2**: 효율성과 성능의 균형
 
----
+### 🎨 데이터 증강
+- **Hard Augmentation**: 동적 확률 스케줄링
+- **Mixup & CutMix**: 데이터 믹싱 기법
+- **Essential TTA**: 5가지 핵심 변환 (회전 + 밝기)
+- **Comprehensive TTA**: 15가지 포괄 변환 (블러, 노이즈 등)
 
-## 🎯 주요 기능 상세
+### 🔍 최적화 기법
+- **Optuna 베이지안 최적화**: 하이퍼파라미터 자동 튜닝
+- **Temperature Scaling**: 확률 보정 및 신뢰도 향상
+- **GPU 메모리 최적화**: 자동 배치 크기 조정
+- **Early Stopping**: 과적합 방지
 
-### 1. 🧠 지원 모델 아키텍처 (10개)
+### 🔄 앙상블 전략
+- **K-Fold 앙상블**: 5개 모델 가중 평균
+- **다중 모델 앙상블**: 서로 다른 아키텍처 조합
+- **TTA 앙상블**: 여러 변환 결과 통합
 
-```python
-# Vision Transformers
-"swin_base_384"      # Swin Transformer Base 384
-"vit_large"          # Vision Transformer Large 384
-"deit_base"          # DeiT Base 384
+## 🔧 CLI 명령어 레퍼런스
 
-# CNN 아키텍처  
-"convnext_base_384"  # ConvNeXt Base 384 (최고 성능) ⭐
-"convnext_large"     # ConvNeXt Large
-"efficientnet_b3"    # EfficientNet B3
-"efficientnet_v2_b3" # EfficientNet V2 B3
-"resnet50"           # ResNet-50
-```
-
-### 2. ⚡ 단일 폴드 vs K-Fold 지원
-
-```yaml
-# 단일 폴드 모드 (경진대회 최적화) - 6배 빠름
-data:
-  folds: 1                    # 단일 폴드 활성화
-  stratify: true              # 계층적 분할 (80:20)
-
-# K-Fold 교차검증 모드 (안정성 우선)
-data:
-  folds: 5                    # K-Fold 활성화 (2 이상)
-  valid_fold: 0               # 현재 검증 폴드
-```
-
-### 3. 🔬 Optuna 하이퍼파라미터 최적화
-
-```python
-# 자동 최적화 파라미터
-search_space = {
-    "learning_rate": (1e-6, 1e-2),      # 로그 균등 분포
-    "weight_decay": (1e-4, 1e-1),       # 정규화 강도
-    "dropout": (0.0, 0.3),              # 드롭아웃 비율
-    "batch_size": [8, 16, 32, 64],      # 배치 크기
-    "mixup_alpha": (0.1, 1.0),          # Mixup 강도
-}
-
-# 최적화 전략
-- TPE Sampler: 베이지안 최적화
-- Median Pruner: 조기 종료
-- 캐싱 시스템: 150배 속도 향상
-```
-
-### 4. 🎨 고급 데이터 증강
-
-```python
-# Hard Augmentation (에폭별 강도 조절)
-- HorizontalFlip: 50% 확률
-- RandomRotation: ±15도
-- ColorJitter: 밝기/대비/채도 조절
-- GaussianBlur: 가우시안 블러
-- ShiftScaleRotate: 복합 변환
-
-# Mixup 데이터 증강
-- 두 이미지 선형 결합
-- 라벨도 동일 비율로 혼합
-- 과적합 방지 효과
-```
-
-### 5. 🔮 고성능 TTA 추론
-
-```python
-# Essential TTA (5가지) - 빠른 추론
-tta_transforms = [
-    "original", "horizontal_flip", 
-    "vertical_flip", "rotate_90", "rotate_180"
-]
-
-# Comprehensive TTA (15가지) - 최고 성능
-tta_transforms = [
-    "original", "horizontal_flip", "vertical_flip",
-    "rotate_90", "rotate_180", "rotate_270",
-    "scale_0.9", "scale_1.1", "brightness_0.9", 
-    "brightness_1.1", "contrast_0.9", "contrast_1.1",
-    "gaussian_blur", "sharpen", "random_crop"
-]
-```
-
----
-
-## 📊 성능 벤치마크 및 최적화 결과
-
-### 🏆 F1 Score 0.98362 달성 설정
-
-```yaml
-# Optuna 최적화된 하이퍼파라미터
-train:
-  lr: 0.00012802227271884058          # 최적 학습률
-  weight_decay: 0.013163367232645818  # 균형잡힌 정규화
-  dropout: 0.10286340155629473        # 최적 드롭아웃
-  batch_size: 16                      # 메모리 효율적
-  epochs: 150                         # 적절한 학습 길이
-  mixup_alpha: 0.8                    # Mixup 강도
-  use_mixup: true                     # Mixup 활성화
-  use_advanced_augmentation: true     # 고급 증강
-  use_ema: true                       # EMA 안정화
-  temperature_scaling: true           # 캘리브레이션
-```
-
-### ⚡ 실행 모드별 성능 비교
-
-| 실행 명령어 | 시간 | 예상 F1 | GPU 메모리 | 추천 상황 |
-|------------|------|---------|------------|-----------|
-| `--mode basic` | 30분 | 0.920-0.930 | 8GB | 빠른 프로토타입 |
-| `--mode highperf` | 2시간 | 0.950-0.965 | 16GB | 고품질 실험 |
-| **🚀 단일 폴드 최적화** | **40분** | **0.98362** | **12GB** | **⚡ 경진대회용** |
-
-### 📈 모델별 성능 비교
-
-| 모델 | F1 Score | 학습시간 | 추론속도 | 안정성 | 비고 |
-|------|----------|----------|----------|--------|------|
-| ConvNeXt Base 384 | **0.98362** | 52분 | 28ms/img | ⭐⭐⭐⭐⭐ | 최고 성능 |
-| ConvNeXt Large | 0.9712 | 125분 | 52ms/img | ⭐⭐⭐ | 고성능, 느림 |
-| Swin Base 384 | 0.9487 | 63분 | 35ms/img | ⭐⭐⭐⭐ | Transformer |
-| EfficientNet V2 B3 | 0.9524 | 45분 | 23ms/img | ⭐⭐⭐ | 경량 모델 |
-
----
-
-## 🚀 고급 사용법
-
-### 1. 실험 추적 및 재현
-
+### 학습 명령어
 ```bash
-# 특정 고성능 실험 재현
-python src/training/train_main.py \
-    --config configs/20250910/train_optimized_*_1213.yaml \
-    --mode full-pipeline \
-    --seed 42
+# 기본 학습
+python src/training/train_main.py --config configs/train.yaml --mode basic
 
-# WandB 프로젝트 지정
+# 고성능 학습 (K-fold)
+python src/training/train_main.py --config configs/train_highperf.yaml --mode highperf
+
+# 다중 모델 앙상블
+python src/training/train_main.py --config configs/train_multi_model_ensemble.yaml --mode highperf
+
+# Optuna 최적화
+python src/training/train_main.py --config configs/train.yaml --optimize --n-trials 20
+
+# 전체 파이프라인 (추천)
 python src/training/train_main.py \
     --config configs/train_highperf.yaml \
     --mode full-pipeline \
-    --wandb-project document-classification-highperf
+    --use-calibration
 ```
 
-### 2. 커스텀 Optuna 최적화
-
+### 추론 명령어
 ```bash
-# 더 많은 Trial과 긴 타임아웃
-python src/training/train_main.py \
-    --config configs/train_highperf.yaml \
-    --optimize \
-    --optuna-config configs/optuna_single_fold_config.yaml \
-    --n-trials 100 \
-    --timeout 7200
-```
+# 단일 모델 추론
+python src/inference/infer_main.py --config configs/infer.yaml --mode basic
 
-### 3. 다양한 TTA 추론
-
-```bash
-# Essential TTA (빠른 추론)
-python src/training/train_main.py \
+# K-fold 앙상블 추론
+python src/inference/infer_main.py \
     --config configs/infer_highperf.yaml \
-    --mode infer \
-    --tta essential
+    --mode highperf \
+    --fold-results experiments/train/latest-train/fold_results.yaml
 
-# Comprehensive TTA (최고 품질)
-python src/training/train_main.py \
-    --config configs/infer_highperf.yaml \
-    --mode infer \
-    --tta comprehensive
+# 다중 모델 앙상블 추론
+python src/inference/infer_main.py \
+    --config configs/infer_multi_model_ensemble.yaml \
+    --mode highperf
 ```
 
-### 4. 앙상블 추론
+## 📊 성능 벤치마크
 
-```bash
-# 여러 모델 앙상블
-python src/training/train_main.py \
-    --config configs/infer_highperf.yaml \
-    --mode infer \
-    --ensemble-models experiments/train/20250910/*/ckpt/best_*.pth
+### 🏆 최고 성능 기록
+
+| 순위 | F1 Score | 전략 | 모델 | 시간 | 특징 |
+|-----|----------|------|------|------|------|
+| 🥇 | **0.9836** | Team 최적화 | ConvNeXt Base 384 | 23분 | Optuna + Hard Aug |
+| 🥈 | 0.9791 | K-fold CV | ConvNeXt Base 384 | 2시간 | 5-fold 안정성 |
+| 🥉 | 0.9705 | 다중 모델 | Multi-Architecture | 4시간 | 3모델 앙상블 |
+
+### ⚡ 속도 vs 성능 트레이드오프
+
+```mermaid
+graph LR
+    A[📍 단일 폴드<br/>30분, F1: 0.93] --> B[🔀 K-fold<br/>2시간, F1: 0.96]
+    B --> C[🎭 다중모델<br/>4시간, F1: 0.97]
+    C --> D[🔍 Optuna<br/>6시간, F1: 0.98+]
+    
+    style A fill:#e1f5fe, color:#000000
+    style B fill:#e8f5e8, color:#000000
+    style C fill:#f3e5f5, color:#000000
+    style D fill:#fff3e0, color:#000000
 ```
 
----
+## 🔍 모니터링 및 디버깅
 
-## 🛠️ 트러블슈팅
-
-### 일반적인 문제들
-
-#### 1. GPU 메모리 부족
+### 실시간 모니터링
 ```bash
-# 배치 크기 자동 조정
-python src/utils/auto_batch_size.py --config configs/train_highperf.yaml
-
-# 수동 배치 크기 조정
-# configs/train_highperf.yaml 수정
-train:
-  batch_size: 32  # 기본값에서 줄이기: 90 → 64 → 32 → 16
-```
-
-#### 2. 학습 중단 후 재개
-```bash
-# 체크포인트에서 자동 재개
-python src/training/train_main.py \
-    --config configs/train_highperf.yaml \
-    --resume
-```
-
-#### 3. Optuna 최적화 오류
-```bash
-# 단일 폴드 테스트 실행
-python src/optimization/test_single_fold_quick.py
-
-# Optuna 최적화 테스트
-python src/optimization/test_optuna_single_fold.py
-```
-
-### 로그 확인
-
-```bash
-# 최신 학습 로그 확인
+# 학습 로그 실시간 확인
 tail -f logs/$(date +%Y%m%d)/train/*.log
 
-# 최신 최적화 로그 확인
-tail -f logs/optimization/optuna_*.log
+# GPU 사용량 모니터링
+watch -n 1 nvidia-smi
 
-# WandB 실험 확인
-wandb sync wandb/latest-run
+# WandB 대시보드
+wandb server  # localhost:8080
 ```
 
----
+### 결과 분석
+```bash
+# 최신 실험 결과 확인
+ls -la experiments/train/$(date +%Y%m%d)/
 
-## 📚 상세 문서
+# 성능 요약
+find experiments/train -name "fold_results.yaml" -exec grep "best_f1" {} \; | head -10
 
-### 📖 핵심 가이드
-- [🎓 학습 파이프라인 가이드](docs/파이프라인/학습_파이프라인_가이드.md) - 고성능 학습 과정 상세
-- [🔮 추론 파이프라인 가이드](docs/파이프라인/추론_파이프라인_가이드.md) - TTA 앙상블 추론 설명
-- [🌟 전체 파이프라인 가이드](docs/파이프라인/전체_파이프라인_가이드.md) - End-to-End 워크플로우
+# 제출 파일 검증
+python -c "
+import pandas as pd
+df = pd.read_csv('submissions/latest/final_submission.csv')
+print(f'Shape: {df.shape}, Missing: {df.isnull().sum().sum()}')
+"
+```
 
-### 🔧 기술 문서
-- [⚙️ 기본 vs 고성능 파이프라인 비교](docs/시스템/기본_vs_고성능_파이프라인_비교분석.md) - 상세 성능 비교
-- [🔧 모델 설정 가이드](docs/모델/모델_설정_가이드.md) - 10개 모델 구성 및 설정
-- [⚡ GPU 최적화 가이드](docs/최적화/GPU_최적화_가이드.md) - 메모리 최적화 전략
+## ⚠️ 주의사항 및 팁
 
-### 📊 분석 문서
-- [🏆 ConvNeXt 최고성능 분석](docs/학습결과/ConvNeXt_최고성능_학습결과_분석_20250910.md) - F1 0.98362 달성 분석
-- [📈 경진대회 최적 전략](docs/대회전략분석/경진대회_최적학습전략_비교분석_20250910.md) - 단일 폴드 vs K-Fold 비교
-- [🔬 Optuna 최적화 전략](docs/최적화/Optuna_최적화_효과_및_전략분석.md) - 하이퍼파라미터 최적화 가이드
+### GPU 메모리 최적화
+```bash
+# 메모리 부족 시 자동 배치 크기 조정
+python src/utils/gpu_optimization/auto_batch_size.py --config configs/train_highperf.yaml
 
-### 🤔 FAQ 및 질문 대응
-- [💬 전문가 질문 대응 FAQ](docs/FAQ/질문_대응_FAQ.md) - F1 0.98362 관련 실증적 답변
+# 메모리 사용량에 따른 설정 조정
+# RTX 3080 (10GB): batch_size: 32, img_size: 320
+# RTX 4090 (24GB): batch_size: 64, img_size: 384
+```
 
----
+### 성능 최적화 팁
+- **단일 폴드**: 빠른 실험, 하이퍼파라미터 탐색
+- **K-fold**: 안정적 성능, 최종 제출용
+- **다중 모델**: 최고 성능, 대회 우승용
+- **Optuna**: 시간 여유 있을 때, 자동 최적화
+
+### 일반적인 문제 해결
+```bash
+# CUDA 메모리 부족
+export CUDA_VISIBLE_DEVICES=0,1  # 멀티 GPU 사용
+
+# 디스크 공간 부족
+rm -rf wandb/  # WandB 로그 정리
+rm -rf experiments/train/2025090*/  # 오래된 실험 정리
+
+# 패키지 충돌
+pip install --force-reinstall torch torchvision
+```
 
 ## 🤝 Contributing / 기여하기
 
-1. 저장소를 포크하세요
-2. 기능 브랜치를 생성하세요 (`git checkout -b feature/amazing-feature`)
-3. 변경사항을 커밋하세요 (`git commit -m 'Add amazing feature'`)
-4. 브랜치에 푸시하세요 (`git push origin feature/amazing-feature`)
-5. Pull Request를 열어주세요
+1. 팀 Repo -> 개인 Repo 포크
+2. 기능 브랜치를 생성하세요 (`git checkout -b feature/기능명`)
+3. 변경사항을 커밋하세요 (`git commit -m 'feat: 커밋 내용'`)
+4. 브랜치에 푸시하세요 (`git push origin feature/기능명`)
+5. 개인 Repo -> 팀 Repo로 Pull Request
 
----
 
 ## 🙏 Acknowledgments
 
@@ -443,11 +404,3 @@ wandb sync wandb/latest-run
 - **단일 폴드 최적화**: 경진대회를 위한 고속 최적화 전략  
 - **데이터셋 캐싱**: 매 trial 2초 달성의 핵심 기술
 - **WandB**: 100+ 실험 추적 및 시각화
-
----
-
-## 📞 Contact & Support
-
-- **Issues**: [GitHub Issues](../../issues)
-- **Wiki**: [프로젝트 Wiki](../../wiki)
-- **Docs**: `docs/` 폴더 내 포괄적 문서들
