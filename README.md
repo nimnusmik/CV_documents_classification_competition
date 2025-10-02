@@ -32,18 +32,6 @@ Computer Vision 경진대회 프레임워크로, 단일 폴드부터 다중 모�
 - 📊 **체계적 추적**: WandB 통합 + 200+ 실험 기록
 
 ---
-
-## 🏗️ 시스템 아키텍처
-
-### 전체 파이프라인 아키텍처
-<img width="3840" height="3707" alt="Image" src="https://github.com/user-attachments/assets/9fef3942-03b5-4569-8811-4dea79d8ecd5" />
-
-### 학습 파이프라인 아키텍처
-<img width="3018" height="3840" alt="Image" src="https://github.com/user-attachments/assets/b4fb17e4-dd88-4fa3-9e14-7719cb3b2340" />
-
-### 추론 파이프라인 아키텍처
-<img width="3840" height="1024" alt="Image" src="https://github.com/user-attachments/assets/0e4e6777-537c-4421-b171-2578a37414c8" />
-
 ## 📊 성능 비교 및 전략 분석
 
 ### 🎯 학습 전략별 성능 비교
